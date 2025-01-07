@@ -10,7 +10,7 @@ The main scene is scene_selector.tscn. From here, you can navigate to playing th
 
 # Game scene
 When you press the 'play demo' button:
-1. All mods from Gamedata.mods get merged into Runtimedata
+1. All active mods from Gamedata.mods get merged into Runtimedata according to their load order.
 2. The game switches to 'level_generation.tscn'. Each entity will run their script on their _ready function:
 3. The LevelGenerator will check if there is any save data for the location and load that. If there isn't it will ask the `overmap_manager` for the terrain round the player's spawn position. The data from the `overmap_manager` will be a grid of maps determined by the mapseed. For each chunk in the grid that is close to the player, the LevelGenerator will call Chunk.gd to create a new chunk based on the mapdata for that position. Chunk.gd will process all the blocks in the map (max 32x32x21 blocks) and instantiate them, as well as the furniture and enemies.
 4. The player will have his stats, health and equipment initialized. If this is a new game, the defaults will be applied. Otherwise the data will be loaded from memory.
@@ -25,7 +25,7 @@ The game has the following [autoloads](https://docs.godotengine.org/en/stable/tu
 | Autoload | Description |
 | ------------- | ------------- |
 | ItemManager | Runtime item manipulation happens here. It handles things like inventory, reloading, equipment and crafting |
-| Helper | General autoload with generic helper functions. Also contains these sub-helpers: json_helper, save_helper, signal_broker, task_manager, map_manager |
+| Helper | General autoload with generic helper functions. Also contains the sub-helpers listed in the table below |
 | Gamedata | Loads data from the /mods folder and allows any script to access it |
 | Runtimedata | Loads mods according to the mod load order and merges them for use in-game |
 | Gloot | An addon that provides functionality for the inventory. We do not access this directly, only trough the classes provided by the addon. |
