@@ -9,7 +9,7 @@ extends Node3D
 var inventory: InventoryStacked
 var containerpos: Vector3
 var sprite_3d: Sprite3D
-var texture_id: String # The ID of the texture set for this container
+var containertexture: Texture # The texture set for this container
 var itemgroup: String # The ID of an itemgroup that it creates loot from
 var ritemgroup: RItemgroup # The ID of an itemgroup that it creates loot from
 
@@ -19,8 +19,8 @@ func _ready():
 	position = containerpos
 	 # If no item was added we delete the container if it's not a child of some furniture
 	_on_item_removed(null)
-	if texture_id:
-		set_texture(texture_id)
+	if containertexture:
+		set_texture(containertexture)
 
 
 # Called when a function creates this class using ContainerItem.new(container_json)
@@ -30,6 +30,13 @@ func _init(item: Dictionary):
 	create_loot()
 
 
+# Example item:
+# {
+# 	"itemgroups": ["destroyed_furniture_medium"],
+# 	"global_position_x": 2,
+# 	"global_position_y": 1,
+# 	"global_position_z": 17
+# }
 func _initialize_container(item: Dictionary):
 	containerpos = Vector3(item.global_position_x, item.global_position_y, item.global_position_z)
 	add_to_group("Containers")
@@ -38,9 +45,9 @@ func _initialize_container(item: Dictionary):
 
 	if item.has("inventory"):
 		deserialize_and_apply_items.call_deferred(item.inventory)
-	# texture_id may be set when a furniture is destroyed and spawns this container
-	if item.has("texture_id"):
-		texture_id = item.texture_id
+	# containertexture may be set when a furniture is destroyed and spawns this container
+	if item.has("containertexture"):
+		containertexture = item.containertexture
 	create_sprite()
 
 	# Check if the item has itemgroups, pick one at random and set the itemgroup property
@@ -51,7 +58,7 @@ func _initialize_container(item: Dictionary):
 			# Attempt to retrieve the itemgroup data from Gamedata
 			ritemgroup = Runtimedata.itemgroups.by_id(itemgroup)
 			if ritemgroup.use_sprite:
-				texture_id = ritemgroup.spriteid
+				containertexture = ritemgroup.sprite
 
 
 # Will add item to the inventory based on the assigned itemgroup
@@ -184,7 +191,7 @@ func create_sprite():
 	sprite_3d.alpha_antialiasing_edge = 0
 	sprite_3d.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	sprite_3d.render_priority = 10
-	set_texture(texture_id)
+	set_texture(containertexture)
 	#sprite_3d.texture = Gamedata.textures.container
 
 	# Add to the scene tree
@@ -192,21 +199,11 @@ func create_sprite():
 
 
 # Updates the texture of this container. If no texture is provided, we use the default
-func set_texture(mytex: String):
+func set_texture(mytex: Texture):
 	if not mytex:
 		sprite_3d.texture = Gamedata.textures.container
 		return
-	var newsprite: Texture = Runtimedata.furnitures.sprite_by_file(mytex)
-	if newsprite:
-		sprite_3d.texture = newsprite
-		texture_id = mytex  # Save the texture ID
-	else:
-		newsprite = Runtimedata.items.sprite_by_file(mytex)
-		if newsprite:
-			sprite_3d.texture = newsprite
-			texture_id = mytex  # Save the texture ID
-		else:
-			sprite_3d.texture = Gamedata.textures.container
+	sprite_3d.texture = mytex
 
 
 # This area will be used to check if the player can reach into the inventory with ItemDetector
@@ -295,8 +292,12 @@ func get_data() -> Dictionary:
 		"global_position_z": containerpos.z, 
 		"inventory": inventory.serialize()
 	}
-	if texture_id:
-		newitemData["texture_id"] = texture_id
+	# NOTE: Previously, the texture id was saved into the save data as a string
+	# Since we switched over to Runtimedata, we can't rely on the id of the texture
+	# Because we can't tell what mod it belongs to. We also can't save the texture
+	# as a string, so we just omit it. We might come up with some other solution later.
+	#if containertexture:
+		#newitemData["containertexture"] = containertexture
 	
 	return newitemData
 
