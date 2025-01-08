@@ -8,10 +8,13 @@ var tracked_quest_id: String = ""
 
 func _ready() -> void:
 	connect_quest_signals()
+	update_quest_ui(Helper.quest_helper.tracked_quest)
 
 # Function to update quest UI based on the current quest and step
 # quest_name: it's actually the id of the quest as known by Runtimedata.quests
 func update_quest_ui(quest_name: String):
+	if not quest_name:
+		return
 	# Update the quest name label
 	var rquest: RQuest = Runtimedata.quests.by_id(quest_name)
 	quest_name_label.text = rquest.name
@@ -60,7 +63,6 @@ func update_quest_ui(quest_name: String):
 
 	# Update the quest step label
 	quest_target_label.text = step_requirement
-
 
 
 # Example call to update the UI with a specific quest
