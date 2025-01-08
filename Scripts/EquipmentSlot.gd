@@ -127,5 +127,3 @@ func _handle_magazine_drop(magazine: InventoryItem):
 	else:
 		# Equip the item if no weapon is wielded
 		equip(magazine)
-
-

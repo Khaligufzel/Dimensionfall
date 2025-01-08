@@ -13,6 +13,8 @@ extends Node
 #   - dynamic (bool, default: false): If true, and the player is currently on the target cell,
 #     a new target will be selected.
 signal target_map_changed(map_id: String, target_properties)
+# Array to track currently equipped items
+var equipped_items: Array = []
 
 
 func _ready():
@@ -46,6 +48,9 @@ func connect_signals() -> void:
 	
 	# When the user has pressed the "track" button in the quest window
 	Helper.signal_broker.track_quest_clicked.connect(_on_quest_window_track_quest_clicked)
+	# Connect equipment signals
+	Helper.signal_broker.item_was_equipped.connect(_on_item_was_equipped)
+	Helper.signal_broker.item_was_unequipped.connect(_on_item_was_unequipped)
 
 
 func connect_inventory_signals() -> void:
@@ -70,6 +75,7 @@ func _on_game_loaded():
 
 # Function for handling game ended signal
 func _on_game_ended():
+	equipped_items.clear()
 	pass
 
 
@@ -192,14 +198,21 @@ func _on_inventory_item_modified(item: InventoryItem, _inventory: InventoryStack
 	update_quest_by_inventory(item)
 
 
-# Update the quest progress based on the items in the player's inventory.
+# Update the quest progress based on the items in the player's inventory and equipped items.
 # For each quest, we ONLY update the step that the quest is currently at
 func update_quest_by_inventory(item: InventoryItem):
 	# Dictionary to keep track of the total count of each item
 	var item_counts = ItemManager.count_player_inventory_items_by_id()
 
+	# Include counts for equipped items
+	for equipped_item in equipped_items:
+		if equipped_item.prototype_id in item_counts:
+			item_counts[equipped_item.prototype_id] += 1
+		else:
+			item_counts[equipped_item.prototype_id] = 1
+
 	# Check if the player has the item; if not, set its count to 0
-	if item and not ItemManager.playerInventory.has_item_by_id(item.prototype_id):
+	if item and not ItemManager.playerInventory.has_item_by_id(item.prototype_id) and item not in equipped_items:
 		item_counts[item.prototype_id] = 0
 
 	# Get the current quests in progress
@@ -392,3 +405,22 @@ func get_maps_from_entity(data_source: RefCounted, entity_id: String) -> Array:
 		return []
 
 	return entity.get_maps()
+
+# Function to handle item equipped in an equipment slot
+func _on_item_was_equipped(heldItem: InventoryItem, _equipmentSlot: Control) -> void:
+	if heldItem:
+		# Add the item to the equipped_items array if not already there
+		if heldItem not in equipped_items:
+			equipped_items.append(heldItem)
+		
+		# Update the quest progression based on the equipped item
+		update_quest_by_inventory(heldItem)
+
+# Function to handle item unequipped from an equipment slot
+func _on_item_was_unequipped(heldItem: InventoryItem, _equipmentSlot: Control) -> void:
+	if heldItem:
+		# Remove the item from the equipped_items array
+		equipped_items.erase(heldItem)
+		
+		# Reevaluate quests based on the updated inventory
+		update_quest_by_inventory(null)
