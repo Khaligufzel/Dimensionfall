@@ -1,6 +1,6 @@
 extends Control
 
-# This script supports the UI for controlling a FurnitureStaticSrv when the player interacts with it.
+# This script supports the UI for controlling a FurnitureBlueprintSrv when the player interacts with it.
 # It displays furniture details and handles crafting functionalities.
 
 @export var furniture_container_view: Control = null
@@ -13,7 +13,7 @@ extends Control
 @export var construct_button: Button = null
 
 
-var furniture_instance: FurnitureStaticSrv = null:
+var furniture_instance: FurnitureBlueprintSrv = null:
 	set(value):
 		_disconnect_furniture_signals()
 		furniture_instance = value
@@ -57,9 +57,9 @@ func _disconnect_furniture_signals():
 			my_inventory.contents_changed.disconnect(_on_inventory_contents_changed)
 
 
-# Callback for furniture interaction. Only for FurnitureStaticSrv types
+# Callback for furniture interaction. Only for FurnitureBlueprintSrv types
 func _on_furniture_interacted(new_furniture_instance: Node3D):
-	if new_furniture_instance is FurnitureStaticSrv:
+	if new_furniture_instance is FurnitureBlueprintSrv:
 		furniture_instance = new_furniture_instance
 		self.show()
 
@@ -76,7 +76,7 @@ func _on_close_menu_button_button_up() -> void:
 
 
 # Handles furniture destruction signal.
-func _on_furniture_about_to_be_destroyed(furniture: FurnitureStaticSrv):
+func _on_furniture_about_to_be_destroyed(furniture: FurnitureBlueprintSrv):
 	if furniture == furniture_instance:
 		_disconnect_furniture_signals()
 		furniture_instance = null
@@ -103,26 +103,27 @@ func _create_button(text: String, callback: Callable) -> Button:
 	return button
 
 
-# Populates the ingredients list with inventory availability and required amounts.
-func _refresh_ingredient_list(item_data: RItem):
-	if not item_data:
-		return  # Exit if no valid item_data is provided
-	Helper.free_all_children(ingredients_grid_container)
-	var item_recipe: RItem.CraftRecipe = item_data.get_first_recipe()
-	if not item_recipe:
-		return
+# Populates the ingredients list using the furniture destruction items.
+func _refresh_ingredient_list():
+	if not furniture_instance:
+		return  # Exit if no valid furniture instance is provided
 
-	for ingredient in item_recipe.required_resources:
-		_add_ingredient_to_list(ingredient, item_data)
+	Helper.free_all_children(ingredients_grid_container)
+
+	# Get the items from the furniture destruction data
+	var items: Dictionary = furniture_instance.construction.items if furniture_instance.construction and furniture_instance.construction.has("items") else {}
+
+	# Loop through the items to populate the ingredient list
+	for ingredient_id in items.keys():
+		_add_ingredient_to_list(ingredient_id, items[ingredient_id])
+
 
 
 # Adds a single ingredient to the ingredients list.
-func _add_ingredient_to_list(ingredient: Dictionary, recipe_item: RItem):
-	var ingredient_id: String = ingredient.id
-	var required_amount: int = ingredient.amount
+func _add_ingredient_to_list(ingredient_id: String, required_amount: int):
 	var ingredient_data: RItem = Runtimedata.items.by_id(ingredient_id)
 	if not ingredient_data:
-		return
+		return  # Exit if the ingredient data is not found
 
 	# Calculate available and required amounts
 	var available_amount: int = furniture_instance.get_available_ingredient_amount(ingredient_id)
@@ -133,7 +134,7 @@ func _add_ingredient_to_list(ingredient: Dictionary, recipe_item: RItem):
 	_add_ingredient_amount_label(available_amount, required_amount)
 
 	# Add the "+" button with proper color and state
-	_add_ingredient_add_button(ingredient_id, required_amount, recipe_item)
+	_add_ingredient_add_button(ingredient_id, required_amount)
 
 
 # Add the icon for the ingredient to the ingredients grid container.
@@ -159,18 +160,17 @@ func _add_ingredient_amount_label(available: int, required: int):
 
 
 # Add the "+" button for the ingredient and set its color and state.
-# Updates the button's functionality in `_add_ingredient_add_button`.
-func _add_ingredient_add_button(ingredient_id: String, required_amount: int, recipe_item: RItem):
+func _add_ingredient_add_button(ingredient_id: String, required_amount: int):
 	var button = _create_button("+", func() -> void:
 		if furniture_instance:
-			# Call transfer_items_to_inventory to transfer items to the furniture inventory
+			# Transfer items to the furniture inventory
 			ItemManager.transfer_items_to_inventory(
 				furniture_instance.get_inventory(),
 				ingredient_id,
 				required_amount
 			)
-		# Update the UI after transfer using the recipe item ID
-		_refresh_ingredient_list(recipe_item)
+		# Update the UI after the transfer
+		_refresh_ingredient_list()
 	)
 
 	# Determine button state based on ingredient availability outside the inventory
@@ -205,4 +205,4 @@ func _on_all_accessible_items_changed(_items_added: Array, _items_removed: Array
 # Callback for when the inventory contents change.
 func _on_inventory_contents_changed():
 	if furniture_instance:
-		_refresh_ingredient_list(Runtimedata.items.by_id(""))
+		_refresh_ingredient_list()

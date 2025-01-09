@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://clhj525tmme3k"]
+[gd_scene load_steps=21 format=3 uid="uid://clhj525tmme3k"]
 
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_pxloi"]
 [ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s3xoj"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://drjw0yaxf8x1p" path="res://Scenes/UI/QuestTrackerUI.tscn" id="7_bbed4"]
 [ext_resource type="PackedScene" uid="uid://clpbtb0qfrk5j" path="res://Scenes/UI/BuildingMenu.tscn" id="9_v36fg"]
 [ext_resource type="PackedScene" uid="uid://sewnt37ji4s1" path="res://Scenes/UI/FurnitureWindow.tscn" id="11_40vt2"]
+[ext_resource type="PackedScene" uid="uid://b7fyuisy3oxx7" path="res://Scenes/UI/FurnitureConstructionWindow.tscn" id="12_xa71p"]
 [ext_resource type="PackedScene" uid="uid://bxyvtsslfr7kt" path="res://Scenes/UI/CraftingMenu.tscn" id="13_wjtvq"]
 [ext_resource type="PackedScene" uid="uid://cgxw4cu430nst" path="res://Scenes/UI/CharacterWindow.tscn" id="17_2f357"]
 [ext_resource type="PackedScene" uid="uid://dpxuma5a7e4p6" path="res://Scenes/UI/EscapeMenu.tscn" id="17_ewtgs"]
@@ -164,6 +165,14 @@ visible = false
 
 [node name="Overmap" parent="." instance=ExtResource("19_oomhy")]
 visible = false
+
+[node name="FurnitureConstructionWindow" parent="." instance=ExtResource("12_xa71p")]
+visible = false
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
 
 [node name="FurnitureWindow" parent="." instance=ExtResource("11_40vt2")]
 visible = false

@@ -117,7 +117,7 @@ func _on_player_interacted(_pos: Vector3, collider: RID) -> void:
 	if collider_to_furniture.has(collider):
 		var furniturenode = collider_to_furniture[collider]
 		if furniturenode.has_method("interact"):
-			print("interacting with furniturenode")
+			print_debug("interacting with furniturenode")
 			furniturenode.interact()
 
 
