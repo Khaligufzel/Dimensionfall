@@ -1216,15 +1216,15 @@ func set_mode(new_mode: int):
 # Adjust visuals for blueprint mode (e.g., semi-transparent appearance)
 func _adjust_visuals_for_blueprint_mode():
 	if sprite_material:
-		sprite_material.set_shader_parameter("color", Color(0.5, 0.5, 0.5, 0.5))  # Semi-transparent
+		sprite_material.set_shader_parameter("object_color", Color(0.5, 0.5, 0.5, 0.5))  # Semi-transparent
 
 	if support_mesh:
-		support_mesh.material.set_shader_parameter("color", Color(0.3, 0.3, 1.0, 0.5))  # Blueprint tint
+		support_mesh.material.set_shader_parameter("object_color", Color(0.3, 0.3, 1.0, 0.5))  # Blueprint tint
 
 # Adjust visuals for default mode (e.g., normal appearance)
 func _adjust_visuals_for_default_mode():
 	if sprite_material:
-		sprite_material.set_shader_parameter("color", Color(1.0, 1.0, 1.0, 1.0))  # Fully opaque
+		sprite_material.set_shader_parameter("object_color", Color(1.0, 1.0, 1.0, 1.0))  # Fully opaque
 
 	if support_mesh:
-		support_mesh.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0, 1.0))  # Normal tint
+		support_mesh.material.set_shader_parameter("object_color", Color(1.0, 1.0, 1.0, 1.0))  # Normal tint

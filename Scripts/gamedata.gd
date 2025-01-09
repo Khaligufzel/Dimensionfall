@@ -12,7 +12,8 @@ static var hide_above_player_shadow := preload("res://Shaders/HideAbovePlayerSha
 # Dictionary to store loaded textures
 var textures: Dictionary = {
 	"container": load("res://Textures/container_32.png"),
-	"container_filled": load("res://Textures/container_filled_32.png")
+	"container_filled": load("res://Textures/container_filled_32.png"),
+	"under_construction": load("res://Textures/under_construction_32.png")
 }
 var materials: Dictionary = {}
 

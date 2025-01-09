@@ -139,3 +139,18 @@ func get_constructable_furnitures() -> Array[RFurniture]:
 			constructable_furnitures.append(furniture)
 	
 	return constructable_furnitures
+
+
+# Helper function to create a ShaderMaterial for furniture under construction
+func create_under_construction_material() -> ShaderMaterial:
+	# Create a new ShaderMaterial
+	var material: ShaderMaterial = ShaderMaterial.new()
+	
+	# Assign the hide_above_player_shader
+	material.shader = Gamedata.hide_above_player_shader
+	
+	# Set shader parameters
+	material.set_shader_parameter("object_color", Color(1.0, 1.0, 0.0))  # Yellow tint to indicate construction
+	material.set_shader_parameter("alpha", 0.7)  # Semi-transparent to distinguish under-construction state
+	
+	return material
