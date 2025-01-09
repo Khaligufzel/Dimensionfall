@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://cgkq7vfjq07jm"]
 
 [ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
