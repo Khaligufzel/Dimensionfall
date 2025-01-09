@@ -374,6 +374,15 @@ class FurnitureContainer:
 
 		return container_data
 
+	func update_sprite_for_mode(mode: int):
+		# If in blueprint mode, set the container sprite to a generic material
+		if mode == FurnitureStaticSrv.Mode.BLUEPRINT:
+			material = Gamedata.materials.under_construction  # Generic container material
+			sprite_mesh.material = material
+		else:
+			# In default mode, update sprite based on inventory contents
+			set_random_inventory_item_texture()
+
 
 # Class representing a queued item for the CraftingContainer
 class QueueItem:
@@ -1209,6 +1218,10 @@ func set_mode(new_mode: int):
 			if collider:
 				PhysicsServer3D.body_set_mode(collider, PhysicsServer3D.BODY_MODE_STATIC)  # Enable collisions
 			_adjust_visuals_for_default_mode()
+
+	# Update container sprite depending on mode
+	if container:
+		container.update_sprite_for_mode(new_mode)
 
 	current_mode = new_mode  # Update the current mode
 

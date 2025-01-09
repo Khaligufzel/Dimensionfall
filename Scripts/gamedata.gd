@@ -43,6 +43,7 @@ func _ready():
 
 	materials["container"] = create_item_shader_material(textures.container)
 	materials["container_filled"] = create_item_shader_material(textures.container_filled)
+	materials["under_construction"] = create_item_shader_material(textures.under_construction)
 
 
 # Helper function to create a ShaderMaterial for the item
