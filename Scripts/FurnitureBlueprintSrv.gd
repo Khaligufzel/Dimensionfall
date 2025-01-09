@@ -1,4 +1,4 @@
-class_name FurnitureStaticSrv
+class_name FurnitureBlueprintSrv
 extends Node3D # Has to be Node3D. Changing it to RefCounted doesn't work
 
 
@@ -6,7 +6,6 @@ extends Node3D # Has to be Node3D. Changing it to RefCounted doesn't work
 # This is the static version of furniture. There is also FurniturePhysicsSrv.gd.
 # This class is instanced by FurnitureStaticSpawner.gd when a map needs static 
 # furniture, like a bed or fridge.
-
 
 # Variables to store furniture data
 var furniture_transform: FurnitureTransform
@@ -26,21 +25,16 @@ var sprite_texture: Texture2D  # Variable to store the sprite texture
 var sprite_material: ShaderMaterial # Material to display the furniture sprite
 var quad_mesh: PlaneMesh # Shows the sprite of the furniture
 
-# Variables to manage door functionality
-var is_door: bool = false
-var door_state: String = "Closed"  # Default state
 
 # Variables to manage the container if this furniture is a container
 var container: FurnitureContainer
-var crafting_container: CraftingContainer
 
 # Variables to manage health and damage
 var current_health: float = 100.0  # Default health
 var is_animating_hit: bool = false  # Flag to prevent multiple hit animations
 var original_material_color: Color = Color(1, 1, 1)  # Store the original material color
 
-signal about_to_be_destroyed(me: FurnitureStaticSrv)
-signal crafting_queue_updated(current_queue: Array[QueueItem])
+signal about_to_be_destroyed(me: FurnitureBlueprintSrv)
 
 
 # Inner class to keep track of position, rotation and size and keep it central
@@ -127,7 +121,7 @@ class FurnitureContainer:
 	var regeneration_interval: float = -1.0  # Default to -1 (no regeneration)
 	var last_time_checked: float = 0.0  # Tracks the last time regeneration was checked
 
-	func _init(parent_furniture: FurnitureStaticSrv):
+	func _init(parent_furniture: FurnitureBlueprintSrv):
 		furniture_transform = parent_furniture.furniture_transform
 		world3d = parent_furniture.myworld3d
 		_initialize_inventory()
@@ -369,230 +363,13 @@ class FurnitureContainer:
 
 		return container_data
 
-
-# Class representing a queued item for the CraftingContainer
-class QueueItem:
-	var id: String
-	var quantity: int = 1  # Optional if you want to handle multiple items per queue entry
-	var additional_data: Dictionary = {}  # For any extra metadata if needed
-	var time_remaining: float = 0.0  # Time remaining to craft this item
-
-	func _init(myid: String, myquantity: int = 1, myadditional_data: Dictionary = {}):
-		self.id = myid
-		self.quantity = myquantity
-		self.additional_data = myadditional_data
-		self.time_remaining = 0.0  # Will be set based on recipe during crafting queue processing
-
-
-class CraftingContainer:
-	var inventory: InventoryStacked
-	var crafting_queue: Array[QueueItem] = []  # Queue of QueueItem instances
-	# Variables to manage crafting
-	var last_update_time: float = 0.0  # Last time the crafting queue was updated
-	var crafting_time_per_item: float = 10.0  # Time (in seconds) to craft one item
-	var is_active: bool = false  # Whether the crafting queue is actively processing
-	var furniturecontainer: FurnitureContainer
-	var furniture_parent: FurnitureStaticSrv
-	signal crafting_queue_updated(current_queue: Array[String])
-
-
-	func _init():
-		_initialize_inventory()
-		furniture_parent = null
-
-	# Initializes the inventory with default capacity and item prototypes
-	func _initialize_inventory():
-		inventory = InventoryStacked.new()
-		inventory.capacity = 500  # Adjust capacity as needed for crafting
-		inventory.item_protoset = ItemManager.item_protosets
-
-	# Retrieves the inventory instance
-	func get_inventory() -> InventoryStacked:
-		return inventory
-
-	# Adds an item ID to the crafting queue
-	func add_to_crafting_queue(item_id: String, quantity: int = 1):
-		var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
-		if not recipe:
-			print_debug("Error: No recipe found for item: ", item_id)
-			return
-
-		var new_item = QueueItem.new(item_id, quantity)
-		new_item.time_remaining = recipe.craft_time  # Initialize time_remaining with the craft time
-		crafting_queue.append(new_item)
-		crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
-
-	# Removes an item from the crafting queue
-	func remove_from_crafting_queue(queue_item: QueueItem):
-		if crafting_queue.has(queue_item):
-			crafting_queue.erase(queue_item)  # Remove the specific instance
-			transfer_all_items_to_furniture()  # Clear crafting inventory if applicable
-			crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
-		else:
-			print_debug("Error: Queue item not found.")
-
-	# Serializes the inventory, crafting queue, and time-related variables for saving
-	func serialize() -> Dictionary:
-		var crafting_data: Dictionary = {}
-		
-		# Serialize the inventory if it contains items
-		var inventory_data = inventory.serialize()
-		if not inventory_data.is_empty():
-			crafting_data["items"] = inventory_data
-
-		# Serialize the crafting queue
-		crafting_data["crafting_queue"] = crafting_queue
-
-		# Serialize time-related variables
-		crafting_data["last_update_time"] = last_update_time
-		crafting_data["is_active"] = is_active
-
-		return crafting_data
-
-	# Deserializes and restores the inventory, crafting queue, and time-related variables from saved data
-	func deserialize(data: Dictionary):
-		# Deserialize the inventory if present
-		if data.has("items"):
-			inventory.deserialize(data["items"])
-
-		# Deserialize the crafting queue
-		if data.has("crafting_queue"):
-			crafting_queue = data["crafting_queue"]
-
-		# Deserialize time-related variables
-		last_update_time = data.get("last_update_time", 0.0)  # Default to 0 if not present
-		is_active = data.get("is_active", false)  # Default to inactive if not present
-
-
-	# Transfers all items to the given FurnitureContainer
-	func transfer_all_items_to_furniture() -> void:
-		
-		# Retrieve all items from the crafting container inventory
-		var items = inventory.get_items()
-		
-		# Get the inventory of the target furniture container
-		var furniture_inventory = furniturecontainer.get_inventory()
-
-		# Loop through each item and transfer it
-		for item in items.duplicate():  # Duplicate the list to avoid modification during iteration
-			inventory.transfer_automerge(item, furniture_inventory)
-
-	
-	# Activates the crafting queue for real-time updates
-	func activate_crafting():
-		is_active = true
-		#last_update_time = Helper.time_helper.get_elapsed_time()
-
-	# Deactivates the crafting queue
-	func deactivate_crafting():
-		is_active = false
-
-	# Processes the crafting queue in real-time (active mode)
-	func process_active_crafting():
-		if not is_active:
-			return
-
-		var current_time = Helper.time_helper.get_elapsed_time()
-		var elapsed_time = current_time - last_update_time
-		last_update_time = current_time
-		_process_crafting_queue(elapsed_time)
-
-	# Processes the crafting queue during passive mode
-	func _process_passive_crafting():
-		var elapsed_time = Helper.time_helper.get_time_difference(last_update_time)
-		last_update_time = Helper.time_helper.get_elapsed_time()
-		_process_crafting_queue(elapsed_time)
-
-	# Core logic to process the crafting queue
-	func _process_crafting_queue(elapsed_time: float):
-		while elapsed_time > 0 and not crafting_queue.is_empty():
-			
-			# Get the first item in the queue
-			var queue_item: QueueItem = crafting_queue[0]
-			
-			# Retrieve the recipe for the current item
-			var recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(queue_item.id)
-			if not recipe:
-				print_debug("No recipe found for item: ", queue_item.id, " | Skipping...")
-				crafting_queue.pop_front()  # Remove invalid item from queue
-				continue
-
-			# Check and request missing ingredients
-			if not are_all_ingredients_available(recipe):
-				if not request_missing_ingredients(recipe):
-					# Exit the loop early to wait for the next update
-					return
-
-			# Subtract elapsed time from the current item's remaining time
-			if elapsed_time >= queue_item.time_remaining:
-				elapsed_time -= queue_item.time_remaining  # Carry over excess time
-				_craft_next_item()  # Finalize crafting and move to the next item
-			else:
-				queue_item.time_remaining -= elapsed_time
-				elapsed_time = 0  # No more time left to process in this frame
-
-	# Crafts the next item in the queue and adds it to the FurnitureContainer's inventory
-	func _craft_next_item():
-		if crafting_queue.is_empty():
-			return  # Exit if the crafting queue is empty
-
-		var queue_item: QueueItem = crafting_queue.pop_front()  # Get the first item in the queue
-		crafting_queue_updated.emit(crafting_queue)  # Emit signal after updating the queue
-
-		if queue_item:
-			if furniturecontainer:  # Ensure the FurnitureContainer exists
-				inventory.clear()  # Clear the crafting inventory after crafting the item
-				furniturecontainer.add_item_to_inventory(queue_item.id, queue_item.quantity)  # Add crafted item
-			else:
-				print_debug("Error: FurnitureContainer not initialized. Cannot add crafted item.")
-		else:
-			print_debug("Error: Failed to craft item. queue_item is invalid.")
-
-	# Retrieves the crafting time for a specific item by its ID
-	func _get_craft_time_by_id(item_id: String) -> float:
-		var first_recipe: RItem.CraftRecipe = Runtimedata.items.get_first_recipe_by_id(item_id)
-		return first_recipe.craft_time if first_recipe else 10  # Default to 10 seconds
-
-	# Requests missing ingredients from the parent FurnitureStaticSrv
-	func request_missing_ingredients(recipe: RItem.CraftRecipe) -> bool:
-		if not recipe:
-			print_debug("Error: Recipe not provided.")
-			return false
-
-		var all_present = true
-		for ingredient in recipe.required_resources:
-			var missing_amount = ingredient.amount - get_available_ingredient_amount(ingredient.id)
-			if missing_amount > 0:
-				all_present = false
-				if furniture_parent:
-					furniture_parent.transfer_item_between_containers(furniturecontainer, ingredient.id, missing_amount)
-				else:
-					print_debug("Error: Parent FurnitureStaticSrv is not set.")
-					return false
-		return all_present
-
-	# Get the available amount of the ingredient in the FurnitureContainer inventory.
-	func get_available_ingredient_amount(ingredient_id: String) -> int:
-		var available_amount: int = 0
-		
-		if inventory.has_item_by_id(ingredient_id):
-			var items: Array = inventory.get_items_by_id(ingredient_id)
-			
-			for item in items:
-				var stack_size = InventoryStacked.get_item_stack_size(item)
-				available_amount += stack_size
-		return available_amount
-
-	func are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
-		for ingredient in recipe.required_resources:
-			var available = get_available_ingredient_amount(ingredient.id)
-			if available < ingredient.amount:
-				return false
-		return true
-
+	func update_sprite_for_mode():
+		material = Gamedata.materials.under_construction  # Generic container material
+		sprite_mesh.material = material
 
 
 # Function to initialize the furniture object
+# Initialize furniture in the correct mode during setup
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
 	furniture_position = furniturepos
 	furnitureJSON = newFurnitureJSON
@@ -608,9 +385,8 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	if _is_new_furniture():
 		furniture_transform.correct_new_position()
 		_apply_edge_snapping_if_needed()
-		set_new_rotation(furniture_rotation) # Apply rotation after setting up the shape and visual instance
-
-	check_door_functionality()  # Check if this furniture is a door
+		set_new_rotation(furniture_rotation)  # Apply rotation after setting up the shape and visual instance
+	
 
 	if rfurniture.support_shape.shape == "Box":
 		create_box_shape()
@@ -620,9 +396,11 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 		create_visual_instance("Cylinder")
 
 	create_sprite_instance()
-	update_door_visuals()  # Set initial door visuals based on its state
 	add_container()  # Adds container if the furniture is a container
-	add_crafting_container() # Adds crafting container if the furniture is a crafting station
+
+	# Apply the mode-specific logic. Only constructed furniture will be BLUEPRINT
+	set_mode()
+
 
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container():
@@ -842,52 +620,11 @@ func free_resources():
 	rfurniture = null
 
 
-# Function to check if this furniture acts as a door
-func check_door_functionality():
-	is_door = rfurniture.function.door != "None"
-	
-	# Ensure the door_state is properly set
-	if furnitureJSON.has("Function") and furnitureJSON["Function"].has("door"):
-		door_state = furnitureJSON["Function"]["door"]
-	else:
-		door_state = "Closed"  # Default if not found in saved data
-
 
 # Function to interact with the furniture (e.g., toggling door state)
 func interact():
-	if is_door:
-		toggle_door()
-	else:
-		Helper.signal_broker.furniture_interacted.emit(self)
+	Helper.signal_broker.furniture_interacted.emit(self)
 
-# Function to toggle the door state
-func toggle_door():
-	door_state = "Open" if door_state == "Closed" else "Closed"
-	furnitureJSON["Function"] = {"door": door_state}
-	update_door_visuals()
-
-# Update the visuals and physics of the door
-func update_door_visuals():
-	if not is_door:
-		return
-
-	# Adjust rotation and position based on door state
-	var base_rotation = furniture_transform.get_rotation()
-	var rotation_angle: int
-	var position_offset: Vector3
-
-	# Adjust rotation direction and position offset based on base_rotation
-	if base_rotation == 0:
-		rotation_angle = base_rotation + (-90 if door_state == "Open" else 0)
-		position_offset = Vector3(0.5, 0, 0.5) if door_state == "Open" else Vector3.ZERO  # Move to the right
-	elif base_rotation == 90:
-		rotation_angle = base_rotation + (-90 if door_state == "Open" else 0)
-		position_offset = Vector3(0.5, 0, 0.5) if door_state == "Open" else Vector3.ZERO  # Move backward
-	else:
-		rotation_angle = base_rotation + (90 if door_state == "Open" else 0)
-		position_offset = Vector3(-0.5, 0, -0.5) if door_state == "Open" else Vector3.ZERO  # Standard offset
-
-	apply_transform_to_instance(rotation_angle, position_offset)
 
 # Function to apply the door's transformation
 func apply_transform_to_instance(rotation_angle: int, position_offset: Vector3):
@@ -920,20 +657,11 @@ func get_data() -> Dictionary:
 		"rotation": get_my_rotation(),
 	}
 
-	if is_door:
-		newfurniturejson["Function"] = {"door": door_state}
-	
 	# Container functionality
 	if container:
 		if "Function" not in newfurniturejson:
 			newfurniturejson["Function"] = {}
 		newfurniturejson["Function"]["container"] = container.serialize()
-
-	# Crafting container functionality
-	if crafting_container:
-		if "Function" not in newfurniturejson:
-			newfurniturejson["Function"] = {}
-		newfurniturejson["Function"]["crafting_container"] = crafting_container.serialize()
 
 	return newfurniturejson
 
@@ -980,11 +708,6 @@ func can_be_disassembled() -> bool:
 # Returns the inventorystacked that this container holds
 func get_inventory() -> InventoryStacked:
 	return container.get_inventory()
-
-
-# Returns the inventorystacked that this crafting container holds
-func get_crafting_inventory() -> InventoryStacked:
-	return crafting_container.get_inventory()
 
 
 func get_sprite() -> Texture:
@@ -1057,64 +780,6 @@ func regenerate():
 	if container:
 		container.regenerate()
 
-# When this furniture enters the item detector, it means the player is close
-func on_entered_item_detector():
-	regenerate()
-	if crafting_container and not crafting_container.is_active:
-		crafting_container.activate_crafting()  # Start active crafting
-
-# When this furniture exits the item detector, it means the player is away
-func on_exited_item_detector():
-	if crafting_container and crafting_container.is_active:
-		crafting_container.deactivate_crafting()  # Stop active crafting
-
-func add_crafting_container():
-	if is_crafting_station():
-		crafting_container = CraftingContainer.new()
-		crafting_container.furniturecontainer = container
-		crafting_container.furniture_parent = self
-		crafting_container.crafting_queue_updated.connect(_on_crafting_queue_updated)
-
-func deserialize_crafting_container(data: Dictionary):
-	if crafting_container:
-		crafting_container.deserialize(data.get("crafting_container", {}))
-
-
-# Function to transfer an item between containers dynamically
-func transfer_item_between_containers(source_container: Object, item_id: String, quantity: int) -> bool:
-	# Determine source and target inventories based on the source container type
-	var source_inventory: InventoryStacked
-	var target_inventory: InventoryStacked
-
-	if source_container is FurnitureContainer and crafting_container:
-		source_inventory = source_container.get_inventory()
-		target_inventory = crafting_container.get_inventory()
-	elif source_container is CraftingContainer and container:
-		source_inventory = source_container.get_inventory()
-		target_inventory = container.get_inventory()
-	else:
-		return false  # Either containers are not initialized or type is invalid
-
-	# Get the items from the source inventory
-	var items = source_inventory.get_items_by_id(item_id)
-	if items.is_empty():
-		return false  # Item not found in source
-
-	# Transfer the items
-	for item in items:
-		var stack_size = InventoryStacked.get_item_stack_size(item)
-		if stack_size > quantity:
-			# Split the stack and transfer only the required quantity
-			var split_item = source_inventory.split(item, quantity)
-			return target_inventory.transfer_autosplitmerge(split_item, target_inventory)
-		else:
-			# Transfer the whole stack
-			if target_inventory.transfer_autosplitmerge(item, target_inventory):
-				quantity -= stack_size  # Adjust the remaining quantity to transfer
-				if quantity <= 0:
-					return true
-	return false
-
 
 # Function to check for the presence of an item in a container
 func has_item_in_container(mycontainer: Object, item_id: String) -> bool:
@@ -1135,29 +800,6 @@ func get_item_count_in_container(mycontainer: Object, item_id: String) -> int:
 				total_count += InventoryStacked.get_item_stack_size(item)
 			return total_count
 	return 0
-
-
-# Since this furniture node is not in the tree, we will respond to the 
-# Helper.time_manager.minute_passed signal, which is connected in the 
-# FurnitureStaticSpawner script.
-func on_minute_passed(_current_time: String):
-	if crafting_container and crafting_container.is_active:
-		crafting_container.process_active_crafting()
-
-
-# Add an item to the crafting queue. This might happen from a button in the furniture window
-func add_to_crafting_queue(item_id: String) -> void:
-	crafting_container.add_to_crafting_queue(item_id)
-
-
-# Remove the first item from the crafting queue
-func remove_from_crafting_queue(queue_item: QueueItem) -> void:
-	crafting_container.remove_from_crafting_queue(queue_item)
-
-
-# Forward the crafting_queue_updated signal
-func _on_crafting_queue_updated(current_queue: Array[QueueItem]):
-	crafting_queue_updated.emit(current_queue)  # Emit signal after updating the queue
 
 
 func get_furniture_name() -> String:
@@ -1181,3 +823,35 @@ func are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
 		if available < ingredient.amount:
 			return false
 	return true
+
+# Update to manage `current_mode` behavior
+func set_mode():
+	if collider:
+		PhysicsServer3D.body_set_collision_layer(collider, (1 << 6))  # Layer 7 is 1 << 6
+		_adjust_visuals_for_blueprint_mode()
+
+	# Update the container sprite visuals depending on the mode
+	if container:
+		container.update_sprite_for_mode()
+
+
+# Adjust visuals for blueprint mode (e.g., semi-transparent appearance or hide sprite)
+func _adjust_visuals_for_blueprint_mode():
+	if support_mesh:
+		# Set the support mesh material to under construction shader material
+		support_mesh.material = Runtimedata.furnitures.under_construction_material
+
+	if sprite_material:
+		sprite_material = Runtimedata.furnitures.under_construction_material
+		quad_mesh.material = sprite_material
+
+
+# Adjust visuals for default mode (e.g., normal appearance)
+func _adjust_visuals_for_default_mode():
+	if support_mesh:
+		# Revert support mesh material to normal material
+		support_mesh.material = Runtimedata.furnitures.get_shape_material_by_id(rfurniture.id)
+
+	if sprite_material:
+		sprite_material = Runtimedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
+		quad_mesh.material = sprite_material
