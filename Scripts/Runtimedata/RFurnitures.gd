@@ -10,6 +10,7 @@ var furnituredict: Dictionary = {}  # Holds runtime furniture instances
 var sprites: Dictionary = {}  # Holds furniture sprites
 var shader_materials: Dictionary = {}  # Cache for shader materials by furniture ID
 var shape_materials: Dictionary = {}  # Cache for shape materials by furniture ID
+var under_construction_material: ShaderMaterial
 
 # Constructor
 func _init(mod_list: Array[DMod]) -> void:
@@ -32,6 +33,7 @@ func _init(mod_list: Array[DMod]) -> void:
 
 			# Overwrite the RFurniture properties with the DFurniture properties
 			rfurniture.overwrite_from_dfurniture(dfurniture)
+	under_construction_material = create_under_construction_material()
 
 # Adds a new runtime furniture with a given ID
 func add_new(newid: String) -> RFurniture:
@@ -150,7 +152,7 @@ func create_under_construction_material() -> ShaderMaterial:
 	material.shader = Gamedata.hide_above_player_shader
 	
 	# Set shader parameters
-	material.set_shader_parameter("object_color", Color(1.0, 1.0, 0.0))  # Yellow tint to indicate construction
+	material.set_shader_parameter("object_color", Color(0.5, 0.7, 1.0))  # Light blue tint to indicate construction
 	material.set_shader_parameter("alpha", 0.7)  # Semi-transparent to distinguish under-construction state
 	
 	return material
