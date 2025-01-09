@@ -769,8 +769,8 @@ func set_collision_layers_and_masks():
 	# Explanation:
 	# - 1 << 0: Layer 1 (player layer)
 	# - 1 << 1: Layer 2 (enemy layer)
-	# - 1 << 2: Layer 3 (movable obstacles layer)
-	# - 1 << 3: Layer 4 (static obstacles layer)
+	# - 1 << 2: Layer 3 (static obstacles layer)
+	# - 1 << 3: Layer 4 (movable obstacles layer)
 	# - 1 << 4: Layer 5 (friendly projectiles layer)
 	# - 1 << 5: Layer 6 (enemy projectiles layer)
 	
@@ -1203,27 +1203,28 @@ func are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
 
 # Update to manage `current_mode` behavior
 func set_mode(new_mode: int):
-	# Ensure the mode is valid
+	# Ensure the mode is valid and distinct from the current mode
 	if new_mode == current_mode:
-		return  # No change in mode, so no need to proceed
+		return  # No change needed
 
 	match new_mode:
 		Mode.BLUEPRINT:
-			# Switch to blueprint mode: disable collisions and adjust visuals
+			# In BLUEPRINT mode, set the collider to only layer 7
 			if collider:
-				PhysicsServer3D.body_set_mode(collider, PhysicsServer3D.BODY_MODE_KINEMATIC)  # Disable collisions
+				PhysicsServer3D.body_set_collision_layer(collider, (1 << 6))  # Layer 7 is 1 << 6
 			_adjust_visuals_for_blueprint_mode()
 		Mode.DEFAULT:
-			# Switch to default mode: enable collisions and adjust visuals
+			# In DEFAULT mode, set the collider to both layer 3 and layer 7
 			if collider:
-				PhysicsServer3D.body_set_mode(collider, PhysicsServer3D.BODY_MODE_STATIC)  # Enable collisions
+				PhysicsServer3D.body_set_collision_layer(collider, (1 << 2) | (1 << 6))  # Layer 3 and Layer 7
 			_adjust_visuals_for_default_mode()
 
-	# Update container sprite depending on mode
+	# Update the container sprite visuals depending on the mode
 	if container:
 		container.update_sprite_for_mode(new_mode)
 
-	current_mode = new_mode  # Update the current mode
+	# Update the current mode
+	current_mode = new_mode
 
 
 # Adjust visuals for blueprint mode (e.g., semi-transparent appearance or hide sprite)

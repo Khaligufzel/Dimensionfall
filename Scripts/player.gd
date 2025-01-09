@@ -232,7 +232,7 @@ func _input(event):
 
 # Check if player can interact with an object
 func _check_for_interaction() -> void:
-	var layer = pow(2, 1 - 1) + pow(2, 2 - 1) + pow(2, 3 - 1)
+	var layer = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 6)  # Check for layers 1, 2, 3, and 7
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
 	var raycast: Dictionary = Helper.raycast_from_mouse(mouse_pos, layer)
 	if not raycast.has("position"):
