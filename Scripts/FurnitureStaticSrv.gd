@@ -7,6 +7,10 @@ extends Node3D # Has to be Node3D. Changing it to RefCounted doesn't work
 # This class is instanced by FurnitureStaticSpawner.gd when a map needs static 
 # furniture, like a bed or fridge.
 
+enum Mode {
+	DEFAULT,
+	BLUEPRINT
+}
 
 # Variables to store furniture data
 var furniture_transform: FurnitureTransform
@@ -23,7 +27,7 @@ var myworld3d: World3D
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh # A mesh below the sprite for 3d effect
 var sprite_texture: Texture2D  # Variable to store the sprite texture
-var sprite_material: ShaderMaterial
+var sprite_material: ShaderMaterial # Material to display the furniture sprite
 var quad_mesh: PlaneMesh # Shows the sprite of the furniture
 
 # Variables to manage door functionality
@@ -33,6 +37,7 @@ var door_state: String = "Closed"  # Default state
 # Variables to manage the container if this furniture is a container
 var container: FurnitureContainer
 var crafting_container: CraftingContainer
+var current_mode: int = Mode.DEFAULT # Can be DEFAULT or BLUEPRINT
 
 # Variables to manage health and damage
 var current_health: float = 100.0  # Default health
@@ -377,10 +382,10 @@ class QueueItem:
 	var additional_data: Dictionary = {}  # For any extra metadata if needed
 	var time_remaining: float = 0.0  # Time remaining to craft this item
 
-	func _init(id: String, quantity: int = 1, additional_data: Dictionary = {}):
-		self.id = id
-		self.quantity = quantity
-		self.additional_data = additional_data
+	func _init(myid: String, myquantity: int = 1, myadditional_data: Dictionary = {}):
+		self.id = myid
+		self.quantity = myquantity
+		self.additional_data = myadditional_data
 		self.time_remaining = 0.0  # Will be set based on recipe during crafting queue processing
 
 
@@ -476,9 +481,6 @@ class CraftingContainer:
 		# Loop through each item and transfer it
 		for item in items.duplicate():  # Duplicate the list to avoid modification during iteration
 			inventory.transfer_automerge(item, furniture_inventory)
-		
-		# Print remaining items in crafting inventory after transfer
-		var remaining_items = inventory.get_items()
 
 	
 	# Activates the crafting queue for real-time updates
@@ -596,6 +598,7 @@ class CraftingContainer:
 
 
 # Function to initialize the furniture object
+# Initialize furniture in the correct mode during setup
 func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
 	furniture_position = furniturepos
 	furnitureJSON = newFurnitureJSON
@@ -611,8 +614,8 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	if _is_new_furniture():
 		furniture_transform.correct_new_position()
 		_apply_edge_snapping_if_needed()
-		set_new_rotation(furniture_rotation) # Apply rotation after setting up the shape and visual instance
-
+		set_new_rotation(furniture_rotation)  # Apply rotation after setting up the shape and visual instance
+	
 	check_door_functionality()  # Check if this furniture is a door
 
 	if rfurniture.support_shape.shape == "Box":
@@ -625,7 +628,11 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	create_sprite_instance()
 	update_door_visuals()  # Set initial door visuals based on its state
 	add_container()  # Adds container if the furniture is a container
-	add_crafting_container() # Adds crafting container if the furniture is a crafting station
+	add_crafting_container()  # Adds crafting container if the furniture is a crafting station
+
+	# Apply the mode-specific logic. Only constructed furniture will be BLUEPRINT
+	set_mode(furnitureJSON.get("mode", Mode.DEFAULT))
+
 
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container():
@@ -1184,3 +1191,40 @@ func are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
 		if available < ingredient.amount:
 			return false
 	return true
+
+# Update to manage `current_mode` behavior
+func set_mode(new_mode: int):
+	# Ensure the mode is valid
+	if new_mode == current_mode:
+		return  # No change in mode, so no need to proceed
+
+	match new_mode:
+		Mode.BLUEPRINT:
+			# Switch to blueprint mode: disable collisions and adjust visuals
+			if collider:
+				PhysicsServer3D.body_set_mode(collider, PhysicsServer3D.BODY_MODE_KINEMATIC)  # Disable collisions
+			_adjust_visuals_for_blueprint_mode()
+		Mode.DEFAULT:
+			# Switch to default mode: enable collisions and adjust visuals
+			if collider:
+				PhysicsServer3D.body_set_mode(collider, PhysicsServer3D.BODY_MODE_STATIC)  # Enable collisions
+			_adjust_visuals_for_default_mode()
+
+	current_mode = new_mode  # Update the current mode
+
+
+# Adjust visuals for blueprint mode (e.g., semi-transparent appearance)
+func _adjust_visuals_for_blueprint_mode():
+	if sprite_material:
+		sprite_material.set_shader_parameter("color", Color(0.5, 0.5, 0.5, 0.5))  # Semi-transparent
+
+	if support_mesh:
+		support_mesh.material.set_shader_parameter("color", Color(0.3, 0.3, 1.0, 0.5))  # Blueprint tint
+
+# Adjust visuals for default mode (e.g., normal appearance)
+func _adjust_visuals_for_default_mode():
+	if sprite_material:
+		sprite_material.set_shader_parameter("color", Color(1.0, 1.0, 1.0, 1.0))  # Fully opaque
+
+	if support_mesh:
+		support_mesh.material.set_shader_parameter("color", Color(1.0, 1.0, 1.0, 1.0))  # Normal tint
