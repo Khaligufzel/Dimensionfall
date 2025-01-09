@@ -83,7 +83,7 @@ func on_construction_clicked(construction_data: Dictionary):
 
 		# Spawn the furniture with the adjusted position
 		chunk.spawn_furniture({
-			"json": {"id": construction_choice, "rotation": myrotation, "mode": FurnitureStaticSrv.Mode.BLUEPRINT},
+			"json": {"id": construction_choice, "rotation": myrotation, "mode": "blueprint"},
 			"pos": construction_data.pos
 		})
 

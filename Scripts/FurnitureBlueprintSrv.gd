@@ -651,6 +651,7 @@ func get_data() -> Dictionary:
 	var newfurniturejson = {
 		"id": furnitureJSON.id,
 		"moveable": false,
+		"mode": "blueprint",
 		"global_position_x": furniture_transform.posx,
 		"global_position_y": furniture_transform.posy,
 		"global_position_z": furniture_transform.posz,

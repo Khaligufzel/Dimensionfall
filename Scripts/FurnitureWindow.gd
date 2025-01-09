@@ -80,10 +80,11 @@ func _disconnect_furniture_signals():
 			my_inventory.contents_changed.disconnect(_on_inventory_contents_changed)
 
 
-# Callback for furniture interaction.
-func _on_furniture_interacted(new_furniture_instance: FurnitureStaticSrv):
-	furniture_instance = new_furniture_instance
-	self.show()
+# Callback for furniture interaction. Only for FurnitureStaticSrv types
+func _on_furniture_interacted(new_furniture_instance: Node3D):
+	if new_furniture_instance is FurnitureStaticSrv:
+		furniture_instance = new_furniture_instance
+		self.show()
 
 # Callback for furniture exiting proximity.
 func _on_container_exited_proximity(exited_furniture_instance: Node3D):

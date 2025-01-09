@@ -1411,4 +1411,4 @@ func spawn_furniture(furniture_data: Dictionary):
 	if not furniture_data.has("json") or not furniture_data.has("pos"):
 		print_debug("Invalid data structure. Expected keys: 'json', 'pos'.")
 		return
-	furniture_static_spawner.spawn_furniture(furniture_data)
+	furniture_blueprint_spawner.spawn_furniture(furniture_data)

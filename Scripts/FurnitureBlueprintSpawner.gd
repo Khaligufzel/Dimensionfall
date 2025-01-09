@@ -44,7 +44,6 @@ func spawn_furniture(furniture_data: Dictionary) -> void:
 		myposition = get_furniture_position_from_mapdata(furniture_data)
 		new_furniture = FurnitureBlueprintSrv.new(myposition, furniture_data, world3d)
 	new_furniture.about_to_be_destroyed.connect(_on_furniture_about_to_be_destroyed)
-	Helper.time_helper.minute_passed.connect.call_deferred(new_furniture.on_minute_passed)
 	# Add the collider to the dictionary
 	collider_to_furniture[new_furniture.collider] = new_furniture
 
@@ -129,7 +128,6 @@ func _on_body_entered_item_detector(body_rid: RID) -> void:
 		# because that's what the signal will send
 		var furniturenode: Node3D = collider_to_furniture[body_rid]
 		if furniturenode.is_container():
-			furniturenode.on_entered_item_detector() # Check if it needs to regenerate
 			Helper.signal_broker.container_entered_proximity.emit(furniturenode)
 
 
@@ -140,5 +138,4 @@ func _on_body_exited_item_detector(body_rid: RID) -> void:
 		# because that's what the signal will send
 		var furniturenode: Node3D = collider_to_furniture[body_rid]
 		if furniturenode.is_container():
-			furniturenode.on_exited_item_detector()
 			Helper.signal_broker.container_exited_proximity.emit(furniturenode)
