@@ -15,6 +15,29 @@ extends Node
 signal target_map_changed(map_id: String, target_properties)
 # Array to track currently equipped items
 var equipped_items: Array = []
+# Variable to keep track of the currently tracked quest
+var tracked_quest: String:
+	set(value):
+		if tracked_quest == value:
+			return  # No change, do nothing
+		tracked_quest = value
+		if tracked_quest == "":
+			print("No quest selected to track.")
+			return
+
+		# Get the quest's current step
+		var current_step = QuestManager.get_current_step(tracked_quest)
+		if current_step == null:
+			print("Quest has no active steps or is null.")
+			return
+
+		# Check if the current step is completed
+		if current_step.get("complete", false):
+			print("The current step of the quest is already complete.")
+			return
+
+		# Call check_and_emit_target_map to manage the map targeting for the quest
+		check_and_emit_target_map(current_step)
 
 
 func _ready():
@@ -314,14 +337,17 @@ func _on_map_entered(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vecto
 func get_state() -> Dictionary:
 	var state: Dictionary = {}
 	state.player_quests = QuestManager.get_save_quest_data()
+	state.tracked_quest = tracked_quest  # Save the tracked quest
 	return state
-
 
 # Set the quest state from a loaded dictionary.
 func set_state(state: Dictionary) -> void:
 	QuestManager.wipe_player_data()
 	var player_quests = state.get("player_quests", {})
 	QuestManager.load_saved_quest_data(player_quests)
+
+	# Restore the tracked quest
+	tracked_quest = state.get("tracked_quest", "")
 
 
 # Helper function to check if the step has the "enter" type within "action_step" and emit the target_map_changed signal
@@ -348,23 +374,7 @@ func check_and_emit_target_map(step: Dictionary):
 
 # Function to handle tracking a quest when the "track quest" button is clicked
 func _on_quest_window_track_quest_clicked(quest_name: String) -> void:
-	if quest_name == "":
-		print("No quest selected to track.")
-		return
-
-	# Get the quest's current step
-	var current_step = QuestManager.get_current_step(quest_name)
-	if current_step == null:
-		print("Quest has no active steps or is null.")
-		return
-
-	# Check if the current step is completed
-	if current_step.get("complete", false):
-		print("The current step of the quest is already complete.")
-		return
-
-	# Call check_and_emit_target_map to manage the map targeting for the quest
-	check_and_emit_target_map(current_step)
+	tracked_quest = quest_name
 
 
 # Emits the target map signal for "kill" steps
