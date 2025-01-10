@@ -44,6 +44,7 @@ func spawn_furniture(furniture_data: Dictionary) -> void:
 		myposition = get_furniture_position_from_mapdata(furniture_data)
 		new_furniture = FurnitureBlueprintSrv.new(myposition, furniture_data, world3d)
 	new_furniture.about_to_be_destroyed.connect(_on_furniture_about_to_be_destroyed)
+	new_furniture.spawner = self
 	# Add the collider to the dictionary
 	collider_to_furniture[new_furniture.collider] = new_furniture
 
@@ -127,8 +128,7 @@ func _on_body_entered_item_detector(body_rid: RID) -> void:
 		# furniturenode is a FurnitureBlueprintSrv but we need to cast it as a Node3D here
 		# because that's what the signal will send
 		var furniturenode: Node3D = collider_to_furniture[body_rid]
-		if furniturenode.is_container():
-			Helper.signal_broker.container_entered_proximity.emit(furniturenode)
+		Helper.signal_broker.container_entered_proximity.emit(furniturenode)
 
 
 # Function to handle the event when a body exits the item detector
@@ -137,5 +137,4 @@ func _on_body_exited_item_detector(body_rid: RID) -> void:
 		# furniturenode is a FurnitureBlueprintSrv but we need to cast it as a Node3D here
 		# because that's what the signal will send
 		var furniturenode: Node3D = collider_to_furniture[body_rid]
-		if furniturenode.is_container():
-			Helper.signal_broker.container_exited_proximity.emit(furniturenode)
+		Helper.signal_broker.container_exited_proximity.emit(furniturenode)

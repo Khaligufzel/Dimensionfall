@@ -18,6 +18,7 @@ var shape: RID
 var mesh_instance: RID  # Variable to store the mesh instance RID
 var quad_instance: RID # RID to the quadmesh that displays the sprite
 var myworld3d: World3D
+var spawner: FurnitureBlueprintSpawner
 
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh # A mesh below the sprite for 3d effect
@@ -216,20 +217,10 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container():
-	if is_container():
-		container = FurnitureContainer.new(self)
-		container.create_container_sprite_instance()
-		if not _is_new_furniture():
-			container.deserialize_container_data(furnitureJSON)
-
-
-func is_container() -> bool:
-	return rfurniture.function.is_container
-
-# Wether or not this furniture is a crafting station.
-# Returns true if it is a container and has crafting recipes (items)
-func is_crafting_station() -> bool:
-	return is_container() and rfurniture.crafting.get_items().size() > 0
+	container = FurnitureContainer.new(self)
+	container.create_container_sprite_instance()
+	if not _is_new_furniture():
+		container.deserialize_container_data(furnitureJSON)
 
 
 # Function to calculate the size of the furniture
@@ -474,35 +465,6 @@ func get_data() -> Dictionary:
 	return newfurniturejson
 
 
-# When the furniture is destroyed, it leaves a wreck behind
-func add_corpse(pos: Vector3):
-	if can_be_destroyed():
-		var newitemjson: Dictionary = {
-			"global_position_x": pos.x,
-			"global_position_y": pos.y,
-			"global_position_z": pos.z
-		}
-		
-		var myitemgroup = rfurniture.destruction.group
-		if myitemgroup:
-			newitemjson["itemgroups"] = [myitemgroup]
-		
-		var newItem: ContainerItem = ContainerItem.new(newitemjson)
-		newItem.add_to_group("mapitems")
-		
-		var fursprite = rfurniture.destruction.sprite
-		if fursprite:
-			newItem.set_texture(fursprite)
-		
-		# Finally add the new item with possibly set loot group to the tree
-		Helper.map_manager.level_generator.get_tree().get_root().add_child.call_deferred(newItem)
-		
-		# Check if inventory has items and insert them into the new item
-		if container.get_inventory():
-			for item in container.get_inventory().get_items():
-				newItem.insert_item(item)
-
-
 # Check if the furniture can be destroyed
 func can_be_destroyed() -> bool:
 	return not rfurniture.destruction.get_data().is_empty()
@@ -522,34 +484,9 @@ func get_sprite() -> Texture:
 	return rfurniture.sprite
 
 
-# Replace animate_hit with show_hit_indicator
-func get_hit(attack: Dictionary):
-	var damage = attack.damage
-	var hit_chance = attack.hit_chance
-
-	# Calculate actual hit chance considering static furniture bonus
-	var actual_hit_chance = hit_chance + 0.25  # Boost hit chance by 25%
-
-	# Determine if the attack hits
-	if randf() <= actual_hit_chance:
-		# Attack hits
-		if can_be_destroyed():
-			current_health -= damage
-			if current_health <= 0:
-				_die()  # Destroy the furniture if health is depleted
-			else:
-				if not is_animating_hit:
-					show_hit_indicator()  # Call the new hit indicator function instead of animate_hit
-	else:
-		# Attack misses, create a visual indicator
-		show_miss_indicator()
-
-
 # Function to handle furniture destruction
-func _die():
-	add_corpse(furniture_transform.get_position())  # Add wreck or corpse
-	if is_container():
-		Helper.signal_broker.container_exited_proximity.emit(self)
+func die():
+	Helper.signal_broker.container_exited_proximity.emit(self)
 	free_resources()  # Free resources
 	queue_free()  # Remove the node from the scene tree
 
@@ -625,13 +562,6 @@ func get_available_ingredient_amount(ingredient_id: String) -> int:
 	return available_amount
 
 
-func are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
-	for ingredient in recipe.required_resources:
-		var available = get_available_ingredient_amount(ingredient.id)
-		if available < ingredient.amount:
-			return false
-	return true
-
 # Update to manage `current_mode` behavior
 func set_mode():
 	if collider:
@@ -663,3 +593,22 @@ func _adjust_visuals_for_default_mode():
 	if sprite_material:
 		sprite_material = Runtimedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
 		quad_mesh.material = sprite_material
+
+
+# Function to check if all items required for construction are present in the container inventory
+func has_all_construction_items() -> bool:
+	if not rfurniture or not rfurniture.construction or rfurniture.construction.items.is_empty():
+		return false  # Exit if construction data is missing or invalid
+
+	var construction_items: Dictionary = rfurniture.construction.items
+
+	# Loop through each item in the construction requirements
+	for item_id in construction_items.keys():
+		var required_amount: int = construction_items[item_id]
+		var available_amount: int = get_available_ingredient_amount(item_id)
+
+		# If any required item is not available in sufficient quantity, return false
+		if available_amount < required_amount:
+			return false
+
+	return true  # All items are available in sufficient quantity

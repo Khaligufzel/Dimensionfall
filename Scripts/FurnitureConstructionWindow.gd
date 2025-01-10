@@ -35,6 +35,7 @@ func _update_furniture_ui():
 	furniture_container_view.set_inventory(furniture_instance.get_inventory())
 	furniture_name_label.text = furniture_instance.get_furniture_name()
 	_refresh_ingredient_list()
+	_update_construct_button()
 
 
 # Connects necessary signals from the furniture_instance.
@@ -120,7 +121,6 @@ func _refresh_ingredient_list():
 		_add_ingredient_to_list(ingredient_id, items[ingredient_id])
 
 
-
 # Adds a single ingredient to the ingredients list.
 func _add_ingredient_to_list(ingredient_id: String, required_amount: int):
 	var ingredient_data: RItem = Runtimedata.items.by_id(ingredient_id)
@@ -173,6 +173,7 @@ func _add_ingredient_add_button(ingredient_id: String, required_amount: int):
 			)
 		# Update the UI after the transfer
 		_refresh_ingredient_list()
+		_update_construct_button()
 	)
 
 	# Determine button state based on ingredient availability outside the inventory
@@ -200,11 +201,33 @@ func has_sufficient_ingredient_outside_inventory(item_id: String, amount: int) -
 # Called when allAccessibleItems_changed signal is emitted.
 func _on_all_accessible_items_changed(_items_added: Array, _items_removed: Array):
 	if furniture_instance:
-		#_update_add_to_queue_button_status()
-		pass
+		_refresh_ingredient_list()
+		_update_construct_button()
 
 
 # Callback for when the inventory contents change.
 func _on_inventory_contents_changed():
 	if furniture_instance:
 		_refresh_ingredient_list()
+		_update_construct_button()
+
+# Enables or disables the construct button based on whether all construction items are present
+func _update_construct_button():
+	if furniture_instance and furniture_instance.has_all_construction_items():
+		construct_button.disabled = false  # Enable the button if all items are available
+	else:
+		construct_button.disabled = true  # Disable the button if items are missing
+
+
+# The player has pressed the construct button, so we finish construction
+# Spawn the actual furniture instance and remove the blueprint instance
+func _on_construct_button_button_up() -> void:
+	var furniture_spawner: FurnitureBlueprintSpawner = furniture_instance.spawner
+	var chunk: Chunk = furniture_spawner.chunk
+	# Spawn the furniture with the adjusted position
+	chunk.spawn_furniture({
+		"json": {"id": furniture_instance.rfurniture.id, "rotation": furniture_instance.get_my_rotation()},
+		"pos": furniture_instance.furniture_transform.get_position()
+	})
+	furniture_instance.die()
+	hide()
