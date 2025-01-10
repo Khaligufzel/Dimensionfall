@@ -219,13 +219,8 @@ func add_container():
 	if is_container():
 		container = FurnitureContainer.new(self)
 		container.create_container_sprite_instance()
-		if _is_new_furniture():
-			container.create_loot(furnitureJSON, rfurniture)
-		else:
+		if not _is_new_furniture():
 			container.deserialize_container_data(furnitureJSON)
-			container.set_random_inventory_item_texture()
-		# Check if this furniture regenerates the items
-		container.check_regeneration_functionality(furnitureJSON, rfurniture, _is_new_furniture())
 
 
 func is_container() -> bool:
