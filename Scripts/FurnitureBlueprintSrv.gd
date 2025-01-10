@@ -130,8 +130,6 @@ class FurnitureContainer:
 		inventory = InventoryStacked.new()
 		inventory.capacity = 1000
 		inventory.item_protoset = ItemManager.item_protosets
-		inventory.item_removed.connect(_on_item_removed)
-		inventory.item_added.connect(_on_item_added)
 	
 	func get_inventory() -> InventoryStacked:
 		return inventory
@@ -157,188 +155,6 @@ class FurnitureContainer:
 		container_sprite_transform.origin.y += 0.2  # Adjust height as needed
 		RenderingServer.instance_set_transform(sprite_instance, container_sprite_transform)
 
-	# Sets the sprite_3d texture to a texture of a random item in the container's inventory
-	func set_random_inventory_item_texture():
-		var items: Array[InventoryItem] = inventory.get_items()
-		if items.size() == 0:
-			sprite_mesh.material = Gamedata.materials.container # set empty container
-			return
-		
-		# Pick a random item from the inventory
-		var random_item: InventoryItem = items.pick_random()
-		var item_id = random_item.prototype_id
-		
-		# Get the ShaderMaterial for the item
-		material = Runtimedata.items.get_shader_material_by_id(item_id)
-		sprite_mesh.material = material  # Update the mesh material
-
-	# Takes an item_id and quantity and adds it to the inventory
-	func add_item_to_inventory(item_id: String, quantity: int):
-		# Fetch the individual item data for verification
-		var ritem: RItem = Runtimedata.items.by_id(item_id)
-		# Check if the item data is valid before adding
-		if ritem and quantity > 0:
-			while quantity > 0:
-				# Calculate the stack size for this iteration, limited by max_stack_size
-				var stack_size = min(quantity, ritem.max_stack_size)
-				# Create and add the item to the inventory
-				var item = inventory.create_and_add_item(item_id)
-				# Set the item stack size
-				InventoryStacked.set_item_stack_size(item, stack_size)
-				# Decrease the remaining quantity
-				quantity -= stack_size
-
-	# Signal handler for item removed
-	# We don't want empty containers on the map, but we do want them as children of furniture
-	# So we delete empty containers if they are a child of the tree root.
-	func _on_item_removed(_item: InventoryItem):
-		# Check if there are any items left in the inventory
-		if inventory.get_items().size() == 0:
-			material = Gamedata.materials.container  # Use shared empty container material
-			sprite_mesh.material = material  # Update the mesh material
-		else:  # There are still items in the container
-			set_random_inventory_item_texture()  # Update to a new sprite
-
-	func _on_item_added(_item: InventoryItem):
-		set_random_inventory_item_texture() # Update to a new sprite
-
-	# Takes a list of items and adds them to the inventory in Collection mode.
-	func _add_items_to_inventory_collection_mode(items: Array[RItemgroup.Item]) -> bool:
-		var item_added: bool = false
-		# Loop over each item object in the itemgroup's 'items' property
-		for item_object: RItemgroup.Item in items:
-			# Each item_object is expected to be a dictionary with id, probability, min, max
-			var item_id = item_object.id
-			var item_probability = item_object.probability
-			if randi_range(0, 100) <= item_probability:
-				item_added = true # An item is about to be added
-				# Determine quantity to add based on min and max
-				var quantity = randi_range(item_object.minc, item_object.maxc)
-				add_item_to_inventory(item_id, quantity)
-		return item_added
-
-	# Takes a list of items and adds one to the inventory based on probabilities in Distribution mode.
-	func _add_items_to_inventory_distribution_mode(items: Array[RItemgroup.Item]) -> bool:
-		var total_probability = 0
-		# Calculate the total probability
-		for item_object in items:
-			total_probability += item_object.probability
-
-		# Generate a random value between 0 and total_probability - 1
-		var random_value = randi_range(0, total_probability - 1)
-		var cumulative_probability = 0
-
-		# Iterate through items to select one based on the random value
-		for item_object: RItemgroup.Item in items:
-			cumulative_probability += item_object.probability
-			# Check if the random value falls within the current item's range
-			if random_value < cumulative_probability:
-				var item_id = item_object.id
-				var quantity = randi_range(item_object.minc, item_object.maxc)
-				add_item_to_inventory(item_id, quantity)
-				return true  # One item is added, return immediately
-
-		return false  # In case no item is added, though this is highly unlikely
-
-	# Add this function to handle inventory reset and item regeneration
-	func _reset_inventory_and_regenerate_items():
-		if not itemgroup or itemgroup == "":
-			return  # Do nothing if no itemgroup is present
-
-		# Clear existing inventory
-		inventory.clear()
-
-		# Populate inventory with items from the itemgroup
-		var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(itemgroup)
-		if ritemgroup:
-			var group_mode: String = ritemgroup.mode  # can be "Collection" or "Distribution"
-			if group_mode == "Collection":
-				_add_items_to_inventory_collection_mode(ritemgroup.items)
-			elif group_mode == "Distribution":
-				_add_items_to_inventory_distribution_mode(ritemgroup.items)
-
-		# Update container visuals
-		set_random_inventory_item_texture()
-
-	func check_regeneration_functionality(furnitureJSON: Dictionary, rfurniture: RFurniture, is_new_furniture: bool):
-		if rfurniture.function.container_regeneration_time:
-			regeneration_interval = rfurniture.function.container_regeneration_time
-
-		if not is_new_furniture:
-			# Ensure the last_time_checked and itemgroup are properly set
-			if furnitureJSON.has("Function") and furnitureJSON["Function"].has("container"):
-				if furnitureJSON.Function.container.has("container_last_time_checked"):
-					last_time_checked = furnitureJSON.Function.container.container_last_time_checked
-				if furnitureJSON.Function.container.has("container_itemgroup"):
-					itemgroup = furnitureJSON.Function.container.container_itemgroup
-			else:
-				last_time_checked = 0.0  # Default if not found in saved data
-
-	func regenerate():
-		# Check if the container regenerates
-		if regeneration_interval <= -1:
-			return
-
-		# Get the total days passed and calculate the days since last check
-		var total_days_passed: float = Helper.time_helper.get_days_since_start()
-		var days_passed: float = total_days_passed - last_time_checked
-
-		# Check if enough days have passed to regenerate
-		if days_passed >= regeneration_interval:
-			# Update the last time checked
-			last_time_checked = total_days_passed
-
-			# Regenerate items
-			_reset_inventory_and_regenerate_items()
-
-
-	# Will add item to the inventory based on the assigned itemgroup
-	# Only new furniture will have an itemgroup assigned, not previously saved furniture.
-	func create_loot(furnitureJSON: Dictionary, rfurniture: RFurniture):
-		itemgroup = populate_container_from_itemgroup(furnitureJSON, rfurniture)
-		if not itemgroup or itemgroup == "":
-			_on_item_removed(null)
-			return
-		# A flag to track whether items were added
-		var item_added: bool = false
-		# Attempt to retrieve the itemgroup data from Gamedata
-		var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(itemgroup)
-		
-		# Check if the itemgroup data exists and has items
-		if ritemgroup:
-			var groupmode: String = ritemgroup.mode  # can be "Collection" or "Distribution".
-			if groupmode == "Collection":
-				item_added = _add_items_to_inventory_collection_mode(ritemgroup.items)
-			elif groupmode == "Distribution":
-				item_added = _add_items_to_inventory_distribution_mode(ritemgroup.items)
-
-		# Set the material if items were added
-		if item_added:
-			if rfurniture.function.random_container_sprite:
-				set_random_inventory_item_texture()
-			else:
-				material = Gamedata.materials.container_filled  # Use filled container material
-				sprite_mesh.material = material  # Update the mesh material
-		else:
-			# If no item was added we set the sprite to an empty container
-			_on_item_removed(null)
-
-	# If there is an itemgroup assigned to the furniture, it will be added to the container.
-	# It will check both furnitureJSON and dfurniture for itemgroup information.
-	# The function will return the id of the itemgroup so that the container may use it
-	func populate_container_from_itemgroup(furnitureJSON: Dictionary, rfurniture: RFurniture) -> String:
-		# Check if furnitureJSON contains an itemgroups array
-		if furnitureJSON.has("itemgroups"):
-			var itemgroups_array = furnitureJSON["itemgroups"]
-			if itemgroups_array.size() > 0:
-				return itemgroups_array.pick_random()
-		
-		# Fallback to using itemgroup from furnitureJSONData if furnitureJSON.itemgroups does not exist
-		var myitemgroup = rfurniture.function.container_group
-		if myitemgroup:
-			return myitemgroup
-		return ""
-
 	# Deserialize container data if available
 	func deserialize_container_data(container_json: Dictionary):
 		if not container_json.has("Function"):
@@ -347,7 +163,7 @@ class FurnitureContainer:
 			return
 		if "items" in container_json["Function"]["container"]:
 			inventory.deserialize(container_json["Function"]["container"]["items"])
-	
+
 	# Serialize the container data for saving
 	func serialize() -> Dictionary:
 		var container_data: Dictionary = {}
@@ -356,10 +172,6 @@ class FurnitureContainer:
 		# Only include inventory data if it has items
 		if not container_inventory_data.is_empty():
 			container_data["items"] = container_inventory_data
-
-		# Add other container-specific fields
-		container_data["container_last_time_checked"] = last_time_checked
-		container_data["container_itemgroup"] = itemgroup
 
 		return container_data
 
