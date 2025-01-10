@@ -34,6 +34,7 @@ func _ready():
 func _update_furniture_ui():
 	furniture_container_view.set_inventory(furniture_instance.get_inventory())
 	furniture_name_label.text = furniture_instance.get_furniture_name()
+	_refresh_ingredient_list()
 
 
 # Connects necessary signals from the furniture_instance.
@@ -109,9 +110,10 @@ func _refresh_ingredient_list():
 		return  # Exit if no valid furniture instance is provided
 
 	Helper.free_all_children(ingredients_grid_container)
-
+	
+	var rfurniture: RFurniture = furniture_instance.rfurniture
 	# Get the items from the furniture destruction data
-	var items: Dictionary = furniture_instance.construction.items if furniture_instance.construction and furniture_instance.construction.has("items") else {}
+	var items: Dictionary = rfurniture.construction.items if rfurniture.construction and not rfurniture.construction.items.is_empty() else {}
 
 	# Loop through the items to populate the ingredient list
 	for ingredient_id in items.keys():
