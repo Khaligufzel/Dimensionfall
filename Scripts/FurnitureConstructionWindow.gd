@@ -235,3 +235,11 @@ func _on_construct_button_button_up() -> void:
 	})
 	furniture_instance.die()
 	hide()
+
+
+# The user has pressed the cancel button. Remove the blueprint from the terrain
+# Make sure that any items in the inventory are left behind.
+func _on_cancel_button_button_up() -> void:
+	furniture_instance.add_corpse(furniture_instance.furniture_transform.get_position())  # Add wreck or corpse
+	furniture_instance.die()
+	hide()

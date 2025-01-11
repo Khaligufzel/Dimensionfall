@@ -611,3 +611,27 @@ func has_all_construction_items() -> bool:
 			return false
 
 	return true  # All items are available in sufficient quantity
+
+
+# When the furniture is destroyed, it leaves a wreck behind
+func add_corpse(pos: Vector3):
+	var newitemjson: Dictionary = {
+		"global_position_x": pos.x,
+		"global_position_y": pos.y,
+		"global_position_z": pos.z
+	}
+	
+	var newItem: ContainerItem = ContainerItem.new(newitemjson)
+	newItem.add_to_group("mapitems")
+	
+	var fursprite = rfurniture.destruction.sprite
+	if fursprite:
+		newItem.set_texture(fursprite)
+	
+	# Finally add the new item with possibly set loot group to the tree
+	Helper.map_manager.level_generator.get_tree().get_root().add_child.call_deferred(newItem)
+	
+	# Check if inventory has items and insert them into the new item
+	if container.get_inventory():
+		for item in container.get_inventory().get_items():
+			newItem.insert_item(item)

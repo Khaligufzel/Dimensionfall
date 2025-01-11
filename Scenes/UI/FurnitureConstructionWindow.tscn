@@ -118,3 +118,4 @@ text = "Cancel"
 
 [connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer2/CloseMenuButton" to="." method="_on_close_menu_button_button_up"]
 [connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/ControlButtonsHBoxContainer/ConstructButton" to="." method="_on_construct_button_button_up"]
+[connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/ControlButtonsHBoxContainer/CancelButton" to="." method="_on_cancel_button_button_up"]
