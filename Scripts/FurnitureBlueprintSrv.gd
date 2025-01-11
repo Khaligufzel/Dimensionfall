@@ -418,7 +418,6 @@ func free_resources():
 	rfurniture = null
 
 
-
 # Function to interact with the furniture (e.g., toggling door state)
 func interact():
 	Helper.signal_broker.furniture_interacted.emit(self)

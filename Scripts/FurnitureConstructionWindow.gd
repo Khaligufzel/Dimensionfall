@@ -224,10 +224,14 @@ func _update_construct_button():
 func _on_construct_button_button_up() -> void:
 	var furniture_spawner: FurnitureBlueprintSpawner = furniture_instance.spawner
 	var chunk: Chunk = furniture_spawner.chunk
+	var construction_pos: Vector3 = furniture_instance.furniture_transform.get_position()
+	construction_pos.y-=0.75
+	# Translate the position to negate the chunk's `mypos`
+	construction_pos -= chunk.mypos
 	# Spawn the furniture with the adjusted position
 	chunk.spawn_furniture({
 		"json": {"id": furniture_instance.rfurniture.id, "rotation": furniture_instance.get_my_rotation()},
-		"pos": furniture_instance.furniture_transform.get_position()
+		"pos": construction_pos
 	})
 	furniture_instance.die()
 	hide()
