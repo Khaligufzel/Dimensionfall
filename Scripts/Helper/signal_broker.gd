@@ -105,6 +105,8 @@ signal playerInventory_item_modified(item: InventoryItem, inventory: InventorySt
 @warning_ignore("unused_signal")
 signal player_stat_changed(player: Player)
 @warning_ignore("unused_signal")
+signal player_stamina_changed(player: Player, current_stamina: float)
+@warning_ignore("unused_signal")
 signal player_skill_changed(player: Player)
 @warning_ignore("unused_signal")
 signal player_attribute_changed(player: Player, attribute: PlayerAttribute)

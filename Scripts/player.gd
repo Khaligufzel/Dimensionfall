@@ -1,8 +1,6 @@
 class_name Player
 extends CharacterBody3D
 
-signal update_stamina_HUD
-
 var is_alive = true
 
 var rng = RandomNumberGenerator.new()
@@ -203,7 +201,8 @@ func _physics_process(delta):
 				if current_stamina > stamina:
 					current_stamina = stamina
 
-			update_stamina_HUD.emit(current_stamina)
+			# Clamp stamina 
+			Helper.signal_broker.player_stamina_changed.emit(self, current_stamina)
 
 		move_and_slide()
 
@@ -567,7 +566,7 @@ func set_state(state: Dictionary) -> void:
 	global_transform.origin.z = state.get("global_position_z", global_transform.origin.z)
 	
 	# Emit signals to update the HUD
-	update_stamina_HUD.emit(current_stamina)
+	Helper.signal_broker.player_stamina_changed.emit(self, current_stamina)
 
 
 # Function to handle adding or subtracting player attribute amounts when equipping/unequipping

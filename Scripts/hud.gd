@@ -44,6 +44,7 @@ func _ready():
 	buildmenu.visibility_changed.connect(\
 	Helper.signal_broker.on_build_menu_visibility_changed.bind(buildmenu))
 	Helper.time_helper.minute_passed.connect(_on_minute_passed)
+	Helper.signal_broker.player_stamina_changed.connect(_on_player_update_stamina_hud)
 
 
 func update_progress_bar():
@@ -82,8 +83,9 @@ func _input(event):
 		get_node(progress_bar_filling).scale.x = lerp(1, 0, get_node(progress_bar_timer).time_left / progress_bar_timer_max_time)
 
 
-func _on_player_update_stamina_hud(stamina):
+func _on_player_update_stamina_hud(player: Player, stamina: float):
 	get_node(stamina_HUD).text = str(round(stamina)) + "%"
+	print("" + str(stamina) + ", " + str(round(stamina)))
 
 
 func start_progress_bar(time : float):
