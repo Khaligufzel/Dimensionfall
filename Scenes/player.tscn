@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b38y0738d1rc7"]
+[gd_scene load_steps=25 format=3 uid="uid://bn5i23p2yi5uj"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_8wv3l"]
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="2_g83x8"]
@@ -87,13 +87,12 @@ pixel_size = 0.003
 render_priority = 15
 texture = ExtResource("5_uy1e8")
 
-[node name="EquippedRight" type="Sprite3D" parent="Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
+[node name="EquippedRight" type="Sprite3D" parent="Sprite3D2" node_paths=PackedStringArray("attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.190849, -0.123334, 0)
 pixel_size = 0.002
 render_priority = 15
 texture = ExtResource("6_gljie")
 script = ExtResource("7_u8an4")
-projectiles = NodePath("")
 bullet_speed = 25.0
 bullet_damage = 25.0
 bullet_scene = ExtResource("8_un7wc")
@@ -107,13 +106,12 @@ shoot_audio_player = NodePath("../../Shooting/ShootAudio")
 shoot_audio_randomizer = SubResource("AudioStreamRandomizer_jdgh6")
 reload_audio_player = NodePath("../../Shooting/ReloadAudio")
 
-[node name="EquippedLeft" type="Sprite3D" parent="Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
+[node name="EquippedLeft" type="Sprite3D" parent="Sprite3D2" node_paths=PackedStringArray("attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.194626, 0.116675, 0)
 pixel_size = 0.002
 render_priority = 15
 texture = ExtResource("10_j5u52")
 script = ExtResource("7_u8an4")
-projectiles = NodePath("")
 bullet_speed = 25.0
 bullet_damage = 25.0
 bullet_scene = ExtResource("8_un7wc")

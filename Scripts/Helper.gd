@@ -28,8 +28,12 @@ var save_helper: Node = null
 var signal_broker: SignalBroker = null
 var task_manager: Node = null
 var map_manager: Node = null
-var overmap_manager: Node = null
+var overmap_manager: OvermapManager = null
 var quest_helper: Node = null
+
+var player : Player :
+	get: 
+		return overmap_manager.player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -103,11 +103,11 @@ signal playerInventory_item_modified(item: InventoryItem, inventory: InventorySt
 
 # When the player's stats and skill and attributes changes
 @warning_ignore("unused_signal")
-signal player_stat_changed(player: CharacterBody3D)
+signal player_stat_changed(player: Player)
 @warning_ignore("unused_signal")
-signal player_skill_changed(player: CharacterBody3D)
+signal player_skill_changed(player: Player)
 @warning_ignore("unused_signal")
-signal player_attribute_changed(player: CharacterBody3D, attribute: PlayerAttribute)
+signal player_attribute_changed(player: Player, attribute: PlayerAttribute)
 
 # Save load start end events
 @warning_ignore("unused_signal")
@@ -119,7 +119,7 @@ signal game_ended() # When the game is completely exited and everything is unloa
 @warning_ignore("unused_signal")
 signal game_terminated() # When the user presses 'main menu' button on the escape menu
 @warning_ignore("unused_signal")
-signal player_spawned(player: CharacterBody3D) # When the player has spawned in-game
+signal player_spawned(player: Player) # When the player has spawned in-game
 
 # When a mob was killed
 @warning_ignore("unused_signal")
@@ -133,8 +133,9 @@ signal player_interacted(pos: Vector3, collider: RID)
 
 # A projectile has been spawned
 # projectile: a reference to the projectile
+# owner: RID of the entity responsible for spawning this projectile
 @warning_ignore("unused_signal")
-signal projectile_spawned(projectile: Node)
+signal projectile_spawned(projectile: Node, instigator: RID)
 
 # A bullet has hit some collider
 # body_rid: the RID of the other PhysicsBody3D used by the PhysicsServer3D.

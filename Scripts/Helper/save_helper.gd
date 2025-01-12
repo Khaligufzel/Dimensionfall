@@ -164,7 +164,7 @@ func load_player_equipment() -> void:
 
 
 # This function saves the player's state to a JSON file, including skills.
-func save_player_state(player: CharacterBody3D) -> void:
+func save_player_state(player: Player) -> void:
 	if !player:
 		return
 	var save_path = current_save_folder + "/player_state.json"
@@ -173,7 +173,7 @@ func save_player_state(player: CharacterBody3D) -> void:
 
 
 # This function loads the player's state from a JSON file, including skills.
-func load_player_state(player: CharacterBody3D) -> void:
+func load_player_state(player: Player) -> void:
 	var load_path = current_save_folder + "/player_state.json"
 	var player_state = Helper.json_helper.load_json_dictionary_file(load_path)
 

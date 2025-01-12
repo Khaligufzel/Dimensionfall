@@ -5,5 +5,5 @@ extends Node3D
 func _ready():
 	Helper.signal_broker.projectile_spawned.connect(on_projectile_spawned)
 
-func on_projectile_spawned(projectile: Node):
+func on_projectile_spawned(projectile: Node, instigator: RID):
 	projectiles_container.add_child(projectile)

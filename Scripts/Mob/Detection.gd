@@ -37,7 +37,7 @@ func _physics_process(_delta):
 		return
 	var space_state = get_world_3d().direct_space_state
 	# TO-DO Change playerCol to group of players
-	var playerInstance: CharacterBody3D = get_tree().get_first_node_in_group("Players")
+	var playerInstance: CharacterBody3D = Helper.player
 	if !playerInstance:
 		return
 	var query = PhysicsRayQueryParameters3D.create(global_position, playerInstance.global_position, int(pow(2, 1-1) + pow(2, 3-1)),[self])

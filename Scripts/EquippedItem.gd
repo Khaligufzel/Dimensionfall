@@ -192,7 +192,7 @@ func perform_ranged_attack():
 	var direction = calculate_direction(cursor_position, spawn_position)
 	direction.y = 0 # Ensure the bullet moves parallel to the ground.
 
-	Helper.signal_broker.projectile_spawned.emit(bullet_instance)
+	Helper.signal_broker.projectile_spawned.emit(bullet_instance, Helper.player.get_rid())
 	bullet_instance.global_transform.origin = spawn_position
 	bullet_instance.set_direction_and_speed(direction, bullet_speed)
 	in_cooldown = true

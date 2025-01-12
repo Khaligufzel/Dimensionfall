@@ -1,3 +1,4 @@
+class_name OvermapManager
 extends Node
 
 # This script manages the overmap, which defines the terrain making up the game world.
@@ -52,7 +53,7 @@ var loaded_segments: Dictionary = {}
 # That makes up the map that the player is walking on.
 var loaded_chunk_data: Dictionary = {"chunks": {}}
 
-var player
+var player: Player
 var player_current_cell: Vector2 = Vector2.ZERO # Player's position per cell, updated regularly
 var loaded_chunks = {}
 
@@ -60,7 +61,7 @@ var noise: FastNoiseLite
 
 # When the player coordinate changed. player: The player node. 
 # old_pos: The old coordinate in the grid. new_pos: The new coordinate in the grid
-signal player_coord_changed(player: CharacterBody3D, old_pos: Vector2, new_pos: Vector2)
+signal player_coord_changed(player: Player, old_pos: Vector2, new_pos: Vector2)
 
 
 
@@ -123,7 +124,7 @@ func load_cells():
 	load_cells_around(Vector3(0, 0, 0))
 
 # Function for handling player spawned signal
-func _on_player_spawned(playernode):
+func _on_player_spawned(playernode: Player):
 	player = playernode
 	var player_position = player.position
 	load_cells_around(player_position)

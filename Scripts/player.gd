@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody3D
 
 signal update_stamina_HUD
@@ -50,6 +51,8 @@ var knockback_distance_remaining: float = 0.0
 
 @export var foostep_player : AudioStreamPlayer
 @export var foostep_stream_randomizer : AudioStreamRandomizer
+
+@export
 
 
 # Variables for furniture pushing
