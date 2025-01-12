@@ -1,3 +1,4 @@
+class_name SignalBroker
 extends Node
 
 # This script functions as a connection point for signals.
@@ -129,6 +130,11 @@ signal mob_killed(mobinstance: Mob)
 # collider RID of the object that was interacted with.
 @warning_ignore("unused_signal")
 signal player_interacted(pos: Vector3, collider: RID)
+
+# A projectile has been spawned
+# projectile: a reference to the projectile
+@warning_ignore("unused_signal")
+signal projectile_spawned(projectile: Node)
 
 # A bullet has hit some collider
 # body_rid: the RID of the other PhysicsBody3D used by the PhysicsServer3D.

@@ -192,7 +192,7 @@ func perform_ranged_attack():
 	var direction = calculate_direction(cursor_position, spawn_position)
 	direction.y = 0 # Ensure the bullet moves parallel to the ground.
 
-	projectiles.add_child(bullet_instance) # Add bullet to the scene tree.
+	Helper.signal_broker.projectile_spawned.emit(bullet_instance)
 	bullet_instance.global_transform.origin = spawn_position
 	bullet_instance.set_direction_and_speed(direction, bullet_speed)
 	in_cooldown = true
@@ -491,6 +491,10 @@ func configure_melee_collision_shape(reach: float):
 	]
 	shape.points = points
 	melee_collision_shape.shape = shape
+	
+func scale_melee_texture(reach: float):
+	# TODO figure out what this scale should actually be, and offset to a better pivot (or scale from pivot?)
+	self.scale = Vector3(reach, 1.0, 1.0)
 
 # Disable the melee collision detection by setting an invalid shape or disabling it
 func disable_melee_collision_shape():
