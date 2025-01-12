@@ -186,7 +186,7 @@ class GridChunk:
 				tile.set_text("✠")
 				visible_tile = tile  # Store the reference to the new visible tile
 
-	func _on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
+	func _on_player_coord_changed(_player: Player, _old_pos: Vector2, new_pos: Vector2):
 		if overmap_node and not overmap_node.is_visible():
 			return
 		# Step 1: Check if the chunk is within the player's range
@@ -420,7 +420,7 @@ func get_overmap_tile_at_position(myposition: Vector2) -> Control:
 
 # When the player moves a coordinate on the map, i.e. when crossing the chunk border.
 # Movement could be between (0,0) and (0,1) for example
-func on_player_coord_changed(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
+func on_player_coord_changed(_player: Player, _old_pos: Vector2, new_pos: Vector2):
 	if not visible:
 		return
 	var delta = new_pos - Helper.position_coord
@@ -448,7 +448,7 @@ func find_location_on_overmap(mytarget: Target):
 	# Check if mytarget's coordinate is set
 	if mytarget.coordinate == Vector2():
 		# If not set, find the closest map cell and set the coordinates
-		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_ids([mytarget.map_id], "VISITED")
+		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_ids([mytarget.map_id], {"reveal_condition": "VISITED"})
 		if closest_cell:
 			mytarget.set_coordinate(Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
 		else:

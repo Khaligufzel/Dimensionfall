@@ -311,7 +311,7 @@ func _on_craft_successful(item: RItem, _recipe: RItem.CraftRecipe):
 
 # Function to handle player entering a map
 # map_id: The ID of the map that the player has entered
-func _on_map_entered(_player: CharacterBody3D, _old_pos: Vector2, new_pos: Vector2):
+func _on_map_entered(_player: Player, _old_pos: Vector2, new_pos: Vector2):
 	# Get the current quests in progress
 	var quests_in_progress = QuestManager.get_quests_in_progress()
 
