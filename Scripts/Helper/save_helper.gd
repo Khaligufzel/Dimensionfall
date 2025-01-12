@@ -187,15 +187,13 @@ func save_quest_state() -> void:
 	var quest_state: Dictionary = Helper.quest_helper.get_state()
 	Helper.json_helper.write_json_file(save_path, JSON.stringify(quest_state))
 
-# This function loads the player's quest state from a JSON file.
+# Loads the player's quest state from "quest_state.json".
 func load_quest_state() -> void:
-	var load_path = current_save_folder + "/quest_state.json"
-	var quest_state = Helper.json_helper.load_json_dictionary_file(load_path)
-
-	if quest_state:
-		Helper.quest_helper.set_state(quest_state)
+	var quest_data = Helper.json_helper.load_json_dictionary_file(current_save_folder + "/quest_state.json")
+	if quest_data:
+		Helper.quest_helper.set_state(quest_data)
 	else:
-		print_debug("Failed to load quest state from: ", load_path)
+		print_debug("Failed to load quest state.")
 
 
 # Function to save the current state of the grid
