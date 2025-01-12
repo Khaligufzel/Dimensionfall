@@ -110,6 +110,8 @@ signal player_stamina_changed(player: Player, current_stamina: float)
 signal player_skill_changed(player: Player)
 @warning_ignore("unused_signal")
 signal player_attribute_changed(player: Player, attribute: PlayerAttribute)
+@warning_ignore("unused_signal")
+signal player_ammo_changed(current_ammo: int, max_ammo: int, lefthand: bool)
 
 # Save load start end events
 @warning_ignore("unused_signal")

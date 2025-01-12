@@ -66,19 +66,18 @@ var is_right_button_held: bool = false
 
 var entities_in_melee_range = [] # Used to keep track of entities in melee range
 
-signal ammo_changed(current_ammo: int, max_ammo: int, lefthand: bool)
-
-# Called when the node enters the scene tree for the first time.
+func _init():
+	# We connect to the inventory visibility change to interrupt shooting
+	Helper.signal_broker.inventory_window_visibility_changed.connect(_on_inventory_visibility_change)
+	Helper.signal_broker.item_was_equipped.connect(_on_hud_item_was_equipped)
+	Helper.signal_broker.item_was_unequipped.connect(_on_hud_item_equipment_slot_was_cleared)
+	
 func _ready():
 	clear_held_item()
 	melee_attack_area.body_entered.connect(_on_entered_melee_range)
 	melee_attack_area.body_exited.connect(_on_exited_melee_range)
 	melee_attack_area.body_shape_entered.connect(_on_body_shape_entered_melee_range)
 	melee_attack_area.body_shape_exited.connect(_on_body_shape_exited_melee_range)
-	# We connect to the inventory visibility change to interrupt shooting
-	Helper.signal_broker.inventory_window_visibility_changed.connect(_on_inventory_visibility_change)
-	Helper.signal_broker.item_was_equipped.connect(_on_hud_item_was_equipped)
-	Helper.signal_broker.item_was_unequipped.connect(_on_hud_item_equipment_slot_was_cleared)
 
 func _input(event):
 	if not heldItem:
@@ -209,7 +208,7 @@ func _subtract_ammo(amount: int):
 		ammunition -= amount
 		magazineProperties["current_ammo"] = ammunition
 		magazine.set_property("Magazine", magazineProperties)
-		ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
+		Helper.signal_broker.player_ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
 
 
 func get_current_ammo() -> int:
@@ -263,7 +262,7 @@ func _process(delta):
 
 # When a magazine is removed
 func on_magazine_removed():
-	ammo_changed.emit(-1, -1, equipped_left)
+	Helper.signal_broker.player_ammo_changed.emit(-1, -1, equipped_left)
 
 # When a magazine is inserted
 func on_magazine_inserted():
@@ -274,7 +273,7 @@ func on_magazine_inserted():
 		recoil_increment = max_recoil / (get_max_ammo() * 0.25)
 		recoil_decrement = 2 * recoil_increment
 
-		ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
+		Helper.signal_broker.player_ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
 		
 # Function to clear weapon properties for a specified hand
 func clear_held_item():
@@ -285,7 +284,7 @@ func clear_held_item():
 	visible = false
 	heldItem = null
 	in_cooldown = false
-	ammo_changed.emit(-1, -1, equipped_left)  # Emit signal to indicate no weapon is equipped
+	Helper.signal_broker.player_ammo_changed.emit(-1, -1, equipped_left)  # Emit signal to indicate no weapon is equipped
 
 func _on_left_attack_cooldown_timeout():
 	in_cooldown = false
@@ -454,14 +453,14 @@ func setup_ranged_weapon_properties(equippedItem: InventoryItem):
 	attack_cooldown_timer.wait_time = float(firing_speed)
 	reload_speed = float(ranged_properties.get("reload_speed", default_reload_speed))
 	visible = true
-	ammo_changed.emit(0, 0, equipped_left)  # Signal to update ammo display for ranged weapons
+	Helper.signal_broker.player_ammo_changed.emit(0, 0, equipped_left)  # Signal to update ammo display for ranged weapons
 	heldItem.properties_changed.connect(_on_helditem_properties_changed)
 
 # Setup the properties for melee weapons
 func setup_melee_weapon_properties(equippedItem: InventoryItem):
 	var melee_properties = equippedItem.get_property("Melee")
 	visible = true
-	ammo_changed.emit(-1, -1, equipped_left)  # Indicate no ammo needed for melee weapons
+	Helper.signal_broker.player_ammo_changed.emit(-1, -1, equipped_left)  # Indicate no ammo needed for melee weapons
 
 	var reach = melee_properties.get("reach", 0)  # Default reach to 0 if not specified
 	if reach > 0:
