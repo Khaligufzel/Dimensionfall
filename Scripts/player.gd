@@ -50,8 +50,6 @@ var knockback_distance_remaining: float = 0.0
 @export var foostep_player : AudioStreamPlayer
 @export var foostep_stream_randomizer : AudioStreamRandomizer
 
-@export
-
 
 # Variables for furniture pushing
 var pushing_furniture = false
@@ -201,7 +199,6 @@ func _physics_process(delta):
 				if current_stamina > stamina:
 					current_stamina = stamina
 
-			# Clamp stamina 
 			Helper.signal_broker.player_stamina_changed.emit(self, current_stamina)
 
 		move_and_slide()

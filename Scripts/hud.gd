@@ -87,7 +87,6 @@ func _input(event):
 
 func _on_player_update_stamina_hud(player: Player, stamina: float):
 	get_node(stamina_HUD).text = str(round(stamina)) + "%"
-	print("" + str(stamina) + ", " + str(round(stamina)))
 
 
 func start_progress_bar(time : float):
