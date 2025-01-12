@@ -1,27 +1,11 @@
-[gd_scene load_steps=35 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=12 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
-[ext_resource type="PackedScene" path="res://day_night.tscn" id="3_0lu7f"]
 [ext_resource type="Material" uid="uid://ot2fpooebty0" path="res://Defaults/Blocks/Materials/construction_ghost_material.tres" id="4_ujcgp"]
 [ext_resource type="Script" path="res://Scripts/ConstructionGhost.gd" id="5_iwiv4"]
+[ext_resource type="PackedScene" uid="uid://b38y0738d1rc7" path="res://Scenes/player.tscn" id="6_icwa4"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
-[ext_resource type="Texture2D" uid="uid://d33h00t0fl7x" path="res://Defaults/Player/VestDude01.png" id="7_jr4x1"]
-[ext_resource type="PackedScene" uid="uid://bwlxjl00td75p" path="res://spot_light_3d.tscn" id="7_o6rhm"]
-[ext_resource type="Script" path="res://Scripts/player.gd" id="8_gposs"]
-[ext_resource type="PackedScene" uid="uid://r0oar0ocyo6v" path="res://spot_light_3d_2.tscn" id="8_rp3ia"]
-[ext_resource type="Script" path="res://Scripts/Camera.gd" id="9_gi6l6"]
-[ext_resource type="Texture2D" uid="uid://piolgplta87y" path="res://Defaults/Player/weapon_left.png" id="10_3jjqt"]
-[ext_resource type="Texture2D" uid="uid://delyq5g2t13cx" path="res://Defaults/Player/weapon_right.png" id="11_4n80n"]
-[ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="11_6i2sa"]
-[ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://Defaults/Projectiles/DefaultBullet.tscn" id="12_8xasb"]
-[ext_resource type="Script" path="res://Scripts/EquippedItem.gd" id="12_xwnuw"]
-[ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="13_fjasp"]
-[ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="14_x756n"]
-[ext_resource type="PackedScene" uid="uid://c6txt3py4smbb" path="res://front_light.tscn" id="15_coxfn"]
-[ext_resource type="Script" path="res://Scripts/ItemDetector.gd" id="15_r1xed"]
-[ext_resource type="Script" path="res://Scripts/Components/ComponentInteract.gd" id="16_v28fk"]
-[ext_resource type="Script" path="res://front_light.gd" id="16_xq4yf"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="17_qnmns"]
 [ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Sounds/Music/Just in Reach of Sirens.mp3" id="18_ddslh"]
 
@@ -36,34 +20,6 @@ material = ExtResource("4_ujcgp")
 size = Vector2(1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qial8"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gsdb"]
-albedo_color = Color(0, 1, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_mc21b"]
-size = Vector3(0.3, 1, 0.55)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_drnhn"]
-points = PackedVector3Array(0.15, 0.15, 0.275, -0.15, 0.15, 0.275, 0.15, -0.5, 0.275, 0.15, 0.15, -0.275, -0.15, 0.15, -0.275, -0.15, -0.5, 0.275, 0.15, -0.5, -0.275, -0.15, -0.5, -0.275)
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jdgh6"]
-playback_mode = 1
-random_pitch = 1.2
-streams_count = 1
-stream_0/stream = ExtResource("13_fjasp")
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n8kat"]
-playback_mode = 1
-random_pitch = 1.2
-streams_count = 1
-stream_0/stream = ExtResource("13_fjasp")
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ra623"]
-points = PackedVector3Array(0, 0, 0.325, -1, -1, 0.325, -1, 1, 0.325, 0, 0, -0.325, -1, -1, -0.325, -1, 1, -0.325)
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_caadj"]
-height = 1.0
-radius = 1.5
 
 [node name="CataX" type="Node3D"]
 
@@ -102,8 +58,8 @@ visible = false
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_usfn3")
 script = ExtResource("5_iwiv4")
-player = NodePath("../../Entities/Player")
-sceneCam = NodePath("../../Entities/Player/Camera3D")
+player = NodePath("")
+sceneCam = NodePath("")
 buildmanager = NodePath("..")
 construction_ghost_area_3d = NodePath("../ConstructionGhostArea3D")
 construction_ghost_collision_shape_3d = NodePath("../ConstructionGhostArea3D/ConstructionGhostCollisionShape3D")
@@ -121,145 +77,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4043, 0, -8.78679)
 
 [node name="Projectiles" type="Node3D" parent="TacticalMap/Entities"]
 
-[node name="Player" type="CharacterBody3D" parent="TacticalMap/Entities" node_paths=PackedStringArray("sprite", "collision_detector") groups=["Players"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)
-collision_mask = 22
-floor_constant_speed = true
-floor_max_angle = 0.872665
-script = ExtResource("8_gposs")
-sprite = NodePath("Sprite3D2")
-collision_detector = NodePath("Sprite3D2/CollisionDetector")
-
-[node name="Camera3D" type="Camera3D" parent="TacticalMap/Entities/Player" groups=["Camera"]]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 19, 0)
-current = true
-size = 50.0
-script = ExtResource("9_gi6l6")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="TacticalMap/Entities/Player"]
-visible = false
-material_override = SubResource("StandardMaterial3D_7gsdb")
-mesh = SubResource("BoxMesh_mc21b")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100794, 0)
-shape = SubResource("ConvexPolygonShape3D_drnhn")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="TacticalMap/Entities/Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17078, 0)
-visible = false
-shadow_enabled = true
-omni_range = 18.071
-omni_attenuation = 0.0371628
-
-[node name="SpotLight3D" parent="TacticalMap/Entities/Player" instance=ExtResource("7_o6rhm")]
-
-[node name="SpotLight3D2" parent="TacticalMap/Entities/Player" instance=ExtResource("8_rp3ia")]
-
-[node name="Sprite3D2" type="Sprite3D" parent="TacticalMap/Entities/Player"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
-pixel_size = 0.003
-render_priority = 15
-texture = ExtResource("7_jr4x1")
-
-[node name="EquippedRight" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.190849, -0.123334, 0)
-pixel_size = 0.002
-render_priority = 15
-texture = ExtResource("10_3jjqt")
-script = ExtResource("12_xwnuw")
-projectiles = NodePath("../../../Projectiles")
-bullet_speed = 25.0
-bullet_damage = 25.0
-bullet_scene = ExtResource("12_8xasb")
-attack_cooldown_timer = NodePath("../../Shooting/Right_attack_cooldown")
-melee_attack_area = NodePath("../MeleeRange")
-melee_collision_shape = NodePath("../MeleeRange/MeleeCollisionShape3D")
-player = NodePath("../..")
-playerSprite = NodePath("..")
-hud = NodePath("../../../../../HUD")
-shoot_audio_player = NodePath("../../Shooting/ShootAudio")
-shoot_audio_randomizer = SubResource("AudioStreamRandomizer_jdgh6")
-reload_audio_player = NodePath("../../Shooting/ReloadAudio")
-
-[node name="EquippedLeft" type="Sprite3D" parent="TacticalMap/Entities/Player/Sprite3D2" node_paths=PackedStringArray("projectiles", "attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.194626, 0.116675, 0)
-pixel_size = 0.002
-render_priority = 15
-texture = ExtResource("11_4n80n")
-script = ExtResource("12_xwnuw")
-projectiles = NodePath("../../../Projectiles")
-bullet_speed = 25.0
-bullet_damage = 25.0
-bullet_scene = ExtResource("12_8xasb")
-attack_cooldown_timer = NodePath("../../Shooting/Left_attack_cooldown")
-melee_attack_area = NodePath("../MeleeRange")
-melee_collision_shape = NodePath("../MeleeRange/MeleeCollisionShape3D")
-player = NodePath("../..")
-playerSprite = NodePath("..")
-hud = NodePath("../../../../../HUD")
-equipped_left = true
-shoot_audio_player = NodePath("../../Shooting/ShootAudio")
-shoot_audio_randomizer = SubResource("AudioStreamRandomizer_n8kat")
-reload_audio_player = NodePath("../../Shooting/ReloadAudio")
-
-[node name="MeleeRange" type="Area3D" parent="TacticalMap/Entities/Player/Sprite3D2"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.277026)
-collision_layer = 0
-collision_mask = 14
-
-[node name="MeleeCollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player/Sprite3D2/MeleeRange"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
-shape = SubResource("ConvexPolygonShape3D_ra623")
-
-[node name="CollisionDetector" type="Area3D" parent="TacticalMap/Entities/Player/Sprite3D2"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.00202602)
-collision_mask = 8
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player/Sprite3D2/CollisionDetector"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.179206, 0)
-shape = SubResource("ConvexPolygonShape3D_drnhn")
-
-[node name="FrontLight" parent="TacticalMap/Entities/Player/Sprite3D2" instance=ExtResource("15_coxfn")]
-unique_name_in_owner = true
-script = ExtResource("16_xq4yf")
-
-[node name="day_night" parent="TacticalMap/Entities/Player/Sprite3D2/FrontLight" instance=ExtResource("3_0lu7f")]
-
-[node name="Shooting" type="Node3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("left_hand_item", "right_hand_item")]
-script = ExtResource("11_6i2sa")
-left_hand_item = NodePath("../Sprite3D2/EquippedLeft")
-right_hand_item = NodePath("../Sprite3D2/EquippedRight")
-player = NodePath("..")
-hud = NodePath("../../../../HUD")
-
-[node name="Left_attack_cooldown" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
-one_shot = true
-
-[node name="Right_attack_cooldown" type="Timer" parent="TacticalMap/Entities/Player/Shooting"]
-one_shot = true
-
-[node name="ShootAudio" type="AudioStreamPlayer3D" parent="TacticalMap/Entities/Player/Shooting"]
-stream = ExtResource("13_fjasp")
-bus = &"Sounds"
-
-[node name="ReloadAudio" type="AudioStreamPlayer3D" parent="TacticalMap/Entities/Player/Shooting"]
-stream = ExtResource("14_x756n")
-bus = &"Sounds"
-
-[node name="ItemDetector" type="Area3D" parent="TacticalMap/Entities/Player" node_paths=PackedStringArray("playernode")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1205, 0)
-collision_layer = 64
-collision_mask = 64
-script = ExtResource("15_r1xed")
-playernode = NodePath("..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TacticalMap/Entities/Player/ItemDetector"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.792087, 0)
-shape = SubResource("CylinderShape3D_caadj")
-
-[node name="ComponentInteract" type="Node3D" parent="TacticalMap/Entities/Player"]
-script = ExtResource("16_v28fk")
+[node name="Player" parent="TacticalMap/Entities" instance=ExtResource("6_icwa4")]
 
 [node name="HUD" parent="." instance=ExtResource("17_qnmns")]
 
@@ -273,12 +91,3 @@ transform = Transform3D(-0.946576, 0, -0.32248, 0, 1, 0, 0.32248, 0, -0.946576, 
 
 [connection signal="body_entered" from="TacticalMap/BuildManager/ConstructionGhostArea3D" to="TacticalMap/BuildManager/ConstructionGhost" method="_on_construction_ghost_area_3d_body_entered"]
 [connection signal="body_exited" from="TacticalMap/BuildManager/ConstructionGhostArea3D" to="TacticalMap/BuildManager/ConstructionGhost" method="_on_construction_ghost_area_3d_body_exited"]
-[connection signal="update_stamina_HUD" from="TacticalMap/Entities/Player" to="HUD" method="_on_player_update_stamina_hud"]
-[connection signal="ammo_changed" from="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" to="HUD" method="_on_shooting_ammo_changed"]
-[connection signal="ammo_changed" from="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" to="HUD" method="_on_shooting_ammo_changed"]
-[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Left_attack_cooldown" to="TacticalMap/Entities/Player/Sprite3D2/EquippedLeft" method="_on_left_attack_cooldown_timeout"]
-[connection signal="timeout" from="TacticalMap/Entities/Player/Shooting/Right_attack_cooldown" to="TacticalMap/Entities/Player/Sprite3D2/EquippedRight" method="_on_right_attack_cooldown_timeout"]
-[connection signal="area_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_entered"]
-[connection signal="area_exited" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_area_exited"]
-[connection signal="body_shape_entered" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_body_shape_entered"]
-[connection signal="body_shape_exited" from="TacticalMap/Entities/Player/ItemDetector" to="TacticalMap/Entities/Player/ItemDetector" method="_on_body_shape_exited"]
