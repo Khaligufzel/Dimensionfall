@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
 [ext_resource type="Material" uid="uid://ot2fpooebty0" path="res://Defaults/Blocks/Materials/construction_ghost_material.tres" id="4_ujcgp"]
 [ext_resource type="Script" path="res://Scripts/ConstructionGhost.gd" id="5_iwiv4"]
-[ext_resource type="PackedScene" uid="uid://b38y0738d1rc7" path="res://Scenes/player.tscn" id="6_icwa4"]
+[ext_resource type="PackedScene" path="res://Scenes/player.tscn" id="6_icwa4"]
 [ext_resource type="Script" path="res://entity_manager.gd" id="6_vo8ny"]
 [ext_resource type="Script" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
 [ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="17_qnmns"]
