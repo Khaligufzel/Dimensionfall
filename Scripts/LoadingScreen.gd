@@ -13,6 +13,10 @@ func _init():
 	
 func _on_initial_chunks_generated():
 	visible = false
+	# When we are spawned and ready, save the game so that the world
+	# is somewhat sensible when we load it after a game crash
+	if Helper.save_helper.is_new_game():
+		Helper.save_helper.save_game()
 
 func update_sub_text(newtext: String):
 	sub_label.text = newtext

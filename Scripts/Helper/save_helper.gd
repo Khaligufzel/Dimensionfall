@@ -26,7 +26,6 @@ func create_new_save():
 		print_debug("Failed to create a unique folder for the demo.")
 
 
-
 # We can only save the data when all chunks are unloaded.
 func save_map_data() -> void:
 	# Get all chunks in the group "chunks"
@@ -238,3 +237,14 @@ func save_game_state():
 		print_debug("Failed to save game state to:", save_path)
 	else:
 		print_debug("Game state saved to:", save_path)
+
+
+# Checks if this is a new game by verifying the existence of "player_state.json".
+# Returns true if the file does NOT exist, false otherwise.
+func is_new_game() -> bool:
+	var save_path = current_save_folder + "/player_state.json"
+	var dir = DirAccess.open(current_save_folder)
+	
+	if dir and dir.file_exists(save_path):
+		return false  # File exists, not a new game
+	return true  # File does not exist, this is a new game
