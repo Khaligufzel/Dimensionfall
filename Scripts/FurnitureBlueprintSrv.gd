@@ -602,3 +602,23 @@ func add_corpse(pos: Vector3):
 		var items_copy = container.get_inventory().get_items().duplicate()
 		for item in items_copy:
 			newItem.insert_item(item)  # Safely insert items without disrupting the loop
+
+
+# Removes all construction items required for this furniture from the container's inventory.
+# Returns true if all items are successfully removed, false otherwise.
+func remove_construction_items() -> bool:
+	if not rfurniture or not rfurniture.construction or rfurniture.construction.items.is_empty():
+		return false  # Exit if construction data is missing or invalid
+
+	var construction_items: Dictionary = rfurniture.construction.items
+	var items_source: Array = container.get_inventory().get_items()  # Source of items to remove
+
+	# Loop through each item in the construction requirements
+	for item_id in construction_items.keys():
+		var required_amount: int = construction_items[item_id]
+
+		# Use ItemManager to remove the required items
+		if not ItemManager.remove_resource(item_id, required_amount, items_source):
+			return false  # If any item cannot be removed, return false
+
+	return true  # All required items were successfully removed

@@ -194,6 +194,14 @@ class FurnitureContainer:
 				# Decrease the remaining quantity
 				quantity -= stack_size
 
+	func insert_item(item: InventoryItem) -> bool:
+		var iteminv: InventoryStacked = item.get_inventory()
+		if iteminv == inventory:
+			return false # Can't insert into itself
+		if not iteminv.transfer_autosplitmerge(item, inventory):
+			print_debug("Failed to transfer item: " + str(item))
+		return true
+
 	# Signal handler for item removed
 	# We don't want empty containers on the map, but we do want them as children of furniture
 	# So we delete empty containers if they are a child of the tree root.
@@ -633,9 +641,8 @@ func add_container():
 		if _is_new_furniture():
 			if furnitureJSON.has("items"):  # Check if the furnitureJSON has an "items" property
 				# Add each item from the furnitureJSON["items"] directly to the container's inventory
-				var items_copy = furnitureJSON["items"].duplicate()  # Duplicate to avoid issues during iteration
-				for item in items_copy:
-					container.get_inventory().insert_item(item)  # Insert the InventoryItem directly
+				for item in furnitureJSON["items"]:
+					container.insert_item(item)  # Insert the InventoryItem directly
 			else:
 				# If no "items" property, create loot based on default logic
 				container.create_loot(furnitureJSON, rfurniture)

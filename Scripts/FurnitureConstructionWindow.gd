@@ -222,6 +222,9 @@ func _update_construct_button():
 # The player has pressed the construct button, so we finish construction
 # Spawn the actual furniture instance and remove the blueprint instance
 func _on_construct_button_button_up() -> void:
+	# Try to remove the required items and return if it fails
+	if not furniture_instance.remove_construction_items():
+		return
 	var furniture_spawner: FurnitureBlueprintSpawner = furniture_instance.spawner
 	var chunk: Chunk = furniture_spawner.chunk
 	var construction_pos: Vector3 = furniture_instance.furniture_transform.get_position()
@@ -245,7 +248,7 @@ func _on_construct_button_button_up() -> void:
 			furniture_json["items"] = items_array  # Include the "items" array in the json
 	else:
 		# If the furniture is not a container, call add_corpse
-		furniture_instance.add_corpse(furniture_instance.furniture_transform.get_position())
+		furniture_instance.add_corpse(Helper.overmap_manager.player.get_position())
 
 	# Spawn the furniture instance with or without the "items" property
 	chunk.spawn_furniture({
