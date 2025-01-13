@@ -222,16 +222,48 @@ func _update_construct_button():
 # The player has pressed the construct button, so we finish construction
 # Spawn the actual furniture instance and remove the blueprint instance
 func _on_construct_button_button_up() -> void:
+	# Try to remove the required items and return if it fails
+	if not furniture_instance.remove_construction_items():
+		return
 	var furniture_spawner: FurnitureBlueprintSpawner = furniture_instance.spawner
 	var chunk: Chunk = furniture_spawner.chunk
 	var construction_pos: Vector3 = furniture_instance.furniture_transform.get_position()
-	construction_pos.y-=0.75
+	construction_pos.y -= 0.75
 	# Translate the position to negate the chunk's `mypos`
 	construction_pos -= chunk.mypos
-	# Spawn the furniture with the adjusted position
+
+	# Prepare the "json" dictionary for the spawn_furniture call
+	var furniture_json: Dictionary = {
+		"id": furniture_instance.rfurniture.id,
+		"rotation": furniture_instance.get_my_rotation()
+	}
+
+	if furniture_instance.rfurniture.function.is_container:
+		# Prepare the "items" array from the inventory if the furniture is a container
+		if furniture_instance.get_inventory():
+			var items_array: Array = []
+			var items_copy = furniture_instance.get_inventory().get_items().duplicate()
+			for item in items_copy:
+				items_array.append(item)  # Add each InventoryItem to the array
+			furniture_json["items"] = items_array  # Include the "items" array in the json
+	else:
+		# If the furniture is not a container, call add_corpse
+		furniture_instance.add_corpse(Helper.overmap_manager.player.get_position())
+
+	# Spawn the furniture instance with or without the "items" property
 	chunk.spawn_furniture({
-		"json": {"id": furniture_instance.rfurniture.id, "rotation": furniture_instance.get_my_rotation()},
+		"json": furniture_json,
 		"pos": construction_pos
 	})
+
+	# Remove the blueprint instance after construction
+	furniture_instance.die()
+	hide()
+
+
+# The user has pressed the cancel button. Remove the blueprint from the terrain
+# Make sure that any items in the inventory are left behind.
+func _on_cancel_button_button_up() -> void:
+	furniture_instance.add_corpse(furniture_instance.furniture_transform.get_position())  # Add wreck or corpse
 	furniture_instance.die()
 	hide()

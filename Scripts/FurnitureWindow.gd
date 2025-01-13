@@ -4,6 +4,7 @@ extends Control
 # It displays furniture details and handles crafting functionalities.
 
 @export var furniture_container_view: Control = null
+@export var inventory_label: Label = null
 @export var furniture_name_label: Label = null
 @export var crafting_queue_container: GridContainer = null
 @export var crafting_recipe_container: GridContainer = null
@@ -49,7 +50,11 @@ func _ready():
 
 # Updates UI elements based on the current furniture_instance.
 func _update_furniture_ui():
-	furniture_container_view.set_inventory(furniture_instance.get_inventory())
+	var iscontainer: bool = furniture_instance.is_container()
+	furniture_container_view.visible = iscontainer
+	inventory_label.visible = iscontainer
+	if iscontainer:
+		furniture_container_view.set_inventory(furniture_instance.get_inventory())
 	furniture_name_label.text = furniture_instance.get_furniture_name()
 	_populate_crafting_recipe_container()
 	_populate_crafting_queue_container()
@@ -61,11 +66,12 @@ func _connect_furniture_signals():
 	if not furniture_instance.about_to_be_destroyed.is_connected(_on_furniture_about_to_be_destroyed):
 		furniture_instance.about_to_be_destroyed.connect(_on_furniture_about_to_be_destroyed)
 
-	# Connect inventory contents_changed signal
-	var my_inventory = furniture_instance.get_inventory()
-	if my_inventory.contents_changed.is_connected(_on_inventory_contents_changed):
-		my_inventory.contents_changed.disconnect(_on_inventory_contents_changed)
-	my_inventory.contents_changed.connect(_on_inventory_contents_changed)
+	if furniture_instance.is_container():
+		# Connect inventory contents_changed signal
+		var my_inventory = furniture_instance.get_inventory()
+		if my_inventory.contents_changed.is_connected(_on_inventory_contents_changed):
+			my_inventory.contents_changed.disconnect(_on_inventory_contents_changed)
+		my_inventory.contents_changed.connect(_on_inventory_contents_changed)
 
 
 # Disconnects signals from the previous furniture_instance.
@@ -74,10 +80,11 @@ func _disconnect_furniture_signals():
 		if furniture_instance.crafting_queue_updated.is_connected(_on_crafting_queue_updated):
 			furniture_instance.crafting_queue_updated.disconnect(_on_crafting_queue_updated)
 		
-		# Disconnect inventory contents_changed signal
-		var my_inventory = furniture_instance.get_inventory()
-		if my_inventory.contents_changed.is_connected(_on_inventory_contents_changed):
-			my_inventory.contents_changed.disconnect(_on_inventory_contents_changed)
+		if furniture_instance.is_container():
+			# Disconnect inventory contents_changed signal
+			var my_inventory = furniture_instance.get_inventory()
+			if my_inventory.contents_changed.is_connected(_on_inventory_contents_changed):
+				my_inventory.contents_changed.disconnect(_on_inventory_contents_changed)
 
 
 # Callback for furniture interaction. Only for FurnitureStaticSrv types

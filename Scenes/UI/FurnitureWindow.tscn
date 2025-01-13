@@ -14,7 +14,7 @@ bg_color = Color(0.67826, 0.567447, 0.588873, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tl3co"]
 bg_color = Color(0.563549, 0.621184, 0.54067, 1)
 
-[node name="FurnitureWindow" type="Control" node_paths=PackedStringArray("furniture_container_view", "furniture_name_label", "crafting_queue_container", "crafting_recipe_container", "crafting_v_box_container", "craft_status_label", "craft_status_timer", "recipe_panel_container", "item_name_label", "item_description_label", "item_craft_time_label", "ingredients_grid_container", "add_to_queue_button")]
+[node name="FurnitureWindow" type="Control" node_paths=PackedStringArray("furniture_container_view", "inventory_label", "furniture_name_label", "crafting_queue_container", "crafting_recipe_container", "crafting_v_box_container", "craft_status_label", "craft_status_timer", "recipe_panel_container", "item_name_label", "item_description_label", "item_craft_time_label", "ingredients_grid_container", "add_to_queue_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iww5n")
 furniture_container_view = NodePath("PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/FurnitureContainerView")
+inventory_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/InventoryLabel")
 furniture_name_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/FurnitureNameLabel")
 crafting_queue_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2/CraftingQueueContainer")
 crafting_recipe_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CraftingRecipeContainer")

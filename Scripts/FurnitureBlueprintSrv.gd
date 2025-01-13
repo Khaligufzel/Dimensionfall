@@ -490,41 +490,6 @@ func die():
 	queue_free()  # Remove the node from the scene tree
 
 
-# Generalized function to show an indicator (Hit/Miss)
-func show_indicator(text: String, color: Color):
-	var label = Label3D.new()
-	label.text = text
-	label.modulate = color
-	label.font_size = 64
-	Helper.map_manager.level_generator.get_tree().get_root().add_child(label)
-	label.position = furniture_transform.get_position() + Vector3(0, 2, 0)  # Slightly above the furniture
-	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-
-	# Animate the indicator to disappear quickly
-	var tween = Helper.map_manager.level_generator.create_tween()
-
-	tween.tween_property(label, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
-	tween.finished.connect(func():
-		label.queue_free()  # Properly free the label node
-	)
-
-# Function to show a hit indicator
-func show_hit_indicator():
-	show_indicator("Hit!", Color(0, 1, 0))  # Green for hit
-
-
-# Function to show a miss indicator
-func show_miss_indicator():
-	show_indicator("Miss!", Color(1, 0, 0))  # Red for miss
-
-
-# Regenerate the container if the interval is more then -1
-# This function is run by FurnitureStaticSpawner when the player enters proximity
-func regenerate():
-	if container:
-		container.regenerate()
-
-
 # Function to check for the presence of an item in a container
 func has_item_in_container(mycontainer: Object, item_id: String) -> bool:
 	if mycontainer and mycontainer.has_method("get_inventory"):
@@ -611,3 +576,49 @@ func has_all_construction_items() -> bool:
 			return false
 
 	return true  # All items are available in sufficient quantity
+
+
+# When the furniture is destroyed, it leaves a wreck behind
+func add_corpse(pos: Vector3):
+	var newitemjson: Dictionary = {
+		"global_position_x": pos.x,
+		"global_position_y": pos.y,
+		"global_position_z": pos.z
+	}
+	
+	var newItem: ContainerItem = ContainerItem.new(newitemjson)
+	newItem.add_to_group("mapitems")
+	
+	var fursprite = rfurniture.destruction.sprite
+	if fursprite:
+		newItem.set_texture(fursprite)
+	
+	# Add the new item with possibly set loot group to the tree
+	Helper.map_manager.level_generator.get_tree().get_root().add_child.call_deferred(newItem)
+	
+	# Check if the inventory has items and insert them into the new item
+	if container.get_inventory():
+		# Create a duplicate of the items array to avoid modifying it during iteration
+		var items_copy = container.get_inventory().get_items().duplicate()
+		for item in items_copy:
+			newItem.insert_item(item)  # Safely insert items without disrupting the loop
+
+
+# Removes all construction items required for this furniture from the container's inventory.
+# Returns true if all items are successfully removed, false otherwise.
+func remove_construction_items() -> bool:
+	if not rfurniture or not rfurniture.construction or rfurniture.construction.items.is_empty():
+		return false  # Exit if construction data is missing or invalid
+
+	var construction_items: Dictionary = rfurniture.construction.items
+	var items_source: Array = container.get_inventory().get_items()  # Source of items to remove
+
+	# Loop through each item in the construction requirements
+	for item_id in construction_items.keys():
+		var required_amount: int = construction_items[item_id]
+
+		# Use ItemManager to remove the required items
+		if not ItemManager.remove_resource(item_id, required_amount, items_source):
+			return false  # If any item cannot be removed, return false
+
+	return true  # All required items were successfully removed
