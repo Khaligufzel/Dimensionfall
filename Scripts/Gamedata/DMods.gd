@@ -193,7 +193,8 @@ func save_references(content_instance: RefCounted) -> void:
 	Helper.json_helper.write_json_file(content_instance.dataPath + "references.json", reference_json)
 
 
-# Loads mod states from the configuration file and returns them as a list
+# Loads mod states from `user://mods_state.cfg` and returns them as a list. 
+# If the file is not found or invalid, returns an empty array.
 # mod_states example: 
 #[
 #    { "id": "Core", "enabled": true },
@@ -203,21 +204,14 @@ func save_references(content_instance: RefCounted) -> void:
 func get_mod_list_states() -> Array:
 	var config = ConfigFile.new()
 	var path = "user://mods_state.cfg"
-	
-	# Load the configuration file
-	var err = config.load(path)
-	if err != OK:
-		print_debug("Failed to load mod list state:", err)
+
+	if config.load(path) == OK:
+		return config.get_value("mods", "states", [])
+	else:
+		print_debug("Failed to load mod states from: ", path)
 		return []
-	
-	# Retrieve the saved mod states
-	var mod_states = config.get_value("mods", "states", [])
-	if mod_states.is_empty():
-		print_debug("No mod list state found.")
-		return []
-	
-	return mod_states
-	
+
+
 # Returns an array of IDs for all enabled mods
 func get_enabled_mod_ids() -> Array:
 	var enabled_mods: Array = []
@@ -227,29 +221,24 @@ func get_enabled_mod_ids() -> Array:
 	return enabled_mods
 
 
-# Returns an array of DMod instances in the order specified by mod_states.
-# The "Core" mod is always loaded first, even if it is disabled.
-# If `only_enabled` is true, only enabled mods are included (excluding the "Core" mod's enabled status).
+# ------------------------------------------------------------------
+# Returns a list of DMod instances in the order defined by mod states.
+# The "Core" mod is always loaded first, even if disabled.
 func get_mods_in_state_order(only_enabled: bool) -> Array[DMod]:
 	var ordered_mods: Array[DMod] = []
 	var mod_states = get_mod_list_states()  # Retrieve the saved mod states
 
-	# Add the "Core" mod first if it exists in the mod_dict
+	# Add "Core" first if it exists
 	if mod_dict.has("Core"):
 		ordered_mods.append(mod_dict["Core"])
 
-	# Add the remaining mods in the order specified by mod_states
-	for mod_state in mod_states:
-		var mod_id = mod_state["id"]
-
-		# Skip "Core" as it is already added
-		if mod_id == "Core":
-			continue
-
-		var is_enabled = mod_state["enabled"]
-		if mod_dict.has(mod_id):
-			if not only_enabled or (only_enabled and is_enabled):
-				ordered_mods.append(mod_dict[mod_id])
+	# Add other mods in the state order
+	for state in mod_states:
+		var mod_id = state["id"]
+		if mod_id != "Core" and mod_dict.has(mod_id):
+			var mod_instance = mod_dict[mod_id]
+			if not only_enabled or mod_instance.is_enabled:
+				ordered_mods.append(mod_instance)
 
 	return ordered_mods
 
