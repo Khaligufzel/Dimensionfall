@@ -204,7 +204,7 @@ func save_references(content_instance: RefCounted) -> void:
 # Loads mod states from the configuration file and returns them as a list
 # mod_states example: 
 #[
-#    { "id": "core", "enabled": true },
+#    { "id": "Core", "enabled": true },
 #    { "id": "mod_1", "enabled": false },
 #    { "id": "mod_2", "enabled": true }
 #]
@@ -260,3 +260,62 @@ func get_mods_in_state_order(only_enabled: bool) -> Array[DMod]:
 				ordered_mods.append(moddict[mod_id])
 
 	return ordered_mods
+
+
+# Returns an array of strings representing all folder names in the ./Mods/ directory
+func get_mod_folder_names() -> Array[String]:
+	var folder_names: Array[String] = []
+	var mods_path = "res://Mods/"  # Path to the Mods folder
+	
+	# Open the directory and get folder names
+	var dir = DirAccess.open(mods_path)
+	if dir:
+		dir.list_dir_begin()  # Begin iterating through the directory
+		var folder_name = dir.get_next()
+		while folder_name != "":
+			# Skip non-folder entries and special entries (e.g., ".", "..")
+			if dir.current_is_dir() and not folder_name.begins_with("."):
+				folder_names.append(folder_name)
+			folder_name = dir.get_next()
+		dir.list_dir_end()  # End iteration
+	else:
+		print_debug("Failed to open Mods directory: ", mods_path)
+	
+	return folder_names
+
+
+
+# Writes the default mod states to the user://mods_state.cfg file.
+# If the file does not exist, it retrieves mod folder names from get_mod_folder_names,
+# enabling "Core" and "Dimensionfall", and disabling all other mods.
+func write_default_mods_state() -> void:
+	var config_path = "user://mods_state.cfg"
+
+	# Check if the mods_state.cfg file exists
+	if not FileAccess.file_exists(config_path):
+		var config = ConfigFile.new()
+		var path = "user://mods_state.cfg"
+
+		# Get the list of mod folder names
+		var mod_folders = get_mod_folder_names()
+
+		# Initialize the default mod states
+		var default_mods_state: Array[Dictionary] = []
+
+		for mod_name in mod_folders:
+			# Enable "Core" and "Dimensionfall", disable all other mods
+			var is_enabled = (mod_name == "Core" or mod_name == "Dimensionfall")
+			default_mods_state.append({
+				"id": mod_name,
+				"enabled": is_enabled
+			})
+
+		# Write the default mod states to the config file
+		config.set_value("mods", "states", default_mods_state)
+
+		# Save the file
+		var err = config.save(path)
+		if err == OK:
+			print_debug("Default mod states written to mods_state.cfg.")
+		else:
+			print_debug("Failed to write default mod states to mods_state.cfg. Error code: ", err)

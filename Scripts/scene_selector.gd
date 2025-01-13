@@ -15,6 +15,7 @@ func _ready():
 	# Populate the load_game_list with the saved game folders
 	for saved_game in saved_game_folders:
 		load_game_list.add_item(saved_game)
+	Gamedata.mods.write_default_mods_state()
 
 
 func _on_load_game_button_pressed():
