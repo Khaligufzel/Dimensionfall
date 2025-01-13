@@ -16,6 +16,8 @@ extends Control
 @export var inventory_window: Control = null
 @export var character_window: Control = null
 @export var quest_window: Control = null
+@export var furniture_construction_window: Control = null
+
 
 
 # A boolean variable used in an "if" statement to check if the game is paused or not.
@@ -40,7 +42,8 @@ func _process(_delta):
 			furniture_window, 
 			inventory_window, 
 			character_window, 
-			quest_window
+			quest_window,
+			furniture_construction_window
 		]
 		for window in other_windows:
 			if window and window.visible:

@@ -110,7 +110,7 @@ class SupportShape:
 		return shapedata
 
 
-# Inner class to handle the Destruction property
+# Helps to define what spawns when the furniture is destroyed
 class Destruction:
 	var group: String
 	var sprite: Texture
@@ -127,7 +127,7 @@ class Destruction:
 		return destructiondata
 
 
-# Inner class to handle the Disassembly property
+# Helps to define what spawns when the furniture is disassembled
 class Disassembly:
 	var group: String
 	var sprite: Texture
@@ -160,7 +160,7 @@ class Crafting:
 
 # Construction Property
 class Construction:
-	var items: Dictionary = {}
+	var items: Dictionary = {} # Like this: {"wood": 4, "nails": 10}
 
 	# Constructor to initialize construction data from a dictionary
 	func _init(data: Dictionary):

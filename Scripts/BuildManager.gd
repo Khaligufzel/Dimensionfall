@@ -66,7 +66,7 @@ func on_construction_clicked(construction_data: Dictionary):
 
 		var local_position = calculate_local_position(construction_data.pos, chunk.position)
 		chunk.add_block("concrete_00", local_position)
-		print_debug("Block placed at local position: ", local_position, " in chunk at ", chunk.position, " with type ", construction_data.id)
+		print_debug("Block placed at local position: ", local_position, " in chunk at ", chunk.position, " with type concrete_00")
 
 	# Handle furniture construction
 	elif construction_type == "furniture":
@@ -83,7 +83,7 @@ func on_construction_clicked(construction_data: Dictionary):
 
 		# Spawn the furniture with the adjusted position
 		chunk.spawn_furniture({
-			"json": {"id": construction_choice, "rotation": myrotation},
+			"json": {"id": construction_choice, "rotation": myrotation, "mode": "blueprint"},
 			"pos": construction_data.pos
 		})
 

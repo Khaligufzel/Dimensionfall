@@ -20,6 +20,7 @@ extends Node3D
 var level_generator : Node3D
 var furniture_static_spawner: FurnitureStaticSpawner
 var furniture_physics_spawner: FurniturePhysicsSpawner
+var furniture_blueprint_spawner: FurnitureBlueprintSpawner
 
 # Constants
 const MAX_LEVELS = 21
@@ -74,7 +75,9 @@ func _ready():
 	transform.origin = Vector3(mypos)
 	add_to_group("chunks")
 	furniture_static_spawner = FurnitureStaticSpawner.new(self)
+	furniture_blueprint_spawner = FurnitureBlueprintSpawner.new(self)
 	furniture_physics_spawner = FurniturePhysicsSpawner.new(self)
+	add_child(furniture_blueprint_spawner)
 	add_child(furniture_static_spawner)
 	add_child(furniture_physics_spawner)
 	# Even though the chunk is not completely generated, we emit the signal now to prevent further
@@ -308,20 +311,28 @@ func add_item_to_map(item: Dictionary):
 func add_furnitures_to_map(furnitureDataArray: Array):
 	var static_furnitures: Array = []
 	var physics_furnitures: Array = []
+	var blueprint_furnitures: Array = []  # Array to store blueprint furnitures
 
 	for i in range(furnitureDataArray.size()):
 		var furnitureData = furnitureDataArray[i]
 		var rfurniture: RFurniture = Runtimedata.furnitures.by_id(furnitureData.id)
-		if rfurniture.moveable:
-			physics_furnitures.append(furnitureData)
+
+		# Check if the furniture is a blueprint
+		if furnitureData.has("mode") and furnitureData.mode == "blueprint":
+			blueprint_furnitures.append(furnitureData)  # Add to blueprint_furnitures
+		elif rfurniture.moveable:
+			physics_furnitures.append(furnitureData)  # Add to physics furnitures
 		else:
-			static_furnitures.append(furnitureData)
+			static_furnitures.append(furnitureData)  # Add to static furnitures
 
 	# Set the furniture_json_list to start spawning the static furniture
 	furniture_static_spawner.furniture_json_list = static_furnitures
 
 	# Set the furniture_json_list to start spawning the physics furniture
 	furniture_physics_spawner.furniture_json_list = physics_furnitures
+
+	# Set the furniture_json_list to start spawning the physics furniture
+	furniture_blueprint_spawner.furniture_json_list = blueprint_furnitures
 
 
 # Function to free all chunk-related instances
@@ -1400,4 +1411,7 @@ func spawn_furniture(furniture_data: Dictionary):
 	if not furniture_data.has("json") or not furniture_data.has("pos"):
 		print_debug("Invalid data structure. Expected keys: 'json', 'pos'.")
 		return
-	furniture_static_spawner.spawn_furniture(furniture_data)
+	if furniture_data.json.has("mode") and furniture_data.json.mode == "blueprint":
+		furniture_blueprint_spawner.spawn_furniture(furniture_data)
+	else:
+		furniture_static_spawner.spawn_furniture(furniture_data)

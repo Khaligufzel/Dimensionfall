@@ -12,7 +12,8 @@ static var hide_above_player_shadow := preload("res://Shaders/HideAbovePlayerSha
 # Dictionary to store loaded textures
 var textures: Dictionary = {
 	"container": load("res://Textures/container_32.png"),
-	"container_filled": load("res://Textures/container_filled_32.png")
+	"container_filled": load("res://Textures/container_filled_32.png"),
+	"under_construction": load("res://Textures/under_construction_32.png")
 }
 var materials: Dictionary = {}
 
@@ -42,6 +43,7 @@ func _ready():
 
 	materials["container"] = create_item_shader_material(textures.container)
 	materials["container_filled"] = create_item_shader_material(textures.container_filled)
+	materials["under_construction"] = create_item_shader_material(textures.under_construction)
 
 
 # Helper function to create a ShaderMaterial for the item

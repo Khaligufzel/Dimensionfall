@@ -23,7 +23,7 @@ var myworld3d: World3D
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh # A mesh below the sprite for 3d effect
 var sprite_texture: Texture2D  # Variable to store the sprite texture
-var sprite_material: ShaderMaterial
+var sprite_material: ShaderMaterial # Material to display the furniture sprite
 var quad_mesh: PlaneMesh # Shows the sprite of the furniture
 
 # Variables to manage door functionality
@@ -377,10 +377,10 @@ class QueueItem:
 	var additional_data: Dictionary = {}  # For any extra metadata if needed
 	var time_remaining: float = 0.0  # Time remaining to craft this item
 
-	func _init(id: String, quantity: int = 1, additional_data: Dictionary = {}):
-		self.id = id
-		self.quantity = quantity
-		self.additional_data = additional_data
+	func _init(myid: String, myquantity: int = 1, myadditional_data: Dictionary = {}):
+		self.id = myid
+		self.quantity = myquantity
+		self.additional_data = myadditional_data
 		self.time_remaining = 0.0  # Will be set based on recipe during crafting queue processing
 
 
@@ -476,9 +476,6 @@ class CraftingContainer:
 		# Loop through each item and transfer it
 		for item in items.duplicate():  # Duplicate the list to avoid modification during iteration
 			inventory.transfer_automerge(item, furniture_inventory)
-		
-		# Print remaining items in crafting inventory after transfer
-		var remaining_items = inventory.get_items()
 
 	
 	# Activates the crafting queue for real-time updates
@@ -753,8 +750,8 @@ func set_collision_layers_and_masks():
 	# Explanation:
 	# - 1 << 0: Layer 1 (player layer)
 	# - 1 << 1: Layer 2 (enemy layer)
-	# - 1 << 2: Layer 3 (movable obstacles layer)
-	# - 1 << 3: Layer 4 (static obstacles layer)
+	# - 1 << 2: Layer 3 (static obstacles layer)
+	# - 1 << 3: Layer 4 (movable obstacles layer)
 	# - 1 << 4: Layer 5 (friendly projectiles layer)
 	# - 1 << 5: Layer 6 (enemy projectiles layer)
 	
