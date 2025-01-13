@@ -979,7 +979,7 @@ func add_corpse(pos: Vector3):
 		Helper.map_manager.level_generator.get_tree().get_root().add_child.call_deferred(newItem)
 		
 		# Check if inventory has items and insert them into the new item
-		if container.get_inventory():
+		if is_container() and container.get_inventory():
 			for item in container.get_inventory().get_items():
 				newItem.insert_item(item)
 
