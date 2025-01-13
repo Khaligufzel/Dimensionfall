@@ -343,7 +343,7 @@ func _on_all_accessible_items_changed(_items_added: Array, _items_removed: Array
 
 # Callback for when the inventory contents change.
 func _on_inventory_contents_changed():
-	if furniture_instance:
+	if furniture_instance and current_item_id:
 		_refresh_ingredient_list(Runtimedata.items.by_id(current_item_id))
 		_update_craft_status_label()
 
