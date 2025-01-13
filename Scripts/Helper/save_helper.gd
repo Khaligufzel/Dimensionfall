@@ -26,7 +26,6 @@ func create_new_save():
 		print_debug("Failed to create a unique folder for the demo.")
 
 
-
 # We can only save the data when all chunks are unloaded.
 func save_map_data() -> void:
 	# Get all chunks in the group "chunks"
@@ -188,15 +187,13 @@ func save_quest_state() -> void:
 	var quest_state: Dictionary = Helper.quest_helper.get_state()
 	Helper.json_helper.write_json_file(save_path, JSON.stringify(quest_state))
 
-# This function loads the player's quest state from a JSON file.
+# Loads the player's quest state from "quest_state.json".
 func load_quest_state() -> void:
-	var load_path = current_save_folder + "/quest_state.json"
-	var quest_state = Helper.json_helper.load_json_dictionary_file(load_path)
-
-	if quest_state:
-		Helper.quest_helper.set_state(quest_state)
+	var quest_data = Helper.json_helper.load_json_dictionary_file(current_save_folder + "/quest_state.json")
+	if quest_data:
+		Helper.quest_helper.set_state(quest_data)
 	else:
-		print_debug("Failed to load quest state from: ", load_path)
+		print_debug("Failed to load quest state.")
 
 
 # Function to save the current state of the grid
@@ -238,3 +235,14 @@ func save_game_state():
 		print_debug("Failed to save game state to:", save_path)
 	else:
 		print_debug("Game state saved to:", save_path)
+
+
+# Checks if this is a new game by verifying the existence of "player_state.json".
+# Returns true if the file does NOT exist, false otherwise.
+func is_new_game() -> bool:
+	var save_path = current_save_folder + "/player_state.json"
+	var dir = DirAccess.open(current_save_folder)
+	
+	if dir and dir.file_exists(save_path):
+		return false  # File exists, not a new game
+	return true  # File does not exist, this is a new game
