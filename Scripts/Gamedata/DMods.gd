@@ -324,7 +324,7 @@ func has_mod(mod_id: String) -> bool:
 
 # ------------------------------------------------------------------
 # Retrieves all mod IDs as an array of strings.
-func get_all_mod_ids() -> Array[String]:
+func get_all_mod_ids() -> Array:
 	return mod_dict.keys()
 
 # ------------------------------------------------------------------
