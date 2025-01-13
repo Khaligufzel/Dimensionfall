@@ -598,21 +598,23 @@ class CraftingContainer:
 				return false
 		return true
 
-
+# --------------------------------------------------------------
+# Initialization
+# --------------------------------------------------------------
 
 # Function to initialize the furniture object
-func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
+func _init(furniturepos: Vector3, new_furniture_json: Dictionary, world3d: World3D):
 	furniture_position = furniturepos
-	furnitureJSON = newFurnitureJSON
-	furniture_rotation = furnitureJSON.get("rotation", 0)
-	rfurniture = Runtimedata.furnitures.by_id(furnitureJSON.id)
+	furnitureJSON = new_furniture_json
 	myworld3d = world3d
-
+	rfurniture = Runtimedata.furnitures.by_id(furnitureJSON.id)
 	sprite_texture = rfurniture.sprite
-	var furniture_size: Vector3 = calculate_furniture_size()
+	furniture_rotation = furnitureJSON.get("rotation", 0)
 
-	furniture_transform = FurnitureTransform.new(furniturepos, furniture_rotation, furniture_size)
-
+	furniture_transform = FurnitureTransform.new(
+		furniturepos, furniture_rotation, calculate_furniture_size()
+	)
+	
 	if _is_new_furniture():
 		furniture_transform.correct_new_position()
 		_apply_edge_snapping_if_needed()
@@ -631,6 +633,7 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 	update_door_visuals()  # Set initial door visuals based on its state
 	add_container()  # Adds container if the furniture is a container
 	add_crafting_container() # Adds crafting container if the furniture is a crafting station
+
 
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container():
