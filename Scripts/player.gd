@@ -10,7 +10,7 @@ var speed = 2  # speed in meters/sec
 var run_multiplier = 1.1
 var is_running = false
 
-var stamina = 100
+var max_stamina = 100
 var current_stamina
 var stamina_lost_while_running_per_sec  = 15
 var stamina_regen_while_standing_still = 3
@@ -82,7 +82,7 @@ func _connect_signals():
 
 
 func initialize_condition():
-	current_stamina = stamina
+	current_stamina = max_stamina
 	current_nutrition = nutrition
 	current_pain = pain
 
@@ -166,6 +166,7 @@ func _physics_process(delta):
 
 		# Player control movement
 		if not knockback_active:
+			var initial_stamina = current_stamina
 			var input_dir = Input.get_vector("left", "right", "up", "down")
 			var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
@@ -196,10 +197,10 @@ func _physics_process(delta):
 			# Stamina regeneration when standing still
 			if velocity.length() < 0.1:
 				current_stamina += delta * stamina_regen_while_standing_still
-				if current_stamina > stamina:
-					current_stamina = stamina
-
-			Helper.signal_broker.player_stamina_changed.emit(self, current_stamina)
+			current_stamina = clamp(current_stamina, 0.0, max_stamina)
+			
+			if (current_stamina != initial_stamina):
+				Helper.signal_broker.player_stamina_changed.emit(self, current_stamina)
 
 		move_and_slide()
 
