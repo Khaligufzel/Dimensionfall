@@ -46,6 +46,9 @@ json_data = "[
 			{
 				\"craft_amount\": 1,
 				\"craft_time\": 10,
+				\"flags\": {
+					\"requires_light\": true
+				},
 				\"required_resources\": [
 					{
 						\"amount\": 1,
@@ -267,6 +270,9 @@ json_data = "[
 			{
 				\"craft_amount\": 1,
 				\"craft_time\": 1,
+				\"flags\": {
+					\"requires_light\": true
+				},
 				\"required_resources\": [
 					{
 						\"amount\": 1,
@@ -446,6 +452,14 @@ json_data = "[
 		\"weight\": 0.5
 	},
 	{
+		\"Food\": {
+			\"attributes\": [
+				{
+					\"amount\": 35,
+					\"id\": \"water\"
+				}
+			]
+		},
 		\"description\": \"It's a can that contains beer. Don't drink a lot of it or you will get drunk\",
 		\"id\": \"can_beer\",
 		\"image\": \"./Mods/Dimensionfall/Items/can_beer_32.png\",
@@ -708,6 +722,10 @@ json_data = "[
 			{
 				\"craft_amount\": 1,
 				\"craft_time\": 10,
+				\"flags\": {
+					\"hand_craftable\": false,
+					\"requires_light\": true
+				},
 				\"required_resources\": [
 					{
 						\"amount\": 1,
@@ -783,6 +801,9 @@ json_data = "[
 			{
 				\"craft_amount\": 1,
 				\"craft_time\": 10,
+				\"flags\": {
+					\"requires_light\": true
+				},
 				\"required_resources\": [
 					{
 						\"amount\": 1,
@@ -2292,6 +2313,9 @@ json_data = "[
 			{
 				\"craft_amount\": 1,
 				\"craft_time\": 10,
+				\"flags\": {
+					\"requires_light\": false
+				},
 				\"required_resources\": [
 					{
 						\"amount\": 1,
@@ -2489,6 +2513,9 @@ json_data = "[
 			{
 				\"craft_amount\": 1,
 				\"craft_time\": 10,
+				\"flags\": {
+					\"requires_light\": false
+				},
 				\"required_resources\": [
 					{
 						\"amount\": 1,

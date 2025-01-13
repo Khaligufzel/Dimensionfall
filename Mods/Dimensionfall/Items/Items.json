@@ -756,6 +756,7 @@
 				"craft_amount": 1,
 				"craft_time": 10,
 				"flags": {
+					"hand_craftable": false,
 					"requires_light": true
 				},
 				"required_resources": [

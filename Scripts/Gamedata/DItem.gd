@@ -38,7 +38,7 @@ var wearable: Wearable
 class CraftRecipe:
 	var craft_amount: int
 	var craft_time: int
-	var flags: Dictionary
+	var flags: Dictionary # Example: { "requires_light": false, "hand_craftable": true }
 	var required_resources: Array # A list of objects like {"amount": 1, "id": "steel_scrap"}
 	var skill_progression: Dictionary # example: { "id": "fabrication", "xp": 10 }
 	var skill_requirement: Dictionary # example: { "id": "fabrication", "level": 1 }
