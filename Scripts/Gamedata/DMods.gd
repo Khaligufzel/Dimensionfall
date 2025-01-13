@@ -4,7 +4,7 @@ extends RefCounted
 # This script handles the list of mods. You can access it through Gamedata.mods
 
 # All loaded mods
-var moddict: Dictionary = {}
+var mod_dict: Dictionary = {}
 
 # Constructor
 # Initialize with a mod_id to dynamically set the dataPath
@@ -12,10 +12,10 @@ func _init() -> void:
 	load_mods_from_disk()
 
 
-# Function to load all mods from the ./Mods directory and populate the moddict dictionary
+# Function to load all mods from the ./Mods directory and populate the mod_dict dictionary
 func load_mods_from_disk() -> void:
-	# Clear the moddict dictionary
-	moddict.clear()
+	# Clear the mod_dict dictionary
+	mod_dict.clear()
 
 	# Get the list of saved mod states
 	var mod_states = get_mod_list_states()
@@ -36,7 +36,7 @@ func load_mods_from_disk() -> void:
 		if FileAccess.file_exists(modinfo_path):
 			var modinfo = Helper.json_helper.load_json_dictionary_file(modinfo_path)
 
-			# Validate modinfo data and add it to the moddict dictionary
+			# Validate modinfo data and add it to the mod_dict dictionary
 			if modinfo.has("id"):
 				var mod_id = modinfo["id"]
 				
@@ -44,7 +44,7 @@ func load_mods_from_disk() -> void:
 				var mod = DMod.new(modinfo, self)
 				mod.is_enabled = enabled_states.get(mod_id, true)  # Default to enabled if not in saved states
 
-				moddict[mod_id] = mod
+				mod_dict[mod_id] = mod
 			else:
 				print_debug("Invalid modinfo.json in folder: " + folder_name)
 		else:
@@ -53,40 +53,32 @@ func load_mods_from_disk() -> void:
 
 # Returns the dictionary containing all mods
 func get_all() -> Dictionary:
-	return moddict
+	return mod_dict
 
 # Adds a new mod with a given ID
 func add_new(newid: String, modinfo: Dictionary) -> void:
 	modinfo["id"] = newid
 	var newmod: DMod = DMod.new(modinfo, self)
-	moddict[newmod.id] = newmod
+	mod_dict[newmod.id] = newmod
 
 # Deletes a mod by its ID and saves changes to disk
 func delete_by_id(modid: String) -> void:
-	moddict.erase(modid)
+	mod_dict.erase(modid)
 
 # Returns a mod by its ID
 func by_id(modid: String) -> DMod:
-	return moddict.get(modid, null)
+	return mod_dict.get(modid, null)
 
 # Checks if a mod exists by its ID
 func has_id(modid: String) -> bool:
-	return moddict.has(modid)
-
-# Returns an array of all mod IDs (keys in the moddict dictionary)
-func get_all_mod_ids() -> Array:
-	return moddict.keys()
-
-# Returns an array of all mod IDs (keys in the moddict dictionary)
-func get_all_mods() -> Array:
-	return moddict.values()
+	return mod_dict.has(modid)
 
 # Function to retrieve content by its type and ID across all mods
 # The returned value may be a DMap, DItem, DMobgroup or anything
 # contentType: A DMod.ContentType
 func get_content_by_id(contentType: DMod.ContentType, id: String) -> RefCounted:
-	# Loop over all mods in the moddict
-	for mod: DMod in moddict.values():
+	# Loop over all mods in the mod_dict
+	for mod: DMod in mod_dict.values():
 		# Get the content instance of the specified type for the current mod
 		var content_instance: RefCounted = mod.get_data_of_type(contentType)
 		if content_instance:
@@ -105,8 +97,8 @@ func get_content_by_id(contentType: DMod.ContentType, id: String) -> RefCounted:
 func get_all_content_by_id(contentType: DMod.ContentType, id: String) -> Array[RefCounted]:
 	var results: Array[RefCounted] = []
 	
-	# Loop over all mods in the moddict
-	for mod in moddict.values():
+	# Loop over all mods in the mod_dict
+	for mod in mod_dict.values():
 		# Get the content instance of the specified type for the current mod
 		var content_instance: RefCounted = mod.get_data_of_type(contentType)
 		if content_instance:
@@ -136,8 +128,8 @@ func get_all_content_by_id(contentType: DMod.ContentType, id: String) -> Array[R
 #		}
 #	}
 func add_reference(contentType: DMod.ContentType, id: String, ref_type: DMod.ContentType, ref_id: String) -> void:
-	# Loop over all mods in the moddict
-	for mod: DMod in moddict.values():
+	# Loop over all mods in the mod_dict
+	for mod: DMod in mod_dict.values():
 		# Get the content instance of the specified type for the current mod
 		var content_instance: RefCounted = mod.get_data_of_type(contentType)
 		if content_instance:
@@ -152,8 +144,8 @@ func add_reference(contentType: DMod.ContentType, id: String, ref_type: DMod.Con
 # ref_type: The type of the entity that we remove as a reference
 # ref_id: The id of the entity that we remove as a reference
 func remove_reference(contentType: DMod.ContentType, id: String, ref_type: DMod.ContentType, ref_id: String) -> void:
-	# Loop over all mods in the moddict
-	for mod: DMod in moddict.values():
+	# Loop over all mods in the mod_dict
+	for mod: DMod in mod_dict.values():
 		# Get the content instance of the specified type for the current mod
 		var content_instance: RefCounted = mod.get_data_of_type(contentType)
 		if content_instance:
@@ -229,8 +221,8 @@ func get_mod_list_states() -> Array:
 # Returns an array of IDs for all enabled mods
 func get_enabled_mod_ids() -> Array:
 	var enabled_mods: Array = []
-	for mod_id in moddict.keys():
-		if moddict[mod_id].is_enabled:
+	for mod_id in mod_dict.keys():
+		if mod_dict[mod_id].is_enabled:
 			enabled_mods.append(mod_id)
 	return enabled_mods
 
@@ -242,9 +234,9 @@ func get_mods_in_state_order(only_enabled: bool) -> Array[DMod]:
 	var ordered_mods: Array[DMod] = []
 	var mod_states = get_mod_list_states()  # Retrieve the saved mod states
 
-	# Add the "Core" mod first if it exists in the moddict
-	if moddict.has("Core"):
-		ordered_mods.append(moddict["Core"])
+	# Add the "Core" mod first if it exists in the mod_dict
+	if mod_dict.has("Core"):
+		ordered_mods.append(mod_dict["Core"])
 
 	# Add the remaining mods in the order specified by mod_states
 	for mod_state in mod_states:
@@ -255,9 +247,9 @@ func get_mods_in_state_order(only_enabled: bool) -> Array[DMod]:
 			continue
 
 		var is_enabled = mod_state["enabled"]
-		if moddict.has(mod_id):
+		if mod_dict.has(mod_id):
 			if not only_enabled or (only_enabled and is_enabled):
-				ordered_mods.append(moddict[mod_id])
+				ordered_mods.append(mod_dict[mod_id])
 
 	return ordered_mods
 
@@ -319,3 +311,34 @@ func write_default_mods_state() -> void:
 			print_debug("Default mod states written to mods_state.cfg.")
 		else:
 			print_debug("Failed to write default mod states to mods_state.cfg. Error code: ", err)
+
+# ------------------------------------------------------------------
+# Adds a new mod to the dictionary and initializes it with the given data.
+func add_new_mod(mod_id: String, mod_info: Dictionary) -> void:
+	mod_info["id"] = mod_id
+	mod_dict[mod_id] = DMod.new(mod_info, self)
+
+# ------------------------------------------------------------------
+# Removes a mod from the dictionary by its ID.
+func delete_mod_by_id(mod_id: String) -> void:
+	mod_dict.erase(mod_id)
+
+# ------------------------------------------------------------------
+# Retrieves a DMod instance by its ID.
+func get_mod_by_id(mod_id: String) -> DMod:
+	return mod_dict.get(mod_id, null)
+
+# ------------------------------------------------------------------
+# Checks if a mod exists in the dictionary by its ID.
+func has_mod(mod_id: String) -> bool:
+	return mod_dict.has(mod_id)
+
+# ------------------------------------------------------------------
+# Retrieves all mod IDs as an array of strings.
+func get_all_mod_ids() -> Array[String]:
+	return mod_dict.keys()
+
+# ------------------------------------------------------------------
+# Retrieves all loaded mods as an array of DMod instances.
+func get_all_mods() -> Array[DMod]:
+	return mod_dict.values()
