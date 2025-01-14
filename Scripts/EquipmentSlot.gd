@@ -68,6 +68,7 @@ func equip(item: InventoryItem) -> void:
 func unequip() -> void:
 	if myInventoryItem:
 		Helper.signal_broker.item_was_unequipped.emit(myInventoryItem, self)
+		Helper.signal_broker.item_was_unequipped_from_slot(slot_idx).emit(slot_idx, myInventoryItem, self)
 		myInventory.add_item(myInventoryItem)
 		myInventoryItem = null
 		update_icon()

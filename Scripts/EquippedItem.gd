@@ -72,10 +72,10 @@ var entities_in_melee_range = [] # Used to keep track of entities in melee range
 func _init():
 	# We connect to the inventory visibility change to interrupt shooting
 	Helper.signal_broker.inventory_window_visibility_changed.connect(_on_inventory_visibility_change)
-	Helper.signal_broker.item_was_unequipped.connect(_on_hud_item_equipment_slot_was_cleared)
 	
 func _ready():
 	Helper.signal_broker.item_was_equipped_to_slot(slot_idx).connect(_on_hud_item_was_equipped)
+	Helper.signal_broker.item_was_unequipped_from_slot(slot_idx).connect(_on_hud_item_equipment_slot_was_cleared)
 	
 	clear_held_item()
 	melee_attack_area.body_entered.connect(_on_entered_melee_range)
@@ -282,7 +282,7 @@ func _on_left_attack_cooldown_timeout():
 func _on_right_attack_cooldown_timeout():
 	in_cooldown = false
 
-func _on_hud_item_equipment_slot_was_cleared(_equippedItem, slot):
+func _on_hud_item_equipment_slot_was_cleared(_slot_idx: int, _equippedItem: InventoryItem, _slot: Control):
 	clear_held_item()
 
 # The slot has equipped something and we store it in the correct EquippedItem

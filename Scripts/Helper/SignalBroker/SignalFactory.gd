@@ -11,7 +11,6 @@ static func get_signal_with_key(signal_id: String, key, args: Array = []) -> Sig
 	if !RegisteredSignals[signal_id].has(key):
 		RegisteredSignals[signal_id][key] = create_signal(signal_id + "-" + str(key), args)
 		
-	print(str(RegisteredSignals))
 	return RegisteredSignals[signal_id][key]
 
 static func create_signal(signal_name: String, args: Array) -> Signal:

@@ -48,6 +48,10 @@ func item_was_equipped_to_slot(slot_index: int) -> Signal:
 @warning_ignore("unused_signal")
 signal item_was_unequipped(heldItem: InventoryItem, equipmentSlot: Control)
 
+# Signalled when an item is unequipped to the given slot index
+func item_was_unequipped_from_slot(slot_index: int) -> Signal:
+	return SignalFactory.get_signal_with_key("item_was_unequipped_from_slot", slot_index, ["slot_index", TYPE_INT, "heldItem", TYPE_OBJECT, "slot", TYPE_OBJECT])
+
 # Signalled when an item was equiped in an wearableslot
 # The item will know what slot it was
 @warning_ignore("unused_signal")
