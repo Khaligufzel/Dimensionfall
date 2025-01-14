@@ -1,6 +1,8 @@
 extends Object
 class_name SignalFactory
 
+static var owner_class = (SignalFactory as Object)
+
 # Dictionary[dictId: [Dictionary[key: Signal]]]
 static var RegisteredSignals : Dictionary
 
@@ -9,12 +11,18 @@ static func get_signal_with_key(signal_id: String, key, args: Array = []) -> Sig
 		RegisteredSignals[signal_id] = {}
 	
 	if !RegisteredSignals[signal_id].has(key):
-		RegisteredSignals[signal_id][key] = create_signal(signal_id + "-" + str(key), args)
+		RegisteredSignals[signal_id][key] = create_signal(build_signal_name(signal_id, key), args)
 		
 	return RegisteredSignals[signal_id][key]
 
 static func create_signal(signal_name: String, args: Array) -> Signal:
-	var owner_class := (SignalFactory as Object)
 	var signal_args = range(0, len(args), 2).map(func(n): return { "name": args[n], "type": args[n + 1] })
 	owner_class.add_user_signal(signal_name, signal_args)
 	return Signal(owner_class, signal_name)
+	
+static func destroy_signal(signal_id: String, key) -> void:
+	var signal_name = build_signal_name(signal_id, key)
+	owner_class.remove_user_signal(signal_name)
+
+static func build_signal_name(signal_id: String, key) -> String:
+	return signal_id + "-" + str(key)

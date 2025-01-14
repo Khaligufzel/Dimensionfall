@@ -73,10 +73,7 @@ func _init():
 	# We connect to the inventory visibility change to interrupt shooting
 	Helper.signal_broker.inventory_window_visibility_changed.connect(_on_inventory_visibility_change)
 	
-func _ready():
-	Helper.signal_broker.item_was_equipped_to_slot(slot_idx).connect(_on_hud_item_was_equipped)
-	Helper.signal_broker.item_was_unequipped_from_slot(slot_idx).connect(_on_hud_item_equipment_slot_was_cleared)
-	
+func _ready():	
 	clear_held_item()
 	melee_attack_area.body_entered.connect(_on_entered_melee_range)
 	melee_attack_area.body_exited.connect(_on_exited_melee_range)
