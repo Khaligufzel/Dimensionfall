@@ -9,6 +9,7 @@ extends Control
 @export var IDTextLabel: Label = null
 @export var PathTextLabel: Label = null
 @export var NameTextEdit: TextEdit = null
+@export var faction_option_button: OptionButton = null
 @export var DescriptionTextEdit: TextEdit = null
 @export var mobSelector: Popup = null
 @export var melee_range_numedit: SpinBox
@@ -95,6 +96,14 @@ func load_mob_data() -> void:
 		_load_attributes_into_grid(any_of_attributes_grid_container, dmob.targetattributes["any_of"])
 	if dmob.targetattributes.has("all_of"):
 		_load_attributes_into_grid(all_of_attributes_grid_container, dmob.targetattributes["all_of"])
+	
+	# Update the faction_option_button to reflect the dmob.faction_id value
+	if faction_option_button != null:
+		for i in range(faction_option_button.get_item_count()):
+			if faction_option_button.get_item_text(i) == dmob.faction_id:
+				faction_option_button.select(i)
+				break
+
 
 
 # The editor is closed, destroy the instance
@@ -132,6 +141,9 @@ func _on_save_button_button_up() -> void:
 
 	# Save attributes
 	dmob.targetattributes = _get_attributes_from_ui()
+	# Save the selected faction ID into the dmob.faction_id property
+	if faction_option_button != null:
+		dmob.faction_id = faction_option_button.get_selected_item_text()
 
 	dmob.changed(olddata)
 	data_changed.emit()
@@ -210,7 +222,7 @@ func _load_attributes_into_grid(container: GridContainer, attributes: Array) -> 
 
 # Modified function to add a new attribute entry to a specified grid container
 func _add_attribute_entry_to_grid(container: GridContainer, attribute: Dictionary) -> void:
-	var myattribute: DPlayerAttribute = Gamedata.mods.by_id("Core").playerattributes.by_id(attribute.id)
+	var myattribute: DPlayerAttribute = Gamedata.mods.get_content_by_id(DMod.ContentType.PLAYERATTRIBUTES, attribute.id)
 
 	# Create a TextureRect for the sprite
 	var texture_rect = TextureRect.new()
