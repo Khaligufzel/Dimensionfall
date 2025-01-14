@@ -210,7 +210,6 @@ func populate_mods_item_list() -> void:
 	print_debug("Populated mods_item_list successfully.")
 
 
-
 # When the user presses the save button
 func _on_save_button_button_up() -> void:
 	# Get the selected mod
