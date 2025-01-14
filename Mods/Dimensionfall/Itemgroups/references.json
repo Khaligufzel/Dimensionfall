@@ -98,11 +98,19 @@
 	"loot_electronic": {
 		"maps": [
 			"radio_tower"
+		],
+		"mobs": [
+			"venom_crawler",
+			"disruptor_drone",
+			"scavenger_skitter"
 		]
 	},
 	"mob_loot": {
 		"mobs": [
-			"iron_stalker"
+			"iron_stalker",
+			"scrapwalker",
+			"rust_sentinel",
+			"outpost_guardian"
 		]
 	},
 	"police_station_locker": {
@@ -157,6 +165,18 @@
 			"subway_station",
 			"city_square",
 			"police_station"
+		]
+	},
+	"zombie_loot": {
+		"mobs": [
+			"basic_zombie_1",
+			"basic_zombie_2",
+			"limping_zombie",
+			"skeleton_zombie",
+			"heavy_zombie",
+			"charred_zombie",
+			"rushing_zombie",
+			"bloated_zombie"
 		]
 	}
 }
