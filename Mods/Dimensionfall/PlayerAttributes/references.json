@@ -107,7 +107,8 @@
 			"kiwi",
 			"zombie_organ",
 			"zombie_eye",
-			"rotten_flesh_chunk"
+			"rotten_flesh_chunk",
+			"can_beer"
 		]
 	}
 }

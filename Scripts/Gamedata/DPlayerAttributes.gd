@@ -26,6 +26,7 @@ func _init(new_mod_id: String) -> void:
 	
 	load_sprites()
 	load_playerattributes_from_disk()
+	load_references()
 
 # Load all playerattributedata from disk into memory
 func load_playerattributes_from_disk() -> void:
