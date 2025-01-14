@@ -24,7 +24,6 @@ extends Sprite3D
 @export var melee_collision_shape: CollisionShape3D
 @export var default_hand_position: Vector3
 @export var melee_attack_z_rotation_offset: float
-#@export var
 
 # Reference to the player node
 @export var player: CharacterBody3D
@@ -73,7 +72,7 @@ func _init():
 	# We connect to the inventory visibility change to interrupt shooting
 	Helper.signal_broker.inventory_window_visibility_changed.connect(_on_inventory_visibility_change)
 	
-func _ready():	
+func _ready():
 	clear_held_item()
 	melee_attack_area.body_entered.connect(_on_entered_melee_range)
 	melee_attack_area.body_exited.connect(_on_exited_melee_range)
@@ -351,10 +350,6 @@ func animate_attack():
 	position = default_hand_position
 	target_position.x -= 0.2  # Move forward by 0.2 units
 	tween.tween_property(self, "rotation_degrees:z", rotation_degrees.z + melee_attack_z_rotation_offset, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	#else:
-		#position = default_hand_position
-		#target_position.x -= 0.2  # Move forward by 0.2 units
-		#tween.tween_property(self, "rotation_degrees:z", rotation_degrees.z - 15, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 
 	# Animate the position
 	tween.tween_property(self, "position", target_position, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)

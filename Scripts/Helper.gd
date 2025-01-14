@@ -24,7 +24,6 @@ var json_helper: RefCounted = null
 var time_helper: Node = null
 var save_helper: Node = null
 @onready var signal_broker: SignalBroker = SignalBroker.new()
-@onready var player_input_signal_broker: PlayerInputSignalBroker = PlayerInputSignalBroker.new()
 var task_manager: Node = null
 var map_manager: Node = null
 @onready var overmap_manager: OvermapManager = OvermapManager.new()

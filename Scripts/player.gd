@@ -87,7 +87,7 @@ func _connect_signals():
 func connect_held_item_slots():
 	held_item_slots = [$Sprite3D2/EquippedLeft, $Sprite3D2/EquippedRight]
 	for i in range(0, len(held_item_slots)):
-		Helper.player_input_signal_broker.try_activate_equipped_item(i).connect(held_item_slots[i].try_activate_equipped_item)
+		PlayerInputSignalBroker.try_activate_equipped_item(i).connect(held_item_slots[i].try_activate_equipped_item)
 		Helper.signal_broker.item_was_equipped_to_slot(i).connect(held_item_slots[i]._on_hud_item_was_equipped)
 		Helper.signal_broker.item_was_unequipped_from_slot(i).connect(held_item_slots[i]._on_hud_item_equipment_slot_was_cleared)
 
