@@ -29,6 +29,7 @@ extends RefCounted
 class CraftRecipe:
 	var craft_amount: int
 	var craft_time: int
+	var flags: Dictionary # Example: { "requires_light": false, "hand_craftable": true }
 	var required_resources: Array
 	var skill_requirement: Dictionary
 	var skill_progression: Dictionary
@@ -36,6 +37,7 @@ class CraftRecipe:
 	func _init(data: Dictionary):
 		craft_amount = data.get("craft_amount", 1)
 		craft_time = data.get("craft_time", 0)
+		flags = data.get("flags", {})
 		required_resources = data.get("required_resources", [])
 		skill_requirement = data.get("skill_requirement", {})
 		skill_progression = data.get("skill_progression", {})
@@ -44,6 +46,7 @@ class CraftRecipe:
 		var data: Dictionary = {
 			"craft_amount": craft_amount,
 			"craft_time": craft_time,
+			"flags": flags,
 			"required_resources": required_resources
 		}
 		if not skill_requirement.is_empty():

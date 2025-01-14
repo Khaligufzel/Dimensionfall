@@ -147,3 +147,23 @@ func save_items_protoset() -> void:
 
 func get_first_recipe_by_id(item_id: String) -> RItem.CraftRecipe:
 	return by_id(item_id).get_first_recipe()
+
+
+# Returns a list of items that are hand-craftable.
+# These items must have the craft property and at least one recipe with the "hand_craftable" flag set to true.
+func get_hand_craftable_items() -> Array[RItem]:
+	var hand_craftable_items: Array[RItem] = []
+
+	for item: RItem in itemdict.values():
+		# Check if the item has the `craft` property and at least one recipe
+		if not item.get("craft") == null and item.craft.recipes.size() > 0:
+			# Check if any recipe has the "hand_craftable" flag set to true
+			for recipe: RItem.CraftRecipe in item.craft.recipes:
+				if recipe.get("flags") == null:
+					hand_craftable_items.append(item)
+					break  # The item has no flags so assume it's hand craftable
+				elif recipe.flags.get("hand_craftable", true):
+					hand_craftable_items.append(item)
+					break  # Exit the loop as we only need one matching recipe
+
+	return hand_craftable_items

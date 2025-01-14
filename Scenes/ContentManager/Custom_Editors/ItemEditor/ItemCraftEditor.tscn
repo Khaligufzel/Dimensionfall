@@ -19,7 +19,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="ItemCraftEditor" type="Control" node_paths=PackedStringArray("craftAmountNumber", "craftTimeNumber", "requiresLightCheckbox", "resourcesGridContainer", "recipesContainer", "required_skill_text_edit", "skill_level_requirement_spin_box", "skill_progression_text_edit", "skill_progression_spin_box")]
+[node name="ItemCraftEditor" type="Control" node_paths=PackedStringArray("craftAmountNumber", "craftTimeNumber", "requiresLightCheckbox", "hand_craftable_check_box", "resourcesGridContainer", "recipesContainer", "required_skill_text_edit", "skill_level_requirement_spin_box", "skill_progression_text_edit", "skill_progression_spin_box")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,7 +29,8 @@ grow_vertical = 2
 script = ExtResource("1_6wvrt")
 craftAmountNumber = NodePath("Craft/CraftAmountNumber")
 craftTimeNumber = NodePath("Craft/CraftTimeNumber")
-requiresLightCheckbox = NodePath("Craft/RequiresLightCheckBox")
+requiresLightCheckbox = NodePath("Craft/HBoxContainer2/RequiresLightCheckBox")
+hand_craftable_check_box = NodePath("Craft/HBoxContainer2/HandCraftableCheckBox")
 resourcesGridContainer = NodePath("Craft/PanelContainer/ResourcesGridContainer")
 recipesContainer = NodePath("Craft/HBoxContainer/RecipeContainerOptionButton")
 required_skill_text_edit = NodePath("Craft/SkillRequirementHBoxContainer/RequiredSkillNameDropEnabledTextEdit")
@@ -122,11 +123,23 @@ editable = false
 layout_mode = 2
 text = "Flags"
 
-[node name="RequiresLightCheckBox" type="CheckBox" parent="Craft"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Craft"]
+layout_mode = 2
+
+[node name="RequiresLightCheckBox" type="CheckBox" parent="Craft/HBoxContainer2"]
 layout_mode = 2
 tooltip_text = "Enable this if the item weapon occupies both hands when held. Disable this if the item occupies one hand when held"
 disabled = true
 text = "Requires light"
+
+[node name="HandCraftableCheckBox" type="CheckBox" parent="Craft/HBoxContainer2"]
+layout_mode = 2
+tooltip_text = "Checked: This item can be crafted by hand and by crafting stations.
+Unchecked: This item can only be crafted by crafting stations.
+Note: In order to be craftable by crafting stations, you have to edit 
+a furniture and add this item to the craftable items there."
+button_pressed = true
+text = "Hand craftable"
 
 [node name="SkillRequirementLabel" type="Label" parent="Craft"]
 layout_mode = 2

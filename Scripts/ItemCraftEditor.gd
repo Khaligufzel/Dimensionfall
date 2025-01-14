@@ -6,6 +6,7 @@ extends Control
 @export var craftAmountNumber: SpinBox = null
 @export var craftTimeNumber: SpinBox = null
 @export var requiresLightCheckbox: CheckBox = null
+@export var hand_craftable_check_box: CheckBox = null
 @export var resourcesGridContainer: GridContainer = null
 @export var recipesContainer: OptionButton = null  # Dropdown to select which recipe to edit
 @export var required_skill_text_edit: HBoxContainer
@@ -47,6 +48,7 @@ func load_recipe_into_ui(recipe: DItem.CraftRecipe):
 	craftAmountNumber.value = recipe.craft_amount
 	craftTimeNumber.value = recipe.craft_time
 	requiresLightCheckbox.button_pressed = recipe.flags.get("requires_light", false)
+	hand_craftable_check_box.button_pressed = recipe.flags.get("hand_craftable", true)
 
 	# Load skill requirements
 	required_skill_text_edit.set_text(recipe.skill_requirement.get("id", ""))
@@ -84,7 +86,10 @@ func _update_current_recipe():
 		var current_recipe = craft_recipes[current_recipe_index]
 		current_recipe.craft_amount = craftAmountNumber.value
 		current_recipe.craft_time = craftTimeNumber.value
-		current_recipe.flags = {"requires_light": requiresLightCheckbox.button_pressed}
+		current_recipe.flags = {
+			"requires_light": requiresLightCheckbox.button_pressed,
+			"hand_craftable": hand_craftable_check_box.button_pressed
+		}
 		current_recipe.required_resources = _get_resources_from_ui()
 
 		# Add skill_requirement if required_skill_text_edit has a value

@@ -11,7 +11,7 @@ func _ready():
 	Helper.signal_broker.game_started.connect(get_crafting_recipes_from_json)
 
 func get_crafting_recipes_from_json() -> void:
-	craftable_items = Runtimedata.items.get_items_by_type("craft")
+	craftable_items = Runtimedata.items.get_hand_craftable_items()
 
 
 # Function to check if there are enough resources in the inventory to craft a given recipe.
