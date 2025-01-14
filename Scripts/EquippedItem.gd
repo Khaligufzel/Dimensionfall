@@ -19,6 +19,7 @@ extends Sprite3D
 
 # Will keep a weapon from firing when it's cooldown period has not passed yet
 @export var attack_cooldown_timer: Timer
+@export var slot_idx: int
 @export var melee_attack_area: Area3D
 @export var melee_collision_shape: CollisionShape3D
 @export var default_hand_position: Vector3
@@ -68,31 +69,19 @@ var is_right_button_held: bool = false
 
 var entities_in_melee_range = [] # Used to keep track of entities in melee range
 
-var slot_idx: int
-
 func _init():
 	# We connect to the inventory visibility change to interrupt shooting
 	Helper.signal_broker.inventory_window_visibility_changed.connect(_on_inventory_visibility_change)
-	Helper.signal_broker.item_was_equipped.connect(_on_hud_item_was_equipped)
 	Helper.signal_broker.item_was_unequipped.connect(_on_hud_item_equipment_slot_was_cleared)
 	
 func _ready():
+	Helper.signal_broker.item_was_equipped_to_slot(slot_idx).connect(_on_hud_item_was_equipped)
+	
 	clear_held_item()
 	melee_attack_area.body_entered.connect(_on_entered_melee_range)
 	melee_attack_area.body_exited.connect(_on_exited_melee_range)
 	melee_attack_area.body_shape_entered.connect(_on_body_shape_entered_melee_range)
 	melee_attack_area.body_shape_exited.connect(_on_body_shape_exited_melee_range)
-
-func _input(event):
-	if not heldItem:
-		return  # Return early if no weapon is equipped
-
-	# Update the button held state
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			is_left_button_held = event.pressed
-		elif event.button_index == MOUSE_BUTTON_RIGHT:
-			is_right_button_held = event.pressed
 
 func get_cursor_world_position() -> Vector3:
 	var camera = get_tree().get_first_node_in_group("Camera")
@@ -294,11 +283,11 @@ func _on_right_attack_cooldown_timeout():
 	in_cooldown = false
 
 func _on_hud_item_equipment_slot_was_cleared(_equippedItem, slot):
-		clear_held_item()
+	clear_held_item()
 
 # The slot has equipped something and we store it in the correct EquippedItem
-func _on_hud_item_was_equipped(equippedItem, slot):
-		equip_item(equippedItem, slot)
+func _on_hud_item_was_equipped(_slot_idx: int, equippedItem: InventoryItem, slot: Control):
+	equip_item(equippedItem, slot)
 
 # When the inventory is opened or closed, stop firing
 # Optionally we can check inventoryWindow.visible to add more control

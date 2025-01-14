@@ -58,6 +58,7 @@ func equip(item: InventoryItem) -> void:
 
 		# Tells the equippedItem node in the player node to update the weapon properties
 		Helper.signal_broker.item_was_equipped.emit(item, self)
+		Helper.signal_broker.item_was_equipped_to_slot(slot_idx).emit(slot_idx, item, self)
 		# We load a magazine if the item contains one
 		if item.get_property("current_magazine"):
 			equippedItem.on_magazine_inserted()

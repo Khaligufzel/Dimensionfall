@@ -35,10 +35,14 @@ signal food_item_used(usedItem: InventoryItem)
 @warning_ignore("unused_signal")
 signal medical_item_used(usedItem: InventoryItem)
 
-# Signalled when an item was equiped in an equipmentslot
+# Signalled when an item was equipped in an equipmentslot
 # The item will know what slot it was
 @warning_ignore("unused_signal")
 signal item_was_equipped(heldItem: InventoryItem, equipmentSlot: Control)
+
+# Signalled when an item is equipped to the given slot index
+func item_was_equipped_to_slot(slot_index: int) -> Signal:
+	return SignalFactory.get_signal_with_key("item_was_equipped_to_slot", slot_index, ["slot_index", TYPE_INT, "heldItem", TYPE_OBJECT, "slot", TYPE_OBJECT])
 
 # When an item slot has cleared out, we forward the signal
 @warning_ignore("unused_signal")
