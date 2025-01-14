@@ -1,3 +1,4 @@
+class_name EquippedItem
 extends Sprite3D
 
 # This script is intended to be used on a node functioning as a held item, which could be a weapon
@@ -20,6 +21,9 @@ extends Sprite3D
 @export var attack_cooldown_timer: Timer
 @export var melee_attack_area: Area3D
 @export var melee_collision_shape: CollisionShape3D
+@export var default_hand_position: Vector3
+@export var melee_attack_z_rotation_offset: float
+#@export var
 
 # Reference to the player node
 @export var player: CharacterBody3D
@@ -27,8 +31,6 @@ extends Sprite3D
 @export var playerSprite: Sprite3D 
 # Reference to the hud node
 @export var hud: NodePath
-# True if this is the left hand. False if this is the right hand
-@export var equipped_left: bool
 
 # Reference to the audio nodes
 @export var shoot_audio_player : AudioStreamPlayer3D
@@ -65,6 +67,8 @@ var is_left_button_held: bool = false
 var is_right_button_held: bool = false
 
 var entities_in_melee_range = [] # Used to keep track of entities in melee range
+
+var slot_idx: int
 
 func _init():
 	# We connect to the inventory visibility change to interrupt shooting
@@ -208,7 +212,7 @@ func _subtract_ammo(amount: int):
 		ammunition -= amount
 		magazineProperties["current_ammo"] = ammunition
 		magazine.set_property("Magazine", magazineProperties)
-		Helper.signal_broker.player_ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
+		Helper.signal_broker.player_ammo_changed.emit(get_current_ammo(), get_max_ammo(), slot_idx)
 
 
 func get_current_ammo() -> int:
@@ -247,22 +251,19 @@ func _process(delta):
 	# Check if the left-hand weapon is reloading.
 	if is_weapon_reloading() and not reload_audio_player.playing:
 		reload_audio_player.play()  # Play reload sound for left-hand weapon.
-	# Check if the left mouse button is held, a weapon is in the left hand, and is ready to fire
-	if is_left_button_held and equipped_left and can_fire_weapon():
-		fire_weapon()
-
-	# The right mouse button is held, a weapon is in the right hand, and is ready to fire
-	if is_right_button_held and not equipped_left and can_fire_weapon():
-		fire_weapon()
 		
 	# Decrease recoil when the mouse button is not pressed
 	if heldItem and heldItem.get_property("Ranged") != null:
 		if not is_left_button_held and not is_right_button_held:
 			recoil_modifier = max(recoil_modifier - recoil_decrement * delta, 0.0)
 
+func try_activate_equipped_item(_slot_idx: int):
+	if can_fire_weapon():
+		fire_weapon()
+
 # When a magazine is removed
 func on_magazine_removed():
-	Helper.signal_broker.player_ammo_changed.emit(-1, -1, equipped_left)
+	Helper.signal_broker.player_ammo_changed.emit(-1, -1, slot_idx)
 
 # When a magazine is inserted
 func on_magazine_inserted():
@@ -273,7 +274,7 @@ func on_magazine_inserted():
 		recoil_increment = max_recoil / (get_max_ammo() * 0.25)
 		recoil_decrement = 2 * recoil_increment
 
-		Helper.signal_broker.player_ammo_changed.emit(get_current_ammo(), get_max_ammo(), equipped_left)
+		Helper.signal_broker.player_ammo_changed.emit(get_current_ammo(), get_max_ammo(), slot_idx)
 		
 # Function to clear weapon properties for a specified hand
 func clear_held_item():
@@ -284,7 +285,7 @@ func clear_held_item():
 	visible = false
 	heldItem = null
 	in_cooldown = false
-	Helper.signal_broker.player_ammo_changed.emit(-1, -1, equipped_left)  # Emit signal to indicate no weapon is equipped
+	Helper.signal_broker.player_ammo_changed.emit(-1, -1, slot_idx)  # Emit signal to indicate no weapon is equipped
 
 func _on_left_attack_cooldown_timeout():
 	in_cooldown = false
@@ -293,16 +294,10 @@ func _on_right_attack_cooldown_timeout():
 	in_cooldown = false
 
 func _on_hud_item_equipment_slot_was_cleared(_equippedItem, slot):
-	if slot.is_left_slot and equipped_left:
-		clear_held_item()
-	elif not slot.is_left_slot and not equipped_left:
 		clear_held_item()
 
 # The slot has equipped something and we store it in the correct EquippedItem
 func _on_hud_item_was_equipped(equippedItem, slot):
-	if slot.is_left_slot and equipped_left:
-		equip_item(equippedItem, slot)
-	elif not slot.is_left_slot and not equipped_left:
 		equip_item(equippedItem, slot)
 
 # When the inventory is opened or closed, stop firing
@@ -367,19 +362,13 @@ func animate_attack():
 	var original_position = position  # Use local position
 	var target_position = position  # Initialize target position
 
-	# Set the default positions for right and left hands
-	var default_right_hand_position = Vector3(-0.191, -0.123, 0)
-	var default_left_hand_position = Vector3(-0.195, 0.117, 0)
-
-	# Adjust position and calculate target based on equipped hand
-	if equipped_left:
-		position = default_left_hand_position
-		target_position.x -= 0.2  # Move forward by 0.2 units
-		tween.tween_property(self, "rotation_degrees:z", rotation_degrees.z + 15, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	else:
-		position = default_right_hand_position
-		target_position.x -= 0.2  # Move forward by 0.2 units
-		tween.tween_property(self, "rotation_degrees:z", rotation_degrees.z - 15, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	position = default_hand_position
+	target_position.x -= 0.2  # Move forward by 0.2 units
+	tween.tween_property(self, "rotation_degrees:z", rotation_degrees.z + melee_attack_z_rotation_offset, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	#else:
+		#position = default_hand_position
+		#target_position.x -= 0.2  # Move forward by 0.2 units
+		#tween.tween_property(self, "rotation_degrees:z", rotation_degrees.z - 15, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 
 	# Animate the position
 	tween.tween_property(self, "position", target_position, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
@@ -453,14 +442,14 @@ func setup_ranged_weapon_properties(equippedItem: InventoryItem):
 	attack_cooldown_timer.wait_time = float(firing_speed)
 	reload_speed = float(ranged_properties.get("reload_speed", default_reload_speed))
 	visible = true
-	Helper.signal_broker.player_ammo_changed.emit(0, 0, equipped_left)  # Signal to update ammo display for ranged weapons
+	Helper.signal_broker.player_ammo_changed.emit(0, 0, slot_idx)  # Signal to update ammo display for ranged weapons
 	heldItem.properties_changed.connect(_on_helditem_properties_changed)
 
 # Setup the properties for melee weapons
 func setup_melee_weapon_properties(equippedItem: InventoryItem):
 	var melee_properties = equippedItem.get_property("Melee")
 	visible = true
-	Helper.signal_broker.player_ammo_changed.emit(-1, -1, equipped_left)  # Indicate no ammo needed for melee weapons
+	Helper.signal_broker.player_ammo_changed.emit(-1, -1, slot_idx)  # Indicate no ammo needed for melee weapons
 
 	var reach = melee_properties.get("reach", 0)  # Default reach to 0 if not specified
 	if reach > 0:

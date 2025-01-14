@@ -21,7 +21,7 @@ extends Control
 @export var myIcon: TextureRect
 # A timer that will prevent the user from reloading while a reload is happening now
 @export var otherHandSlot: Control
-@export var is_left_slot: bool = true
+@export var slot_idx: int
 
 var myInventoryItem: InventoryItem = null
 # The node that will actually operate the item
