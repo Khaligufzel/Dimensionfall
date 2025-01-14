@@ -65,7 +65,7 @@ extends RefCounted
 # Properties defined in the JSON
 var id: String
 var name: String
-var faction_id: String
+var faction_id: String = "default"
 var description: String
 var default_faction: String
 var health: int
