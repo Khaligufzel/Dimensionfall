@@ -103,7 +103,7 @@ func stop_attacking():
 	Transistioned.emit(self, "mobfollow")
 
 
-func _on_detection_player_spotted(player):
+func _on_detection_target_spotted(player):
 	targeted_player = player # Replace with function body.
 
 

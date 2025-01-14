@@ -125,7 +125,7 @@ func _on_timer_timeout():
 
 
 # Called when the mob detects a player; updates the target location and targeted player.
-func _on_detection_player_spotted(player):
+func _on_detection_target_spotted(player):
 	target_location = player.position
 	targeted_player = player
 

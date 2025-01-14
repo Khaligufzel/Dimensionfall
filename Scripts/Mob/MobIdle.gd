@@ -61,7 +61,7 @@ func move_mob_to_target():
 		is_looking_to_move = false
 
 
-func _on_detection_player_spotted(_player):
+func _on_detection_target_spotted(_player):
 	Transistioned.emit(self, "mobfollow")
 
 

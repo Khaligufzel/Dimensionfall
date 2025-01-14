@@ -3,10 +3,10 @@ extends Node3D
 
 var playerCol: Node3D
 var mob: CharacterBody3D # The mob that we want to enable detection for
-var spotted_player: CharacterBody3D
+var spotted_target: CharacterBody3D
 var state_machine: StateMachine
 
-signal player_spotted
+signal target_spotted
 
 var sightRange
 var senseRange
@@ -20,7 +20,7 @@ func _ready():
 	hearingRange = mob.hearing_range
 	# Connect the detection signal to the state nodes in the statemachine
 	for node in state_machine.states.values():
-		player_spotted.connect(node._on_detection_player_spotted)
+		target_spotted.connect(node._on_detection_target_spotted)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,7 +31,7 @@ func _process(_delta):
 # Monitors the physics space each frame to detect nearby players using raycasting.
 # - Sets up a raycast from the mob's current position toward the player's position.
 # - If the raycast detects a player and the player is within `sightRange`, 
-#   the player is assigned to `spotted_player`, and the `player_spotted` signal is emitted.
+#   the player is assigned to `spotted_target`, and the `target_spotted` signal is emitted.
 func _physics_process(_delta):
 	if mob.terminated:
 		return
@@ -47,7 +47,7 @@ func _physics_process(_delta):
 	if result and result.collider:
 		
 		if result.collider.is_in_group("Players") && Vector3(global_position).distance_to(get_tree().get_first_node_in_group("Players").global_position) <= sightRange:
-			spotted_player = result.collider
-			player_spotted.emit(spotted_player)
+			spotted_target = result.collider
+			target_spotted.emit(spotted_target)
 
 	
