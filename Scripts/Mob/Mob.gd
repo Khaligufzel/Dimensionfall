@@ -325,3 +325,7 @@ func get_data() -> Dictionary:
 # This allows the mob to transition to the MobTerminate state
 func terminate():
 	terminated = true
+
+# Return the faction id of the mob
+func get_faction() -> String:
+	return rmob.faction_id

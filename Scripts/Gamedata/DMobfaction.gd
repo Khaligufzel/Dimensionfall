@@ -202,3 +202,17 @@ func remove_relations_by_mobgroup(mobgroup_id: String) -> void:
 		return not (relation.has("mobgroup") and relation.mobgroup == mobgroup_id)
 	)
 	save_to_disk()
+
+
+# Retrieves a list of mob IDs from relations where the relation_type matches the provided type.
+# relation_type: String  # Can be "hostile", "neutral", or "friendly"
+func get_mobs_by_relation_type(relation_type: String) -> Array:
+	var mob_list: Array = []
+	
+	# Iterate through all relations
+	for relation in relations:
+		if relation.relation_type == relation_type:
+			# Add all mob IDs from the matching relation
+			mob_list += relation.get_mob_ids()
+	
+	return mob_list
