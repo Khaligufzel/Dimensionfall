@@ -65,6 +65,7 @@ extends RefCounted
 # Properties defined in the JSON
 var id: String
 var name: String
+var faction_id: String = "default"
 var description: String
 var default_faction: String
 var health: int
@@ -90,6 +91,7 @@ func _init(data: Dictionary, myparent: DMobs):
 	parent = myparent
 	id = data.get("id", "")
 	name = data.get("name", "")
+	faction_id = data.get("faction_id", "")
 	description = data.get("description", "")
 	default_faction = data.get("default_faction", "")
 	health = data.get("health", 100)
@@ -115,6 +117,7 @@ func get_data() -> Dictionary:
 	var data: Dictionary = {
 		"id": id,
 		"name": name,
+		"faction_id": faction_id,
 		"description": description,
 		"default_faction": default_faction,
 		"health": health,

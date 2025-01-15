@@ -39,6 +39,21 @@
 			"epipen",
 			"insulin",
 			"painkiller"
+		],
+		"mobs": [
+			"basic_zombie_1",
+			"basic_zombie_2",
+			"limping_zombie",
+			"skeleton_zombie",
+			"heavy_zombie",
+			"charred_zombie",
+			"rushing_zombie",
+			"bloated_zombie",
+			"scrapwalker",
+			"rust_sentinel",
+			"outpost_guardian",
+			"iron_stalker",
+			"scavenger_skitter"
 		]
 	},
 	"left_arm_health": {
@@ -47,6 +62,21 @@
 			"epipen",
 			"insulin",
 			"painkiller"
+		],
+		"mobs": [
+			"basic_zombie_1",
+			"basic_zombie_2",
+			"limping_zombie",
+			"skeleton_zombie",
+			"heavy_zombie",
+			"charred_zombie",
+			"rushing_zombie",
+			"bloated_zombie",
+			"scrapwalker",
+			"rust_sentinel",
+			"outpost_guardian",
+			"iron_stalker",
+			"scavenger_skitter"
 		]
 	},
 	"left_leg_health": {
@@ -55,6 +85,21 @@
 			"epipen",
 			"insulin",
 			"painkiller"
+		],
+		"mobs": [
+			"basic_zombie_1",
+			"basic_zombie_2",
+			"limping_zombie",
+			"skeleton_zombie",
+			"heavy_zombie",
+			"charred_zombie",
+			"rushing_zombie",
+			"bloated_zombie",
+			"scrapwalker",
+			"rust_sentinel",
+			"outpost_guardian",
+			"iron_stalker",
+			"scavenger_skitter"
 		]
 	},
 	"poison": {
@@ -63,6 +108,9 @@
 			"zombie_organ",
 			"zombie_eye",
 			"rotten_flesh_chunk"
+		],
+		"mobs": [
+			"venom_crawler"
 		]
 	},
 	"right_arm_health": {
@@ -71,6 +119,21 @@
 			"epipen",
 			"insulin",
 			"painkiller"
+		],
+		"mobs": [
+			"basic_zombie_1",
+			"basic_zombie_2",
+			"limping_zombie",
+			"skeleton_zombie",
+			"heavy_zombie",
+			"charred_zombie",
+			"rushing_zombie",
+			"bloated_zombie",
+			"scrapwalker",
+			"rust_sentinel",
+			"outpost_guardian",
+			"iron_stalker",
+			"scavenger_skitter"
 		]
 	},
 	"right_leg_health": {
@@ -79,6 +142,27 @@
 			"epipen",
 			"insulin",
 			"painkiller"
+		],
+		"mobs": [
+			"basic_zombie_1",
+			"basic_zombie_2",
+			"limping_zombie",
+			"skeleton_zombie",
+			"heavy_zombie",
+			"charred_zombie",
+			"rushing_zombie",
+			"bloated_zombie",
+			"scrapwalker",
+			"rust_sentinel",
+			"outpost_guardian",
+			"iron_stalker",
+			"scavenger_skitter"
+		]
+	},
+	"stun": {
+		"mobs": [
+			"disruptor_drone",
+			"iron_stalker"
 		]
 	},
 	"torso_health": {
@@ -87,6 +171,21 @@
 			"epipen",
 			"insulin",
 			"painkiller"
+		],
+		"mobs": [
+			"basic_zombie_1",
+			"basic_zombie_2",
+			"limping_zombie",
+			"skeleton_zombie",
+			"heavy_zombie",
+			"charred_zombie",
+			"rushing_zombie",
+			"bloated_zombie",
+			"scrapwalker",
+			"rust_sentinel",
+			"outpost_guardian",
+			"iron_stalker",
+			"scavenger_skitter"
 		]
 	},
 	"water": {

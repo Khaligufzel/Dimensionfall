@@ -20,7 +20,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "mobSelector", "melee_range_numedit", "melee_cooldown_spinbox", "melee_knockback_spinbox", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "faction_option_button", "DescriptionTextEdit", "mobSelector", "melee_range_numedit", "melee_cooldown_spinbox", "melee_knockback_spinbox", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,7 +31,8 @@ script = ExtResource("1_ubw0i")
 mobImageDisplay = NodePath("VBoxContainer/FormGrid/MobImageDisplay")
 IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
 PathTextLabel = NodePath("VBoxContainer/FormGrid/PathTextLabel")
-NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
+NameTextEdit = NodePath("VBoxContainer/FormGrid/HBoxContainer/NameTextEdit")
+faction_option_button = NodePath("VBoxContainer/FormGrid/HBoxContainer/FactionOptionButton")
 DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
 mobSelector = NodePath("Sprite_selector")
 melee_range_numedit = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeRangeSpinbox")
@@ -111,14 +112,28 @@ size_flags_stretch_ratio = 0.1
 layout_mode = 2
 text = "Name"
 
-[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer"]
+layout_mode = 2
+text = "Name:"
+
+[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid/HBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.1
-focus_next = NodePath("../DescriptionTextEdit")
-focus_previous = NodePath("../MobImageDisplay")
+focus_next = NodePath("../../DescriptionTextEdit")
+focus_previous = NodePath("../../MobImageDisplay")
 placeholder_text = "Scorpion	"
+
+[node name="FactionLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer"]
+layout_mode = 2
+text = "Faction:"
+
+[node name="FactionOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -130,7 +145,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.9
 focus_next = NodePath("../HealthSpinBox")
-focus_previous = NodePath("../NameTextEdit")
+focus_previous = NodePath("../HBoxContainer/NameTextEdit")
 placeholder_text = "A very dangerous land animal often found in dry climates"
 wrap_mode = 1
 

@@ -16,6 +16,7 @@ extends RefCounted
 #     "melee_knockback": 2.0,
 #     "melee_cooldown": 2.0,
 #     "name": "Scrap walker",
+#     "faction_id": "iron_force",
 #     "sprite": "scrapwalker64.png",
 #     "special_moves": {
 #         "dash": {"speed_multiplier":2,"cooldown":5,"duration":0.5}
@@ -35,6 +36,7 @@ extends RefCounted
 # Properties defined in the mob
 var id: String
 var name: String
+var faction_id: String
 var description: String
 var default_faction: String
 var health: int
@@ -66,6 +68,7 @@ func overwrite_from_dmob(dmob: DMob) -> void:
 	if not id == dmob.id:
 		print_debug("Cannot overwrite from a different id")
 	name = dmob.name
+	faction_id = dmob.faction_id
 	description = dmob.description
 	default_faction = dmob.default_faction
 	health = dmob.health
@@ -93,6 +96,7 @@ func get_data() -> Dictionary:
 	var data: Dictionary = {
 		"id": id,
 		"name": name,
+		"faction_id": faction_id,
 		"description": description,
 		"default_faction": default_faction,
 		"health": health,

@@ -31,6 +31,7 @@ extends Control
 @export var friendly_grid_container: GridContainer = null
 @export var neutral_grid_container: GridContainer = null
 @export var hostile_grid_container: GridContainer = null
+@export var member_item_list: ItemList = null
 
 
 # This signal will be emitted when the user presses the save button
@@ -82,6 +83,9 @@ func load_mobfaction_data() -> void:
 	# Add relations to the corresponding container
 	for relation: DMobfaction.Relation in dmobfaction.relations:
 		process_relation_and_add_entities(relation.get_data())
+	
+	# Refresh the member_item_list with the mobs from the current mobfaction's mod
+	refresh_member_item_list()
 
 
 # This function takes all data from the form elements and stores them in the DMobfaction instance
@@ -260,3 +264,28 @@ func process_relation_and_add_entities(relation: Dictionary) -> void:
 func _on_delete_entity_button_pressed(controls: Array) -> void:
 	for control in controls:
 		control.queue_free()
+
+
+# Refreshes the member_item_list with the keys and sprites of the mobs from the current mobfaction's mod
+func refresh_member_item_list() -> void:
+	if member_item_list == null or dmobfaction == null or dmobfaction.parent == null:
+		print_debug("Cannot refresh member_item_list: member_item_list or dmobfaction is null.")
+		return
+	
+	member_item_list.clear()  # Clear existing items
+	
+	var mod_id = dmobfaction.parent.mod_id
+	var mobs_dict = Gamedata.mods.by_id(mod_id).mobs.get_all()
+	
+	# Populate the ItemList with mob keys and set their icons to the respective sprites
+	for mob_id in mobs_dict.keys():
+		var mob = mobs_dict[mob_id]
+		
+		# Ensure the mob's faction_id matches the dmobfaction.id
+		if not mob.get("faction_id") or mob.faction_id != dmobfaction.id:
+			continue  # Skip mobs that don't belong to this faction
+
+		# Add the mob to the ItemList
+		var item_index = member_item_list.add_item(mob_id)  # Add the mob ID as an item
+		if mob.get("sprite") and mob.sprite != null:
+			member_item_list.set_item_icon(item_index, mob.sprite)  # Set the sprite as the item's icon

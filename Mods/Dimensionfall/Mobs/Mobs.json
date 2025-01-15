@@ -2,6 +2,7 @@
 	{
 		"default_faction": "",
 		"description": "A small robot",
+		"faction_id": "security_robots",
 		"health": 80,
 		"hearing_range": 1000,
 		"id": "scrapwalker",
@@ -48,6 +49,7 @@
 	{
 		"default_faction": "",
 		"description": "A slightly more advanced robot but still considered a weaker enemy in the robot faction. The Rust Sentinel stands tall and imposing, with a sturdy build. Its design incorporates rusted and recycled metal parts, giving it a rugged, battle-worn appearance.\n\nThe Rust Sentinel features a broad, slightly dome-shaped head with glowing red eyes that serve as visual sensors. Its torso is bulkier, reinforced with scrap metal plates, and it has two powerful arms ending in claws. The legs are designed for stability and power rather than speed. Its color scheme is a mix of rusted orange, steel gray, and hints of worn-out blue paint, suggesting it was once part of a larger machinery or vehicle.\n\nThe Rust Sentinel moves with deliberate, heavy steps, making it slower but more resilient. It's equipped with basic tools and weaponry, which it uses to scavenges and patrol.",
+		"faction_id": "security_robots",
 		"health": 120,
 		"hearing_range": 1000,
 		"id": "rust_sentinel",
@@ -94,6 +96,7 @@
 	{
 		"default_faction": "",
 		"description": "A swift, dog-sized robot equipped with sharp claws and sensors. The Scavenger Skitter patrols ruins, darting quickly to attack when it detects motion. Its lightweight build allows it to move at high speeds but makes it vulnerable to powerful attacks.",
+		"faction_id": "security_robots",
 		"health": 50,
 		"hearing_range": 800,
 		"id": "scavenger_skitter",
@@ -147,6 +150,7 @@
 	{
 		"default_faction": "",
 		"description": "A heavily armored robot that advances slowly but relentlessly. The Iron Stalker is outfitted with reinforced plating, making it resistant to bullets and physical attacks. It uses a powerful hydraulic punch that can stagger players if hit.",
+		"faction_id": "security_robots",
 		"health": 200,
 		"hearing_range": 900,
 		"id": "iron_stalker",
@@ -198,6 +202,7 @@
 	{
 		"default_faction": "",
 		"description": "A mid-sized drone that hovers silently above the ground. The Disruptor Drone can emit a pulse to disable nearby electronic equipment temporarily, making it dangerous for players who rely on tech.",
+		"faction_id": "security_robots",
 		"health": 70,
 		"hearing_range": 1200,
 		"id": "disruptor_drone",
@@ -224,6 +229,7 @@
 	{
 		"default_faction": "",
 		"description": "A compact, spider-like bot specialized in ambush tactics. The Venom Crawler injects a corrosive fluid into its target, damaging armor and slowly weakening the player over time.",
+		"faction_id": "security_robots",
 		"health": 60,
 		"hearing_range": 700,
 		"id": "venom_crawler",
@@ -250,6 +256,7 @@
 	{
 		"default_faction": "",
 		"description": "A towering, sentinel-like robot with a focus on ranged combat. The Outpost Guardian uses built-in projectile launchers to strike players from afar, aiming at any perceived threat.",
+		"faction_id": "security_robots",
 		"health": 150,
 		"hearing_range": 1000,
 		"id": "outpost_guardian",
@@ -296,6 +303,7 @@
 	{
 		"default_faction": "",
 		"description": "A slow-moving, decaying zombie with tattered clothes. It's barely able to walk, but it will still attempt to grab and bite anything in its way.",
+		"faction_id": "zombie",
 		"health": 40,
 		"hearing_range": 500,
 		"id": "basic_zombie_1",
@@ -342,6 +350,7 @@
 	{
 		"default_faction": "",
 		"description": "A slow-moving, decaying zombie with ragged clothing and a missing arm. Its movements are jerky, but it still tries to grab players within range to infect them.",
+		"faction_id": "zombie",
 		"health": 40,
 		"hearing_range": 500,
 		"id": "basic_zombie_2",
@@ -388,6 +397,7 @@
 	{
 		"default_faction": "",
 		"description": "A zombie with a swollen abdomen, its flesh hanging loosely. It moves slowly but is tougher, with more resilience to damage than the basic zombie.",
+		"faction_id": "zombie",
 		"health": 60,
 		"hearing_range": 600,
 		"id": "bloated_zombie",
@@ -434,6 +444,7 @@
 	{
 		"default_faction": "",
 		"description": "A zombie with a misshapen face and a gaping mouth. It moves quickly and unpredictably, though still relatively weak. It can charge at players in a burst of speed.",
+		"faction_id": "zombie",
 		"health": 50,
 		"hearing_range": 700,
 		"id": "rushing_zombie",
@@ -487,6 +498,7 @@
 	{
 		"default_faction": "",
 		"description": "A zombie with burnt, charred skin, likely from a fire. It lumbers forward with erratic movements, but its resilience is higher than most zombies.",
+		"faction_id": "zombie",
 		"health": 70,
 		"hearing_range": 500,
 		"id": "charred_zombie",
@@ -533,6 +545,7 @@
 	{
 		"default_faction": "",
 		"description": "A zombie with its head deformed and swollen, like a bloated corpse. Its movements are slow but it hits hard and has a significant resistance to damage.",
+		"faction_id": "zombie",
 		"health": 80,
 		"hearing_range": 800,
 		"id": "heavy_zombie",
@@ -579,6 +592,7 @@
 	{
 		"default_faction": "",
 		"description": "A fast-moving zombie with long, bony limbs. Its skin is pale and thin, making it look almost skeletal. It has moderate strength but is more difficult to hit due to its speed.",
+		"faction_id": "zombie",
 		"health": 50,
 		"hearing_range": 600,
 		"id": "skeleton_zombie",
@@ -625,6 +639,7 @@
 	{
 		"default_faction": "",
 		"description": "A zombie with a partially broken leg, dragging itself across the ground with an unsettling limp. While it is slow, it can still latch onto players with a strong grip, making it hard to shake off.",
+		"faction_id": "zombie",
 		"health": 55,
 		"hearing_range": 600,
 		"id": "limping_zombie",
