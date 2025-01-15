@@ -18,7 +18,6 @@ func process_mouse_press() -> void:
 		return
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		print("left click")
 		PlayerInputSignalBroker.try_activate_equipped_item(0).emit(0)
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		PlayerInputSignalBroker.try_activate_equipped_item(1).emit(1)
