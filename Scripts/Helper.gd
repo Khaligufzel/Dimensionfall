@@ -15,20 +15,18 @@ var navigationmap: RID
 # Helper scripts
 const json_Helper_Class = preload("res://Scripts/Helper/json_helper.gd")
 const save_Helper_Class = preload("res://Scripts/Helper/save_helper.gd")
-const signal_broker_Class = preload("res://Scripts/Helper/signal_broker.gd")
 const task_manager_Class = preload("res://Scripts/Helper/task_manager.gd")
 const map_manager_Class = preload("res://Scripts/Helper/map_manager.gd")
-const overmap_manager_Class = preload("res://Scripts/Helper/overmap_manager.gd")
 const quest_helper_Class = preload("res://Scripts/Helper/quest_helper.gd")
 const time_helper_Class = preload("res://Scripts/Helper/time_helper.gd")
 
 var json_helper: RefCounted = null
 var time_helper: Node = null
 var save_helper: Node = null
-var signal_broker: SignalBroker = null
+@onready var signal_broker: SignalBroker = SignalBroker.new()
 var task_manager: Node = null
 var map_manager: Node = null
-var overmap_manager: OvermapManager = null
+@onready var overmap_manager: OvermapManager = OvermapManager.new()
 var quest_helper: Node = null
 
 var player : Player :
@@ -48,10 +46,8 @@ func _ready():
 func initialize_helpers():
 	json_helper = json_Helper_Class.new()
 	save_helper = save_Helper_Class.new()
-	signal_broker = signal_broker_Class.new()
 	task_manager = task_manager_Class.new()
 	map_manager = map_manager_Class.new()
-	overmap_manager = overmap_manager_Class.new()
 	quest_helper = quest_helper_Class.new()
 	time_helper = time_helper_Class.new()
 

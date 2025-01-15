@@ -74,13 +74,14 @@ class PlayerEquipment:
 				
 	# We keep track of what slots have equipment
 	func _on_item_was_equipped(heldItem: InventoryItem, equipmentSlot: Control):
-		if equipmentSlot.is_left_slot:
+		# TODO : Remove this check and keep a list of slots
+		if equipmentSlot.slot_idx == 0:
 			LeftHandItem = heldItem
 		else:
 			RightHandItem = heldItem
 
 	func _on_item_was_unequipped(_heldItem: InventoryItem, equipmentSlot: Control):
-		if equipmentSlot.is_left_slot:
+		if equipmentSlot.slot_idx == 0:
 			LeftHandItem = null
 		else:
 			RightHandItem = null

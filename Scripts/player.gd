@@ -21,6 +21,7 @@ var current_nutrition
 var pain
 var current_pain = 0
 
+var held_item_slots : Array[EquippedItem]
 var stats = {}
 var skills = {}
 # Dictionary that holds instances of PlayerAttribute. For example food, water, mood
@@ -58,14 +59,19 @@ var furniture_body: RID
 
 #var is_progress_bar_well_progressing_i_guess = false
 
+func _init():
+	_connect_signals()
+
 
 func _ready():
+	connect_held_item_slots()
 	initialize_condition()
 	initialize_attributes()
 	initialize_stats_and_skills()
 	Helper.save_helper.load_player_state(self)
 	Helper.save_helper.load_quest_state()
-	_connect_signals()
+	collision_detector.body_shape_entered.connect(_on_body_entered)
+	collision_detector.body_shape_exited.connect(_on_body_exited)
 	if not testing:
 		Helper.signal_broker.player_spawned.emit(self)
 
@@ -75,11 +81,15 @@ func _connect_signals():
 	Helper.signal_broker.food_item_used.connect(_on_food_item_used)
 	Helper.signal_broker.medical_item_used.connect(_on_medical_item_used)
 	ItemManager.craft_successful.connect(_on_craft_successful)
-	collision_detector.body_shape_entered.connect(_on_body_entered)
-	collision_detector.body_shape_exited.connect(_on_body_exited)
 	Helper.signal_broker.wearable_was_equipped.connect(_on_wearable_was_equipped)
 	Helper.signal_broker.wearable_was_unequipped.connect(_on_wearable_was_unequipped)
 
+func connect_held_item_slots():
+	held_item_slots = [$Sprite3D2/EquippedLeft, $Sprite3D2/EquippedRight]
+	for i in range(0, len(held_item_slots)):
+		PlayerInputSignalBroker.try_activate_equipped_item(i).connect(held_item_slots[i].try_activate_equipped_item)
+		Helper.signal_broker.item_was_equipped_to_slot(i).connect(held_item_slots[i]._on_hud_item_was_equipped)
+		Helper.signal_broker.item_was_unequipped_from_slot(i).connect(held_item_slots[i]._on_hud_item_equipment_slot_was_cleared)
 
 func initialize_condition():
 	current_stamina = max_stamina

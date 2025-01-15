@@ -27,13 +27,13 @@ size = Vector3(0.3, 1, 0.55)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_drnhn"]
 points = PackedVector3Array(0.15, 0.15, 0.275, -0.15, 0.15, 0.275, 0.15, -0.5, 0.275, 0.15, 0.15, -0.275, -0.15, 0.15, -0.275, -0.15, -0.5, 0.275, 0.15, -0.5, -0.275, -0.15, -0.5, -0.275)
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jdgh6"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n8kat"]
 playback_mode = 1
 random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("9_hmpqe")
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n8kat"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jdgh6"]
 playback_mode = 1
 random_pitch = 1.2
 streams_count = 1
@@ -87,25 +87,6 @@ pixel_size = 0.003
 render_priority = 15
 texture = ExtResource("5_uy1e8")
 
-[node name="EquippedRight" type="Sprite3D" parent="Sprite3D2" node_paths=PackedStringArray("attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.190849, -0.123334, 0)
-pixel_size = 0.002
-render_priority = 15
-texture = ExtResource("6_gljie")
-script = ExtResource("7_u8an4")
-bullet_speed = 25.0
-bullet_damage = 25.0
-bullet_scene = ExtResource("8_un7wc")
-attack_cooldown_timer = NodePath("../../Shooting/Right_attack_cooldown")
-melee_attack_area = NodePath("../MeleeRange")
-melee_collision_shape = NodePath("../MeleeRange/MeleeCollisionShape3D")
-player = NodePath("../..")
-playerSprite = NodePath("..")
-hud = NodePath("../../../../../HUD")
-shoot_audio_player = NodePath("../../Shooting/ShootAudio")
-shoot_audio_randomizer = SubResource("AudioStreamRandomizer_jdgh6")
-reload_audio_player = NodePath("../../Shooting/ReloadAudio")
-
 [node name="EquippedLeft" type="Sprite3D" parent="Sprite3D2" node_paths=PackedStringArray("attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.194626, 0.116675, 0)
 pixel_size = 0.002
@@ -118,12 +99,35 @@ bullet_scene = ExtResource("8_un7wc")
 attack_cooldown_timer = NodePath("../../Shooting/Left_attack_cooldown")
 melee_attack_area = NodePath("../MeleeRange")
 melee_collision_shape = NodePath("../MeleeRange/MeleeCollisionShape3D")
+default_hand_position = Vector3(-0.195, 0.117, 0)
+melee_attack_z_rotation_offset = 15.0
 player = NodePath("../..")
 playerSprite = NodePath("..")
 hud = NodePath("../../../../../HUD")
-equipped_left = true
 shoot_audio_player = NodePath("../../Shooting/ShootAudio")
 shoot_audio_randomizer = SubResource("AudioStreamRandomizer_n8kat")
+reload_audio_player = NodePath("../../Shooting/ReloadAudio")
+
+[node name="EquippedRight" type="Sprite3D" parent="Sprite3D2" node_paths=PackedStringArray("attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.190849, -0.123334, 0)
+pixel_size = 0.002
+render_priority = 15
+texture = ExtResource("6_gljie")
+script = ExtResource("7_u8an4")
+bullet_speed = 25.0
+bullet_damage = 25.0
+bullet_scene = ExtResource("8_un7wc")
+attack_cooldown_timer = NodePath("../../Shooting/Right_attack_cooldown")
+slot_idx = 1
+melee_attack_area = NodePath("../MeleeRange")
+melee_collision_shape = NodePath("../MeleeRange/MeleeCollisionShape3D")
+default_hand_position = Vector3(-0.191, -0.123, 0)
+melee_attack_z_rotation_offset = -15.0
+player = NodePath("../..")
+playerSprite = NodePath("..")
+hud = NodePath("../../../../../HUD")
+shoot_audio_player = NodePath("../../Shooting/ShootAudio")
+shoot_audio_randomizer = SubResource("AudioStreamRandomizer_jdgh6")
 reload_audio_player = NodePath("../../Shooting/ReloadAudio")
 
 [node name="MeleeRange" type="Area3D" parent="Sprite3D2"]
