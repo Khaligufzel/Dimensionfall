@@ -62,15 +62,10 @@ var recoil_increment: float = 0.0
 # The amount by which recoil decreases per frame when the mouse button is not pressed.
 var recoil_decrement: float = 0.0
 
-# Additional variables to track if buttons are held down
-var is_left_button_held: bool = false
-var is_right_button_held: bool = false
+var is_using_held_item: bool
 
 var entities_in_melee_range = [] # Used to keep track of entities in melee range
 
-func _init():
-	# We connect to the inventory visibility change to interrupt shooting
-	Helper.signal_broker.inventory_window_visibility_changed.connect(_on_inventory_visibility_change)
 	
 func _ready():
 	clear_held_item()
@@ -122,6 +117,8 @@ func fire_weapon():
 		perform_melee_attack()
 	else:
 		perform_ranged_attack()
+	
+	is_using_held_item = true
 
 
 func add_weapon_xp_on_use():
@@ -180,7 +177,7 @@ func perform_ranged_attack():
 	var direction = calculate_direction(cursor_position, spawn_position)
 	direction.y = 0 # Ensure the bullet moves parallel to the ground.
 
-	Helper.signal_broker.projectile_spawned.emit(bullet_instance, Helper.player.get_rid())
+	Helper.signal_broker.projectile_spawned.emit(bullet_instance, player.get_rid())
 	bullet_instance.global_transform.origin = spawn_position
 	bullet_instance.set_direction_and_speed(direction, bullet_speed)
 	in_cooldown = true
@@ -239,8 +236,10 @@ func _process(delta):
 		
 	# Decrease recoil when the mouse button is not pressed
 	if heldItem and heldItem.get_property("Ranged") != null:
-		if not is_left_button_held and not is_right_button_held:
+		if not is_using_held_item:
 			recoil_modifier = max(recoil_modifier - recoil_decrement * delta, 0.0)
+			
+	is_using_held_item = false
 
 func try_activate_equipped_item(_slot_idx: int):
 	if can_fire_weapon():
@@ -285,18 +284,12 @@ func _on_hud_item_equipment_slot_was_cleared(_slot_idx: int, _equippedItem: Inve
 func _on_hud_item_was_equipped(_slot_idx: int, equippedItem: InventoryItem, slot: Control):
 	equip_item(equippedItem, slot)
 
-# When the inventory is opened or closed, stop firing
-# Optionally we can check inventoryWindow.visible to add more control
-func _on_inventory_visibility_change(_inventoryWindow):
-	is_left_button_held = false
-	is_right_button_held = false
-
 # Function to check if the weapon can be reloaded
 func can_weapon_reload() -> bool:
 	# Check if the weapon is a ranged weapon
 	if heldItem and heldItem.get_property("Ranged"):
 		# Check if neither mouse button is pressed
-		if not is_left_button_held and not is_right_button_held:
+		if not is_using_held_item:
 			# Check if the weapon is not currently reloading and if a compatible magazine is available in the inventory
 			if not is_weapon_reloading() and not ItemManager.find_compatible_magazine(heldItem) == null:
 				# Additional checks can be added here if needed
