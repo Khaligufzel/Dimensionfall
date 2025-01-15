@@ -21,7 +21,7 @@ extends Control
 @export var myIcon: TextureRect
 # A timer that will prevent the user from reloading while a reload is happening now
 @export var otherHandSlot: Control
-@export var is_left_slot: bool = true
+@export var slot_idx: int
 
 var myInventoryItem: InventoryItem = null
 # The node that will actually operate the item
@@ -58,6 +58,7 @@ func equip(item: InventoryItem) -> void:
 
 		# Tells the equippedItem node in the player node to update the weapon properties
 		Helper.signal_broker.item_was_equipped.emit(item, self)
+		Helper.signal_broker.item_was_equipped_to_slot(slot_idx).emit(slot_idx, item, self)
 		# We load a magazine if the item contains one
 		if item.get_property("current_magazine"):
 			equippedItem.on_magazine_inserted()
@@ -67,6 +68,7 @@ func equip(item: InventoryItem) -> void:
 func unequip() -> void:
 	if myInventoryItem:
 		Helper.signal_broker.item_was_unequipped.emit(myInventoryItem, self)
+		Helper.signal_broker.item_was_unequipped_from_slot(slot_idx).emit(slot_idx, myInventoryItem, self)
 		myInventory.add_item(myInventoryItem)
 		myInventoryItem = null
 		update_icon()

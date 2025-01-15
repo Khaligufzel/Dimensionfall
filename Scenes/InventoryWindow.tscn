@@ -125,7 +125,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 myInventoryCtrl = NodePath("../../../PlayerInventoryControl/CtrlInventoryStackedCustom")
 otherHandSlot = NodePath("../../LeftHandEquipment/LeftHandEquipmentSlot")
-is_left_slot = false
+slot_idx = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/EquipmentSlotList/RightHandEquipment"]
 layout_mode = 2

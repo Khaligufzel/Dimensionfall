@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=14 format=3 uid="uid://drl78uuphij1l"]
 
+[ext_resource type="PackedScene" uid="uid://cesy3sdpbal3f" path="res://Scenes/input_manager.tscn" id="1_78rss"]
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
 [ext_resource type="Material" uid="uid://ot2fpooebty0" path="res://Defaults/Blocks/Materials/construction_ghost_material.tres" id="4_ujcgp"]
@@ -23,6 +24,8 @@ size = Vector2(1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_qial8"]
 
 [node name="CataX" type="Node3D"]
+
+[node name="InputManager" parent="." instance=ExtResource("1_78rss")]
 
 [node name="TacticalMap" type="Node3D" parent="."]
 
