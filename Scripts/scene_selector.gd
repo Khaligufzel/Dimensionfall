@@ -4,17 +4,8 @@ var saved_game_folders : Array
 @onready var load_game_button = $LoadGameButton
 @export var load_game_list : OptionButton 
 func _ready():
-	saved_game_folders = Helper.json_helper.folder_names_in_dir("user://save/")
-	if saved_game_folders.is_empty():
-		return
-
-	load_game_button.disabled = false
-	# Reverse the order of the saved_game_folders array
-	saved_game_folders.reverse()
-
-	# Populate the load_game_list with the saved game folders
-	for saved_game in saved_game_folders:
-		load_game_list.add_item(saved_game)
+	# Populate the load_game_list with saved game folders
+	populate_load_game_list()
 	Gamedata.mods.write_default_mods_state()
 
 
@@ -57,3 +48,22 @@ func try_load_game(selected_id: int) -> bool:
 	#Helper.save_helper.load_overmap_state()
 	Helper.save_helper.load_player_equipment()
 	return true
+
+# Populates the load_game_list with saved game folders, sorted in descending order.
+func populate_load_game_list() -> void:
+	saved_game_folders = Helper.json_helper.folder_names_in_dir("user://save/")
+	if saved_game_folders.is_empty():
+		load_game_button.disabled = true  # Disable the button if there are no saves
+		return
+
+	# Sort the saved_game_folders array in descending order.
+	saved_game_folders.sort()
+	saved_game_folders.reverse()
+
+	# Enable the load game button
+	load_game_button.disabled = false
+
+	# Add saved game folders to the load_game_list
+	load_game_list.clear()  # Clear any existing items
+	for saved_game in saved_game_folders:
+		load_game_list.add_item(saved_game)
