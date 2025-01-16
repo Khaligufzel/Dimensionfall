@@ -4,8 +4,7 @@ extends CanvasLayer
 @export var clock_label: Label = null
 
 
-@export var ammo_HUD_left: NodePath
-@export var ammo_HUD_right: NodePath
+@export var ammo_HUD_container: Node
 
 @export var healthy_color: Color
 @export var damaged_color: Color
@@ -107,15 +106,12 @@ func _on_progress_bar_timer_timeout():
 	interrupt_progress_bar()
 
 
-func _on_shooting_ammo_changed(current_ammo: int, max_ammo: int, leftHand:bool):
-	var ammo_HUD: Label = get_node(ammo_HUD_left)
-	var prefix: String = "L: "
-	if !leftHand:
-		ammo_HUD = get_node(ammo_HUD_right)
-		prefix = "R: "
+func _on_shooting_ammo_changed(current_ammo: int, max_ammo: int, slot_index: int):
+	var ammo_HUD: Label = ammo_HUD_container.get_children()[slot_index]
 	if current_ammo == -1 and max_ammo == -1:  # Assuming -1 is the value when no weapon is equipped
 		ammo_HUD.hide()
 	else:
+		var prefix: String = ammo_HUD.text.substr(0, 2)
 		ammo_HUD.text = prefix + str(current_ammo) + "/" + str(max_ammo)
 		ammo_HUD.show()
 
