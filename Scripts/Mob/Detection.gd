@@ -44,21 +44,13 @@ func _physics_process(_delta):
 		return
 	if mob.terminated:
 		return
-	var space_state = get_world_3d().direct_space_state
-	# TO-DO Change playerCol to group of players
-	var playerInstance: CharacterBody3D = Helper.player
-	if !playerInstance:
-		return
-	var query = PhysicsRayQueryParameters3D.create(global_position, playerInstance.global_position, int(pow(2, 1-1) + pow(2, 3-1)),[self])
-
-	var result = space_state.intersect_ray(query)
 	
-	if result and result.collider:
-		
-		if result.collider.is_in_group("Players") && Vector3(global_position).distance_to(get_tree().get_first_node_in_group("Players").global_position) <= sightRange:
-			spotted_target = result.collider
-			can_detect = false  # Disable detection until re-enabled elsewhere
+	if can_detect:
+		var target = pick_target()
+		if target:
+			spotted_target = target
 			target_spotted.emit(spotted_target)
+			can_detect = false  # Disable detection temporarily
 
 
 # Callback for the detection timer's timeout signal
@@ -123,3 +115,39 @@ func get_visible_targets(potential_targets: Array[CharacterBody3D]) -> Array[Cha
 			visible_targets.append(target)
 
 	return visible_targets
+
+
+# Function to find the closest target from a list of potential targets
+func find_closest_target(potential_targets: Array[CharacterBody3D]) -> CharacterBody3D:
+	# Initialize variables to track the closest target and minimum distance
+	var closest_target: CharacterBody3D = null
+	var min_distance: float = INF  # Start with a very large distance
+
+	# Iterate through the list of potential targets
+	for target in potential_targets:
+		# Skip if the target is the mob itself or null
+		if target == mob or target == null:
+			continue
+
+		# Calculate the distance to the target
+		var distance = global_position.distance_to(target.global_position)
+
+		# If the distance is smaller than the current minimum, update the closest target
+		if distance < min_distance:
+			min_distance = distance
+			closest_target = target
+
+	return closest_target
+
+
+# Function to pick the best target for the mob
+# Combines target selection, visibility checks, and finding the closest target
+func pick_target() -> CharacterBody3D:
+	# Step 1: Get the list of potential targets
+	var potential_targets = select_targets()
+	
+	# Step 2: Filter the list to only include visible targets
+	var visible_targets = get_visible_targets(potential_targets)
+	
+	# Step 3: Find and return the closest target from the visible targets
+	return find_closest_target(visible_targets)
