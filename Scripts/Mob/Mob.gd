@@ -25,6 +25,7 @@ var sight_range: float = 200.0
 var sense_range: float = 50.0
 var hearing_range: float = 1000.0
 var dash: Dictionary = {} # to enable dash move. something like {"speed_multiplier":2,"cooldown":5,"duration":0.5}
+var hates_mobs: Array = [] # An array of strings containing the mob id's it hates
 
 # States and flags
 var is_blinking: bool = false # flag to prevent multiple blink actions
@@ -61,6 +62,7 @@ func setup_basic_properties():
 	add_to_group("mobs")
 	if mobJSON.has("rotation"):
 		mobRotation = mobJSON.rotation
+	hates_mobs = Runtimedata.mobfactions.by_id(rmob.faction_id).get_mobs_by_relation_type("hostile")
 
 # Set collision layers and masks
 func setup_collision_layers_and_masks():

@@ -64,3 +64,62 @@ func _physics_process(_delta):
 # Callback for the detection timer's timeout signal
 func _on_detection_timer_timeout() -> void:
 	can_detect = true # Re-enable detection when the timer runs out
+
+
+# Function to select targets for detection.
+# Includes the player, all mobs, and checks if a mob is hated by the current mob.
+func select_targets() -> Array[CharacterBody3D]:
+	# Initialize the targets array
+	var targets: Array[CharacterBody3D] = []
+
+	# Always add the player instance as a target
+	var player_instance: CharacterBody3D = Helper.player
+	if player_instance:
+		targets.append(player_instance)
+
+	# Get all mobs from the "mobs" group
+	var mobs: Array = get_tree().get_nodes_in_group("mobs")
+	for mymob in mobs:
+		if mymob is CharacterBody3D:  # Ensure the mob is of the correct type
+			# Add the mob if its ID is in the "hates_mobs" list of the current mob
+			if mob.hates_mobs.has(mymob.rmob.id):
+				targets.append(mymob)
+
+	# Return the list of targets
+	return targets
+
+
+# Function to get visible targets from a list of potential targets.
+# Performs an intersect_ray query for each target and checks if it's within sight range.
+func get_visible_targets(potential_targets: Array[CharacterBody3D]) -> Array[CharacterBody3D]:
+	# Initialize an array to store visible targets
+	var visible_targets: Array[CharacterBody3D] = []
+
+	# Get the direct space state for raycasting
+	var space_state = get_world_3d().direct_space_state
+
+	# Iterate through each target in the potential_targets array
+	for target in potential_targets:
+		# Skip if the target is the mob itself or null
+		if target == mob or target == null:
+			continue
+
+		# Check if the target is within sight range
+		if global_position.distance_to(target.global_position) > sightRange:
+			continue  # Skip targets out of sight range
+
+		# Perform the raycast query
+		var query = PhysicsRayQueryParameters3D.create(
+			global_position,  # Ray start point (mob's position)
+			target.global_position,  # Ray end point (target's position)
+			3,  # Layer mask for layer 1 and layer 2
+			[self]  # Exclude the mob itself from the query
+		)
+
+		var result = space_state.intersect_ray(query)
+
+		# If the ray hits the target and the distance is within sight range, add it to visible_targets
+		if result and result.collider == target:
+			visible_targets.append(target)
+
+	return visible_targets
