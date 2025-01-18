@@ -7,7 +7,7 @@ var nav_agent: NavigationAgent3D # Used for pathfinding
 var mob: CharacterBody3D # The mob that we are enabling the follow behaviour for
 var mobCol: CollisionShape3D # The collision shape of the mob
 var pathfinding_timer: Timer
-var targeted_player
+var spotted_target: CharacterBody3D # This mob's current target for combat
 # Variables for dash state and timer
 var dash_timer: Timer = Timer.new()           # Timer for cooldown after a dash
 var is_dashing: bool = false                  # Flag to check if currently dashing
@@ -38,7 +38,7 @@ func _ready():
 # Called when the mob enters the follow state. Starts the pathfinding timer 
 # and initiates path creation towards the target location.
 func Enter():
-	print("Following the player")
+	print("Following the target")
 	pathfinding_timer.start()
 	makepath()
 
@@ -48,10 +48,9 @@ func Exit():
 	pathfinding_timer.stop()
 
 
-
 # Updates physics calculations each frame, moving the mob along the navigation path
-# and adjusting its orientation to face the targeted player if one is detected.
-# Performs raycasting to check for direct line-of-sight and proximity to the player,
+# and adjusting its orientation to face the targeted entity if one is detected.
+# Performs raycasting to check for direct line-of-sight and proximity to the entity,
 # transitioning to an attack state if within melee range.
 func Physics_Update(_delta: float):
 	if mob.terminated:
@@ -60,7 +59,7 @@ func Physics_Update(_delta: float):
 	
 	move_toward_target()
 	orient_toward_target()
-	check_for_player_in_range()
+	check_for_target_in_range()
 	check_if_idle()
 
 
@@ -80,30 +79,30 @@ func move_toward_target():
 	mob.move_and_slide()
 
 
-# Orients the mob to face the targeted player, aligning y-axis to prevent tilting
+# Orients the mob to face the targeted entity, aligning y-axis to prevent tilting
 func orient_toward_target():
-	if targeted_player:
-		var target_position = targeted_player.global_position
+	if spotted_target:
+		var target_position = spotted_target.global_position
 		target_position.y = mob.meshInstance.global_position.y  # Align y-axis to avoid tilting
 		mob.meshInstance.look_at(target_position, Vector3.UP)
 
 
-# Performs raycasting to check if the targeted player is within sight and melee range
-func check_for_player_in_range():
-	if !targeted_player:
+# Performs raycasting to check if the targeted entity is within sight and melee range
+func check_for_target_in_range():
+	if !spotted_target:
 		return
 	
 	var space_state = get_world_3d().direct_space_state
 	# TODO Change playerCol to group of players
 	var query = PhysicsRayQueryParameters3D.create(
 		mobCol.global_position,
-		targeted_player.global_position,
-		int(pow(2, 1 - 1) + pow(2, 3 - 1)), # Testing only for collision layers 1 and 3 
+		spotted_target.global_position,
+		3,  # Layer mask for layer 1 and layer 2
 		[self] # Exclude self
 	)
 	var result = space_state.intersect_ray(query)
 	if result and result.collider:
-		if result.collider.is_in_group("Players") and Vector3(mobCol.global_position).distance_to(targeted_player.global_position) <= mob.melee_range / 2:
+		if (result.collider.is_in_group("Players") or result.collider.is_in_group("Mobs")) and Vector3(mobCol.global_position).distance_to(spotted_target.global_position) <= mob.melee_range / 2:
 			print("changing state to mobattack...")
 			Transistioned.emit(self, "mobattack")
 
@@ -124,10 +123,10 @@ func _on_timer_timeout():
 	makepath()
 
 
-# Called when the mob detects a player; updates the target location and targeted player.
-func _on_detection_target_spotted(player):
-	target_location = player.position
-	targeted_player = player
+# Called when the mob detects a target; updates the target location and targeted entity.
+func _on_detection_target_spotted(entity):
+	target_location = entity.position
+	spotted_target = entity
 
 
 # Activates the dash move if the dash condition is met and starts the cooldown timer

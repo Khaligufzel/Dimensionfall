@@ -3,7 +3,7 @@ extends Node3D
 
 var playerCol: Node3D
 var mob: CharacterBody3D # The mob that we want to enable detection for
-var spotted_target: CharacterBody3D
+var spotted_target: CharacterBody3D # This mob's current target for combat
 var state_machine: StateMachine
 var can_detect: bool = true # Control detection state
 # Add a Timer node to control detection intervals
