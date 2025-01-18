@@ -91,7 +91,8 @@ func _apply_attack_to_entity(attribute: Dictionary) -> void:
 			"attributeid": attribute["id"],
 			"damage": attribute["damage"],
 			"knockback": mob.rmob.melee_knockback,
-			"mobposition": mob.global_position
+			"mobposition": mob.global_position,
+			"hit_chance": 100 # Only used when attacking another mob, not the player
 		}
 		targeted_entity._get_hit(attack_data)
 
