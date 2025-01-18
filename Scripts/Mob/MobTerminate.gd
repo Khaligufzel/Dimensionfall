@@ -19,5 +19,5 @@ func Exit():
 func Physics_Update(_delta: float):
 	pass
 
-func _on_detection_target_spotted(_player):
+func _on_detection_target_spotted(_entity):
 	pass

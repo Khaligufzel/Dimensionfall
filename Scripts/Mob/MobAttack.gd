@@ -5,7 +5,7 @@ var attack_timer: Timer
 var mob: CharacterBody3D # The mob that we execute the attack for
 
 var tween: Tween
-var targeted_player
+var targeted_entity
 var is_in_attack_mode = false
 
 func _ready():
@@ -31,19 +31,18 @@ func Physics_Update(_delta: float):
 	if mob.terminated:
 		Transistioned.emit(self, "mobterminate") 
 	# Rotation towards target using look_at
-	if targeted_player:
-		var target_position = targeted_player.global_position
+	if targeted_entity:
+		var target_position = targeted_entity.global_position
 		target_position.y = mob.meshInstance.global_position.y  # Align y-axis to avoid tilting
 		mob.meshInstance.look_at(target_position, Vector3.UP)
 
 	var space_state = get_world_3d().direct_space_state
-	# TO-DO Change playerCol to group of players
-	var query = PhysicsRayQueryParameters3D.create(mob.global_position, targeted_player.global_position, int(pow(2, 1-1) + pow(2, 3-1)), [self])
+	var query = PhysicsRayQueryParameters3D.create(mob.global_position, targeted_entity.global_position, int(pow(2, 1-1) + pow(2, 3-1)), [self])
 	var result = space_state.intersect_ray(query)
 
 	if result and result.collider:
 
-		if result.collider.is_in_group("Players") && Vector3(mob.global_position).distance_to(targeted_player.global_position) <= mob.melee_range:
+		if (result.collider.is_in_group("Players") or result.collider.is_in_group("Mobs")) and Vector3(mob.global_position).distance_to(targeted_entity.global_position) <= mob.melee_range:
 
 			if !is_in_attack_mode:
 				is_in_attack_mode = true
@@ -76,25 +75,25 @@ func attack():
 	if mob.rmob.targetattributes.has("any_of") and not mob.rmob.targetattributes["any_of"].is_empty():
 		var any_of_attributes: Array = mob.rmob.targetattributes["any_of"]
 		var selected_attribute: Dictionary = any_of_attributes.pick_random()
-		_apply_attack_to_player(selected_attribute)
+		_apply_attack_to_entity(selected_attribute)
 
 	# Apply damage to each attribute in 'all_of'
 	if mob.rmob.targetattributes.has("all_of"):
 		var all_of_attributes: Array = mob.rmob.targetattributes["all_of"]
 		for attribute in all_of_attributes:
-			_apply_attack_to_player(attribute)
+			_apply_attack_to_entity(attribute)
 
 
-# Helper function to send attack data to the player's _get_hit method
-func _apply_attack_to_player(attribute: Dictionary) -> void:
-	if targeted_player and targeted_player.has_method("_get_hit"):
+# Helper function to send attack data to the entity's _get_hit method
+func _apply_attack_to_entity(attribute: Dictionary) -> void:
+	if targeted_entity and targeted_entity.has_method("_get_hit"):
 		var attack_data: Dictionary = {
 			"attributeid": attribute["id"],
 			"damage": attribute["damage"],
 			"knockback": mob.rmob.melee_knockback,
 			"mobposition": mob.global_position
 		}
-		targeted_player._get_hit(attack_data)
+		targeted_entity._get_hit(attack_data)
 
 
 func stop_attacking():
@@ -103,8 +102,8 @@ func stop_attacking():
 	Transistioned.emit(self, "mobfollow")
 
 
-func _on_detection_target_spotted(player):
-	targeted_player = player # Replace with function body.
+func _on_detection_target_spotted(entity):
+	targeted_entity = entity # Replace with function body.
 
 
 func _on_attack_cooldown_timeout():
