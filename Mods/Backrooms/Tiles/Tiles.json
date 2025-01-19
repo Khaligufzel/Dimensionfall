@@ -1,0 +1,32 @@
+[
+	{
+		"categories": [
+			"liminal"
+		],
+		"description": "Plain and basic tile to give a liminal impression",
+		"id": "backrooms_tile_00",
+		"name": "Backrooms tile",
+		"shape": "cube",
+		"sprite": "backrooms_00.png"
+	},
+	{
+		"categories": [
+			"liminal"
+		],
+		"description": "Plain and basic tile to give a liminal impression",
+		"id": "backrooms_tile_01",
+		"name": "Backrooms tile",
+		"shape": "cube",
+		"sprite": "backrooms_01.png"
+	},
+	{
+		"categories": [
+			"liminal"
+		],
+		"description": "Plain and basic tile to give a liminal impression",
+		"id": "backrooms_tile_02",
+		"name": "Backrooms tile",
+		"shape": "cube",
+		"sprite": "backrooms_02.png"
+	}
+]
