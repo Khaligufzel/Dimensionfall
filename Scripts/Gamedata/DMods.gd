@@ -55,11 +55,35 @@ func load_mods_from_disk() -> void:
 func get_all() -> Dictionary:
 	return mod_dict
 
-# Adds a new mod with a given ID
+# Adds a new mod with a given ID and writes it to `user://mods_state.cfg` as enabled.
 func add_new(newid: String, modinfo: Dictionary) -> void:
+	# Create the mod and add it to the dictionary
 	modinfo["id"] = newid
 	var newmod: DMod = DMod.new(modinfo, self)
 	mod_dict[newmod.id] = newmod
+
+	# Load the current mod states from `user://mods_state.cfg`
+	var config_path = "user://mods_state.cfg"
+	var config = ConfigFile.new()
+	var mod_states: Array = []
+	if FileAccess.file_exists(config_path) and config.load(config_path) == OK:
+		mod_states = config.get_value("mods", "states", [])
+	else:
+		print_debug("Creating new mods_state.cfg file.")
+
+	# Add the new mod to the mod states, set as enabled
+	mod_states.append({
+		"id": newid,
+		"enabled": true
+	})
+
+	# Save the updated mod states back to the file
+	config.set_value("mods", "states", mod_states)
+	if config.save(config_path) != OK:
+		print_debug("Failed to save updated mod states to mods_state.cfg.")
+	else:
+		print_debug("New mod added to mods_state.cfg: ", newid)
+
 
 # Deletes a mod by its ID and saves changes to disk
 func delete_by_id(modid: String) -> void:
