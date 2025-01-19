@@ -13,8 +13,8 @@ extends RefCounted
 #		"sprite": "countertop_100_52.png",
 #		"Function": {
 #			"container_group": "kitchen_cupboard",
-#			"is_container": true,,
-#			"random_container_sprite": false,
+#			"is_container": true,
+#			"container_sprite_mode": default, // can be default, hide or random
 #			"container_regeneration_time": -1
 #		},
 #		"categories": [
@@ -79,14 +79,14 @@ var parent: DFurnitures
 class Function:
 	var door: String = "None"  # Can be "None", "Open" or "Closed"
 	var is_container: bool = false
-	var random_container_sprite: bool = false
+	var container_sprite_mode: String = "default"  # Can be "default", "hide", or "random"
 	var container_group: String = ""
-	var container_regeneration_time: float = DEFAULT_CONTAINER_REGEN   # Time in days for container regeneration (-1.0 if it doesn't regenerate)
+	var container_regeneration_time: float = DEFAULT_CONTAINER_REGEN  # Time in days for container regeneration (-1.0 if it doesn't regenerate)
 
 	func _init(data: Dictionary):
 		door = data.get("door", "None")
 		is_container = data.get("is_container", false)
-		random_container_sprite = data.get("random_container_sprite", false)
+		container_sprite_mode = data.get("container_sprite_mode", "default")  # Default to "default" if not specified
 		container_group = data.get("container_group", "")
 		container_regeneration_time = data.get("container_regeneration_time", DEFAULT_CONTAINER_REGEN)
 
@@ -95,15 +95,16 @@ class Function:
 		var result = {}
 		if is_container:
 			result["is_container"] = is_container
-			if random_container_sprite != false:
-				result["random_container_sprite"] = random_container_sprite
+			if container_sprite_mode != "default":  # Include container_sprite_mode if it differs from default
+				result["container_sprite_mode"] = container_sprite_mode
 			if container_group != "":
 				result["container_group"] = container_group
 			if container_regeneration_time != DEFAULT_CONTAINER_REGEN:
 				result["container_regeneration_time"] = container_regeneration_time
 		if door != "None":
 			result["door"] = door
-		return result # Potentially return an empty dictionary
+		return result  # Potentially return an empty dictionary
+
 
 # Support Shape Property
 class SupportShape:
@@ -348,7 +349,7 @@ func delete():
 			map_data.remove_entity_from_map("furniture", id)
 
 
-func _remove_references(reference_type: String, value: String):
+func _remove_references(_reference_type: String, value: String):
 	if value != "":
 		Gamedata.mods.remove_reference(DMod.ContentType.ITEMGROUPS, value, DMod.ContentType.FURNITURES, id)
 
