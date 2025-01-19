@@ -33,7 +33,8 @@ func load_quests_from_disk() -> void:
 	var questslist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for myquest in questslist:
 		var quest: DQuest = DQuest.new(myquest, self)
-		quest.sprite = sprites[quest.spriteid]
+		if sprites.has(quest.spriteid):
+			quest.sprite = sprites[quest.spriteid]
 		questdict[quest.id] = quest
 
 # Loads sprites and assigns them to the proper dictionary
