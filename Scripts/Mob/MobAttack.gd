@@ -5,7 +5,7 @@ var attack_timer: Timer
 var mob: CharacterBody3D # The mob that we execute the attack for
 
 var tween: Tween
-var targeted_entity
+var spotted_target: CharacterBody3D # This mob's current target for combat
 var is_in_attack_mode = false
 
 func _ready():
@@ -16,6 +16,9 @@ func _ready():
 	attack_timer.wait_time = mob.rmob.melee_cooldown  # Set the wait time based on mob's melee_cooldown
 	add_child.call_deferred(attack_cooldown)
 	attack_timer.timeout.connect(_on_attack_cooldown_timeout)
+
+	# Connect to the mob_killed signal from the signal broker
+	Helper.signal_broker.mob_killed.connect(_on_mob_killed)
 
 
 func Enter():
@@ -31,18 +34,18 @@ func Physics_Update(_delta: float):
 	if mob.terminated:
 		Transistioned.emit(self, "mobterminate") 
 	# Rotation towards target using look_at
-	if targeted_entity:
-		var target_position = targeted_entity.global_position
+	if spotted_target:
+		var target_position = spotted_target.global_position
 		target_position.y = mob.meshInstance.global_position.y  # Align y-axis to avoid tilting
 		mob.meshInstance.look_at(target_position, Vector3.UP)
 
 	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(mob.global_position, targeted_entity.global_position, int(pow(2, 1-1) + pow(2, 3-1)), [self])
+	var query = PhysicsRayQueryParameters3D.create(mob.global_position, spotted_target.global_position, 3, [self])
 	var result = space_state.intersect_ray(query)
 
 	if result and result.collider:
 
-		if (result.collider.is_in_group("Players") or result.collider.is_in_group("Mobs")) and Vector3(mob.global_position).distance_to(targeted_entity.global_position) <= mob.melee_range:
+		if (result.collider.is_in_group("Players") or result.collider.is_in_group("mobs")) and Vector3(mob.global_position).distance_to(spotted_target.global_position) <= mob.melee_range:
 
 			if !is_in_attack_mode:
 				is_in_attack_mode = true
@@ -84,9 +87,9 @@ func attack():
 			_apply_attack_to_entity(attribute)
 
 
-# Helper function to send attack data to the entity's _get_hit method
+# Helper function to send attack data to the entity's get_hit method
 func _apply_attack_to_entity(attribute: Dictionary) -> void:
-	if targeted_entity and targeted_entity.has_method("_get_hit"):
+	if spotted_target and spotted_target.has_method("get_hit"):
 		var attack_data: Dictionary = {
 			"attributeid": attribute["id"],
 			"damage": attribute["damage"],
@@ -94,7 +97,7 @@ func _apply_attack_to_entity(attribute: Dictionary) -> void:
 			"mobposition": mob.global_position,
 			"hit_chance": 100 # Only used when attacking another mob, not the player
 		}
-		targeted_entity._get_hit(attack_data)
+		spotted_target.get_hit(attack_data)
 
 
 func stop_attacking():
@@ -104,8 +107,18 @@ func stop_attacking():
 
 
 func _on_detection_target_spotted(entity):
-	targeted_entity = entity # Replace with function body.
+	spotted_target = entity # Replace with function body.
 
 
 func _on_attack_cooldown_timeout():
 	attack()
+
+
+# Handle the mob_killed signal
+# If the killed mob is the current `spotted_target`, reset the target
+func _on_mob_killed(mob_instance: Mob) -> void:
+	if spotted_target and spotted_target == mob_instance:
+		# Undo any actions related to the spotted target
+		stop_attacking()
+		spotted_target = null  # Reset the spotted target
+		print("Target reset due to mob being killed.")

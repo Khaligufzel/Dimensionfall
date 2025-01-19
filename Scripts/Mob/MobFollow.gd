@@ -34,6 +34,9 @@ func _ready():
 	add_child.call_deferred(dash_timer)
 	dash_timer.timeout.connect(_on_dash_cooldown_timeout)
 
+	# Connect to the mob_killed signal from the signal broker
+	Helper.signal_broker.mob_killed.connect(_on_mob_killed)
+
 
 # Called when the mob enters the follow state. Starts the pathfinding timer 
 # and initiates path creation towards the target location.
@@ -81,7 +84,7 @@ func move_toward_target():
 
 # Orients the mob to face the targeted entity, aligning y-axis to prevent tilting
 func orient_toward_target():
-	if spotted_target:
+	if spotted_target and is_instance_valid(spotted_target):
 		var target_position = spotted_target.global_position
 		target_position.y = mob.meshInstance.global_position.y  # Align y-axis to avoid tilting
 		mob.meshInstance.look_at(target_position, Vector3.UP)
@@ -102,7 +105,7 @@ func check_for_target_in_range():
 	)
 	var result = space_state.intersect_ray(query)
 	if result and result.collider:
-		if (result.collider.is_in_group("Players") or result.collider.is_in_group("Mobs")) and Vector3(mobCol.global_position).distance_to(spotted_target.global_position) <= mob.melee_range / 2:
+		if (result.collider.is_in_group("Players") or result.collider.is_in_group("mobs")) and Vector3(mobCol.global_position).distance_to(spotted_target.global_position) <= mob.melee_range / 2:
 			print("changing state to mobattack...")
 			Transistioned.emit(self, "mobattack")
 
@@ -145,3 +148,12 @@ func attempt_dash():
 # Called when the dash cooldown timer completes, allowing another dash to be triggered
 func _on_dash_cooldown_timeout():
 	attempt_dash()
+
+
+# Handle the mob_killed signal
+# If the killed mob is the current `spotted_target`, reset the target
+func _on_mob_killed(mob_instance: Mob) -> void:
+	if spotted_target and spotted_target == mob_instance:
+		# Undo any actions related to the spotted target
+		spotted_target = null  # Reset the spotted target
+		print("Target reset due to mob being killed.")

@@ -276,7 +276,7 @@ func _check_for_interaction() -> void:
 # 	"knockback": 2, # The number of tiles to push the player away
 # 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
 # }
-func _get_hit(attack: Dictionary):
+func get_hit(attack: Dictionary):
 	if attack.has("attributeid") and attributes.has(attack["attributeid"]):
 		attributes[attack["attributeid"]].reduce_amount(attack["damage"])
 	
