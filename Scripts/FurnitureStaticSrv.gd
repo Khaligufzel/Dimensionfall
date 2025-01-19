@@ -313,29 +313,26 @@ class FurnitureContainer:
 		if not itemgroup or itemgroup == "":
 			_on_item_removed(null)
 			return
-		# A flag to track whether items were added
+
+		# Flag to track whether items were added
 		var item_added: bool = false
 		# Attempt to retrieve the itemgroup data from Gamedata
 		var ritemgroup: RItemgroup = Runtimedata.itemgroups.by_id(itemgroup)
-		
-		# Check if the itemgroup data exists and has items
+
 		if ritemgroup:
-			var groupmode: String = ritemgroup.mode  # can be "Collection" or "Distribution".
+			var groupmode: String = ritemgroup.mode  # Can be "Collection" or "Distribution".
 			if groupmode == "Collection":
 				item_added = _add_items_to_inventory_collection_mode(ritemgroup.items)
 			elif groupmode == "Distribution":
 				item_added = _add_items_to_inventory_distribution_mode(ritemgroup.items)
 
-		# Set the material if items were added
+		# Update sprite behavior based on items added
 		if item_added:
-			if rfurniture.function.random_container_sprite:
-				set_random_inventory_item_texture()
-			else:
-				material = Gamedata.materials.container_filled  # Use filled container material
-				sprite_mesh.material = material  # Update the mesh material
+			update_container_sprite_behavior(rfurniture)
 		else:
-			# If no item was added we set the sprite to an empty container
+			# If no item was added, set the sprite to an empty container
 			_on_item_removed(null)
+
 
 	# If there is an itemgroup assigned to the furniture, it will be added to the container.
 	# It will check both furnitureJSON and dfurniture for itemgroup information.
@@ -376,6 +373,25 @@ class FurnitureContainer:
 		container_data["container_itemgroup"] = itemgroup
 
 		return container_data
+
+	# Function to handle container sprite behavior based on the container_sprite_mode
+	func update_container_sprite_behavior(rfurniture: RFurniture):
+		# Read the container sprite mode from rfurniture
+		var sprite_mode: String = rfurniture.function.container_sprite_mode
+
+		# Check the sprite mode and execute the corresponding behavior
+		match sprite_mode:
+			"Random":
+				# Call the function to set a random inventory item texture
+				set_random_inventory_item_texture()
+			"Hide":
+				# Hide the sprite_mesh by making it invisible
+				if sprite_mesh:
+					sprite_mesh.visible = false
+			"Default":
+				# Handle the default case (no special behavior)
+				if sprite_mesh:
+					sprite_mesh.visible = true
 
 
 # Class representing a queued item for the CraftingContainer
