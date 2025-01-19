@@ -141,7 +141,12 @@ func _physics_process(_delta):
 	if global_transform.origin != last_position:
 		last_position = global_transform.origin
 		# Check if the mob has crossed into a new chunk
-		current_chunk = get_chunk_from_position(global_transform.origin)
+		# Clamp the x and z positions to align with the 3D world cells
+		current_chunk = get_chunk_from_position(Vector3(
+			floor(global_transform.origin.x), 
+			global_transform.origin.y, 
+			floor(global_transform.origin.z)
+		))
 		if current_chunk != last_chunk:
 			# We have crossed over to another chunk so we use that navigationmap now.
 			update_navigation_agent_map(current_chunk)
