@@ -75,27 +75,28 @@ var parent: DFurnitures
 # Inner Classes for Nested Data
 # -------------------------------
 
-# Function Property
+# Represents the functional properties of a furniture
 class Function:
-	var door: String = "None"  # Can be "None", "Open" or "Closed"
+	var door: String = "None"  # Options: "None", "Open", "Closed"
 	var is_container: bool = false
-	var container_sprite_mode: String = "default"  # Can be "default", "hide", or "random"
+	var container_sprite_mode: String = "default"  # Options: "default", "hide", "random"
 	var container_group: String = ""
 	var container_regeneration_time: float = DEFAULT_CONTAINER_REGEN  # Time in days for container regeneration (-1.0 if it doesn't regenerate)
 
-	func _init(data: Dictionary):
+	# Initializes the function property with a provided dictionary
+	func _init(data: Dictionary) -> void:
 		door = data.get("door", "None")
 		is_container = data.get("is_container", false)
-		container_sprite_mode = data.get("container_sprite_mode", "default")  # Default to "default" if not specified
+		container_sprite_mode = data.get("container_sprite_mode", "default")
 		container_group = data.get("container_group", "")
 		container_regeneration_time = data.get("container_regeneration_time", DEFAULT_CONTAINER_REGEN)
 
-	# Get data function to return a dictionary with all properties
+	# Serializes the function property into a dictionary
 	func get_data() -> Dictionary:
 		var result = {}
 		if is_container:
 			result["is_container"] = is_container
-			if container_sprite_mode != "default":  # Include container_sprite_mode if it differs from default
+			if container_sprite_mode != "default":
 				result["container_sprite_mode"] = container_sprite_mode
 			if container_group != "":
 				result["container_group"] = container_group
@@ -103,10 +104,10 @@ class Function:
 				result["container_regeneration_time"] = container_regeneration_time
 		if door != "None":
 			result["door"] = door
-		return result  # Potentially return an empty dictionary
+		return result
 
 
-# Support Shape Property
+# Represents the support shape of a furniture
 class SupportShape:
 	var color: String = DEFAULT_COLOR
 	var depth_scale: float = 100.0
@@ -116,10 +117,8 @@ class SupportShape:
 	var width_scale: float = 100.0
 	var radius_scale: float = 100.0
 
-	func _init(data: Dictionary):
-		set_data(data)
-
-	func set_data(data: Dictionary):
+	# Initializes the support shape with a provided dictionary
+	func _init(data: Dictionary) -> void:
 		color = data.get("color", DEFAULT_COLOR)
 		depth_scale = data.get("depth_scale", 100.0)
 		height = data.get("height", 0.5)
@@ -128,6 +127,7 @@ class SupportShape:
 		width_scale = data.get("width_scale", 100.0)
 		radius_scale = data.get("radius_scale", 100.0)
 
+	# Serializes the support shape into a dictionary
 	func get_data() -> Dictionary:
 		var result = {
 			"color": color,
@@ -141,6 +141,7 @@ class SupportShape:
 		elif shape == "Cylinder":
 			result["radius_scale"] = radius_scale
 		return result
+
 
 # Destruction Property
 class Destruction:
@@ -223,7 +224,8 @@ func _init(data: Dictionary, myparent: DFurnitures):
 	parent = myparent
 	_initialize_properties(data)
 
-func _initialize_properties(data: Dictionary):
+# Initializes furniture properties from a provided data dictionary
+func _initialize_properties(data: Dictionary) -> void:
 	id = data.get("id", "")
 	name = data.get("name", "")
 	description = data.get("description", "")
@@ -232,18 +234,21 @@ func _initialize_properties(data: Dictionary):
 	weight = data.get("weight", 1.0)
 	edgesnapping = data.get("edgesnapping", "")
 	spriteid = data.get("sprite", "")
-	sprite = null  # Sprite is loaded lazily if required
+	sprite = null  # Lazy-loaded
+	# Initialize inner classes with defaults or provided data
 	function = Function.new(data.get("Function", {}))
 	support_shape = SupportShape.new(data.get("support_shape", {}))
 	destruction = Destruction.new(data.get("destruction", {}))
 	disassembly = Disassembly.new(data.get("disassembly", {}))
-	crafting = Crafting.new(data.get("crafting", {}))  # Initialize Crafting inner class
-	construction = Construction.new(data.get("construction", {}))  # Initialize Construction with a dictionary
+	crafting = Crafting.new(data.get("crafting", {}))
+	construction = Construction.new(data.get("construction", {}))
+
 
 # -------------------------------
 # Data Retrieval
 # -------------------------------
 
+# Serializes the furniture into a dictionary
 func get_data() -> Dictionary:
 	var result = {
 		"id": id,
@@ -254,28 +259,26 @@ func get_data() -> Dictionary:
 		"edgesnapping": edgesnapping,
 		"sprite": spriteid
 	}
-	# Save the weight only if moveable true, otherwise erase it.
+
 	if moveable:
 		result["weight"] = weight
-	else: # Support shape only applies to static furniture
+	else:
 		result["support_shape"] = support_shape.get_data()
 
+	# Add nested properties only if they have meaningful values
 	if not function.get_data().is_empty():
 		result["Function"] = function.get_data()
-
 	if not destruction.get_data().is_empty():
 		result["destruction"] = destruction.get_data()
-
 	if not disassembly.get_data().is_empty():
 		result["disassembly"] = disassembly.get_data()
-
-	if not crafting.get_data().is_empty(): # Add crafting data if it exists
+	if not crafting.get_data().is_empty():
 		result["crafting"] = crafting.get_data()
-
-	if not construction.get_data().is_empty():  # Add construction data if it exists
+	if not construction.get_data().is_empty():
 		result["construction"] = construction.get_data()
 
 	return result
+
 
 func get_sprite_path() -> String:
 	return parent.spritePath + spriteid
@@ -328,13 +331,12 @@ func _update_references(old_value: String, new_value: String):
 # Deletion and Cleanup
 # -------------------------------
 
-func delete():
+func delete() -> void:
 	# Check to see if any mod has a copy of this furniture. If one or more remain, we can keep references
 	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.FURNITURES, id)
 	if all_results.size() > 1:
-		parent.remove_reference(id)  # Erase the reference for the ID in this mod
+		parent.remove_reference(id)
 		return
-
 	_remove_references("container_group", function.container_group)
 	_remove_references("destruction_group", destruction.group)
 	_remove_references("disassembly_group", disassembly.group)
