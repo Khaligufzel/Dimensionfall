@@ -79,9 +79,32 @@ func _write_mod_to_state_file(mod_id: String, is_enabled: bool) -> void:
 		print_debug("New mod added to mods_state.cfg: ", mod_id)
 
 
-# Deletes a mod by its ID and saves changes to disk
-func delete_by_id(modid: String) -> void:
-	mod_dict.erase(modid)
+# Deletes a mod by its ID and removes it from the `user://mods_state.cfg` file
+func delete_by_id(mod_id: String) -> void:
+	# Remove the mod from the dictionary
+	mod_dict.erase(mod_id)
+
+	# Load the existing mod states
+	var config_path = "user://mods_state.cfg"
+	var config = ConfigFile.new()
+	var mod_states: Array = []
+
+	if FileAccess.file_exists(config_path) and config.load(config_path) == OK:
+		mod_states = config.get_value("mods", "states", [])
+	else:
+		print_debug("Could not load mods_state.cfg for deletion.")
+		return
+
+	# Filter out the mod being deleted from the mod states
+	mod_states = mod_states.filter(func(mod_state): return mod_state["id"] != mod_id)
+
+	# Save the updated mod states back to the file
+	config.set_value("mods", "states", mod_states)
+	if config.save(config_path) != OK:
+		print_debug("Failed to save updated mod states to mods_state.cfg after deleting mod: ", mod_id)
+	else:
+		print_debug("Mod successfully deleted from mods_state.cfg: ", mod_id)
+
 
 # Returns a mod by its ID
 func by_id(modid: String) -> DMod:
