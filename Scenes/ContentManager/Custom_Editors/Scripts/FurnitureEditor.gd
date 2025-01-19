@@ -71,7 +71,7 @@ var olddata: DFurniture # Remember what the value of the data was before editing
 var dfurniture: DFurniture:
 	set(value):
 		dfurniture = value
-		load_furniture_data()
+		_load_furniture_data()
 		furniture_selector.sprites_collection = dfurniture.parent.sprites
 		if not data_changed.is_connected(dfurniture.parent.on_data_changed):
 			data_changed.connect(dfurniture.parent.on_data_changed)
@@ -90,119 +90,80 @@ func _ready():
 	container_text_edit.text_changed.connect(_on_container_text_edit_text_changed)
 
 
-func load_furniture_data():
-	if furniture_image_display and dfurniture.sprite:
-		furniture_image_display.texture = dfurniture.sprite
-		image_name_label.text = dfurniture.spriteid
-		update_sprite_texture_rect(furniture_image_display.texture)
-	if id_label:
-		id_label.text = dfurniture.id
-	if name_edit:
-		name_edit.text = dfurniture.name
-	if description_edit:
-		description_edit.text = dfurniture.description
-	if categories_list:
-		_update_categories()
-	if moveable_checkbox:
-		moveable_checkbox.button_pressed = dfurniture.moveable
-		_on_moveable_checkbox_toggled(dfurniture.moveable)
-	if weight_spinbox:
-		weight_spinbox.value = dfurniture.weight
-	if edge_snapping_option:
-		select_option_by_string(edge_snapping_option, dfurniture.edgesnapping)
-	if door_option:
-		update_door_option(dfurniture.function.door)
+# -------------------------
+# Furniture Data Loading
+# -------------------------
+func _load_furniture_data():
+	# Load and display furniture metadata
+	_load_metadata()
+	_load_destruction_data()
+	_load_disassembly_data()
+	_load_container_data()
+	_load_support_shape_data()
+	# Refresh crafting and construction item lists
+	update_item_list()
+	update_construction_item_list()
 
+func _load_metadata():
+	# Populate general metadata
+	id_label.text = dfurniture.id
+	name_edit.text = dfurniture.name
+	description_edit.text = dfurniture.description
+	image_name_label.text = dfurniture.spriteid
+	furniture_image_display.texture = dfurniture.sprite if dfurniture.sprite else null
+	moveable_checkbox.button_pressed = dfurniture.moveable
+	weight_spinbox.value = dfurniture.weight
+	select_option_by_string(edge_snapping_option, dfurniture.edgesnapping)
+
+func _load_destruction_data():
+	# Load destruction-specific data
 	if not dfurniture.destruction.get_data().is_empty():
 		can_destroy_checkbox.button_pressed = true
 		destruction_text_edit.set_text(dfurniture.destruction.group)
-		if not dfurniture.destruction.sprite == "":
-			destruction_image_display.texture = dfurniture.parent.sprite_by_file(dfurniture.destruction.sprite)
+		destruction_image_display.texture = dfurniture.parent.sprite_by_file(dfurniture.destruction.sprite)
 		destruction_sprite_label.text = dfurniture.destruction.sprite
-		set_visibility_for_children(destruction_text_edit, true)
+		set_child_visibility(destruction_text_edit, true)
 	else:
 		can_destroy_checkbox.button_pressed = false
-		set_visibility_for_children(destruction_text_edit, false)
+		set_child_visibility(destruction_text_edit, false)
 
+func _load_disassembly_data():
+	# Load disassembly-specific data
 	if not dfurniture.disassembly.get_data().is_empty():
 		can_disassemble_checkbox.button_pressed = true
 		disassembly_text_edit.set_text(dfurniture.disassembly.group)
 		disassembly_image_display.texture = dfurniture.parent.sprite_by_file(dfurniture.disassembly.sprite)
 		disassembly_sprite_label.text = dfurniture.disassembly.sprite
-		set_visibility_for_children(disassembly_text_edit, true)
+		set_child_visibility(disassembly_text_edit, true)
 	else:
 		can_disassemble_checkbox.button_pressed = false
-		set_visibility_for_children(disassembly_text_edit, false)
+		set_child_visibility(disassembly_text_edit, false)
 
-	# Load container data if it exists within the 'Function' property
-	if dfurniture.function.is_container:
-		container_checkbox.button_pressed = true  # Check the container checkbox
-		var itemgroup: String = dfurniture.function.container_group
-		if not itemgroup == "":
-			container_text_edit.set_text(itemgroup)
-		else:
-			container_text_edit.mytextedit.clear()  # Clear the text edit if no itemgroup is specified
-
-		# Load regeneration time if applicable
-		if dfurniture.function.container_regeneration_time >= 0.0:
-			regeneration_spin_box.value = dfurniture.function.container_regeneration_time
-		else:
-			regeneration_spin_box.value = -1.0  # Default to -1.0 if no regeneration time is set
-
-		# Set the sprite mode option button to match the furniture's sprite mode
-		select_option_by_string(sprite_mode_option_button, dfurniture.function.container_sprite_mode)
-	else:
-		container_checkbox.button_pressed = false  # Uncheck the container checkbox
-		container_text_edit.mytextedit.clear()  # Clear the text edit as no container data is present
-		regeneration_spin_box.value = -1.0  # Reset regeneration spin box
-		sprite_mode_option_button.selected = 0  # Default to "default"
+func _load_container_data():
+	# Load container-specific data
+	container_checkbox.button_pressed = dfurniture.function.is_container
+	container_text_edit.set_text(dfurniture.function.container_group if dfurniture.function.container_group != "" else "")
+	regeneration_spin_box.value = max(dfurniture.function.container_regeneration_time, -1.0)
+	select_option_by_string(sprite_mode_option_button, dfurniture.function.container_sprite_mode)
 	update_container_controls_visibility()
 
-	# Call the function to load the support shape data
-	load_support_shape_option()
-	update_item_list()
-	update_construction_item_list()
+func _load_support_shape_data():
+	# Load support shape-specific data
+	var support_shape: DFurniture.SupportShape = dfurniture.support_shape
+	select_option_by_string(support_shape_option_button, support_shape.shape)
+	color_picker.color = Color.html(support_shape.color)
+	transparent_check_box.button_pressed = support_shape.transparent
+	heigth_spin_box.value = support_shape.height
+	width_scale_spin_box.value = support_shape.width_scale
+	depth_scale_spin_box.value = support_shape.depth_scale
+	radius_scale_spin_box.value = support_shape.radius_scale
+	_update_shape_visibility(support_shape.shape)
 
 
 func _update_categories():
 		categories_list.clear_list()
 		for category in dfurniture.categories:
 			categories_list.add_item_to_list(category)
-
-
-# Function to load support shape data into the form
-func load_support_shape_option():
-	var supportshape = dfurniture.support_shape
-	var shape = supportshape.shape
-
-	# Select the appropriate shape in the option button
-	for i in range(support_shape_option_button.get_item_count()):
-		if support_shape_option_button.get_item_text(i) == shape:
-			support_shape_option_button.selected = i
-			break
-
-	color_picker.color = Color.html(supportshape.color)
-
-	transparent_check_box.button_pressed = supportshape.transparent
-	heigth_spin_box.value = supportshape.height
-
-	if shape == "Box":
-		width_scale_spin_box.value = supportshape.width_scale
-		depth_scale_spin_box.value = supportshape.depth_scale
-		width_scale_spin_box.visible = true
-		depth_scale_spin_box.visible = true
-		width_scale_label.visible = true
-		depth_scale_label.visible = true
-		radius_scale_spin_box.visible = false
-		radius_scale_label.visible = false
-	elif shape == "Cylinder":
-		radius_scale_spin_box.value = supportshape.radius_scale
-		width_scale_spin_box.visible = false
-		depth_scale_spin_box.visible = false
-		width_scale_label.visible = false
-		depth_scale_label.visible = false
-		radius_scale_spin_box.visible = true
-		radius_scale_label.visible = true
 
 
 func update_door_option(door_state):
@@ -722,3 +683,22 @@ func update_container_controls_visibility():
 
 func _on_container_text_edit_text_changed(_new_text: String):
 	update_container_controls_visibility()
+
+
+# ----------------------------
+# Utility and Helper Functions
+# ----------------------------
+func set_child_visibility(container: Control, isvisible: bool):
+	# Set visibility for all child nodes
+	for i in range(container.get_child_count()):
+		container.get_child(i).visible = isvisible
+
+func _update_shape_visibility(shape: String):
+	# Adjust UI visibility based on selected shape type
+	var is_box = shape == "Box"
+	width_scale_label.visible = is_box
+	depth_scale_label.visible = is_box
+	width_scale_spin_box.visible = is_box
+	depth_scale_spin_box.visible = is_box
+	radius_scale_label.visible = not is_box
+	radius_scale_spin_box.visible = not is_box
