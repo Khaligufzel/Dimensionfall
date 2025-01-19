@@ -12,43 +12,38 @@ func _init() -> void:
 	load_mods_from_disk()
 
 
-# Function to load all mods from the ./Mods directory and populate the mod_dict dictionary
+### ------------------------- Loading Mods --------------------------
+
+# Loads all mods from the `./Mods` directory and populates `mod_dict`
 func load_mods_from_disk() -> void:
-	# Clear the mod_dict dictionary
 	mod_dict.clear()
+	var mod_states: Dictionary = _get_mod_states_as_dict()
+	var folders: Array = Helper.json_helper.folder_names_in_dir("./Mods")
 
-	# Get the list of saved mod states
-	var mod_states = get_mod_list_states()
-	var enabled_states: Dictionary = {}
-
-	# Convert the mod_states array into a dictionary for quick lookup
-	for mod_state in mod_states:
-		enabled_states[mod_state["id"]] = mod_state["enabled"]
-
-	# Get the list of folders in the Mods directory using the helper function
-	var folders = Helper.json_helper.folder_names_in_dir("./Mods")
-	
-	# Iterate through each folder
-	for folder_name in folders:
+	for folder_name: String in folders:
 		var modinfo_path = "./Mods/" + folder_name + "/modinfo.json"
-
-		# Load the modinfo.json file if it exists
 		if FileAccess.file_exists(modinfo_path):
-			var modinfo = Helper.json_helper.load_json_dictionary_file(modinfo_path)
-
-			# Validate modinfo data and add it to the mod_dict dictionary
-			if modinfo.has("id"):
-				var mod_id = modinfo["id"]
-				
-				# Initialize the mod instance and set its enabled state
-				var mod = DMod.new(modinfo, self)
-				mod.is_enabled = enabled_states.get(mod_id, true)  # Default to enabled if not in saved states
-
-				mod_dict[mod_id] = mod
-			else:
-				print_debug("Invalid modinfo.json in folder: " + folder_name)
+			_load_mod_from_folder(modinfo_path, mod_states)
 		else:
 			print_debug("No modinfo.json found in folder: " + folder_name)
+
+# Converts the mod states list into a dictionary for quick lookup
+func _get_mod_states_as_dict() -> Dictionary:
+	var enabled_states: Dictionary = {}
+	for state in get_mod_list_states():
+		enabled_states[state["id"]] = state["enabled"]
+	return enabled_states
+
+# Loads a single mod from a folder, validating its modinfo file
+func _load_mod_from_folder(modinfo_path: String, enabled_states: Dictionary) -> void:
+	var modinfo = Helper.json_helper.load_json_dictionary_file(modinfo_path)
+	if modinfo.has("id"):
+		var mod_id: String = modinfo["id"]
+		var mod: DMod = DMod.new(modinfo, self)
+		mod.is_enabled = enabled_states.get(mod_id, true)  # Default to enabled
+		mod_dict[mod_id] = mod
+	else:
+		print_debug("Invalid modinfo.json in path: " + modinfo_path)
 
 
 # Returns the dictionary containing all mods
