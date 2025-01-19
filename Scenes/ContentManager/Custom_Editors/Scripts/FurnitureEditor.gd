@@ -96,6 +96,7 @@ func _ready():
 func _load_furniture_data():
 	# Load and display furniture metadata
 	_load_metadata()
+	_update_categories()
 	_load_destruction_data()
 	_load_disassembly_data()
 	_load_container_data()
