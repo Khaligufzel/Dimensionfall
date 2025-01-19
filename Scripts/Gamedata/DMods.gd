@@ -50,34 +50,33 @@ func _load_mod_from_folder(modinfo_path: String, enabled_states: Dictionary) -> 
 func get_all() -> Dictionary:
 	return mod_dict
 
-# Adds a new mod with a given ID and writes it to `user://mods_state.cfg` as enabled.
-func add_new(newid: String, modinfo: Dictionary) -> void:
-	# Create the mod and add it to the dictionary
-	modinfo["id"] = newid
-	var newmod: DMod = DMod.new(modinfo, self)
-	mod_dict[newmod.id] = newmod
+### ----------------------- Mod State Management -----------------------
 
-	# Load the current mod states from `user://mods_state.cfg`
+# Adds a new mod and writes it to `user://mods_state.cfg` as enabled
+func add_new(new_id: String, mod_info: Dictionary) -> void:
+	mod_info["id"] = new_id
+	var new_mod = DMod.new(mod_info, self)
+	mod_dict[new_mod.id] = new_mod
+	_write_mod_to_state_file(new_id, true)
+
+# Writes a new mod to `user://mods_state.cfg` with its enabled state
+func _write_mod_to_state_file(mod_id: String, is_enabled: bool) -> void:
 	var config_path = "user://mods_state.cfg"
 	var config = ConfigFile.new()
-	var mod_states: Array = []
+	var mod_states = []
+
 	if FileAccess.file_exists(config_path) and config.load(config_path) == OK:
 		mod_states = config.get_value("mods", "states", [])
 	else:
 		print_debug("Creating new mods_state.cfg file.")
 
-	# Add the new mod to the mod states, set as enabled
-	mod_states.append({
-		"id": newid,
-		"enabled": true
-	})
-
-	# Save the updated mod states back to the file
+	mod_states.append({"id": mod_id, "enabled": is_enabled})
 	config.set_value("mods", "states", mod_states)
+
 	if config.save(config_path) != OK:
 		print_debug("Failed to save updated mod states to mods_state.cfg.")
 	else:
-		print_debug("New mod added to mods_state.cfg: ", newid)
+		print_debug("New mod added to mods_state.cfg: ", mod_id)
 
 
 # Deletes a mod by its ID and saves changes to disk
