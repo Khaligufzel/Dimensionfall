@@ -1,7 +1,6 @@
 class_name Mob
 extends CharacterBody3D
 
-var original_scale
 var mobPosition: Vector3 # The position it will move to when it is created
 var mobRotation: int # The rotation it will rotate to when it is created
 var mobJSON: Dictionary # The json that defines this mob
@@ -9,11 +8,12 @@ var rmob: RMob # The data that defines this mob in general
 var meshInstance: MeshInstance3D # This mob's mesh instance
 var nav_agent: NavigationAgent3D # Used for pathfinding
 var collision_shape_3d = CollisionShape3D
+var current_chunk: Vector2
 var last_position: Vector3 = Vector3()
 var last_rotation: int
 var last_chunk: Vector2
-var current_chunk: Vector2
 
+# Stats and attributes
 var melee_range: float = 1.5
 var health: float = 100.0
 var current_health: float
@@ -25,11 +25,11 @@ var sight_range: float = 200.0
 var sense_range: float = 50.0
 var hearing_range: float = 1000.0
 var dash: Dictionary = {} # to enable dash move. something like {"speed_multiplier":2,"cooldown":5,"duration":0.5}
+var hates_mobs: Array = [] # An array of strings containing the mob id's it hates
 
+# States and flags
 var is_blinking: bool = false # flag to prevent multiple blink actions
 var original_material: StandardMaterial3D # To return to normal after blinking
-
-# State machine variables:
 var state_machine: StateMachine
 var terminated: bool = false
 
@@ -41,7 +41,11 @@ func _init(mobpos: Vector3, newMobJSON: Dictionary):
 	# Retrieve mob data from Runtimedata
 	rmob = Runtimedata.mobs.by_id(mobJSON.id)
 	mobPosition = mobpos
-	setup_mob_properties()
+	initialize_mob()
+
+# Initializes the mob by setting up various components and properties
+func initialize_mob():
+	setup_basic_properties()
 	setup_collision_layers_and_masks()
 	create_navigation_agent()
 	create_state_machine()
@@ -52,12 +56,13 @@ func _init(mobpos: Vector3, newMobJSON: Dictionary):
 	Helper.signal_broker.game_terminated.connect(terminate)
 
 # Set basic properties of the mob
-func setup_mob_properties():
+func setup_basic_properties():
 	wall_min_slide_angle = 0
 	floor_constant_speed = true
 	add_to_group("mobs")
 	if mobJSON.has("rotation"):
 		mobRotation = mobJSON.rotation
+	hates_mobs = Runtimedata.mobfactions.by_id(rmob.faction_id).get_mobs_by_relation_type("hostile")
 
 # Set collision layers and masks
 func setup_collision_layers_and_masks():
@@ -120,6 +125,7 @@ func create_mesh_instance():
 	meshInstance.mesh = quadmesh
 	add_child.call_deferred(meshInstance)
 
+# Set up the mob's initial health and position
 func _ready():
 	current_health = health
 	current_move_speed = move_speed
@@ -130,11 +136,17 @@ func _ready():
 	current_chunk = get_chunk_from_position(global_transform.origin)
 	update_navigation_agent_map(current_chunk)
 
+
 func _physics_process(_delta):
 	if global_transform.origin != last_position:
 		last_position = global_transform.origin
 		# Check if the mob has crossed into a new chunk
-		current_chunk = get_chunk_from_position(global_transform.origin)
+		# Clamp the x and z positions to align with the 3D world cells
+		current_chunk = get_chunk_from_position(Vector3(
+			floor(global_transform.origin.x), 
+			global_transform.origin.y, 
+			floor(global_transform.origin.z)
+		))
 		if current_chunk != last_chunk:
 			# We have crossed over to another chunk so we use that navigationmap now.
 			update_navigation_agent_map(current_chunk)
@@ -145,6 +157,7 @@ func _physics_process(_delta):
 		last_rotation = current_rotation
 
 
+# Update the navigation map based on the mob's current chunk
 func update_navigation_agent_map(chunk_position: Vector2):
 	# Assume 'chunk_navigation_maps' is a global dictionary mapping chunk positions to navigation map IDs
 	var navigation_map_id = Helper.chunk_navigation_maps.get(chunk_position)
@@ -198,16 +211,21 @@ func show_miss_indicator():
 		miss_label.queue_free()  # Properly free the miss_label node
 	)
 
+
+# Handle the mob's death and trigger a corpse creation
 func _die():
 	Helper.signal_broker.mob_killed.emit(self)
 	add_corpse.call_deferred(global_position)
 	queue_free()
 
+
+# Add a corpse to the map
 func add_corpse(pos: Vector3):
-	var itemdata: Dictionary = {}
-	itemdata["global_position_x"] = pos.x
-	itemdata["global_position_y"] = pos.y
-	itemdata["global_position_z"] = pos.z
+	var itemdata: Dictionary = {
+		"global_position_x": pos.x,
+		"global_position_y": pos.y,
+		"global_position_z": pos.z
+	}
 
 	# Check if the mob data has a 'loot_group' property
 	if rmob.loot_group and not rmob.loot_group == "":
@@ -263,10 +281,7 @@ func get_chunk_from_position(chunkposition: Vector3) -> Vector2:
 	var chunk_x_index = floor(x_position / 32.0)
 	var chunk_z_index = floor(z_position / 32.0)
 	
-	var chunk_x = chunk_x_index * 32
-	var chunk_z = chunk_z_index * 32
-	
-	return Vector2(chunk_x, chunk_z)
+	return Vector2(chunk_x_index * 32, chunk_z_index * 32)
 
 # The mob will blink once to indicate that it's hit
 # We enable emission and tween it to a white color so it's entirely white
@@ -292,8 +307,9 @@ func _on_tween_finished():
 	surfacematerial.set_feature(BaseMaterial3D.FEATURE_EMISSION, false)
 	is_blinking = false
 
+# Return mob data as a Dictionary
 func get_data() -> Dictionary:
-	var newMobData = {
+	return {
 		"id": mobJSON.id,
 		"global_position_x": last_position.x,
 		"global_position_y": last_position.y,
@@ -310,10 +326,13 @@ func get_data() -> Dictionary:
 		"sense_range": sense_range,
 		"hearing_range": hearing_range
 	}
-	return newMobData
 
 
 # Terminate the mob, disabling any movement and navigation
 # This allows the mob to transition to the MobTerminate state
 func terminate():
 	terminated = true
+
+# Return the faction id of the mob
+func get_faction() -> String:
+	return rmob.faction_id
