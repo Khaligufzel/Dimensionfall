@@ -1,0 +1,16 @@
+[
+	{
+		"description": "This is mostly an example of an overhaul mod to demonstrate the freedom of modders to do what they want.\n\nRight now there is nothing to do but explore. The world is completely devoid of any items and furniture and enemies.\n\nIf you are a backrooms fan, shape this mod to your liking by submitting your changes on github!",
+		"id": "introduction",
+		"name": "Introduction",
+		"rewards": [],
+		"sprite": "",
+		"steps": [
+			{
+				"map_id": "escape?",
+				"reveal_condition": "HIDDEN",
+				"type": "enter"
+			}
+		]
+	}
+]

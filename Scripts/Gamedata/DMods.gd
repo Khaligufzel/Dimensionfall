@@ -12,58 +12,99 @@ func _init() -> void:
 	load_mods_from_disk()
 
 
-# Function to load all mods from the ./Mods directory and populate the mod_dict dictionary
+### ------------------------- Loading Mods --------------------------
+
+# Loads all mods from the `./Mods` directory and populates `mod_dict`
 func load_mods_from_disk() -> void:
-	# Clear the mod_dict dictionary
 	mod_dict.clear()
+	var mod_states: Dictionary = _get_mod_states_as_dict()
+	var folders: Array = Helper.json_helper.folder_names_in_dir("./Mods")
 
-	# Get the list of saved mod states
-	var mod_states = get_mod_list_states()
-	var enabled_states: Dictionary = {}
-
-	# Convert the mod_states array into a dictionary for quick lookup
-	for mod_state in mod_states:
-		enabled_states[mod_state["id"]] = mod_state["enabled"]
-
-	# Get the list of folders in the Mods directory using the helper function
-	var folders = Helper.json_helper.folder_names_in_dir("./Mods")
-	
-	# Iterate through each folder
-	for folder_name in folders:
+	for folder_name: String in folders:
 		var modinfo_path = "./Mods/" + folder_name + "/modinfo.json"
-
-		# Load the modinfo.json file if it exists
 		if FileAccess.file_exists(modinfo_path):
-			var modinfo = Helper.json_helper.load_json_dictionary_file(modinfo_path)
-
-			# Validate modinfo data and add it to the mod_dict dictionary
-			if modinfo.has("id"):
-				var mod_id = modinfo["id"]
-				
-				# Initialize the mod instance and set its enabled state
-				var mod = DMod.new(modinfo, self)
-				mod.is_enabled = enabled_states.get(mod_id, true)  # Default to enabled if not in saved states
-
-				mod_dict[mod_id] = mod
-			else:
-				print_debug("Invalid modinfo.json in folder: " + folder_name)
+			_load_mod_from_folder(modinfo_path, mod_states)
 		else:
 			print_debug("No modinfo.json found in folder: " + folder_name)
+
+# Converts the mod states list into a dictionary for quick lookup
+func _get_mod_states_as_dict() -> Dictionary:
+	var enabled_states: Dictionary = {}
+	for state in get_mod_list_states():
+		enabled_states[state["id"]] = state["enabled"]
+	return enabled_states
+
+# Loads a single mod from a folder, validating its modinfo file
+func _load_mod_from_folder(modinfo_path: String, enabled_states: Dictionary) -> void:
+	var modinfo = Helper.json_helper.load_json_dictionary_file(modinfo_path)
+	if modinfo.has("id"):
+		var mod_id: String = modinfo["id"]
+		var mod: DMod = DMod.new(modinfo, self)
+		mod.is_enabled = enabled_states.get(mod_id, true)  # Default to enabled
+		mod_dict[mod_id] = mod
+	else:
+		print_debug("Invalid modinfo.json in path: " + modinfo_path)
 
 
 # Returns the dictionary containing all mods
 func get_all() -> Dictionary:
 	return mod_dict
 
-# Adds a new mod with a given ID
-func add_new(newid: String, modinfo: Dictionary) -> void:
-	modinfo["id"] = newid
-	var newmod: DMod = DMod.new(modinfo, self)
-	mod_dict[newmod.id] = newmod
+### ----------------------- Mod State Management -----------------------
 
-# Deletes a mod by its ID and saves changes to disk
-func delete_by_id(modid: String) -> void:
-	mod_dict.erase(modid)
+# Adds a new mod and writes it to `user://mods_state.cfg` as enabled
+func add_new(new_id: String, mod_info: Dictionary) -> void:
+	mod_info["id"] = new_id
+	var new_mod = DMod.new(mod_info, self)
+	mod_dict[new_mod.id] = new_mod
+	_write_mod_to_state_file(new_id, true)
+
+# Writes a new mod to `user://mods_state.cfg` with its enabled state
+func _write_mod_to_state_file(mod_id: String, is_enabled: bool) -> void:
+	var config_path = "user://mods_state.cfg"
+	var config = ConfigFile.new()
+	var mod_states = []
+
+	if FileAccess.file_exists(config_path) and config.load(config_path) == OK:
+		mod_states = config.get_value("mods", "states", [])
+	else:
+		print_debug("Creating new mods_state.cfg file.")
+
+	mod_states.append({"id": mod_id, "enabled": is_enabled})
+	config.set_value("mods", "states", mod_states)
+
+	if config.save(config_path) != OK:
+		print_debug("Failed to save updated mod states to mods_state.cfg.")
+	else:
+		print_debug("New mod added to mods_state.cfg: ", mod_id)
+
+
+# Deletes a mod by its ID and removes it from the `user://mods_state.cfg` file
+func delete_by_id(mod_id: String) -> void:
+	# Remove the mod from the dictionary
+	mod_dict.erase(mod_id)
+
+	# Load the existing mod states
+	var config_path = "user://mods_state.cfg"
+	var config = ConfigFile.new()
+	var mod_states: Array = []
+
+	if FileAccess.file_exists(config_path) and config.load(config_path) == OK:
+		mod_states = config.get_value("mods", "states", [])
+	else:
+		print_debug("Could not load mods_state.cfg for deletion.")
+		return
+
+	# Filter out the mod being deleted from the mod states
+	mod_states = mod_states.filter(func(mod_state): return mod_state["id"] != mod_id)
+
+	# Save the updated mod states back to the file
+	config.set_value("mods", "states", mod_states)
+	if config.save(config_path) != OK:
+		print_debug("Failed to save updated mod states to mods_state.cfg after deleting mod: ", mod_id)
+	else:
+		print_debug("Mod successfully deleted from mods_state.cfg: ", mod_id)
+
 
 # Returns a mod by its ID
 func by_id(modid: String) -> DMod:
