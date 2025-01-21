@@ -679,7 +679,6 @@ func update_container_controls_visibility():
 	# Toggle visibility based on value
 	regeneration_label.visible = has_value
 	regeneration_spin_box.visible = has_value
-	sprite_mode_option_button.visible = has_value
 
 
 func _on_container_text_edit_text_changed(_new_text: String):

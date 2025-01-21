@@ -387,11 +387,16 @@ class FurnitureContainer:
 			"Hide":
 				# Hide the sprite_mesh by making it invisible
 				if sprite_mesh:
-					sprite_mesh.visible = false
+					var empty_material = StandardMaterial3D.new()
+					empty_material.albedo_color = Color(1, 1, 1, 0)  # Fully transparent color
+					empty_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA  # Enable alpha transparency
+					empty_material.flags_transparent = true  # Mark the material as transparent
+					sprite_mesh.material = empty_material
 			"Default":
 				# Handle the default case (no special behavior)
 				if sprite_mesh:
-					sprite_mesh.visible = true
+					material = Gamedata.materials.container_filled  # Use filled container material
+					sprite_mesh.material = material  # Update the mesh material
 
 
 # Class representing a queued item for the CraftingContainer
