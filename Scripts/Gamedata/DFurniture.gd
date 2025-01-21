@@ -79,7 +79,7 @@ var parent: DFurnitures
 class Function:
 	var door: String = "None"  # Options: "None", "Open", "Closed"
 	var is_container: bool = false
-	var container_sprite_mode: String = "default"  # Options: "default", "hide", "random"
+	var container_sprite_mode: String = "Default"  # Options: "Default", "Hide", "Random"
 	var container_group: String = ""
 	var container_regeneration_time: float = DEFAULT_CONTAINER_REGEN  # Time in days for container regeneration (-1.0 if it doesn't regenerate)
 
@@ -87,7 +87,7 @@ class Function:
 	func _init(data: Dictionary) -> void:
 		door = data.get("door", "None")
 		is_container = data.get("is_container", false)
-		container_sprite_mode = data.get("container_sprite_mode", "default")
+		container_sprite_mode = data.get("container_sprite_mode", "Default")
 		container_group = data.get("container_group", "")
 		container_regeneration_time = data.get("container_regeneration_time", DEFAULT_CONTAINER_REGEN)
 
@@ -96,7 +96,7 @@ class Function:
 		var result = {}
 		if is_container:
 			result["is_container"] = is_container
-			if container_sprite_mode != "default":
+			if container_sprite_mode != "Default":
 				result["container_sprite_mode"] = container_sprite_mode
 			if container_group != "":
 				result["container_group"] = container_group
