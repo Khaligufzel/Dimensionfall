@@ -45,7 +45,7 @@ extends RefCounted
 class Function:
 	var door: String # Can be "None", "Open" or "Closed"
 	var is_container: bool
-	var random_container_sprite: bool = false
+	var container_sprite_mode: String = "Default"  # Options: "Default", "Hide", "Random"
 	var container_group: String
 	var container_regeneration_time: float  # Time in minutes for container regeneration (-1 if it doesn't regenerate)
 
@@ -54,7 +54,7 @@ class Function:
 	func _init(data: Dictionary):
 		door = data.get("door", "None")
 		is_container = data.get("is_container", false)
-		random_container_sprite = data.get("random_container_sprite", false)
+		container_sprite_mode = data.get("container_sprite_mode", "Default")
 		container_group = data.get("container_group", "")
 		container_regeneration_time = data.get("container_regeneration_time", -1.0)  # Default to -1
 
@@ -63,8 +63,8 @@ class Function:
 		var functiondata: Dictionary = {}
 		if is_container:
 			functiondata["is_container"] = is_container
-			if random_container_sprite != false:
-				functiondata["random_container_sprite"] = random_container_sprite
+			if container_sprite_mode != "Default":
+				functiondata["container_sprite_mode"] = container_sprite_mode
 			if not container_group == "":
 				functiondata["container_group"] = container_group
 			if container_regeneration_time != -1:  # Only include if not the default
