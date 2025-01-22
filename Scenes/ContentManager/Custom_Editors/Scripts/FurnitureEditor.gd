@@ -61,6 +61,13 @@ var control_elements: Array = []
 # Tracks which image display control is currently being updated
 var current_image_display: String = ""
 
+# Controls for consumption:
+@export var pool_spin_box: SpinBox = null
+@export var drain_rate_spin_box: SpinBox = null
+@export var transform_into_drop_enabled_text_edit: HBoxContainer = null
+@export var button_text_text_edit: TextEdit = null
+@export var items_grid_container: GridContainer = null
+
 
 # This signal will be emitted when the user presses the save button
 signal data_changed()

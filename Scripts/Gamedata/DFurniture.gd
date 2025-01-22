@@ -69,6 +69,7 @@ var destruction: Destruction
 var disassembly: Disassembly
 var crafting: Crafting
 var construction: Construction
+var consumption: Consumption
 var parent: DFurnitures
 
 # -------------------------------
@@ -216,6 +217,38 @@ class Construction:
 		items.erase(item_id)
 
 
+# Represents the consumption properties of a furniture
+class Consumption:
+	var pool: int = 0  # The initial value of the pool
+	var drain_rate: int = 0  # How much to drain per interval
+	var transform_into: String = ""  # The furniture ID to transform into after consumption
+	var button_text: String = ""  # Text for the action button
+	var items: Dictionary = {}  # Items required for consumption, e.g., {"wood": 12, "copper": 2}
+
+	# Constructor to initialize consumption data from a dictionary
+	func _init(data: Dictionary) -> void:
+		pool = data.get("pool", 0)
+		drain_rate = data.get("drain_rate", 0)
+		transform_into = data.get("transform_into", "")
+		button_text = data.get("button_text", "")
+		items = data.get("items", {})  # Default to an empty dictionary if not provided
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		var result = {}
+		if pool > 0:
+			result["pool"] = pool
+		if drain_rate > 0:
+			result["drain_rate"] = drain_rate
+		if transform_into != "":
+			result["transform_into"] = transform_into
+		if button_text != "":
+			result["button_text"] = button_text
+		if not items.is_empty():
+			result["items"] = items
+		return result
+
+
 # -------------------------------
 # Initialization
 # -------------------------------
@@ -242,6 +275,7 @@ func _initialize_properties(data: Dictionary) -> void:
 	disassembly = Disassembly.new(data.get("disassembly", {}))
 	crafting = Crafting.new(data.get("crafting", {}))
 	construction = Construction.new(data.get("construction", {}))
+	consumption = Consumption.new(data.get("consumption", {}))
 
 
 # -------------------------------
@@ -276,6 +310,8 @@ func get_data() -> Dictionary:
 		result["crafting"] = crafting.get_data()
 	if not construction.get_data().is_empty():
 		result["construction"] = construction.get_data()
+	if not consumption.get_data().is_empty():
+		result["consumption"] = consumption.get_data()
 
 	return result
 
