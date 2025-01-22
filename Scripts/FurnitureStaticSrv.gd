@@ -33,6 +33,7 @@ var door_state: String = "Closed"  # Default state
 # Variables to manage the container if this furniture is a container
 var container: FurnitureContainer
 var crafting_container: CraftingContainer
+var consumption: Consumption # Variable to manage consumption
 
 # Variables to manage health and damage
 var current_health: float = 100.0  # Default health
@@ -607,6 +608,33 @@ class CraftingContainer:
 				return false
 		return true
 
+# Inner class for managing consumption mechanics
+class Consumption:
+	var current_pool: int = 1000  # Default value for the consumption pool
+	# Add a counter to track the number of minutes passed
+	var minute_counter: int = 0
+
+	# Getter for `current_pool`
+	func get_current_pool() -> int:
+		return current_pool
+
+	# Setter for `current_pool`
+	func set_current_pool(value: int) -> void:
+		# Ensure the value is non-negative
+		current_pool = max(value, 0)
+
+	# Update the function to increment the counter and handle the logic
+	func on_minute_passed(_current_time: String):
+		# Increment the minute counter
+		minute_counter += 1
+
+		# Check if 60 minutes have passed
+		if minute_counter >= 60:
+			# Reset the counter and subtract 100 from current_pool
+			minute_counter = 0
+			set_current_pool(get_current_pool() - 100)
+
+
 # --------------------------------------------------------------
 # Initialization
 # --------------------------------------------------------------
@@ -642,6 +670,8 @@ func _init(furniturepos: Vector3, new_furniture_json: Dictionary, world3d: World
 	update_door_visuals()  # Set initial door visuals based on its state
 	add_container()  # Adds container if the furniture is a container
 	add_crafting_container() # Adds crafting container if the furniture is a crafting station
+	if rfurniture.consumption:
+		consumption = Consumption.new()
 
 
 # If this furniture is a container, it will add a container node to the furniture.
@@ -1172,9 +1202,11 @@ func get_item_count_in_container(mycontainer: Object, item_id: String) -> int:
 # Since this furniture node is not in the tree, we will respond to the 
 # Helper.time_manager.minute_passed signal, which is connected in the 
 # FurnitureStaticSpawner script.
-func on_minute_passed(_current_time: String):
+func on_minute_passed(current_time: String):
 	if crafting_container and crafting_container.is_active:
 		crafting_container.process_active_crafting()
+	if consumption:
+		consumption.on_minute_passed(current_time)
 
 
 # Add an item to the crafting queue. This might happen from a button in the furniture window
