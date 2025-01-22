@@ -610,39 +610,98 @@ class CraftingContainer:
 
 # Inner class for managing consumption mechanics
 class Consumption:
-	var current_pool: int = 1000  # Default value for the consumption pool
-	# Add a counter to track the number of minutes passed
-	var minute_counter: int = 0
+	var current_pool: float = 1000  # Default value for the consumption pool
 	var parent_furniture: FurnitureStaticSrv
 
 	func _init(myparent_furniture: FurnitureStaticSrv):
 		parent_furniture = myparent_furniture
 
 	# Getter for `current_pool`
-	func get_current_pool() -> int:
+	func get_current_pool() -> float:
 		return current_pool
 
 	# Setter for `current_pool`
-	func set_current_pool(value: int) -> void:
+	func set_current_pool(value: float) -> void:
 		# Ensure the value is non-negative
 		current_pool = max(value, 0)
 
-	# Update the function to increment the counter and handle the logic
-	func on_minute_passed(_current_time: String):
-		# Increment the minute counter
-		minute_counter += 1
+	# Function to compare the current pool with the maximum pool capacity
+	func get_available_pool_capacity() -> float:
+		# Get the maximum capacity of the pool from parent_furniture.rfurniture.consumption.pool
+		var max_pool: float = parent_furniture.rfurniture.consumption.pool
+		
+		# Calculate and return the difference
+		return max_pool - current_pool
 
-		# Check if 60 in-game minutes have passed
-		if minute_counter >= 60:
-			# Reset the counter and subtract 100 from current_pool
-			minute_counter = 0
-			set_current_pool(get_current_pool() - parent_furniture.rfurniture.consumption.drain_rate)
+	# Function to filter items based on available pool capacity
+	func get_items_within_pool_capacity() -> Dictionary:
+		# Get the available pool capacity
+		var available_capacity: float = get_available_pool_capacity()
+		
+		# Get the items dictionary from parent_furniture
+		var items_dict: Dictionary = parent_furniture.rfurniture.consumption.items
+		
+		# Create a dictionary to store items within the capacity
+		var filtered_items: Dictionary = {}
+		
+		# Loop over each item in the dictionary
+		for item_id in items_dict.keys():
+			var item_value: float = items_dict[item_id]
+			
+			# If the item's value is less than or equal to the available capacity, add it to the filtered dictionary
+			if item_value <= available_capacity:
+				filtered_items[item_id] = item_value
+		
+		return filtered_items
+
+	# Update the function to handle the granular logic
+	func on_minute_passed(_current_time: String):
+		# Get the drain_rate per in-game hour from the parent furniture
+		var drain_rate: float = parent_furniture.rfurniture.consumption.drain_rate
+		
+		# Calculate the per in-game minute drain amount (granular drain)
+		var drain_per_minute: float = drain_rate / 60.0
+		
+		# Subtract the per-minute drain from the current_pool
+		set_current_pool(get_current_pool() - drain_per_minute)
+
+	# Function to consume items from the container
+	func consume_items():
+		# Get the filtered dictionary of items within pool capacity
+		var items_dict: Dictionary = get_items_within_pool_capacity()
+		
+		# Check if the parent furniture has a container
+		if not parent_furniture.container:
+			print("No container found in the furniture.")
+			return
+		
+		# Get the container inventory
+		var container_inventory: InventoryStacked = parent_furniture.container.get_inventory()
+
+		# Iterate over each key in the filtered items_dict
+		for key in items_dict.keys():
+			# Check if the inventory contains an item with the prototype_id matching the key
+			if container_inventory.has_item_by_id(key):
+				# Get the first item matching the key
+				var items: Array[InventoryItem] = container_inventory.get_items_by_id(key)
+				if items.size() > 0:
+					var item_to_consume: InventoryItem = items[0]  # Get the first item
+					var current_stack_size: int = InventoryStacked.get_item_stack_size(item_to_consume)
+					
+					# Subtract 1 from the current stack size
+					InventoryStacked.set_item_stack_size(item_to_consume, current_stack_size - 1)
+					
+					# Log the consumption
+					print("Consumed 1 unit of item: ", key, ". Remaining stack size: ", current_stack_size - 1)
+				else:
+					print("No items available to consume for key: ", key)
+			else:
+				print("Item with prototype_id ", key, " not found in the inventory.")
 
 	# Serialize the data
 	func serialize() -> Dictionary:
 		var data: Dictionary = {}
 		data["current_pool"] = current_pool  # Save the current pool value
-		data["minute_counter"] = minute_counter  # Save the minute counter
 		return data
 
 	# Deserialize the Consumption class
@@ -650,11 +709,6 @@ class Consumption:
 		# Check if the data contains "current_pool" and set it
 		if data.has("current_pool"):
 			current_pool = data["current_pool"]
-
-		# Check if the data contains "minute_counter" and set it
-		if data.has("minute_counter"):
-			minute_counter = data["minute_counter"]
-
 
 
 # --------------------------------------------------------------
