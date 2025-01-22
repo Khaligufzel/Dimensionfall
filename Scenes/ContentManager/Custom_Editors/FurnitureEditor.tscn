@@ -13,7 +13,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nv8h1"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furniture_image_display", "id_label", "name_edit", "description_edit", "categories_list", "furniture_selector", "image_name_label", "moveable_checkbox", "weight_label", "weight_spinbox", "edge_snapping_option", "door_option", "container_checkbox", "container_text_edit", "regeneration_label", "regeneration_spin_box", "sprite_mode_option_button", "destroy_container", "can_destroy_checkbox", "destruction_text_edit", "destruction_image_display", "destruction_sprite_label", "disassembly_container", "can_disassemble_checkbox", "disassembly_text_edit", "disassembly_image_display", "disassembly_sprite_label", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "crafting_items_container", "construction_items_container", "pool_spin_box", "drain_rate_spin_box", "transform_into_drop_enabled_text_edit", "button_text_text_edit", "consumption_items_grid_container")]
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furniture_image_display", "id_label", "name_edit", "description_edit", "categories_list", "furniture_selector", "image_name_label", "moveable_checkbox", "weight_label", "weight_spinbox", "edge_snapping_option", "door_option", "container_checkbox", "container_text_edit", "regeneration_label", "regeneration_spin_box", "sprite_mode_option_button", "destroy_container", "can_destroy_checkbox", "destruction_text_edit", "destruction_image_display", "destruction_sprite_label", "disassembly_container", "can_disassemble_checkbox", "disassembly_text_edit", "disassembly_image_display", "disassembly_sprite_label", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "crafting_items_container", "construction_items_container", "pool_spin_box", "drain_rate_spin_box", "transform_into_drop_enabled_text_edit", "button_text_text_edit", "consumption_items_grid_container", "consumption_tab")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,6 +67,7 @@ drain_rate_spin_box = NodePath("VBoxContainer/TabContainer/Consumption/DrainRate
 transform_into_drop_enabled_text_edit = NodePath("VBoxContainer/TabContainer/Consumption/TransformIntoDropEnabledTextEdit")
 button_text_text_edit = NodePath("VBoxContainer/TabContainer/Consumption/ButtonTextTextEdit")
 consumption_items_grid_container = NodePath("VBoxContainer/TabContainer/Consumption/ItemsPanelContainer/ItemsVBoxContainer/ItemsGridContainer")
+consumption_tab = NodePath("VBoxContainer/TabContainer/Consumption")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -90,10 +91,9 @@ text = "Save"
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 4
+current_tab = 0
 
 [node name="General" type="GridContainer" parent="VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
@@ -577,6 +577,7 @@ size_flags_vertical = 3
 columns = 4
 
 [node name="Consumption" type="GridContainer" parent="VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 columns = 2
 metadata/_tab_index = 4
@@ -587,9 +588,9 @@ text = "Hint:"
 
 [node name="HintTextLabel" type="Label" parent="VBoxContainer/TabContainer/Consumption"]
 layout_mode = 2
-text = "This allows you to configure the consumption mechanic for the furniture. When a furniture is 
-consuming, items inside the container will be destroyed in order to fill up the \"fuel pool\"
-The furniture only starts consuming if the \"fuel pool\" is greater then 0."
+text = "This allows you to configure the consumption mechanic for the furniture. When a furniture is consuming, items inside the container 
+will be destroyed in order to fill up the \"fuel pool\". The furniture only starts consuming if the \"fuel pool\" is greater then 0.
+Note: The furniture needs to be a container in order to consume items."
 
 [node name="PoolLabel" type="Label" parent="VBoxContainer/TabContainer/Consumption"]
 layout_mode = 2
@@ -658,6 +659,7 @@ layout_mode = 2
 [node name="ItemsGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Consumption/ItemsPanelContainer/ItemsVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+columns = 4
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_o3k3a")]
 visible = false

@@ -67,6 +67,7 @@ var current_image_display: String = ""
 @export var transform_into_drop_enabled_text_edit: HBoxContainer = null
 @export var button_text_text_edit: TextEdit = null
 @export var consumption_items_grid_container: GridContainer = null
+@export var consumption_tab: GridContainer = null
 
 
 # This signal will be emitted when the user presses the save button
@@ -310,9 +311,18 @@ func _input(event):
 		get_viewport().set_input_as_handled()
 
 
-func _on_container_check_box_toggled(toggled_on):
+# The user has checked the 'container' checkbox
+# Since some functionality relies on the furniture being a container,
+# We need to hide the controls if this furniture is not a container.
+func _on_container_check_box_toggled(toggled_on: bool):
+	# Clear the text field if the container checkbox is toggled off
 	if not toggled_on:
 		container_text_edit.mytextedit.clear()
+	
+	# Find the tab index for the "Consumption" tab
+	var tabIndex = get_tab_by_title("Consumption")
+	if tabIndex != -1:  # Check if a valid tab index is returned
+		tab_container.set_tab_hidden(tabIndex, !toggled_on)  # Hide or show the tab
 
 
 # Called when the user has successfully dropped data onto the ItemGroupTextEdit
@@ -808,6 +818,7 @@ func _handle_consumption_item_drop(dropped_data: Dictionary) -> void:
 	consumption_items_grid_container.add_child(amount_spinbox)
 	consumption_items_grid_container.add_child(delete_button)
 
+
 # Handle the deletion of an item from the consumption_items_grid_container
 func _on_delete_consumption_item_button_pressed(item_id: String) -> void:
 	# Determine the number of columns in the grid container
@@ -869,3 +880,13 @@ func can_furniture_drop(dropped_data: Dictionary) -> bool:
 		return false
 
 	return true  # Passed all validation checks
+
+
+
+# Returns the tab control with the given name
+func get_tab_by_title(tabName: String) -> int:
+	# Loop over all children of the types_container
+	for i in range(tab_container.get_tab_count()):
+		if tab_container.get_tab_title(i) == tabName:
+			return i
+	return -1

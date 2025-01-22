@@ -355,6 +355,31 @@ func on_data_changed(old_furniture: DFurniture):
 	for current_item in current_items:
 		Gamedata.mods.add_reference(DMod.ContentType.ITEMS, current_item, DMod.ContentType.FURNITURES, id)
 
+	# Handle consumption item references
+	old_items = old_furniture.consumption.items.keys()  # Get old consumption item IDs
+	current_items = consumption.items.keys()  # Get current consumption item IDs
+
+	# Remove references for items no longer in the list
+	for old_item in old_items:
+		if old_item not in current_items:
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, old_item, DMod.ContentType.FURNITURES, id)
+
+	# Add references for new items
+	for current_item in current_items:
+		Gamedata.mods.add_reference(DMod.ContentType.ITEMS, current_item, DMod.ContentType.FURNITURES, id)
+
+	# Handle consumption.transform_into references
+	var old_transform_into = old_furniture.consumption.transform_into
+	var current_transform_into = consumption.transform_into
+
+	# Remove the old reference if it differs from the current one
+	if old_transform_into != "" and old_transform_into != current_transform_into:
+		Gamedata.mods.remove_reference(DMod.ContentType.FURNITURES, old_transform_into, DMod.ContentType.FURNITURES, id)
+
+	# Add the new reference if it differs from the old one
+	if current_transform_into != "":
+		Gamedata.mods.add_reference(DMod.ContentType.FURNITURES, current_transform_into, DMod.ContentType.FURNITURES, id)
+
 
 func _update_references(old_value: String, new_value: String):
 	if old_value != new_value:

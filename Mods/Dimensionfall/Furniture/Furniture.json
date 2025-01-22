@@ -1059,6 +1059,10 @@
 			"Survival",
 			"Crafting"
 		],
+		"consumption": {
+			"button_text": "Light",
+			"transform_into": "campfire_on"
+		},
 		"description": "A campfire that is not lit. Useful for cooking or staying warm once ignited.",
 		"destruction": {
 			"group": "tree_destroyed"
@@ -1088,7 +1092,17 @@
 			"button_text": "Put out",
 			"drain_rate": 30,
 			"items": {
-				"plank_2x4": 100
+				"cutting_board": 100,
+				"kindling_bundle": 25,
+				"log": 100,
+				"long_stick": 100,
+				"plank_2x4": 100,
+				"plant_remnants": 5,
+				"rolling_pin": 100,
+				"small_stick": 10,
+				"stick": 50,
+				"stone_spear": 100,
+				"wood_bundle": 75
 			},
 			"pool": 1000,
 			"transform_into": "campfire_off"
