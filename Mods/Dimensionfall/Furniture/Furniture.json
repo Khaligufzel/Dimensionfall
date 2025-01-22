@@ -1084,6 +1084,15 @@
 			"Survival",
 			"Crafting"
 		],
+		"consumption": {
+			"button_text": "Put out",
+			"drain_rate": 30,
+			"items": {
+				"plank_2x4": 100
+			},
+			"pool": 1000,
+			"transform_into": "campfire_off"
+		},
 		"description": "A lit campfire providing light, warmth, and a way to cook food.",
 		"destruction": {
 			"group": "tree_destroyed"
