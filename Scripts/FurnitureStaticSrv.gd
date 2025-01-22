@@ -613,6 +613,10 @@ class Consumption:
 	var current_pool: int = 1000  # Default value for the consumption pool
 	# Add a counter to track the number of minutes passed
 	var minute_counter: int = 0
+	var parent_furniture: FurnitureStaticSrv
+
+	func _init(myparent_furniture: FurnitureStaticSrv):
+		parent_furniture = myparent_furniture
 
 	# Getter for `current_pool`
 	func get_current_pool() -> int:
@@ -628,11 +632,29 @@ class Consumption:
 		# Increment the minute counter
 		minute_counter += 1
 
-		# Check if 60 minutes have passed
+		# Check if 60 in-game minutes have passed
 		if minute_counter >= 60:
 			# Reset the counter and subtract 100 from current_pool
 			minute_counter = 0
-			set_current_pool(get_current_pool() - 100)
+			set_current_pool(get_current_pool() - parent_furniture.rfurniture.consumption.drain_rate)
+
+	# Serialize the data
+	func serialize() -> Dictionary:
+		var data: Dictionary = {}
+		data["current_pool"] = current_pool  # Save the current pool value
+		data["minute_counter"] = minute_counter  # Save the minute counter
+		return data
+
+	# Deserialize the Consumption class
+	func deserialize(data: Dictionary) -> void:
+		# Check if the data contains "current_pool" and set it
+		if data.has("current_pool"):
+			current_pool = data["current_pool"]
+
+		# Check if the data contains "minute_counter" and set it
+		if data.has("minute_counter"):
+			minute_counter = data["minute_counter"]
+
 
 
 # --------------------------------------------------------------
@@ -671,7 +693,7 @@ func _init(furniturepos: Vector3, new_furniture_json: Dictionary, world3d: World
 	add_container()  # Adds container if the furniture is a container
 	add_crafting_container() # Adds crafting container if the furniture is a crafting station
 	if rfurniture.consumption:
-		consumption = Consumption.new()
+		consumption = Consumption.new(self)
 
 
 # If this furniture is a container, it will add a container node to the furniture.

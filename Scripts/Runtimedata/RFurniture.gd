@@ -178,7 +178,7 @@ class Construction:
 # Represents the consumption properties of a furniture
 class Consumption:
 	var pool: int = 0  # The initial value of the pool
-	var drain_rate: int = 0  # How much to drain per interval
+	var drain_rate: int = 0  # How much to drain per in-game hour
 	var transform_into: String = ""  # The furniture ID to transform into after consumption
 	var button_text: String = ""  # Text for the action button
 	var items: Dictionary = {}  # Items required for consumption, e.g., {"wood": 12, "copper": 2}

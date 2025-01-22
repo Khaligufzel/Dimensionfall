@@ -609,8 +609,8 @@ text = "Drain rate"
 
 [node name="DrainRateSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/Consumption"]
 layout_mode = 2
-tooltip_text = "The amount to consume per real-life minute. For example, if the pool has a 
-capacity of 1000 and the drain rate is 100, it will be depleted in 10 real-life minutes."
+tooltip_text = "The amount to consume per in-game hour. For example, if the pool has a 
+capacity of 1000 and the drain rate is 100, it will be depleted in 10 in-game hours. For reference, one in-game day is about real-life 35 minutes."
 max_value = 1000.0
 
 [node name="TransformIntoLabel" type="Label" parent="VBoxContainer/TabContainer/Consumption"]
