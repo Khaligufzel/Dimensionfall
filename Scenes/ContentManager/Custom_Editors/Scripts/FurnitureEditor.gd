@@ -108,6 +108,7 @@ func _load_furniture_data():
 	_load_disassembly_data()
 	_load_container_data()
 	_load_support_shape_data()
+	_load_consumption_data()
 	# Refresh crafting and construction item lists
 	update_item_list()
 	update_construction_item_list()
@@ -222,6 +223,11 @@ func _on_save_button_button_up():
 	handle_container_option()
 	handle_destruction_option()
 	handle_disassembly_option()
+	# Save consumption values
+	dfurniture.consumption.pool = int(pool_spin_box.value)
+	dfurniture.consumption.drain_rate = int(drain_rate_spin_box.value)
+	dfurniture.consumption.transform_into = transform_into_drop_enabled_text_edit.get_text()
+	dfurniture.consumption.button_text = button_text_text_edit.text
 
 	# Save crafting and construction items
 	_save_crafting_items()
@@ -709,3 +715,10 @@ func _update_shape_visibility(shape: String):
 	depth_scale_spin_box.visible = is_box
 	radius_scale_label.visible = not is_box
 	radius_scale_spin_box.visible = not is_box
+
+func _load_consumption_data():
+	# Load values from dfurniture.consumption
+	pool_spin_box.value = dfurniture.consumption.pool
+	drain_rate_spin_box.value = dfurniture.consumption.drain_rate
+	transform_into_drop_enabled_text_edit.set_text(dfurniture.consumption.transform_into)
+	button_text_text_edit.text = dfurniture.consumption.button_text
