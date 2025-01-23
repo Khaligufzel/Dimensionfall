@@ -19,6 +19,7 @@ var shape: RID
 var mesh_instance: RID  # Variable to store the mesh instance RID
 var quad_instance: RID # RID to the quadmesh that displays the sprite
 var myworld3d: World3D
+var spawner: FurnitureStaticSpawner # The spawner that spawned this furniture
 
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh # A mesh below the sprite for 3d effect
@@ -615,6 +616,10 @@ class Consumption:
 
 	func _init(myparent_furniture: FurnitureStaticSrv):
 		parent_furniture = myparent_furniture
+		# A pool value may have transferred over from the furniture it was before
+		# This happens when a furniture transforms_into
+		if parent_furniture.furnitureJSON.has("pool"):
+			current_pool = parent_furniture.furnitureJSON.get("pool", 1000)
 
 	# Getter for `current_pool`
 	func get_current_pool() -> float:
@@ -633,42 +638,26 @@ class Consumption:
 		# Calculate and return the difference
 		return max_pool - current_pool
 
-	# Function to filter items based on available pool capacity
-	func get_items_within_pool_capacity() -> Dictionary:
-		# Get the available pool capacity
-		var available_capacity: float = get_available_pool_capacity()
-		
-		# Get the items dictionary from parent_furniture
-		var items_dict: Dictionary = parent_furniture.rfurniture.consumption.items
-		
-		# Create a dictionary to store items within the capacity
-		var filtered_items: Dictionary = {}
-		
-		# Loop over each item in the dictionary
-		for item_id in items_dict.keys():
-			var item_value: float = items_dict[item_id]
-			
-			# If the item's value is less than or equal to the available capacity, add it to the filtered dictionary
-			if item_value <= available_capacity:
-				filtered_items[item_id] = item_value
-		
-		return filtered_items
-
 	# Update the function to handle the granular logic
 	func on_minute_passed(_current_time: String):
 		# Get the drain_rate per in-game hour from the parent furniture
+		var pool_size: float = parent_furniture.rfurniture.consumption.pool
 		var drain_rate: float = parent_furniture.rfurniture.consumption.drain_rate
+		# We only consider consuming items if there is a pool defined with a size larger then 0
+		if pool_size <= 0 or drain_rate <= 0:
+			return
 		
 		# Calculate the per in-game minute drain amount (granular drain)
 		var drain_per_minute: float = drain_rate / 60.0
 		
 		# Subtract the per-minute drain from the current_pool
 		set_current_pool(get_current_pool() - drain_per_minute)
+		consume_items()
 
 	# Function to consume items from the container
 	func consume_items():
-		# Get the filtered dictionary of items within pool capacity
-		var items_dict: Dictionary = get_items_within_pool_capacity()
+		# Get the dictionary of items from parent_furniture
+		var items_dict: Dictionary = parent_furniture.rfurniture.consumption.items
 		
 		# Check if the parent furniture has a container
 		if not parent_furniture.container:
@@ -677,26 +666,43 @@ class Consumption:
 		
 		# Get the container inventory
 		var container_inventory: InventoryStacked = parent_furniture.container.get_inventory()
+		
+		# Get the available pool capacity
+		var available_capacity: float = get_available_pool_capacity()
 
-		# Iterate over each key in the filtered items_dict
-		for key in items_dict.keys():
-			# Check if the inventory contains an item with the prototype_id matching the key
-			if container_inventory.has_item_by_id(key):
-				# Get the first item matching the key
-				var items: Array[InventoryItem] = container_inventory.get_items_by_id(key)
+		# Iterate over each item in the items dictionary
+		for item_id in items_dict.keys():
+			var item_value: float = items_dict[item_id]
+			
+			# Skip the item if its value is larger than the available capacity
+			if item_value > available_capacity:
+				print("Skipping item: ", item_id, " as its value (", item_value, ") exceeds the available capacity (", available_capacity, ").")
+				continue
+
+			# Check if the inventory contains an item with the prototype_id matching the item_id
+			if container_inventory.has_item_by_id(item_id):
+				# Get the first item matching the item_id
+				var items: Array[InventoryItem] = container_inventory.get_items_by_id(item_id)
 				if items.size() > 0:
 					var item_to_consume: InventoryItem = items[0]  # Get the first item
 					var current_stack_size: int = InventoryStacked.get_item_stack_size(item_to_consume)
 					
-					# Subtract 1 from the current stack size
-					InventoryStacked.set_item_stack_size(item_to_consume, current_stack_size - 1)
-					
-					# Log the consumption
-					print("Consumed 1 unit of item: ", key, ". Remaining stack size: ", current_stack_size - 1)
+					# Attempt to subtract 1 from the current stack size
+					if InventoryStacked.set_item_stack_size(item_to_consume, current_stack_size - 1):
+						# If successful, add the item's value to the current_pool
+						set_current_pool(get_current_pool() + item_value)
+						
+						# Log the successful consumption
+						print("Consumed 1 unit of item: ", item_id, ". Remaining stack size: ", current_stack_size - 1)
+						print("Added ", item_value, " to current pool. New pool value: ", get_current_pool())
+						return # We consumed an item and will consume another when a minute passes
+					else:
+						print("Failed to consume item: ", item_id, ". Could not reduce stack size.")
 				else:
-					print("No items available to consume for key: ", key)
+					print("No items available to consume for item_id: ", item_id)
 			else:
-				print("Item with prototype_id ", key, " not found in the inventory.")
+				print("Item with prototype_id ", item_id, " not found in the inventory.")
+
 
 	# Serialize the data
 	func serialize() -> Dictionary:
@@ -1321,3 +1327,44 @@ func are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
 		if available < ingredient.amount:
 			return false
 	return true
+
+
+# Function to handle transformation and spawn new furniture
+func transform_into(furniture_id: String):
+	if not spawner or not spawner.chunk:
+		print("Spawner or Spawner Chunk is null.")
+		return
+	
+	var chunk: Chunk = spawner.chunk
+	var construction_pos: Vector3 = furniture_transform.get_position()
+	construction_pos.y -= 0.75
+	# Translate the position to negate the chunk's `mypos`
+	construction_pos -= chunk.mypos
+
+	# Prepare the "json" dictionary for the spawn_furniture call
+	var furniture_json: Dictionary = {
+		"id": furniture_id,
+		"rotation": furniture_transform.get_rotation(),
+		"pool": consumption.get_current_pool()
+	}
+
+	if rfurniture.function.is_container:
+		# Prepare the "items" array from the inventory if the furniture is a container
+		if get_inventory():
+			var items_array: Array = []
+			var items_copy = get_inventory().get_items().duplicate()
+			for item in items_copy:
+				items_array.append(item)  # Add each InventoryItem to the array
+			furniture_json["items"] = items_array  # Include the "items" array in the json
+	else:
+		# If the furniture is not a container, call add_corpse
+		add_corpse(Helper.overmap_manager.player.get_position())
+
+	# Spawn the furniture instance with or without the "items" property
+	chunk.spawn_furniture({
+		"json": furniture_json,
+		"pos": construction_pos
+	})
+
+	# Remove the instance afterwards
+	_die()
