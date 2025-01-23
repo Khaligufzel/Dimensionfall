@@ -406,11 +406,14 @@ func delete() -> void:
 	for item in crafting.items:
 		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item, DMod.ContentType.FURNITURES, id)
 
-	# Remove from all referencing maps
-	for map_id in parent.references.get(id, {}).get("maps", []):
-		for map_data: DMap in Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, map_id):
-			map_data.remove_entity_from_map("furniture", id)
+	# Remove item references for consumption items
+	for item in consumption.items.keys():
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item, DMod.ContentType.FURNITURES, id)
 
+	# For each mod, remove this mob from the maps in this itemgroup's references
+	for mod: DMod in Gamedata.mods.get_all_mods():
+		mod.furnitures.remove_itemgroup_from_all_furniture(id)
+		mod.maps.remove_entity_from_all_maps("furniture",id)
 
 func _remove_references(_reference_type: String, value: String):
 	if value != "":
@@ -429,22 +432,34 @@ func remove_itemgroup(itemgroup_id: String):
 		disassembly.group = ""
 	parent.save_furnitures_to_disk()
 
-# Removes an item by its ID from crafting.items and updates references
-func remove_item_from_crafting(item_id: String):
-	if item_id in crafting.items:
+# Removes a furniture ID from consumption.transform_into and updates references
+func remove_furniture(furniture_id: String):
+	if consumption.transform_into == furniture_id:
 		# Remove the reference
-		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item_id, DMod.ContentType.FURNITURES, id)
-		# Remove the item from the crafting list
-		crafting.items.erase(item_id)
+		Gamedata.mods.remove_reference(DMod.ContentType.FURNITURES, furniture_id, DMod.ContentType.FURNITURES, id)
+		# Clear the transform_into field
+		consumption.transform_into = ""
 		# Save the updated furniture state
 		parent.save_furnitures_to_disk()
 
-# Removes an item by its ID from construction.items and updates references
-func remove_item_from_construction(item_id: String):
+# Removes an item by its ID from crafting, construction, and consumption data.
+# Only removes the reference if the item is no longer in any of these data structures.
+func remove_item(item_id: String):
+	# Check and remove the item from crafting
+	if item_id in crafting.items:
+		crafting.items.erase(item_id)
+
+	# Check and remove the item from construction
 	if item_id in construction.items:
-		# Remove the reference
-		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item_id, DMod.ContentType.FURNITURES, id)
-		# Remove the item from the construction list
 		construction.remove_item(item_id)
-		# Save the updated furniture state
-		parent.save_furnitures_to_disk()
+
+	# Check and remove the item from consumption items
+	if item_id in consumption.items:
+		consumption.items.erase(item_id)
+
+	# If the item is no longer used anywhere, remove the reference
+	if not (item_id in crafting.items or item_id in construction.items or item_id in consumption.items):
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item_id, DMod.ContentType.FURNITURES, id)
+
+	# Save the updated furniture state
+	parent.save_furnitures_to_disk()

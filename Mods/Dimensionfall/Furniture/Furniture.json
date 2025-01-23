@@ -1082,6 +1082,7 @@
 	},
 	{
 		"Function": {
+			"container_sprite_mode": "Hide",
 			"is_container": true
 		},
 		"categories": [
@@ -1092,10 +1093,13 @@
 			"button_text": "Put out",
 			"drain_rate": 30,
 			"items": {
+				"branch": 50,
 				"cutting_board": 100,
 				"kindling_bundle": 25,
+				"leaf": 2,
 				"log": 100,
 				"long_stick": 100,
+				"pine_branch": 60,
 				"plank_2x4": 100,
 				"plant_remnants": 5,
 				"rolling_pin": 100,
