@@ -611,7 +611,7 @@ class CraftingContainer:
 
 # Inner class for managing consumption mechanics
 class Consumption:
-	var current_pool: float = 1000  # Default value for the consumption pool
+	var current_pool: float = 0  # Default value for the consumption pool
 	var parent_furniture: FurnitureStaticSrv
 	signal current_pool_changed(new_value: float)
 
@@ -620,7 +620,8 @@ class Consumption:
 		# A pool value may have transferred over from the furniture it was before
 		# This happens when a furniture transforms_into
 		if parent_furniture.furnitureJSON.has("pool"):
-			current_pool = parent_furniture.furnitureJSON.get("pool", 1000)
+			current_pool = parent_furniture.furnitureJSON.get("pool", 0)
+		consume_items()
 
 	# Getter for `current_pool`
 	func get_current_pool() -> float:
@@ -674,6 +675,7 @@ class Consumption:
 	func consume_items():
 		if not parent_furniture.rfurniture:
 			return
+		
 		# Get the dictionary of items from parent_furniture
 		var items_dict: Dictionary = parent_furniture.rfurniture.consumption.items
 		
@@ -684,44 +686,49 @@ class Consumption:
 		
 		# Get the container inventory
 		var container_inventory: InventoryStacked = parent_furniture.container.get_inventory()
-		# Return early if the inventory is empty
-		if container_inventory.get_items().is_empty():
-			return
-		# Get the available pool capacity
-		var available_capacity: float = get_available_pool_capacity()
-
-		# Iterate over each item in the items dictionary
-		for item_id in items_dict.keys():
-			var item_value: float = items_dict[item_id]
+		
+		# Keep consuming items as long as there is room in the pool
+		while get_available_pool_capacity() > 0:
+			var consumed_item = false  # Track if we consumed an item this iteration
 			
-			# Skip the item if its value is larger than the available capacity
-			if item_value > available_capacity:
-				print("Skipping item: ", item_id, " as its value (", item_value, ") exceeds the available capacity (", available_capacity, ").")
-				continue
-
-			# Check if the inventory contains an item with the prototype_id matching the item_id
-			if container_inventory.has_item_by_id(item_id):
-				# Get the first item matching the item_id
-				var items: Array[InventoryItem] = container_inventory.get_items_by_id(item_id)
-				if items.size() > 0:
-					var item_to_consume: InventoryItem = items[0]  # Get the first item
-					var current_stack_size: int = InventoryStacked.get_item_stack_size(item_to_consume)
-					
-					# Attempt to subtract 1 from the current stack size
-					if InventoryStacked.set_item_stack_size(item_to_consume, current_stack_size - 1):
-						# If successful, add the item's value to the current_pool
-						set_current_pool(get_current_pool() + item_value)
+			# Iterate over each item in the items dictionary
+			for item_id in items_dict.keys():
+				var item_value: float = items_dict[item_id]
+				
+				# Skip the item if its value is larger than the available capacity
+				if item_value > get_available_pool_capacity():
+					continue
+				
+				# Check if the inventory contains an item with the prototype_id matching the item_id
+				if container_inventory.has_item_by_id(item_id):
+					# Get the first item matching the item_id
+					var items: Array[InventoryItem] = container_inventory.get_items_by_id(item_id)
+					if items.size() > 0:
+						var item_to_consume: InventoryItem = items[0]  # Get the first item
+						var current_stack_size: int = InventoryStacked.get_item_stack_size(item_to_consume)
 						
-						# Log the successful consumption
-						print("Consumed 1 unit of item: ", item_id, ". Remaining stack size: ", current_stack_size - 1)
-						print("Added ", item_value, " to current pool. New pool value: ", get_current_pool())
-						return # We consumed an item and will consume another when a minute passes
+						# Attempt to subtract 1 from the current stack size
+						if InventoryStacked.set_item_stack_size(item_to_consume, current_stack_size - 1):
+							# If successful, add the item's value to the current_pool
+							set_current_pool(get_current_pool() + item_value)
+							
+							# Log the successful consumption
+							print("Consumed 1 unit of item: ", item_id, ". Remaining stack size: ", current_stack_size - 1)
+							print("Added ", item_value, " to current pool. New pool value: ", get_current_pool())
+							
+							consumed_item = true  # Mark that we consumed an item
+							break  # Break out of the loop to re-check the pool capacity
+						else:
+							print("Failed to consume item: ", item_id, ". Could not reduce stack size.")
 					else:
-						print("Failed to consume item: ", item_id, ". Could not reduce stack size.")
+						print("No items available to consume for item_id: ", item_id)
 				else:
-					print("No items available to consume for item_id: ", item_id)
-			else:
-				print("Item with prototype_id ", item_id, " not found in the inventory.")
+					print("Item with prototype_id ", item_id, " not found in the inventory.")
+			
+			# If no items were consumed, exit the loop
+			if not consumed_item:
+				break
+
 
 
 	# Serialize the data
@@ -1002,10 +1009,6 @@ func free_resources():
 	# Free the collider shape and body RIDs if they exist
 	PhysicsServer3D.free_rid(shape)
 	PhysicsServer3D.free_rid(collider)
-
-	# Clear the reference to the DFurniture data if necessary
-	consumption = null
-	rfurniture = null
 
 
 # Function to check if this furniture acts as a door
