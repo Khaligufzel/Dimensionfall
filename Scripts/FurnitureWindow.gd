@@ -31,7 +31,7 @@ var furniture_instance: FurnitureStaticSrv = null:
 		current_item_id = ""  # Reset current_item_id when furniture changes
 		if furniture_instance:
 			_connect_furniture_signals()
-			_update_furniture_ui()
+			_update_ui_from_furniture()
 			# Show or hide crafting container based on whether this furniture is a crafting station
 			crafting_v_box_container.visible = furniture_instance.is_crafting_station()
 			# Automatically display the first recipe in the panel if available
@@ -48,14 +48,19 @@ func _ready():
 	craft_status_timer.start()
 
 
-# Updates UI elements based on the current furniture_instance.
-func _update_furniture_ui():
-	var iscontainer: bool = furniture_instance.is_container()
-	furniture_container_view.visible = iscontainer
-	inventory_label.visible = iscontainer
-	if iscontainer:
+# Update all UI components from the current furniture_instance
+func _update_ui_from_furniture():
+	furniture_container_view.visible = furniture_instance.is_container()
+	inventory_label.visible = furniture_instance.is_container()
+
+	if furniture_instance.is_container():
 		furniture_container_view.set_inventory(furniture_instance.get_inventory())
+
 	furniture_name_label.text = furniture_instance.get_furniture_name()
+	_refresh_crafting_ui()
+
+# Refresh the crafting UI elements
+func _refresh_crafting_ui():
 	_populate_crafting_recipe_container()
 	_populate_crafting_queue_container()
 	_update_craft_status_label()
@@ -173,26 +178,6 @@ func _on_furniture_about_to_be_destroyed(furniture: FurnitureStaticSrv):
 		_disconnect_furniture_signals()
 		furniture_instance = null
 
-
-# Utility function to create a TextureRect for item icons.
-func _create_icon(texture: Texture) -> TextureRect:
-	var icon = TextureRect.new()
-	icon.texture = texture
-	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	return icon
-
-# Utility function to create a Label for item names.
-func _create_label(text: String) -> Label:
-	var label = Label.new()
-	label.text = text
-	return label
-
-# Utility function to create a Button with a connected callback.
-func _create_button(text: String, callback: Callable) -> Button:
-	var button = Button.new()
-	button.text = text
-	button.button_up.connect(callback)
-	return button
 
 # Handles the recipe button being pressed. Updates the Recipe panel.
 func _on_recipe_button_pressed(item_id: String):
@@ -367,3 +352,25 @@ func _update_craft_status_label():
 			craft_status_label.text = "Waiting for resources"
 		else:
 			craft_status_label.text = "Time remaining: " + str(time_remaining) + " seconds"
+
+# ---- UTILITIES ----
+
+# Utility function to create a TextureRect for item icons.
+func _create_icon(texture: Texture) -> TextureRect:
+	var icon = TextureRect.new()
+	icon.texture = texture
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	return icon
+
+# Utility function to create a Label for item names.
+func _create_button(text: String, callback: Callable) -> Button:
+	var button = Button.new()
+	button.text = text
+	button.button_up.connect(callback)
+	return button
+
+# Utility function to create a Button with a connected callback.
+func _create_label(text: String) -> Label:
+	var label = Label.new()
+	label.text = text
+	return label
