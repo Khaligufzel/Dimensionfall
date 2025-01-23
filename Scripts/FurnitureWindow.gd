@@ -12,6 +12,7 @@ extends Control
 @export var craft_status_label: Label = null
 @export var craft_status_timer: Timer = null
 @export var transform_into_button: Button = null
+@export var fuel_label: Label = null
 
 # Recipe panel controls:
 @export var recipe_panel_container: PanelContainer = null
@@ -79,6 +80,9 @@ func _connect_furniture_signals():
 		if my_inventory.contents_changed.is_connected(_on_inventory_contents_changed):
 			my_inventory.contents_changed.disconnect(_on_inventory_contents_changed)
 		my_inventory.contents_changed.connect(_on_inventory_contents_changed)
+	
+	if furniture_instance.consumption:
+		furniture_instance.consumption.current_pool_changed.connect(_on_current_pool_changed)
 
 
 # Disconnects signals from the previous furniture_instance.
@@ -92,6 +96,9 @@ func _disconnect_furniture_signals():
 			var my_inventory = furniture_instance.get_inventory()
 			if my_inventory.contents_changed.is_connected(_on_inventory_contents_changed):
 				my_inventory.contents_changed.disconnect(_on_inventory_contents_changed)
+	
+		if furniture_instance.consumption:
+			furniture_instance.consumption.current_pool_changed.disconnect(_on_current_pool_changed)
 
 
 # Callback for furniture interaction. Only for FurnitureStaticSrv types
@@ -385,6 +392,7 @@ func _on_transform_into_button_button_up() -> void:
 func _update_transform_into_button():
 	if not furniture_instance or not furniture_instance.rfurniture.consumption:
 		transform_into_button.visible = false
+		fuel_label.visible = false
 		return
 
 	var transform_into_target = furniture_instance.rfurniture.consumption.transform_into
@@ -392,6 +400,13 @@ func _update_transform_into_button():
 
 	if transform_into_target == "":
 		transform_into_button.visible = false  # Hide the button if no transform target exists
+		fuel_label.visible = false  # Hide the button if no transform target exists
 	else:
+		fuel_label.visible = true  # Show the button and update its text
 		transform_into_button.visible = true  # Show the button and update its text
 		transform_into_button.text = button_text
+		fuel_label.text = "Fuel: " + str(round(furniture_instance.consumption.current_pool))
+
+
+func _on_current_pool_changed(_new_value: float):
+	_update_transform_into_button()

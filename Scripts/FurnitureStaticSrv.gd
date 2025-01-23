@@ -613,6 +613,7 @@ class CraftingContainer:
 class Consumption:
 	var current_pool: float = 1000  # Default value for the consumption pool
 	var parent_furniture: FurnitureStaticSrv
+	signal current_pool_changed(new_value: float)
 
 	func _init(myparent_furniture: FurnitureStaticSrv):
 		parent_furniture = myparent_furniture
@@ -632,6 +633,7 @@ class Consumption:
 		
 		# Clamp the value to ensure current_pool is within the valid range [0, pool_size]
 		current_pool = clamp(value, 0, pool_size)
+		current_pool_changed.emit(current_pool)
 		
 		# Get the drain_rate per in-game hour from the parent furniture
 		var drain_rate: float = parent_furniture.rfurniture.consumption.drain_rate
@@ -670,6 +672,8 @@ class Consumption:
 
 	# Function to consume items from the container
 	func consume_items():
+		if not parent_furniture.rfurniture:
+			return
 		# Get the dictionary of items from parent_furniture
 		var items_dict: Dictionary = parent_furniture.rfurniture.consumption.items
 		
@@ -680,7 +684,9 @@ class Consumption:
 		
 		# Get the container inventory
 		var container_inventory: InventoryStacked = parent_furniture.container.get_inventory()
-		
+		# Return early if the inventory is empty
+		if container_inventory.get_items().is_empty():
+			return
 		# Get the available pool capacity
 		var available_capacity: float = get_available_pool_capacity()
 
@@ -768,6 +774,7 @@ func _init(furniturepos: Vector3, new_furniture_json: Dictionary, world3d: World
 	add_crafting_container() # Adds crafting container if the furniture is a crafting station
 	if rfurniture.consumption:
 		consumption = Consumption.new(self)
+	Helper.time_helper.minute_passed.connect.call_deferred(on_minute_passed)
 
 
 # If this furniture is a container, it will add a container node to the furniture.
@@ -997,6 +1004,7 @@ func free_resources():
 	PhysicsServer3D.free_rid(collider)
 
 	# Clear the reference to the DFurniture data if necessary
+	consumption = null
 	rfurniture = null
 
 
@@ -1173,10 +1181,12 @@ func get_hit(attack: Dictionary):
 
 
 # Function to handle furniture destruction
-func _die():
-	add_corpse(furniture_transform.get_position())  # Add wreck or corpse
+func _die(add_corpse: bool = true):
+	if add_corpse:
+		add_corpse(furniture_transform.get_position())  # Add wreck or corpse
 	if is_container():
 		Helper.signal_broker.container_exited_proximity.emit(self)
+	Helper.time_helper.minute_passed.disconnect(on_minute_passed)
 	free_resources()  # Free resources
 	queue_free()  # Remove the node from the scene tree
 
@@ -1351,7 +1361,8 @@ func transform_into():
 	var furniture_id: String = rfurniture.consumption.transform_into
 	var chunk: Chunk = spawner.chunk
 	var construction_pos: Vector3 = furniture_transform.get_position()
-	construction_pos.y -= 0.75
+	# Decrease y by half the height of the furniture
+	construction_pos.y -= 0.5+furniture_transform.height * 0.5
 	# Translate the position to negate the chunk's `mypos`
 	construction_pos -= chunk.mypos
 
@@ -1380,5 +1391,5 @@ func transform_into():
 		"pos": construction_pos
 	})
 
-	# Remove the instance afterwards
-	_die()
+	# Remove the instance afterwards and don't add a corpse
+	_die(false)
