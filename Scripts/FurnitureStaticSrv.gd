@@ -1362,6 +1362,8 @@ func transform_into():
 		print("Spawner or Spawner Chunk is null.")
 		return
 	var furniture_id: String = rfurniture.consumption.transform_into
+	if not furniture_id:
+		return
 	var chunk: Chunk = spawner.chunk
 	var construction_pos: Vector3 = furniture_transform.get_position()
 	# Decrease y by half the height of the furniture
