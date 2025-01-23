@@ -123,7 +123,7 @@
 		}
 	],
 	"categories": [
-		"Forest_Custom"
+		"Forest"
 	],
 	"connections": {
 		"east": "ground",
@@ -14163,5 +14163,5 @@
 	"mapheight": 32,
 	"mapwidth": 32,
 	"name": "Forest",
-	"weight": 1000
+	"weight": 5
 }
