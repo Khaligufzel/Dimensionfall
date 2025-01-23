@@ -627,8 +627,22 @@ class Consumption:
 
 	# Setter for `current_pool`
 	func set_current_pool(value: float) -> void:
-		# Ensure the value is non-negative
-		current_pool = max(value, 0)
+		# Get the maximum pool size from rfurniture.consumption.pool
+		var pool_size: float = parent_furniture.rfurniture.consumption.pool
+		
+		# Clamp the value to ensure current_pool is within the valid range [0, pool_size]
+		current_pool = clamp(value, 0, pool_size)
+		
+		# Get the drain_rate per in-game hour from the parent furniture
+		var drain_rate: float = parent_furniture.rfurniture.consumption.drain_rate
+		
+		# Only consider transforming automatically if pool and drain_rate are valid
+		if pool_size <= 0 or drain_rate <= 0:
+			return
+		
+		# Trigger transformation logic if the pool is depleted
+		if current_pool <= 0:
+			parent_furniture.transform_into()
 
 	# Function to compare the current pool with the maximum pool capacity
 	func get_available_pool_capacity() -> float:
