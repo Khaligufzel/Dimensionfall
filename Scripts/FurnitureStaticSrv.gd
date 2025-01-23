@@ -1330,11 +1330,11 @@ func are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
 
 
 # Function to handle transformation and spawn new furniture
-func transform_into(furniture_id: String):
+func transform_into():
 	if not spawner or not spawner.chunk:
 		print("Spawner or Spawner Chunk is null.")
 		return
-	
+	var furniture_id: String = rfurniture.consumption.transform_into
 	var chunk: Chunk = spawner.chunk
 	var construction_pos: Vector3 = furniture_transform.get_position()
 	construction_pos.y -= 0.75

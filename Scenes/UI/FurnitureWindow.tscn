@@ -58,6 +58,10 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 36
 text = "FurnitureName"
 
+[node name="TransformIntoButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "transform_into"
+
 [node name="CloseMenuButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 tooltip_text = "Close menu"
@@ -185,4 +189,5 @@ layout_mode = 2
 size_flags_vertical = 3
 columns = 4
 
+[connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer2/TransformIntoButton" to="." method="_on_transform_into_button_button_up"]
 [connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer2/CloseMenuButton" to="." method="_on_close_menu_button_button_up"]

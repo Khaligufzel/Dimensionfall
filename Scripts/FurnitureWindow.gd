@@ -11,7 +11,7 @@ extends Control
 @export var crafting_v_box_container: VBoxContainer = null
 @export var craft_status_label: Label = null
 @export var craft_status_timer: Timer = null
-
+@export var transform_into_button: Button = null
 
 # Recipe panel controls:
 @export var recipe_panel_container: PanelContainer = null
@@ -58,6 +58,8 @@ func _update_ui_from_furniture():
 
 	furniture_name_label.text = furniture_instance.get_furniture_name()
 	_refresh_crafting_ui()
+	_update_transform_into_button()  # New function to handle the transform_into_button UI update
+
 
 # Refresh the crafting UI elements
 func _refresh_crafting_ui():
@@ -374,3 +376,22 @@ func _create_label(text: String) -> Label:
 	var label = Label.new()
 	label.text = text
 	return label
+
+
+func _on_transform_into_button_button_up() -> void:
+	furniture_instance.transform_into()
+
+# Updates the visibility and text of the transform_into_button based on the furniture instance
+func _update_transform_into_button():
+	if not furniture_instance or not furniture_instance.rfurniture.consumption:
+		transform_into_button.visible = false
+		return
+
+	var transform_into_target = furniture_instance.rfurniture.consumption.transform_into
+	var button_text = furniture_instance.rfurniture.consumption.button_text
+
+	if transform_into_target == "":
+		transform_into_button.visible = false  # Hide the button if no transform target exists
+	else:
+		transform_into_button.visible = true  # Show the button and update its text
+		transform_into_button.text = button_text
