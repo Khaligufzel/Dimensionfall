@@ -577,7 +577,7 @@ func generate_cells() -> void:
 			# If you need to test a specific map, uncomment these two lines and put in your map name.
 			# It will spawn the map at position (0,0), where the player starts
 			#if global_x == 0 and global_y == 0:
-				#cell.map_id = "Generichouse"
+				#cell.map_id = "forest_burned_00"
 
 			# Add the cell to the grid's cells dictionary
 			cells[cell_key] = cell
