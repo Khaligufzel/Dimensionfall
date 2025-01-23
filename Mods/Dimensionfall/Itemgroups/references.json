@@ -126,7 +126,9 @@
 	"tree_destroyed": {
 		"furnitures": [
 			"campfire_off",
-			"campfire_on"
+			"campfire_on",
+			"burned_tree_stump",
+			"burned_tree"
 		]
 	},
 	"tree_forage": {

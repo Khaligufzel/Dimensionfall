@@ -132,10 +132,10 @@ func _load_destruction_data():
 		destruction_text_edit.set_text(dfurniture.destruction.group)
 		destruction_image_display.texture = dfurniture.parent.sprite_by_file(dfurniture.destruction.sprite)
 		destruction_sprite_label.text = dfurniture.destruction.sprite
-		set_child_visibility(destruction_text_edit, true)
+		set_visibility_for_children(destroy_container, true)
 	else:
 		can_destroy_checkbox.button_pressed = false
-		set_child_visibility(destruction_text_edit, false)
+		set_visibility_for_children(destroy_container, false)
 
 func _load_disassembly_data():
 	# Load disassembly-specific data
@@ -144,10 +144,10 @@ func _load_disassembly_data():
 		disassembly_text_edit.set_text(dfurniture.disassembly.group)
 		disassembly_image_display.texture = dfurniture.parent.sprite_by_file(dfurniture.disassembly.sprite)
 		disassembly_sprite_label.text = dfurniture.disassembly.sprite
-		set_child_visibility(disassembly_text_edit, true)
+		set_visibility_for_children(disassembly_container, true)
 	else:
 		can_disassemble_checkbox.button_pressed = false
-		set_child_visibility(disassembly_text_edit, false)
+		set_visibility_for_children(disassembly_container, false)
 
 func _load_container_data():
 	# Load container-specific data
@@ -429,7 +429,7 @@ func _on_can_destroy_check_box_toggled(toggled_on):
 		destruction_text_edit.mytextedit.clear()
 		destruction_sprite_label.text = ""
 		destruction_image_display.texture = load("res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png")
-	set_visibility_for_children(destruction_text_edit, toggled_on)
+	set_visibility_for_children(destroy_container, toggled_on)
 
 func _on_can_disassemble_check_box_toggled(toggled_on):
 	if not toggled_on:

@@ -1127,5 +1127,49 @@
 			"shape": "Cylinder",
 			"transparent": true
 		}
+	},
+	{
+		"categories": [
+			"Nature",
+			"Burned"
+		],
+		"description": "A tree that has been scorched by fire. Its blackened branches remain brittle and lifeless.",
+		"destruction": {
+			"group": "tree_destroyed"
+		},
+		"edgesnapping": "None",
+		"id": "burned_tree",
+		"moveable": false,
+		"name": "Burned Tree",
+		"sprite": "burned_tree_100.png",
+		"support_shape": {
+			"color": "2d2d2dff",
+			"height": 0.5,
+			"radius_scale": 50,
+			"shape": "Cylinder",
+			"transparent": false
+		}
+	},
+	{
+		"categories": [
+			"Nature",
+			"Burned"
+		],
+		"description": "The charred remains of a tree trunk, reduced to a stump. Its surface is brittle and covered in ash.",
+		"destruction": {
+			"group": "tree_destroyed"
+		},
+		"edgesnapping": "None",
+		"id": "burned_tree_stump",
+		"moveable": false,
+		"name": "Burned Tree Stump",
+		"sprite": "burned_tree_stump_64.png",
+		"support_shape": {
+			"color": "3e3e3eff",
+			"height": 0.2,
+			"radius_scale": 40,
+			"shape": "Cylinder",
+			"transparent": false
+		}
 	}
 ]
