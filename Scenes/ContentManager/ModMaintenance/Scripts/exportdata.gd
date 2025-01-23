@@ -6,7 +6,7 @@ extends Control
 
 @export var output_text_edit: TextEdit = null
 @export var type_option_button: OptionButton = null
-
+var selected_mod: String = "Dimensionfall"
 
 # When the user clicks the export button, print the id, name and description to output_text_edit in json format
 # The output will be an array of objects. Each object will have the properties outlined below.
@@ -60,6 +60,7 @@ func get_selected_content_data() -> RefCounted:
 	
 	# Convert the selected type string to the corresponding ContentType using get_content_type
 	var content_type = get_content_type(selected_type)
+	var mod: DMod = Gamedata.mods.by_id(selected_mod)
 	
-	# Retrieve and return the data of the selected content type using Gamedata.get_data_of_type
-	return Gamedata.get_data_of_type(content_type)
+	# Retrieve and return the data of the selected content type
+	return mod.get_data_of_type(content_type)

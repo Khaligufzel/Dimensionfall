@@ -1,9 +1,4 @@
 {
-	"categories": [
-		"Field",
-		"Plains",
-		"Forest"
-	],
 	"connections": {
 		"east": "ground",
 		"north": "ground",
