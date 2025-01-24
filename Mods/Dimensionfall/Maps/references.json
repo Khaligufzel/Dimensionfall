@@ -48,9 +48,6 @@
 	"field_grass_basic_00": {
 		"overmapareas": [
 			"city"
-		],
-		"tacticalmaps": [
-			"forest_custom"
 		]
 	},
 	"field_grass_flowers_00": {
@@ -66,16 +63,6 @@
 	"field_grass_hole_00": {
 		"overmapareas": [
 			"city"
-		]
-	},
-	"forest_basic_00": {
-		"tacticalmaps": [
-			"forest_custom"
-		]
-	},
-	"forest_camp_00": {
-		"tacticalmaps": [
-			"forest_custom"
 		]
 	},
 	"generichouse_corner": {

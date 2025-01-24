@@ -93,7 +93,7 @@ func delete():
 	# Check to see if any mod has a copy of this map. if one or more remain, we can keep references
 	# Otherwise, the last copy was removed and we need to remove references
 	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.TACTICALMAPS, id)
-	if all_results.size() > 0:
+	if all_results.size() > 1:
 		return
 	for chunk: TChunk in chunks:
 		Gamedata.mods.remove_reference(DMod.ContentType.MAPS, chunk.id, DMod.ContentType.TACTICALMAPS, get_filename().replace(".json", ""))

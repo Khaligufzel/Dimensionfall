@@ -189,7 +189,8 @@
 			"field_grass_hill_00",
 			"store_electronic_clothing",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"dirt_light_01": {
@@ -211,7 +212,8 @@
 			"abandoned_building",
 			"field_grass_hill_00",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"dirt_light_02": {
@@ -230,7 +232,8 @@
 			"abandoned_building",
 			"field_grass_hill_00",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"dirt_light_grass_north_00": {
@@ -397,7 +400,8 @@
 			"forest_road_straight",
 			"forest_road_corner",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"forest_underbrush_01": {
@@ -407,7 +411,8 @@
 			"forest_road_straight",
 			"forest_road_corner",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"forest_underbrush_02": {
@@ -417,7 +422,8 @@
 			"forest_road_straight",
 			"forest_road_corner",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"forest_underbrush_03": {
@@ -428,7 +434,8 @@
 			"forest_road_corner",
 			"RockyHill_SW",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"forest_underbrush_04": {
@@ -438,7 +445,8 @@
 			"forest_road_straight",
 			"forest_road_corner",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"forest_underbrush_05": {
@@ -448,7 +456,8 @@
 			"forest_road_straight",
 			"forest_road_corner",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"grass_dirt_00": {
@@ -484,7 +493,8 @@
 			"field_grass_hill_00",
 			"store_electronic_clothing",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"grass_dirt_01": {
@@ -520,7 +530,8 @@
 			"field_grass_hill_00",
 			"store_electronic_clothing",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"grass_dirt_02": {
@@ -555,7 +566,8 @@
 			"field_grass_hill_00",
 			"store_electronic_clothing",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"grass_dirt_center_00": {
@@ -727,7 +739,8 @@
 			"field_grass_hill_00",
 			"store_electronic_clothing",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"grass_medium_dirt_01": {
@@ -765,7 +778,8 @@
 			"field_grass_hill_00",
 			"store_electronic_clothing",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"grass_medium_dirt_02": {
@@ -802,7 +816,8 @@
 			"field_grass_hill_00",
 			"store_electronic_clothing",
 			"forest_basic_00",
-			"forest_camp_00"
+			"forest_camp_00",
+			"forest_burned_00"
 		]
 	},
 	"grass_plain": {
