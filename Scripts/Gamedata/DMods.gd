@@ -354,11 +354,6 @@ func delete_mod_by_id(mod_id: String) -> void:
 	mod_dict.erase(mod_id)
 
 # ------------------------------------------------------------------
-# Retrieves a DMod instance by its ID.
-func get_mod_by_id(mod_id: String) -> DMod:
-	return mod_dict.get(mod_id, null)
-
-# ------------------------------------------------------------------
 # Checks if a mod exists in the dictionary by its ID.
 func has_mod(mod_id: String) -> bool:
 	return mod_dict.has(mod_id)

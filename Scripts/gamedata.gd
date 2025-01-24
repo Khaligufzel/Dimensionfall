@@ -65,11 +65,6 @@ func save_data_to_file(contentData: Dictionary):
 		Helper.json_helper.write_json_file(datapath, JSON.stringify(contentData.data, "\t"))
 
 
-# Returns one of the D- data types. We return it as refcounted since every class differs
-func get_data_of_type(type: DMod.ContentType) -> RefCounted:
-	return gamedata_map[type]
-
-
 # Removes the provided reference from references
 # For example, remove "town_00" from references.Core.tacticalmaps
 # module: the mod that the entity belongs to, for example "Core"
