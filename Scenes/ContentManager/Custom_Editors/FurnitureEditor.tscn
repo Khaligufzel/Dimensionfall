@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cng4m3os6smj8"]
+[gd_scene load_steps=10 format=3 uid="uid://cng4m3os6smj8"]
 
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="1_gm4uu"]
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/FurnitureEditor.gd" id="1_wqqit"]
@@ -11,7 +11,9 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujqyk"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furniture_image_display", "id_label", "name_edit", "description_edit", "categories_list", "furniture_selector", "image_name_label", "moveable_checkbox", "weight_label", "weight_spinbox", "edge_snapping_option", "door_option", "container_checkbox", "container_text_edit", "regeneration_label", "regeneration_spin_box", "sprite_mode_option_button", "destroy_container", "can_destroy_checkbox", "destruction_text_edit", "destruction_image_display", "destruction_sprite_label", "disassembly_container", "can_disassemble_checkbox", "disassembly_text_edit", "disassembly_image_display", "disassembly_sprite_label", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "crafting_items_container", "construction_items_container")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nv8h1"]
+
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furniture_image_display", "id_label", "name_edit", "description_edit", "categories_list", "furniture_selector", "image_name_label", "moveable_checkbox", "weight_label", "weight_spinbox", "edge_snapping_option", "door_option", "container_checkbox", "container_text_edit", "regeneration_label", "regeneration_spin_box", "sprite_mode_option_button", "destroy_container", "can_destroy_checkbox", "destruction_text_edit", "destruction_image_display", "destruction_sprite_label", "disassembly_container", "can_disassemble_checkbox", "disassembly_text_edit", "disassembly_image_display", "disassembly_sprite_label", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "crafting_items_container", "construction_items_container", "pool_spin_box", "drain_rate_spin_box", "transform_into_drop_enabled_text_edit", "button_text_text_edit", "consumption_items_grid_container", "consumption_tab")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,6 +62,12 @@ sprite_texture_rect = NodePath("VBoxContainer/TabContainer/Shape/HBoxContainer/S
 transparent_check_box = NodePath("VBoxContainer/TabContainer/Shape/TransparentCheckBox")
 crafting_items_container = NodePath("VBoxContainer/TabContainer/Crafting/ItemsPanelContainer/ItemsScrollContainer/ItemsGridContainer")
 construction_items_container = NodePath("VBoxContainer/TabContainer/Construction/ConstructionItemsPanelContainer/ConstructionItemsScrollContainer/ConstructionItemsVBoxContainer/ConstructionItemsGridContainer")
+pool_spin_box = NodePath("VBoxContainer/TabContainer/Consumption/PoolSpinBox")
+drain_rate_spin_box = NodePath("VBoxContainer/TabContainer/Consumption/DrainRateSpinBox")
+transform_into_drop_enabled_text_edit = NodePath("VBoxContainer/TabContainer/Consumption/TransformIntoDropEnabledTextEdit")
+button_text_text_edit = NodePath("VBoxContainer/TabContainer/Consumption/ButtonTextTextEdit")
+consumption_items_grid_container = NodePath("VBoxContainer/TabContainer/Consumption/ItemsPanelContainer/ItemsVBoxContainer/ItemsGridContainer")
+consumption_tab = NodePath("VBoxContainer/TabContainer/Consumption")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -564,6 +572,91 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ConstructionItemsGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Construction/ConstructionItemsPanelContainer/ConstructionItemsScrollContainer/ConstructionItemsVBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 4
+
+[node name="Consumption" type="GridContainer" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+columns = 2
+metadata/_tab_index = 4
+
+[node name="HintLabel" type="Label" parent="VBoxContainer/TabContainer/Consumption"]
+layout_mode = 2
+text = "Hint:"
+
+[node name="HintTextLabel" type="Label" parent="VBoxContainer/TabContainer/Consumption"]
+layout_mode = 2
+text = "This allows you to configure the consumption mechanic for the furniture. When a furniture is consuming, items inside the container 
+will be destroyed in order to fill up the \"fuel pool\". The furniture only starts consuming if the \"fuel pool\" is greater then 0.
+Note: The furniture needs to be a container in order to consume items."
+
+[node name="PoolLabel" type="Label" parent="VBoxContainer/TabContainer/Consumption"]
+layout_mode = 2
+text = "Pool:"
+
+[node name="PoolSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/Consumption"]
+layout_mode = 2
+tooltip_text = "The maximum capacity of the pool of fuel.
+0: This furniture does not consume
+>0: This furniture will consume items and add their fuel value to the pool"
+max_value = 1000.0
+
+[node name="DrainRateLabel" type="Label" parent="VBoxContainer/TabContainer/Consumption"]
+layout_mode = 2
+text = "Drain rate"
+
+[node name="DrainRateSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/Consumption"]
+layout_mode = 2
+tooltip_text = "The amount to consume per in-game hour. For example, if the pool has a 
+capacity of 1000 and the drain rate is 100, it will be depleted in 10 in-game hours. For reference, one in-game day is about real-life 35 minutes."
+max_value = 10000.0
+
+[node name="TransformIntoLabel" type="Label" parent="VBoxContainer/TabContainer/Consumption"]
+layout_mode = 2
+text = "Tranform into:"
+
+[node name="TransformIntoDropEnabledTextEdit" parent="VBoxContainer/TabContainer/Consumption" instance=ExtResource("4_fbact")]
+layout_mode = 2
+size_flags_vertical = 1
+tooltip_text = "The furniture to transform into when the pool is empty."
+myplaceholdertext = "Drop a furniture here"
+
+[node name="ButtonTextLabel" type="Label" parent="VBoxContainer/TabContainer/Consumption"]
+layout_mode = 2
+text = "Button text"
+
+[node name="ButtonTextTextEdit" type="TextEdit" parent="VBoxContainer/TabContainer/Consumption"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+tooltip_text = "Allows you to set the (de)activate button text that will be visible in the furniture interface in-game. When the 
+(de)activate button is pressed, the furniture will tranform into the furniture listed in the \"Transform into\" property.
+empty: The activate button will not display
+not empty: The (de)activate button will be displayed in the furniture interaction interface in-game with the assigned text.
+Recommendation:
+If the pool capacity is 0: write something like \"Activate\"
+If the pool capacity is greater then 0: write something like \"Deactivate\"
+The existing pool value will transfer over, so no fuel is lost."
+
+[node name="ItemsLabel" type="Label" parent="VBoxContainer/TabContainer/Consumption"]
+layout_mode = 2
+text = "Items:"
+
+[node name="ItemsPanelContainer" type="PanelContainer" parent="VBoxContainer/TabContainer/Consumption"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Drag items from the list on the left to add them so they are consumed into the pool. Modify the fuel value to set how much they add to the 
+pool. An item will only be consumed when the entire fuel value can fit 
+into the current pool. In other words, if the pool capacity is 1000 and is 
+filled with 990 fuel, only items with a fuel value of 10 or less will fit."
+theme_override_styles/panel = SubResource("StyleBoxFlat_nv8h1")
+
+[node name="ItemsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Consumption/ItemsPanelContainer"]
+layout_mode = 2
+
+[node name="ItemsGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Consumption/ItemsPanelContainer/ItemsVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 4

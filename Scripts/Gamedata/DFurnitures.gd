@@ -134,11 +134,15 @@ func remove_itemgroup_from_all_furniture(itemgroup_id: String):
 # This will erase it from crating.items
 func remove_item_from_all_furniture(item_id: String):
 	for furniture in furnituredict.values():
-		furniture.remove_item_from_crafting(item_id)
-		furniture.remove_item_from_construction(item_id)
+		furniture.remove_item(item_id)
 
 
 # Removes the reference of the selected furniture
 func remove_reference(furniture_id: String):
 	references.erase(furniture_id)
 	Gamedata.mods.save_references(self)
+
+# Remove the provided furniture_id from all furniture's consumption.transform_into
+func remove_furniture_from_all_furniture(furniture_id: String):
+	for furniture in furnituredict.values():
+		furniture.remove_furniture(furniture_id)

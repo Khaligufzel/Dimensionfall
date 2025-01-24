@@ -61,6 +61,14 @@ var control_elements: Array = []
 # Tracks which image display control is currently being updated
 var current_image_display: String = ""
 
+# Controls for consumption:
+@export var pool_spin_box: SpinBox = null
+@export var drain_rate_spin_box: SpinBox = null
+@export var transform_into_drop_enabled_text_edit: HBoxContainer = null
+@export var button_text_text_edit: TextEdit = null
+@export var consumption_items_grid_container: GridContainer = null
+@export var consumption_tab: GridContainer = null
+
 
 # This signal will be emitted when the user presses the save button
 signal data_changed()
@@ -101,6 +109,7 @@ func _load_furniture_data():
 	_load_disassembly_data()
 	_load_container_data()
 	_load_support_shape_data()
+	_load_consumption_data()
 	# Refresh crafting and construction item lists
 	update_item_list()
 	update_construction_item_list()
@@ -215,10 +224,16 @@ func _on_save_button_button_up():
 	handle_container_option()
 	handle_destruction_option()
 	handle_disassembly_option()
+	# Save consumption values
+	dfurniture.consumption.pool = int(pool_spin_box.value)
+	dfurniture.consumption.drain_rate = int(drain_rate_spin_box.value)
+	dfurniture.consumption.transform_into = transform_into_drop_enabled_text_edit.get_text()
+	dfurniture.consumption.button_text = button_text_text_edit.text
 
 	# Save crafting and construction items
 	_save_crafting_items()
 	_save_construction_items()
+	_save_consumption_items()
 
 	dfurniture.on_data_changed(olddata)
 	data_changed.emit()
@@ -296,9 +311,18 @@ func _input(event):
 		get_viewport().set_input_as_handled()
 
 
-func _on_container_check_box_toggled(toggled_on):
+# The user has checked the 'container' checkbox
+# Since some functionality relies on the furniture being a container,
+# We need to hide the controls if this furniture is not a container.
+func _on_container_check_box_toggled(toggled_on: bool):
+	# Clear the text field if the container checkbox is toggled off
 	if not toggled_on:
 		container_text_edit.mytextedit.clear()
+	
+	# Find the tab index for the "Consumption" tab
+	var tabIndex = get_tab_by_title("Consumption")
+	if tabIndex != -1:  # Check if a valid tab index is returned
+		tab_container.set_tab_hidden(tabIndex, !toggled_on)  # Hide or show the tab
 
 
 # Called when the user has successfully dropped data onto the ItemGroupTextEdit
@@ -358,6 +382,10 @@ func set_drop_functions():
 	destruction_text_edit.can_drop_function = can_itemgroup_drop
 	
 	construction_items_container.set_drag_forwarding(Callable(), _can_construction_item_drop, _construction_item_drop)
+	consumption_items_grid_container.set_drag_forwarding(Callable(), _can_consumption_item_drop, _consumption_item_drop)
+	# Assign drop functions for transform_into_drop_enabled_text_edit
+	transform_into_drop_enabled_text_edit.drop_function = furniture_drop.bind(transform_into_drop_enabled_text_edit)
+	transform_into_drop_enabled_text_edit.can_drop_function = can_furniture_drop
 
 
 # When the furniture_image_display is clicked, the user will be prompted to select an image from
@@ -702,3 +730,163 @@ func _update_shape_visibility(shape: String):
 	depth_scale_spin_box.visible = is_box
 	radius_scale_label.visible = not is_box
 	radius_scale_spin_box.visible = not is_box
+
+
+func _load_consumption_data():
+	# Load values from dfurniture.consumption
+	pool_spin_box.value = dfurniture.consumption.pool
+	drain_rate_spin_box.value = dfurniture.consumption.drain_rate
+	transform_into_drop_enabled_text_edit.set_text(dfurniture.consumption.transform_into)
+	button_text_text_edit.text = dfurniture.consumption.button_text
+	_load_consumption_items()
+
+
+func _load_consumption_items():
+	# Clear existing items from the grid
+	Helper.free_all_children(consumption_items_grid_container)
+
+	if not dfurniture.consumption or not dfurniture.consumption.items:
+		return
+
+	# Add items back into the grid
+	for item_id in dfurniture.consumption.items.keys():
+		_handle_consumption_item_drop({"id": item_id})
+
+# Check if the dragged item can be dropped into the consumption_items_grid_container
+func _can_consumption_item_drop(_newpos: Vector2, data: Dictionary) -> bool:
+	# Validate that data is a dictionary and contains the required "id" key
+	if not data or not data.has("id"):
+		return false
+
+	# Validate that the item exists in Gamedata
+	if not Gamedata.mods.by_id(data["mod_id"]).items.has_id(data["id"]):
+		return false
+	
+	# Check for duplicate items in the grid container
+	for child in consumption_items_grid_container.get_children():
+		if child is Label and child.text == data["id"]:
+			return false  # Item already exists
+
+	return true  # Passed all validation checks
+
+# Handle the drop of an item into the consumption_items_grid_container
+func _consumption_item_drop(_newpos: Vector2, data: Dictionary) -> void:
+	# Validate if the item can be dropped
+	if not _can_consumption_item_drop(_newpos, data):
+		return
+
+	# Handle the drop and add the item to the grid
+	_handle_consumption_item_drop(data)
+
+# Function to handle adding the dropped item to the consumption grid container
+func _handle_consumption_item_drop(dropped_data: Dictionary) -> void:
+	# Retrieve item details from Gamedata
+	var item_id = dropped_data["id"]
+	var item_sprite = Gamedata.mods.get_content_by_id(DMod.ContentType.ITEMS, item_id).sprite
+
+	# Create components for the dropped item row
+	var item_icon = TextureRect.new()
+	item_icon.texture = item_sprite
+	item_icon.custom_minimum_size = Vector2(32, 32)  # Ensure a minimum size for the icon
+
+	var item_label = Label.new()
+	item_label.text = item_id
+
+	# Add a SpinBox to allow setting the required amount
+	var amount_spinbox = SpinBox.new()
+	amount_spinbox.min_value = 1
+	amount_spinbox.value = dfurniture.consumption.items.get(item_id, 1)  # Default to 1 if not set
+	amount_spinbox.custom_minimum_size = Vector2(50, 32)
+	amount_spinbox.tooltip_text = "The 'fuel value' that will be added to the pool when" + \
+								  "  the item is consumed. The consumption of items will" + \
+								  "  automatically start when the current value of the\n" + \
+								  "  pool is below maximum. This requires that the pool" + \
+								  "  has space for the amount of fuel this item provides.\n" + \
+								  "  For example, if the current pool value is 990 and " + \
+								  " the max pool size is 1000, only items with a fuel \n" + \
+								  " value of 10 or less will be consumed. When an item is " + \
+								  " consumed, it is removed from the furniture's inventory and destroyed."
+
+	var delete_button = Button.new()
+	delete_button.text = "X"
+	delete_button.tooltip_text = "Remove this item"
+	delete_button.button_up.connect(_on_delete_consumption_item_button_pressed.bind(item_id))
+
+	# Add components to the grid container
+	consumption_items_grid_container.add_child(item_icon)
+	consumption_items_grid_container.add_child(item_label)
+	consumption_items_grid_container.add_child(amount_spinbox)
+	consumption_items_grid_container.add_child(delete_button)
+
+
+# Handle the deletion of an item from the consumption_items_grid_container
+func _on_delete_consumption_item_button_pressed(item_id: String) -> void:
+	# Determine the number of columns in the grid container
+	var num_columns = consumption_items_grid_container.columns
+	var children_to_remove = []
+
+	# Find and queue the row containing the matching item ID
+	for i in range(consumption_items_grid_container.get_child_count()):
+		var child = consumption_items_grid_container.get_child(i)
+		if child is Label and child.text == item_id:
+			var start_index = i - (i % num_columns)
+			for j in range(num_columns):
+				children_to_remove.append(consumption_items_grid_container.get_child(start_index + j))
+			break
+
+	# Remove and free the queued children
+	for child in children_to_remove:
+		consumption_items_grid_container.remove_child(child)
+		child.queue_free()
+
+	# Remove the item ID from dfurniture.consumption.items
+	if dfurniture.consumption and dfurniture.consumption.items:
+		dfurniture.consumption.items.erase(item_id)
+
+func _save_consumption_items():
+	var new_items: Dictionary = {}
+	var num_children = consumption_items_grid_container.get_child_count()
+	var num_columns = consumption_items_grid_container.columns
+
+	for i in range(0, num_children, num_columns):
+		var item_label = consumption_items_grid_container.get_child(i + 1)  # Second child is the label with item ID
+		var amount_spinbox = consumption_items_grid_container.get_child(i + 2)  # Third child is the SpinBox
+		if item_label is Label and amount_spinbox is SpinBox:
+			new_items[item_label.text] = int(amount_spinbox.value)
+
+	dfurniture.consumption.items = new_items  # Update furniture's consumption items
+
+# Called when the user drops a furniture ID onto the TextEdit
+func furniture_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> void:
+	# Assuming dropped_data is a Dictionary that includes an 'id'
+	if dropped_data and "id" in dropped_data:
+		var furniture_id = dropped_data["id"]
+		# Validate that the furniture ID exists in the current mod
+		if not Gamedata.mods.by_id(dropped_data["mod_id"]).furnitures.has_id(furniture_id):
+			print_debug("No furniture data found for ID: " + furniture_id)
+			return
+		texteditcontrol.set_text(furniture_id)  # Set the furniture ID into the TextEdit
+	else:
+		print_debug("Dropped data does not contain an 'id' key.")
+
+# Check if the dropped data is valid for assigning a furniture ID
+func can_furniture_drop(dropped_data: Dictionary) -> bool:
+	# Validate that the data is a dictionary and contains the 'id' property
+	if not dropped_data or not dropped_data.has("id"):
+		return false
+
+	# Validate that the furniture ID exists in the current mod
+	if not Gamedata.mods.by_id(dropped_data["mod_id"]).furnitures.has_id(dropped_data["id"]):
+		return false
+
+	return true  # Passed all validation checks
+
+
+
+# Returns the tab control with the given name
+func get_tab_by_title(tabName: String) -> int:
+	# Loop over all children of the types_container
+	for i in range(tab_container.get_tab_count()):
+		if tab_container.get_tab_title(i) == tabName:
+			return i
+	return -1

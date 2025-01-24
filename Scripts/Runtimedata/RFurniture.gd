@@ -175,6 +175,38 @@ class Construction:
 		return items
 
 
+# Represents the consumption properties of a furniture
+class Consumption:
+	var pool: int = 0  # The initial value of the pool
+	var drain_rate: int = 0  # How much to drain per in-game hour
+	var transform_into: String = ""  # The furniture ID to transform into after consumption
+	var button_text: String = ""  # Text for the action button
+	var items: Dictionary = {}  # Items required for consumption, e.g., {"wood": 12, "copper": 2}
+
+	# Constructor to initialize consumption data from a dictionary
+	func _init(data: Dictionary) -> void:
+		pool = data.get("pool", 0)
+		drain_rate = data.get("drain_rate", 0)
+		transform_into = data.get("transform_into", "")
+		button_text = data.get("button_text", "")
+		items = data.get("items", {})  # Default to an empty dictionary if not provided
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		var result = {}
+		if pool > 0:
+			result["pool"] = pool
+		if drain_rate > 0:
+			result["drain_rate"] = drain_rate
+		if transform_into != "":
+			result["transform_into"] = transform_into
+		if button_text != "":
+			result["button_text"] = button_text
+		if not items.is_empty():
+			result["items"] = items
+		return result
+
+
 # Properties defined in the furniture
 var id: String
 var name: String
@@ -190,6 +222,7 @@ var destruction: Destruction
 var disassembly: Disassembly
 var crafting: Crafting
 var construction: Construction
+var consumption: Consumption
 var sprite: Texture
 var parent: RFurnitures  # Reference to the list containing all runtime furnitures for this mod
 
@@ -220,6 +253,8 @@ func overwrite_from_dfurniture(dfurniture: DFurniture) -> void:
 	disassembly.sprite = dfurniture.parent.sprite_by_file(dfurniture.disassembly.sprite)
 	crafting = Crafting.new(dfurniture.crafting.get_data())
 	construction = Construction.new(dfurniture.construction.get_data())
+	consumption = Consumption.new(dfurniture.consumption.get_data())
+
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -259,6 +294,10 @@ func get_data() -> Dictionary:
 	var constructiondata: Dictionary = construction.get_data()
 	if not constructiondata.is_empty():
 		data["construction"] = constructiondata
+
+	var consumptiondata: Dictionary = consumption.get_data()
+	if not consumptiondata.is_empty():
+		data["consumption"] = consumptiondata
 
 	return data
 

@@ -69,6 +69,7 @@ var destruction: Destruction
 var disassembly: Disassembly
 var crafting: Crafting
 var construction: Construction
+var consumption: Consumption
 var parent: DFurnitures
 
 # -------------------------------
@@ -216,6 +217,38 @@ class Construction:
 		items.erase(item_id)
 
 
+# Represents the consumption properties of a furniture
+class Consumption:
+	var pool: int = 0  # The initial value of the pool
+	var drain_rate: int = 0  # How much to drain per in-game hour
+	var transform_into: String = ""  # The furniture ID to transform into after consumption
+	var button_text: String = ""  # Text for the action button
+	var items: Dictionary = {}  # Items required for consumption, e.g., {"wood": 12, "copper": 2}
+
+	# Constructor to initialize consumption data from a dictionary
+	func _init(data: Dictionary) -> void:
+		pool = data.get("pool", 0)
+		drain_rate = data.get("drain_rate", 0)
+		transform_into = data.get("transform_into", "")
+		button_text = data.get("button_text", "")
+		items = data.get("items", {})  # Default to an empty dictionary if not provided
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		var result = {}
+		if pool > 0:
+			result["pool"] = pool
+		if drain_rate > 0:
+			result["drain_rate"] = drain_rate
+		if transform_into != "":
+			result["transform_into"] = transform_into
+		if button_text != "":
+			result["button_text"] = button_text
+		if not items.is_empty():
+			result["items"] = items
+		return result
+
+
 # -------------------------------
 # Initialization
 # -------------------------------
@@ -242,6 +275,7 @@ func _initialize_properties(data: Dictionary) -> void:
 	disassembly = Disassembly.new(data.get("disassembly", {}))
 	crafting = Crafting.new(data.get("crafting", {}))
 	construction = Construction.new(data.get("construction", {}))
+	consumption = Consumption.new(data.get("consumption", {}))
 
 
 # -------------------------------
@@ -276,6 +310,8 @@ func get_data() -> Dictionary:
 		result["crafting"] = crafting.get_data()
 	if not construction.get_data().is_empty():
 		result["construction"] = construction.get_data()
+	if not consumption.get_data().is_empty():
+		result["consumption"] = consumption.get_data()
 
 	return result
 
@@ -319,6 +355,31 @@ func on_data_changed(old_furniture: DFurniture):
 	for current_item in current_items:
 		Gamedata.mods.add_reference(DMod.ContentType.ITEMS, current_item, DMod.ContentType.FURNITURES, id)
 
+	# Handle consumption item references
+	old_items = old_furniture.consumption.items.keys()  # Get old consumption item IDs
+	current_items = consumption.items.keys()  # Get current consumption item IDs
+
+	# Remove references for items no longer in the list
+	for old_item in old_items:
+		if old_item not in current_items:
+			Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, old_item, DMod.ContentType.FURNITURES, id)
+
+	# Add references for new items
+	for current_item in current_items:
+		Gamedata.mods.add_reference(DMod.ContentType.ITEMS, current_item, DMod.ContentType.FURNITURES, id)
+
+	# Handle consumption.transform_into references
+	var old_transform_into = old_furniture.consumption.transform_into
+	var current_transform_into = consumption.transform_into
+
+	# Remove the old reference if it differs from the current one
+	if old_transform_into != "" and old_transform_into != current_transform_into:
+		Gamedata.mods.remove_reference(DMod.ContentType.FURNITURES, old_transform_into, DMod.ContentType.FURNITURES, id)
+
+	# Add the new reference if it differs from the old one
+	if current_transform_into != "":
+		Gamedata.mods.add_reference(DMod.ContentType.FURNITURES, current_transform_into, DMod.ContentType.FURNITURES, id)
+
 
 func _update_references(old_value: String, new_value: String):
 	if old_value != new_value:
@@ -345,11 +406,14 @@ func delete() -> void:
 	for item in crafting.items:
 		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item, DMod.ContentType.FURNITURES, id)
 
-	# Remove from all referencing maps
-	for map_id in parent.references.get(id, {}).get("maps", []):
-		for map_data: DMap in Gamedata.mods.get_all_content_by_id(DMod.ContentType.MAPS, map_id):
-			map_data.remove_entity_from_map("furniture", id)
+	# Remove item references for consumption items
+	for item in consumption.items.keys():
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item, DMod.ContentType.FURNITURES, id)
 
+	# For each mod, remove this mob from the maps in this itemgroup's references
+	for mod: DMod in Gamedata.mods.get_all_mods():
+		mod.furnitures.remove_itemgroup_from_all_furniture(id)
+		mod.maps.remove_entity_from_all_maps("furniture",id)
 
 func _remove_references(_reference_type: String, value: String):
 	if value != "":
@@ -368,22 +432,34 @@ func remove_itemgroup(itemgroup_id: String):
 		disassembly.group = ""
 	parent.save_furnitures_to_disk()
 
-# Removes an item by its ID from crafting.items and updates references
-func remove_item_from_crafting(item_id: String):
-	if item_id in crafting.items:
+# Removes a furniture ID from consumption.transform_into and updates references
+func remove_furniture(furniture_id: String):
+	if consumption.transform_into == furniture_id:
 		# Remove the reference
-		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item_id, DMod.ContentType.FURNITURES, id)
-		# Remove the item from the crafting list
-		crafting.items.erase(item_id)
+		Gamedata.mods.remove_reference(DMod.ContentType.FURNITURES, furniture_id, DMod.ContentType.FURNITURES, id)
+		# Clear the transform_into field
+		consumption.transform_into = ""
 		# Save the updated furniture state
 		parent.save_furnitures_to_disk()
 
-# Removes an item by its ID from construction.items and updates references
-func remove_item_from_construction(item_id: String):
+# Removes an item by its ID from crafting, construction, and consumption data.
+# Only removes the reference if the item is no longer in any of these data structures.
+func remove_item(item_id: String):
+	# Check and remove the item from crafting
+	if item_id in crafting.items:
+		crafting.items.erase(item_id)
+
+	# Check and remove the item from construction
 	if item_id in construction.items:
-		# Remove the reference
-		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item_id, DMod.ContentType.FURNITURES, id)
-		# Remove the item from the construction list
 		construction.remove_item(item_id)
-		# Save the updated furniture state
-		parent.save_furnitures_to_disk()
+
+	# Check and remove the item from consumption items
+	if item_id in consumption.items:
+		consumption.items.erase(item_id)
+
+	# If the item is no longer used anywhere, remove the reference
+	if not (item_id in crafting.items or item_id in construction.items or item_id in consumption.items):
+		Gamedata.mods.remove_reference(DMod.ContentType.ITEMS, item_id, DMod.ContentType.FURNITURES, id)
+
+	# Save the updated furniture state
+	parent.save_furnitures_to_disk()

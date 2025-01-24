@@ -19,6 +19,7 @@ var shape: RID
 var mesh_instance: RID  # Variable to store the mesh instance RID
 var quad_instance: RID # RID to the quadmesh that displays the sprite
 var myworld3d: World3D
+var spawner: FurnitureStaticSpawner # The spawner that spawned this furniture
 
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh # A mesh below the sprite for 3d effect
@@ -33,6 +34,7 @@ var door_state: String = "Closed"  # Default state
 # Variables to manage the container if this furniture is a container
 var container: FurnitureContainer
 var crafting_container: CraftingContainer
+var consumption: Consumption # Variable to manage consumption
 
 # Variables to manage health and damage
 var current_health: float = 100.0  # Default health
@@ -607,6 +609,141 @@ class CraftingContainer:
 				return false
 		return true
 
+# Inner class for managing consumption mechanics
+class Consumption:
+	var current_pool: float = 0  # Default value for the consumption pool
+	var parent_furniture: FurnitureStaticSrv
+	signal current_pool_changed(new_value: float)
+
+	func _init(myparent_furniture: FurnitureStaticSrv):
+		parent_furniture = myparent_furniture
+		# A pool value may have transferred over from the furniture it was before
+		# This happens when a furniture transforms_into
+		if parent_furniture.furnitureJSON.has("pool"):
+			current_pool = parent_furniture.furnitureJSON.get("pool", 0)
+		consume_items()
+
+	# Getter for `current_pool`
+	func get_current_pool() -> float:
+		return current_pool
+
+	# Setter for `current_pool`
+	func set_current_pool(value: float) -> void:
+		# Get the maximum pool size from rfurniture.consumption.pool
+		var pool_size: float = parent_furniture.rfurniture.consumption.pool
+		
+		# Clamp the value to ensure current_pool is within the valid range [0, pool_size]
+		current_pool = clamp(value, 0, pool_size)
+		current_pool_changed.emit(current_pool)
+		
+		# Get the drain_rate per in-game hour from the parent furniture
+		var drain_rate: float = parent_furniture.rfurniture.consumption.drain_rate
+		
+		# Only consider transforming automatically if pool and drain_rate are valid
+		if pool_size <= 0 or drain_rate <= 0:
+			return
+		
+		# Trigger transformation logic if the pool is depleted
+		if current_pool <= 0:
+			parent_furniture.transform_into()
+
+	# Function to compare the current pool with the maximum pool capacity
+	func get_available_pool_capacity() -> float:
+		# Get the maximum capacity of the pool from parent_furniture.rfurniture.consumption.pool
+		var max_pool: float = parent_furniture.rfurniture.consumption.pool
+		
+		# Calculate and return the difference
+		return max_pool - current_pool
+
+	# Update the function to handle the granular logic
+	func on_minute_passed(_current_time: String):
+		# Get the drain_rate per in-game hour from the parent furniture
+		var pool_size: float = parent_furniture.rfurniture.consumption.pool
+		var drain_rate: float = parent_furniture.rfurniture.consumption.drain_rate
+		# We only consider consuming items if there is a pool defined with a size larger then 0
+		if pool_size <= 0 or drain_rate <= 0:
+			return
+		
+		# Calculate the per in-game minute drain amount (granular drain)
+		var drain_per_minute: float = drain_rate / 60.0
+		
+		# Subtract the per-minute drain from the current_pool
+		set_current_pool(get_current_pool() - drain_per_minute)
+		consume_items()
+
+	# Function to consume items from the container
+	func consume_items():
+		if not parent_furniture.rfurniture:
+			return
+		
+		# Get the dictionary of items from parent_furniture
+		var items_dict: Dictionary = parent_furniture.rfurniture.consumption.items
+		
+		# Check if the parent furniture has a container
+		if not parent_furniture.container:
+			print("No container found in the furniture.")
+			return
+		
+		# Get the container inventory
+		var container_inventory: InventoryStacked = parent_furniture.container.get_inventory()
+		
+		# Keep consuming items as long as there is room in the pool
+		while get_available_pool_capacity() > 0:
+			var consumed_item = false  # Track if we consumed an item this iteration
+			
+			# Iterate over each item in the items dictionary
+			for item_id in items_dict.keys():
+				var item_value: float = items_dict[item_id]
+				
+				# Skip the item if its value is larger than the available capacity
+				if item_value > get_available_pool_capacity():
+					continue
+				
+				# Check if the inventory contains an item with the prototype_id matching the item_id
+				if container_inventory.has_item_by_id(item_id):
+					# Get the first item matching the item_id
+					var items: Array[InventoryItem] = container_inventory.get_items_by_id(item_id)
+					if items.size() > 0:
+						var item_to_consume: InventoryItem = items[0]  # Get the first item
+						var current_stack_size: int = InventoryStacked.get_item_stack_size(item_to_consume)
+						
+						# Attempt to subtract 1 from the current stack size
+						if InventoryStacked.set_item_stack_size(item_to_consume, current_stack_size - 1):
+							# If successful, add the item's value to the current_pool
+							set_current_pool(get_current_pool() + item_value)
+							
+							# Log the successful consumption
+							print("Consumed 1 unit of item: ", item_id, ". Remaining stack size: ", current_stack_size - 1)
+							print("Added ", item_value, " to current pool. New pool value: ", get_current_pool())
+							
+							consumed_item = true  # Mark that we consumed an item
+							break  # Break out of the loop to re-check the pool capacity
+						else:
+							print("Failed to consume item: ", item_id, ". Could not reduce stack size.")
+					else:
+						print("No items available to consume for item_id: ", item_id)
+				else:
+					print("Item with prototype_id ", item_id, " not found in the inventory.")
+			
+			# If no items were consumed, exit the loop
+			if not consumed_item:
+				break
+
+
+
+	# Serialize the data
+	func serialize() -> Dictionary:
+		var data: Dictionary = {}
+		data["current_pool"] = current_pool  # Save the current pool value
+		return data
+
+	# Deserialize the Consumption class
+	func deserialize(data: Dictionary) -> void:
+		# Check if the data contains "current_pool" and set it
+		if data.has("current_pool"):
+			current_pool = data["current_pool"]
+
+
 # --------------------------------------------------------------
 # Initialization
 # --------------------------------------------------------------
@@ -642,6 +779,9 @@ func _init(furniturepos: Vector3, new_furniture_json: Dictionary, world3d: World
 	update_door_visuals()  # Set initial door visuals based on its state
 	add_container()  # Adds container if the furniture is a container
 	add_crafting_container() # Adds crafting container if the furniture is a crafting station
+	if rfurniture.consumption:
+		consumption = Consumption.new(self)
+	Helper.time_helper.minute_passed.connect.call_deferred(on_minute_passed)
 
 
 # If this furniture is a container, it will add a container node to the furniture.
@@ -870,9 +1010,6 @@ func free_resources():
 	PhysicsServer3D.free_rid(shape)
 	PhysicsServer3D.free_rid(collider)
 
-	# Clear the reference to the DFurniture data if necessary
-	rfurniture = null
-
 
 # Function to check if this furniture acts as a door
 func check_door_functionality():
@@ -1047,10 +1184,12 @@ func get_hit(attack: Dictionary):
 
 
 # Function to handle furniture destruction
-func _die():
-	add_corpse(furniture_transform.get_position())  # Add wreck or corpse
+func _die(add_corpse: bool = true):
+	if add_corpse:
+		add_corpse(furniture_transform.get_position())  # Add wreck or corpse
 	if is_container():
 		Helper.signal_broker.container_exited_proximity.emit(self)
+	Helper.time_helper.minute_passed.disconnect(on_minute_passed)
 	free_resources()  # Free resources
 	queue_free()  # Remove the node from the scene tree
 
@@ -1172,9 +1311,11 @@ func get_item_count_in_container(mycontainer: Object, item_id: String) -> int:
 # Since this furniture node is not in the tree, we will respond to the 
 # Helper.time_manager.minute_passed signal, which is connected in the 
 # FurnitureStaticSpawner script.
-func on_minute_passed(_current_time: String):
+func on_minute_passed(current_time: String):
 	if crafting_container and crafting_container.is_active:
 		crafting_container.process_active_crafting()
+	if consumption:
+		consumption.on_minute_passed(current_time)
 
 
 # Add an item to the crafting queue. This might happen from a button in the furniture window
@@ -1213,3 +1354,47 @@ func are_all_ingredients_available(recipe: RItem.CraftRecipe) -> bool:
 		if available < ingredient.amount:
 			return false
 	return true
+
+
+# Function to handle transformation and spawn new furniture
+func transform_into():
+	if not spawner or not spawner.chunk:
+		print("Spawner or Spawner Chunk is null.")
+		return
+	var furniture_id: String = rfurniture.consumption.transform_into
+	if not furniture_id:
+		return
+	var chunk: Chunk = spawner.chunk
+	var construction_pos: Vector3 = furniture_transform.get_position()
+	# Decrease y by half the height of the furniture
+	construction_pos.y -= 0.5+furniture_transform.height * 0.5
+	# Translate the position to negate the chunk's `mypos`
+	construction_pos -= chunk.mypos
+
+	# Prepare the "json" dictionary for the spawn_furniture call
+	var furniture_json: Dictionary = {
+		"id": furniture_id,
+		"rotation": furniture_transform.get_rotation(),
+		"pool": consumption.get_current_pool()
+	}
+
+	if rfurniture.function.is_container:
+		# Prepare the "items" array from the inventory if the furniture is a container
+		if get_inventory():
+			var items_array: Array = []
+			var items_copy = get_inventory().get_items().duplicate()
+			for item in items_copy:
+				items_array.append(item)  # Add each InventoryItem to the array
+			furniture_json["items"] = items_array  # Include the "items" array in the json
+	else:
+		# If the furniture is not a container, call add_corpse
+		add_corpse(Helper.overmap_manager.player.get_position())
+
+	# Spawn the furniture instance with or without the "items" property
+	chunk.spawn_furniture({
+		"json": furniture_json,
+		"pos": construction_pos
+	})
+
+	# Remove the instance afterwards and don't add a corpse
+	_die(false)
