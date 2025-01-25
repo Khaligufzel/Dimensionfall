@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gww54jxxotly"
-path="res://.godot/imported/machine_conveyor_mid_64.png-45c392f120cfd6e17ea21b73fc7b727c.ctex"
+uid="uid://dobu5anoi57n"
+path="res://.godot/imported/machine_conveyor_end_100.png-d3a97e37220183731635ea461bbccad3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Dimensionfall/Furniture/machine_conveyor_mid_64.png"
-dest_files=["res://.godot/imported/machine_conveyor_mid_64.png-45c392f120cfd6e17ea21b73fc7b727c.ctex"]
+source_file="res://Mods/Dimensionfall/Furniture/machine_conveyor_end_100.png"
+dest_files=["res://.godot/imported/machine_conveyor_end_100.png-d3a97e37220183731635ea461bbccad3.ctex"]
 
 [params]
 

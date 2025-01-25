@@ -1305,7 +1305,7 @@
 		"id": "conveyor",
 		"moveable": false,
 		"name": "Conveyor",
-		"sprite": "conveyor_straight_64.png",
+		"sprite": "conveyor_straight_100.png",
 		"support_shape": {
 			"color": "d76c2eff",
 			"depth_scale": 95,
@@ -1332,7 +1332,7 @@
 		"id": "conveyor_corner",
 		"moveable": false,
 		"name": "Conveyor corner",
-		"sprite": "conveyor_corner_64.png",
+		"sprite": "conveyor_corner_100.png",
 		"support_shape": {
 			"color": "d76c2eff",
 			"depth_scale": 95,
@@ -1410,7 +1410,7 @@
 		"id": "conveyor_machine_mid",
 		"moveable": false,
 		"name": "Machine with conveyor",
-		"sprite": "machine_conveyor_mid_64.png",
+		"sprite": "machine_conveyor_mid_100.png",
 		"support_shape": {
 			"color": "d76c2eff",
 			"depth_scale": 95,
@@ -1434,7 +1434,7 @@
 		"id": "conveyor_machine_end",
 		"moveable": false,
 		"name": "Machine with conveyor",
-		"sprite": "machine_conveyor_end_64.png",
+		"sprite": "machine_conveyor_end_100.png",
 		"support_shape": {
 			"color": "d76c2eff",
 			"depth_scale": 95,

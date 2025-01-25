@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl7deoxbduhjf"
-path="res://.godot/imported/conveyor_straight_64.png-78b9c0a29d162d0c579effd207703d23.ctex"
+uid="uid://bs8uhbd4a3qah"
+path="res://.godot/imported/conveyor_corner_100.png-d23f65f9fb61e74902d1a8ddfedfdaac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Dimensionfall/Furniture/conveyor_straight_64.png"
-dest_files=["res://.godot/imported/conveyor_straight_64.png-78b9c0a29d162d0c579effd207703d23.ctex"]
+source_file="res://Mods/Dimensionfall/Furniture/conveyor_corner_100.png"
+dest_files=["res://.godot/imported/conveyor_corner_100.png-d23f65f9fb61e74902d1a8ddfedfdaac.ctex"]
 
 [params]
 
