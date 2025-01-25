@@ -15,13 +15,15 @@
 	"debris_rock": {
 		"maps": [
 			"subway_station",
-			"abandoned_building"
+			"abandoned_building",
+			"scrap_yard"
 		]
 	},
 	"debris_urban": {
 		"maps": [
 			"subway_station",
-			"abandoned_building"
+			"abandoned_building",
+			"scrap_yard"
 		]
 	},
 	"destroyed_furniture_medium": {
@@ -31,7 +33,8 @@
 			"skyscraper",
 			"city_square",
 			"abandoned_building",
-			"forest_camp_00"
+			"forest_camp_00",
+			"scrap_yard"
 		]
 	},
 	"electronics_damaged": {

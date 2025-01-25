@@ -249,6 +249,11 @@
 			"scrap_yard"
 		]
 	},
+	"conveyor_corner": {
+		"maps": [
+			"scrap_yard"
+		]
+	},
 	"countertop_wood": {
 		"maps": [
 			"office_building_00",
