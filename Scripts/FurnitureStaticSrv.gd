@@ -54,6 +54,7 @@ class FurnitureTransform:
 	var width: float
 	var depth: float
 	var height: float
+	var parent_furniture: FurnitureStaticSrv
 
 	func _init(myposition: Vector3, myrotation: int, size: Vector3):
 		width = size.x
@@ -107,7 +108,11 @@ class FurnitureTransform:
 		return Transform3D(Basis(Vector3(0, 1, 0), deg_to_rad(rot)), get_position())
 	
 	func get_box_shape_size() -> Vector3:
-		return Vector3(width / 2.0, height / 2.0, depth / 2.0)
+		# Apply width and depth scaling from rfurniture.support_shape
+		var scaled_width = width * (parent_furniture.rfurniture.support_shape.width_scale / 100.0)
+		var scaled_depth = depth * (parent_furniture.rfurniture.support_shape.depth_scale / 100.0)
+		return Vector3(scaled_width, height, scaled_depth)
+
 		
 	func correct_new_position():
 		# We have to compensate for the fact that the physicsserver and
@@ -760,6 +765,7 @@ func _init(furniturepos: Vector3, new_furniture_json: Dictionary, world3d: World
 	furniture_transform = FurnitureTransform.new(
 		furniturepos, furniture_rotation, calculate_furniture_size()
 	)
+	furniture_transform.parent_furniture = self
 	
 	if _is_new_furniture():
 		furniture_transform.correct_new_position()
@@ -832,7 +838,11 @@ func calculate_furniture_size() -> Vector3:
 # Function to create a BoxShape3D collider based on the given size
 func create_box_shape():
 	shape = PhysicsServer3D.box_shape_create()
-	PhysicsServer3D.shape_set_data(shape, furniture_transform.get_box_shape_size())
+	var shape_size: Vector3 = furniture_transform.get_box_shape_size()
+	shape_size.x = shape_size.x/2
+	shape_size.y = shape_size.y
+	shape_size.z = shape_size.z/2
+	PhysicsServer3D.shape_set_data(shape, shape_size)
 	
 	collider = PhysicsServer3D.body_create()
 	PhysicsServer3D.body_set_mode(collider, PhysicsServer3D.BODY_MODE_STATIC)
@@ -852,7 +862,7 @@ func create_visual_instance(shape_type: String):
 
 	if shape_type == "Box":
 		support_mesh = BoxMesh.new()
-		(support_mesh as BoxMesh).size = furniture_transform.get_sizeV3()
+		(support_mesh as BoxMesh).size = furniture_transform.get_box_shape_size()
 	elif shape_type == "Cylinder":
 		support_mesh = CylinderMesh.new()
 		(support_mesh as CylinderMesh).height = furniture_transform.height
@@ -1184,8 +1194,8 @@ func get_hit(attack: Dictionary):
 
 
 # Function to handle furniture destruction
-func _die(add_corpse: bool = true):
-	if add_corpse:
+func _die(do_add_corpse: bool = true):
+	if do_add_corpse:
 		add_corpse(furniture_transform.get_position())  # Add wreck or corpse
 	if is_container():
 		Helper.signal_broker.container_exited_proximity.emit(self)
