@@ -186,6 +186,16 @@
 			"forest_camp_00"
 		]
 	},
+	"car_00": {
+		"maps": [
+			"scrap_yard"
+		]
+	},
+	"car_01": {
+		"maps": [
+			"scrap_yard"
+		]
+	},
 	"cash_register": {
 		"maps": [
 			"store_groceries",
@@ -234,6 +244,11 @@
 			"store_electronic_clothing"
 		]
 	},
+	"conveyor": {
+		"maps": [
+			"scrap_yard"
+		]
+	},
 	"countertop_wood": {
 		"maps": [
 			"office_building_00",
@@ -247,11 +262,22 @@
 			"generichouse_t"
 		]
 	},
+	"crate_wood": {
+		"maps": [
+			"scrap_yard"
+		]
+	},
+	"crate_wood_long": {
+		"maps": [
+			"scrap_yard"
+		]
+	},
 	"damaged_shelves": {
 		"maps": [
 			"radio_tower",
 			"two_story_house",
-			"abandoned_building"
+			"abandoned_building",
+			"scrap_yard"
 		]
 	},
 	"desk": {
@@ -275,7 +301,8 @@
 			"city_square",
 			"parking_garage",
 			"abandoned_building",
-			"forest_camp_00"
+			"forest_camp_00",
+			"scrap_yard"
 		]
 	},
 	"display_case": {
@@ -326,6 +353,11 @@
 			"police_station",
 			"RockyHill_SW",
 			"store_electronic_clothing"
+		]
+	},
+	"light_machinery": {
+		"maps": [
+			"scrap_yard"
 		]
 	},
 	"plant_pot_00": {
@@ -469,6 +501,11 @@
 			"generichouse_t"
 		]
 	},
+	"tanker_wreck_01": {
+		"maps": [
+			"scrap_yard"
+		]
+	},
 	"toilet_00": {
 		"maps": [
 			"store_groceries",
@@ -507,6 +544,11 @@
 			"generichouse_corner",
 			"generichouse_t",
 			"store_electronic_clothing"
+		]
+	},
+	"truck_wreck_01": {
+		"maps": [
+			"scrap_yard"
 		]
 	},
 	"ups": {

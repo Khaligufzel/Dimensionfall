@@ -1,0 +1,4452 @@
+{
+	"connections": {
+		"east": "ground",
+		"north": "ground",
+		"south": "ground",
+		"west": "ground"
+	},
+	"description": "",
+	"id": "scrap_yard",
+	"levels": [
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_02"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "crate_wood_long",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "crate_wood_long",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "crate_wood_long",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "crate_wood_long",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "car_00",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete__cracked_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "car_01",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "light_machinery",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"furniture": {
+					"id": "damaged_shelves",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "truck_wreck_01",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"furniture": {
+					"id": "light_machinery",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "tanker_wreck_01",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "car_00",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_02"
+			},
+			{
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "car_01",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_02"
+			},
+			{
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "conveyor",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "truck_wreck_01",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "car_01",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "car_00",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_debris_02",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_01",
+				"rotation": 90
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 90
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			}
+		],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[]
+	],
+	"mapheight": 32,
+	"mapwidth": 32,
+	"name": "",
+	"weight": 1000
+}

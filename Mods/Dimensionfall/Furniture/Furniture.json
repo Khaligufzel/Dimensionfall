@@ -1280,7 +1280,7 @@
 		"name": "Tanker wreck",
 		"sprite": "tanker_250_400.png",
 		"support_shape": {
-			"color": "bc7c5aff",
+			"color": "2e52b7ff",
 			"depth_scale": 75,
 			"height": 0.5,
 			"shape": "Box",
@@ -1460,7 +1460,7 @@
 		"name": "Light machinery",
 		"sprite": "machine_light_standalone_64.png",
 		"support_shape": {
-			"color": "d76c2eff",
+			"color": "736861ff",
 			"depth_scale": 95,
 			"height": 0.5,
 			"shape": "Box",

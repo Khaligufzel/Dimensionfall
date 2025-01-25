@@ -112,7 +112,8 @@
 			"police_station",
 			"generichouse_t",
 			"generichouse_corner",
-			"abandoned_building"
+			"abandoned_building",
+			"scrap_yard"
 		]
 	},
 	"concrete__cracked_00": {
@@ -120,7 +121,8 @@
 			"radio_tower",
 			"two_story_house",
 			"police_station",
-			"abandoned_building"
+			"abandoned_building",
+			"scrap_yard"
 		]
 	},
 	"concrete__cracked_01": {
@@ -128,7 +130,8 @@
 			"radio_tower",
 			"two_story_house",
 			"police_station",
-			"abandoned_building"
+			"abandoned_building",
+			"scrap_yard"
 		]
 	},
 	"concrete__cracked_02": {
@@ -136,7 +139,8 @@
 			"radio_tower",
 			"two_story_house",
 			"police_station",
-			"abandoned_building"
+			"abandoned_building",
+			"scrap_yard"
 		]
 	},
 	"concrete__cracked_debris_00": {
@@ -144,7 +148,8 @@
 			"radio_tower",
 			"two_story_house",
 			"police_station",
-			"abandoned_building"
+			"abandoned_building",
+			"scrap_yard"
 		]
 	},
 	"concrete__cracked_debris_01": {
@@ -152,7 +157,8 @@
 			"radio_tower",
 			"two_story_house",
 			"police_station",
-			"abandoned_building"
+			"abandoned_building",
+			"scrap_yard"
 		]
 	},
 	"concrete__cracked_debris_02": {
@@ -160,7 +166,8 @@
 			"radio_tower",
 			"two_story_house",
 			"police_station",
-			"abandoned_building"
+			"abandoned_building",
+			"scrap_yard"
 		]
 	},
 	"dirt_light_00": {
