@@ -1308,8 +1308,8 @@
 		"sprite": "conveyor_straight_100.png",
 		"support_shape": {
 			"color": "d76c2eff",
-			"depth_scale": 95,
-			"height": 0.5,
+			"depth_scale": 80,
+			"height": 0.4,
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95
@@ -1335,11 +1335,11 @@
 		"sprite": "conveyor_corner_100.png",
 		"support_shape": {
 			"color": "d76c2eff",
-			"depth_scale": 95,
-			"height": 0.5,
+			"depth_scale": 80,
+			"height": 0.4,
 			"shape": "Box",
 			"transparent": false,
-			"width_scale": 95
+			"width_scale": 80
 		}
 	},
 	{
@@ -1413,11 +1413,11 @@
 		"sprite": "machine_conveyor_mid_100.png",
 		"support_shape": {
 			"color": "d76c2eff",
-			"depth_scale": 95,
-			"height": 0.5,
+			"depth_scale": 90,
+			"height": 0.4,
 			"shape": "Box",
 			"transparent": false,
-			"width_scale": 95
+			"width_scale": 90
 		}
 	},
 	{
@@ -1437,11 +1437,11 @@
 		"sprite": "machine_conveyor_end_100.png",
 		"support_shape": {
 			"color": "d76c2eff",
-			"depth_scale": 95,
-			"height": 0.5,
+			"depth_scale": 80,
+			"height": 0.4,
 			"shape": "Box",
 			"transparent": false,
-			"width_scale": 95
+			"width_scale": 90
 		}
 	},
 	{
@@ -1462,7 +1462,7 @@
 		"support_shape": {
 			"color": "736861ff",
 			"depth_scale": 95,
-			"height": 0.5,
+			"height": 0.4,
 			"shape": "Box",
 			"transparent": false,
 			"width_scale": 95

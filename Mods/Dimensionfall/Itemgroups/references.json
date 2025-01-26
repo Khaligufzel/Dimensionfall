@@ -34,7 +34,8 @@
 			"city_square",
 			"abandoned_building",
 			"forest_camp_00",
-			"scrap_yard"
+			"scrap_yard",
+			"industrial_control_center"
 		]
 	},
 	"electronics_damaged": {
@@ -160,7 +161,8 @@
 			"subway_station",
 			"city_square",
 			"police_station",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"industrial_control_center"
 		]
 	},
 	"vending_machine_snacks": {
@@ -170,7 +172,8 @@
 			"neighborhood_school",
 			"subway_station",
 			"city_square",
-			"police_station"
+			"police_station",
+			"industrial_control_center"
 		]
 	},
 	"zombie_loot": {
