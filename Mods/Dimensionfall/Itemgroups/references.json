@@ -23,7 +23,8 @@
 		"maps": [
 			"subway_station",
 			"abandoned_building",
-			"scrap_yard"
+			"scrap_yard",
+			"factory_hall"
 		]
 	},
 	"destroyed_furniture_medium": {
@@ -35,7 +36,8 @@
 			"abandoned_building",
 			"forest_camp_00",
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"electronics_damaged": {
@@ -102,7 +104,8 @@
 	},
 	"loot_electronic": {
 		"maps": [
-			"radio_tower"
+			"radio_tower",
+			"factory_hall"
 		],
 		"mobs": [
 			"venom_crawler",
@@ -162,7 +165,8 @@
 			"city_square",
 			"police_station",
 			"store_electronic_clothing",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"vending_machine_snacks": {
@@ -173,7 +177,8 @@
 			"subway_station",
 			"city_square",
 			"police_station",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"zombie_loot": {

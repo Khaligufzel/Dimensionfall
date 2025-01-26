@@ -114,7 +114,8 @@
 			"generichouse_corner",
 			"abandoned_building",
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"concrete__cracked_00": {
@@ -124,7 +125,8 @@
 			"police_station",
 			"abandoned_building",
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"concrete__cracked_01": {
@@ -134,7 +136,8 @@
 			"police_station",
 			"abandoned_building",
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"concrete__cracked_02": {
@@ -144,7 +147,8 @@
 			"police_station",
 			"abandoned_building",
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"concrete__cracked_debris_00": {
@@ -154,7 +158,8 @@
 			"police_station",
 			"abandoned_building",
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"concrete__cracked_debris_01": {
@@ -164,7 +169,8 @@
 			"police_station",
 			"abandoned_building",
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"concrete__cracked_debris_02": {
@@ -174,7 +180,8 @@
 			"police_station",
 			"abandoned_building",
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"dirt_light_00": {

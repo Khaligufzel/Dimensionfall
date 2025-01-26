@@ -252,18 +252,26 @@
 	"conveyor": {
 		"maps": [
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"conveyor_corner": {
 		"maps": [
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"conveyor_machine_end": {
 		"maps": [
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
+		]
+	},
+	"conveyor_machine_mid": {
+		"maps": [
+			"factory_hall"
 		]
 	},
 	"countertop_wood": {
@@ -282,13 +290,15 @@
 	"crate_wood": {
 		"maps": [
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"crate_wood_long": {
 		"maps": [
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"damaged_shelves": {
@@ -297,7 +307,8 @@
 			"two_story_house",
 			"abandoned_building",
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"desk": {
@@ -349,14 +360,16 @@
 			"generichouse_corner",
 			"generichouse_t",
 			"store_electronic_clothing",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"equipment_rack": {
 		"maps": [
 			"radio_tower",
 			"police_station",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"first_aid_rack": {
@@ -377,12 +390,14 @@
 			"police_station",
 			"RockyHill_SW",
 			"store_electronic_clothing",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"light_machinery": {
 		"maps": [
-			"scrap_yard"
+			"scrap_yard",
+			"factory_hall"
 		]
 	},
 	"plant_pot_00": {
@@ -402,7 +417,8 @@
 			"generichouse_corner",
 			"generichouse_t",
 			"store_electronic_clothing",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"railroad_midsection": {
@@ -457,7 +473,8 @@
 			"skyscraper",
 			"Generichouse_00",
 			"two_story_house",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"standing_mirror": {
@@ -470,7 +487,8 @@
 			"radio_tower",
 			"two_story_house",
 			"generichouse_t",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"factory_hall"
 		]
 	},
 	"store_shelf": {
@@ -554,7 +572,8 @@
 			"generichouse_end",
 			"generichouse_corner",
 			"generichouse_t",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"factory_hall"
 		]
 	},
 	"transformer_box": {
@@ -584,7 +603,8 @@
 	},
 	"truck_wreck_01": {
 		"maps": [
-			"scrap_yard"
+			"scrap_yard",
+			"factory_hall"
 		]
 	},
 	"ups": {
@@ -603,7 +623,8 @@
 			"city_square",
 			"police_station",
 			"store_electronic_clothing",
-			"industrial_control_center"
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"wall_shelf": {

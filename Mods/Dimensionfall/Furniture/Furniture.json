@@ -1252,7 +1252,7 @@
 		"sprite": "truck_00_600_250.png",
 		"support_shape": {
 			"color": "bc7c5aff",
-			"depth_scale": 75,
+			"depth_scale": 85,
 			"height": 0.5,
 			"shape": "Box",
 			"transparent": false,
@@ -1290,6 +1290,7 @@
 	},
 	{
 		"Function": {
+			"container_sprite_mode": "Hide",
 			"is_container": true
 		},
 		"categories": [
@@ -1317,6 +1318,7 @@
 	},
 	{
 		"Function": {
+			"container_sprite_mode": "Hide",
 			"is_container": true
 		},
 		"categories": [
