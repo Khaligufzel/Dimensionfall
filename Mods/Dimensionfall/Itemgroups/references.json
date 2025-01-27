@@ -16,7 +16,8 @@
 		"maps": [
 			"subway_station",
 			"abandoned_building",
-			"scrap_yard"
+			"scrap_yard",
+			"warehouse_storage"
 		]
 	},
 	"debris_urban": {
@@ -24,7 +25,8 @@
 			"subway_station",
 			"abandoned_building",
 			"scrap_yard",
-			"factory_hall"
+			"factory_hall",
+			"warehouse_storage"
 		]
 	},
 	"destroyed_furniture_medium": {
@@ -37,7 +39,8 @@
 			"forest_camp_00",
 			"scrap_yard",
 			"industrial_control_center",
-			"factory_hall"
+			"factory_hall",
+			"warehouse_storage"
 		]
 	},
 	"electronics_damaged": {
@@ -154,7 +157,8 @@
 			"skyscraper",
 			"city_square",
 			"parking_garage",
-			"police_station"
+			"police_station",
+			"warehouse_storage"
 		]
 	},
 	"vending_machine_drinks": {

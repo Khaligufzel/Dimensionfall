@@ -175,7 +175,8 @@
 			"RockyHill_SW",
 			"generichouse_corner",
 			"generichouse_t",
-			"industrial_control_center"
+			"industrial_control_center",
+			"warehouse_storage"
 		]
 	},
 	"campfire_off": {
@@ -291,14 +292,16 @@
 		"maps": [
 			"scrap_yard",
 			"industrial_control_center",
-			"factory_hall"
+			"factory_hall",
+			"warehouse_storage"
 		]
 	},
 	"crate_wood_long": {
 		"maps": [
 			"scrap_yard",
 			"industrial_control_center",
-			"factory_hall"
+			"factory_hall",
+			"warehouse_storage"
 		]
 	},
 	"damaged_shelves": {
@@ -308,7 +311,8 @@
 			"abandoned_building",
 			"scrap_yard",
 			"industrial_control_center",
-			"factory_hall"
+			"factory_hall",
+			"warehouse_storage"
 		]
 	},
 	"desk": {
@@ -361,7 +365,8 @@
 			"generichouse_t",
 			"store_electronic_clothing",
 			"industrial_control_center",
-			"factory_hall"
+			"factory_hall",
+			"warehouse_storage"
 		]
 	},
 	"equipment_rack": {
@@ -369,7 +374,8 @@
 			"radio_tower",
 			"police_station",
 			"industrial_control_center",
-			"factory_hall"
+			"factory_hall",
+			"warehouse_storage"
 		]
 	},
 	"first_aid_rack": {
@@ -498,7 +504,8 @@
 			"skyscraper",
 			"radio_tower",
 			"store_electronic_clothing",
-			"industrial_control_center"
+			"industrial_control_center",
+			"warehouse_storage"
 		]
 	},
 	"stove": {
