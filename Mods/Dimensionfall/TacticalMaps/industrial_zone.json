@@ -1,0 +1,19 @@
+{
+	"chunks": [
+		{
+			"id": "scrap_yard"
+		},
+		{
+			"id": "warehouse_storage"
+		},
+		{
+			"id": "factory_hall",
+			"rotation": 270
+		},
+		{
+			"id": "industrial_control_center"
+		}
+	],
+	"mapheight": 2,
+	"mapwidth": 2
+}

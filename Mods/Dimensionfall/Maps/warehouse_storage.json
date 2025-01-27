@@ -3672,7 +3672,7 @@
 						"rotation": 0
 					}
 				],
-				"id": "wood_stairs"
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -3729,7 +3729,7 @@
 						"rotation": 0
 					}
 				],
-				"id": "wood_stairs"
+				"id": "concrete_00"
 			},
 			{
 				"areas": [
@@ -13219,7 +13219,7 @@
 
 			},
 			{
-
+				"id": "wood_stairs"
 			},
 			{
 
@@ -13237,7 +13237,7 @@
 
 			},
 			{
-
+				"id": "wood_stairs"
 			},
 			{
 
@@ -16410,19 +16410,7 @@
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "destroyed_shelves",
-						"rotation": 0
-					}
-				],
-				"furniture": {
-					"id": "damaged_shelves",
-					"itemgroups": [],
-					"rotation": 90
-				},
-				"id": "concrete_00",
-				"rotation": 180
+
 			},
 			{
 
@@ -16441,19 +16429,7 @@
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "destroyed_shelves",
-						"rotation": 0
-					}
-				],
-				"furniture": {
-					"id": "damaged_shelves",
-					"itemgroups": [],
-					"rotation": 90
-				},
-				"id": "concrete_00",
-				"rotation": 180
+
 			},
 			{
 
