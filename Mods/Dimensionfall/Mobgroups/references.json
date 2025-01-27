@@ -7,5 +7,13 @@
 			"quest_holy_crusade_01",
 			"starter_tutorial_00"
 		]
+	},
+	"security_robots": {
+		"maps": [
+			"warehouse_storage",
+			"industrial_control_center",
+			"factory_hall",
+			"scrap_yard"
+		]
 	}
 }
