@@ -7,7 +7,7 @@ extends Control
 @export var max_iterations_spin_box: SpinBox = null
 
 
-# Variable to store the area
+# Variable to store the area. It's set from the OvermapAreaEditor.gd script
 var myovermaparea: ROvermaparea
 
 
@@ -27,7 +27,7 @@ func generate_grid():
 	if not mydimensions == Vector2(0,0):
 		mygenerator.dimensions = mydimensions
 		visual_grid.columns = mydimensions.x
-	mygenerator.dovermaparea = myovermaparea
+	mygenerator.rovermaparea = myovermaparea
 	var mygrid: Dictionary = mygenerator.generate_area(mymaxiterations)
 
 	# Loop over each x and y coordinate within the grid dimensions
