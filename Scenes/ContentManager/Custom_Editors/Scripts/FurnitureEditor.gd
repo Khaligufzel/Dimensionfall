@@ -1,44 +1,49 @@
 extends Control
 
-#This scene is intended to be used inside the content editor
-#It is supposed to edit exactly one piece of furniture
-#It expects to save the data to a JSON file that contains all furniture data from a mod
-#To load data, provide the name of the furniture data file and an ID
+# This scene is for editing a single piece of furniture.
+# It loads and saves data to a JSON file containing furniture data for a mod.
+# Provide the name of the furniture data file and an ID to load.
 
+# -------------------------------
+# Exported Variables (UI Elements)
+# -------------------------------
+@export_group("General Metadata")
 @export var tab_container: TabContainer
-
-@export var furniture_image_display: TextureRect = null
-@export var id_label: Label = null
-@export var name_edit: TextEdit = null
-@export var description_edit: TextEdit = null
-@export var categories_list: Control = null
-@export var furniture_selector: Popup = null
-@export var image_name_label: Label = null
-@export var moveable_checkbox: CheckBox = null # The player can push it if selected
+@export var furniture_image_display: TextureRect
+@export var id_label: Label
+@export var name_edit: TextEdit
+@export var description_edit: TextEdit
+@export var categories_list: Control
+@export var furniture_selector: Popup
+@export var image_name_label: Label
+@export var moveable_checkbox: CheckBox
 @export var weight_label: Label = null
-@export var weight_spinbox: SpinBox = null # The wight considered when pushing
-@export var edge_snapping_option: OptionButton = null # Apply edge snapping if selected
-@export var door_option: OptionButton = null # Maks the furniture as a door
-@export var container_checkbox: CheckBox = null # Marks the furniture as a container
-@export var container_text_edit: HBoxContainer = null # Might contain the id of a loot group
+@export var weight_spinbox: SpinBox
+@export var edge_snapping_option: OptionButton
+@export var door_option: OptionButton
+
+@export_group("Container Settings")
+@export var container_checkbox: CheckBox
+@export var container_text_edit: HBoxContainer
 @export var regeneration_label: Label = null
-@export var regeneration_spin_box: SpinBox = null # The time in days before regeneration
-@export var sprite_mode_option_button: OptionButton = null
+@export var regeneration_spin_box: SpinBox
+@export var sprite_mode_option_button: OptionButton
 
+@export_group("Destruction Settings")
+@export var destroy_container: HBoxContainer
+@export var can_destroy_checkbox: CheckBox
+@export var destruction_text_edit: HBoxContainer
+@export var destruction_image_display: TextureRect
+@export var destruction_sprite_label: Label
 
-@export var destroy_container: HBoxContainer = null # contains destroy controls
-@export var can_destroy_checkbox: CheckBox = null # If the furniture can be destroyed or not
-@export var destruction_text_edit: HBoxContainer = null # Might contain the id of a loot group
-@export var destruction_image_display: TextureRect = null # What it looks like when destroyed
-@export var destruction_sprite_label: Label = null # The name of the destroyed sprite
+@export_group("Disassembly Settings")
+@export var disassembly_container: HBoxContainer
+@export var can_disassemble_checkbox: CheckBox
+@export var disassembly_text_edit: HBoxContainer
+@export var disassembly_image_display: TextureRect
+@export var disassembly_sprite_label: Label
 
-@export var disassembly_container: HBoxContainer = null # contains destroy controls
-@export var can_disassemble_checkbox: CheckBox = null # If the furniture can be disassembled or not
-@export var disassembly_text_edit: HBoxContainer = null # Might contain the id of a loot group
-@export var disassembly_image_display: TextureRect = null # What it looks like when disassembled
-@export var disassembly_sprite_label: Label = null # The name of the disassembly sprite
-
-# Controls for the shape:
+@export_group("Support Shape")
 @export var support_shape_option_button: OptionButton
 @export var width_scale_label: Label = null
 @export var depth_scale_label: Label = null
@@ -46,29 +51,26 @@ extends Control
 @export var width_scale_spin_box: SpinBox
 @export var depth_scale_spin_box: SpinBox
 @export var radius_scale_spin_box: SpinBox
-@export var heigth_spin_box: SpinBox
+@export var height_spin_box: SpinBox
 @export var color_picker: ColorPicker
 @export var sprite_texture_rect: TextureRect
 @export var transparent_check_box: CheckBox
 
-# Container for items that can be crafted
-@export var crafting_items_container: GridContainer = null
-# Container for items that are requires to construct this furniture.
-@export var construction_items_container: GridContainer = null
+@export_group("CraftingConstruction")
+@export var crafting_items_container: GridContainer
+@export var construction_items_container: GridContainer
+
+@export_group("Consumption Settings")
+@export var pool_spin_box: SpinBox
+@export var drain_rate_spin_box: SpinBox
+@export var transform_into_text_edit: HBoxContainer
+@export var button_text_edit: TextEdit
+@export var consumption_items_grid_container: GridContainer
 
 # For controlling the focus when the tab button is pressed
 var control_elements: Array = []
 # Tracks which image display control is currently being updated
 var current_image_display: String = ""
-
-# Controls for consumption:
-@export var pool_spin_box: SpinBox = null
-@export var drain_rate_spin_box: SpinBox = null
-@export var transform_into_drop_enabled_text_edit: HBoxContainer = null
-@export var button_text_text_edit: TextEdit = null
-@export var consumption_items_grid_container: GridContainer = null
-@export var consumption_tab: GridContainer = null
-
 
 # This signal will be emitted when the user presses the save button
 signal data_changed()
@@ -163,7 +165,7 @@ func _load_support_shape_data():
 	select_option_by_string(support_shape_option_button, support_shape.shape)
 	color_picker.color = Color.html(support_shape.color)
 	transparent_check_box.button_pressed = support_shape.transparent
-	heigth_spin_box.value = support_shape.height
+	height_spin_box.value = support_shape.height
 	width_scale_spin_box.value = support_shape.width_scale
 	depth_scale_spin_box.value = support_shape.depth_scale
 	radius_scale_spin_box.value = support_shape.radius_scale
@@ -227,8 +229,8 @@ func _on_save_button_button_up():
 	# Save consumption values
 	dfurniture.consumption.pool = int(pool_spin_box.value)
 	dfurniture.consumption.drain_rate = int(drain_rate_spin_box.value)
-	dfurniture.consumption.transform_into = transform_into_drop_enabled_text_edit.get_text()
-	dfurniture.consumption.button_text = button_text_text_edit.text
+	dfurniture.consumption.transform_into = transform_into_text_edit.get_text()
+	dfurniture.consumption.button_text = button_text_edit.text
 
 	# Save crafting and construction items
 	_save_crafting_items()
@@ -245,7 +247,7 @@ func handle_support_shape_option():
 	if not moveable_checkbox.button_pressed:
 		var shape = support_shape_option_button.get_item_text(support_shape_option_button.selected)
 		dfurniture.support_shape.shape = shape
-		dfurniture.support_shape.height = heigth_spin_box.value
+		dfurniture.support_shape.height = height_spin_box.value
 		dfurniture.support_shape.color = color_picker.color.to_html()
 		dfurniture.support_shape.transparent = transparent_check_box.button_pressed
 		if shape == "Box":
@@ -383,9 +385,9 @@ func set_drop_functions():
 	
 	construction_items_container.set_drag_forwarding(Callable(), _can_construction_item_drop, _construction_item_drop)
 	consumption_items_grid_container.set_drag_forwarding(Callable(), _can_consumption_item_drop, _consumption_item_drop)
-	# Assign drop functions for transform_into_drop_enabled_text_edit
-	transform_into_drop_enabled_text_edit.drop_function = furniture_drop.bind(transform_into_drop_enabled_text_edit)
-	transform_into_drop_enabled_text_edit.can_drop_function = can_furniture_drop
+	# Assign drop functions for transform_into_text_edit
+	transform_into_text_edit.drop_function = furniture_drop.bind(transform_into_text_edit)
+	transform_into_text_edit.can_drop_function = can_furniture_drop
 
 
 # When the furniture_image_display is clicked, the user will be prompted to select an image from
@@ -736,8 +738,8 @@ func _load_consumption_data():
 	# Load values from dfurniture.consumption
 	pool_spin_box.value = dfurniture.consumption.pool
 	drain_rate_spin_box.value = dfurniture.consumption.drain_rate
-	transform_into_drop_enabled_text_edit.set_text(dfurniture.consumption.transform_into)
-	button_text_text_edit.text = dfurniture.consumption.button_text
+	transform_into_text_edit.set_text(dfurniture.consumption.transform_into)
+	button_text_edit.text = dfurniture.consumption.button_text
 	_load_consumption_items()
 
 

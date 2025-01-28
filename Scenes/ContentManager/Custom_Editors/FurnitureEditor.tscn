@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b8i6wfk3fngy4" path="res://Scenes/ContentManager/Custom_Widgets/Editable_Item_List.tscn" id="2_ekwf5"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_o3k3a"]
 [ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="4_fbact"]
-[ext_resource type="Texture2D" uid="uid://lqavxdrjc078" path="res://Mods/Dimensionfall/Furniture/wardrobe_80_40.png" id="5_61cds"]
+[ext_resource type="Texture2D" uid="uid://c31w0wuk8qabw" path="res://Defaults/Sprites/2.png" id="5_q64hk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61e60"]
 
@@ -13,7 +13,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nv8h1"]
 
-[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furniture_image_display", "id_label", "name_edit", "description_edit", "categories_list", "furniture_selector", "image_name_label", "moveable_checkbox", "weight_label", "weight_spinbox", "edge_snapping_option", "door_option", "container_checkbox", "container_text_edit", "regeneration_label", "regeneration_spin_box", "sprite_mode_option_button", "destroy_container", "can_destroy_checkbox", "destruction_text_edit", "destruction_image_display", "destruction_sprite_label", "disassembly_container", "can_disassemble_checkbox", "disassembly_text_edit", "disassembly_image_display", "disassembly_sprite_label", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "heigth_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "crafting_items_container", "construction_items_container", "pool_spin_box", "drain_rate_spin_box", "transform_into_drop_enabled_text_edit", "button_text_text_edit", "consumption_items_grid_container", "consumption_tab")]
+[node name="FurnitureEditor" type="Control" node_paths=PackedStringArray("tab_container", "furniture_image_display", "id_label", "name_edit", "description_edit", "categories_list", "furniture_selector", "image_name_label", "moveable_checkbox", "weight_label", "weight_spinbox", "edge_snapping_option", "door_option", "container_checkbox", "container_text_edit", "regeneration_label", "regeneration_spin_box", "sprite_mode_option_button", "destroy_container", "can_destroy_checkbox", "destruction_text_edit", "destruction_image_display", "destruction_sprite_label", "disassembly_container", "can_disassemble_checkbox", "disassembly_text_edit", "disassembly_image_display", "disassembly_sprite_label", "support_shape_option_button", "width_scale_label", "depth_scale_label", "radius_scale_label", "width_scale_spin_box", "depth_scale_spin_box", "radius_scale_spin_box", "height_spin_box", "color_picker", "sprite_texture_rect", "transparent_check_box", "crafting_items_container", "construction_items_container", "pool_spin_box", "drain_rate_spin_box", "transform_into_text_edit", "button_text_edit", "consumption_items_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,7 +56,7 @@ radius_scale_label = NodePath("VBoxContainer/TabContainer/Shape/RadiusScaleLabel
 width_scale_spin_box = NodePath("VBoxContainer/TabContainer/Shape/WidthScaleSpinBox")
 depth_scale_spin_box = NodePath("VBoxContainer/TabContainer/Shape/DepthScaleSpinBox")
 radius_scale_spin_box = NodePath("VBoxContainer/TabContainer/Shape/RadiusScaleSpinBox")
-heigth_spin_box = NodePath("VBoxContainer/TabContainer/Shape/HeigthSpinBox")
+height_spin_box = NodePath("VBoxContainer/TabContainer/Shape/HeigthSpinBox")
 color_picker = NodePath("VBoxContainer/TabContainer/Shape/HBoxContainer/ColorPicker")
 sprite_texture_rect = NodePath("VBoxContainer/TabContainer/Shape/HBoxContainer/SpriteTextureRect")
 transparent_check_box = NodePath("VBoxContainer/TabContainer/Shape/TransparentCheckBox")
@@ -64,10 +64,9 @@ crafting_items_container = NodePath("VBoxContainer/TabContainer/Crafting/ItemsPa
 construction_items_container = NodePath("VBoxContainer/TabContainer/Construction/ConstructionItemsPanelContainer/ConstructionItemsScrollContainer/ConstructionItemsVBoxContainer/ConstructionItemsGridContainer")
 pool_spin_box = NodePath("VBoxContainer/TabContainer/Consumption/PoolSpinBox")
 drain_rate_spin_box = NodePath("VBoxContainer/TabContainer/Consumption/DrainRateSpinBox")
-transform_into_drop_enabled_text_edit = NodePath("VBoxContainer/TabContainer/Consumption/TransformIntoDropEnabledTextEdit")
-button_text_text_edit = NodePath("VBoxContainer/TabContainer/Consumption/ButtonTextTextEdit")
+transform_into_text_edit = NodePath("VBoxContainer/TabContainer/Consumption/TransformIntoDropEnabledTextEdit")
+button_text_edit = NodePath("VBoxContainer/TabContainer/Consumption/ButtonTextTextEdit")
 consumption_items_grid_container = NodePath("VBoxContainer/TabContainer/Consumption/ItemsPanelContainer/ItemsVBoxContainer/ItemsGridContainer")
-consumption_tab = NodePath("VBoxContainer/TabContainer/Consumption")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -489,7 +488,7 @@ presets_visible = false
 
 [node name="SpriteTextureRect" type="TextureRect" parent="VBoxContainer/TabContainer/Shape/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("5_61cds")
+texture = ExtResource("5_q64hk")
 
 [node name="TransparentLabel" type="Label" parent="VBoxContainer/TabContainer/Shape"]
 layout_mode = 2
