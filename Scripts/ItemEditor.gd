@@ -104,7 +104,7 @@ func _on_save_button_button_up() -> void:
 	ditem.spriteid = PathTextLabel.text
 	ditem.sprite = itemImageDisplay.texture
 	# We add this image property only for the itemprotosets of gloot
-	ditem.image = ditem.parent.spritePath + PathTextLabel.text
+	ditem.image = ditem.parent.sprite_path + PathTextLabel.text
 	ditem.name = NameTextEdit.text
 	ditem.description = DescriptionTextEdit.text
 	ditem.volume = VolumeNumberBox.value
