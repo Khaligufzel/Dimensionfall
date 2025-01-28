@@ -160,8 +160,11 @@ class map_cell:
 
 
 # Translates local grid coordinates to global coordinates
+# Local coordinates: (0,0) -> (grid_width-1, grid_height-1)
+# Returns: Global coordinates (absolute positions in the world grid)
 func local_to_global(local_coord: Vector2) -> Vector2:
-	return local_coord + pos * grid_width
+	return local_coord + (pos * grid_width)
+
 
 func get_data() -> Dictionary:
 	var mydata: Dictionary = {"pos": pos, "cells": {}}
@@ -231,28 +234,28 @@ func connect_cities_by_riverlike_path(city_positions: Array) -> void:
 func generate_winding_path(global_start: Vector2, global_end: Vector2) -> Array:
 	var path = []
 	var current = global_start
+	
 	while current.distance_to(global_end) > 1:
 		if not path.has(current):
 			path.append(current)
 		var next_position = (global_end - current).normalized().round() + current
-		# Ensure small deviations and avoid straight paths
-		current = adjust_for_diagonal(next_position, current, path)
-	append_unique(path, global_end)
+		current = _adjust_path_for_organic_movement(next_position, current, path)
+	
+	# Ensure the end point is included
+	_append_unique(path, global_end)
 	return path
 
-
-# Helper function: Avoid straight paths and prefer neighbors
-func adjust_for_diagonal(next_position: Vector2, current: Vector2, path: Array) -> Vector2:
+# Adjust path to avoid straight lines and prefer organic movement
+func _adjust_path_for_organic_movement(next_position: Vector2, current: Vector2, path: Array) -> Vector2:
 	if is_diagonal(current, next_position):
 		if randi() % 2 == 0:
-			append_unique(path, current + Vector2(0, next_position.y - current.y))
+			_append_unique(path, current + Vector2(0, next_position.y - current.y))
 		else:
-			append_unique(path, current + Vector2(next_position.x - current.x, 0))
+			_append_unique(path, current + Vector2(next_position.x - current.x, 0))
 	return next_position
 
-
-# Helper function: Append only if the position is not already in the array
-func append_unique(path: Array, position: Vector2):
+# Append a position to the path only if it's unique
+func _append_unique(path: Array, position: Vector2) -> void:
 	if not path.has(position):
 		path.append(position)
 
