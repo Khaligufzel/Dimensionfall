@@ -84,6 +84,8 @@ func duplicate_to_disk(wearableslotid: String, newwearableslotid: String, new_mo
 
 	# Instantiate and append the new DWearableSlot instance
 	var newwearableslot: DWearableSlot = DWearableSlot.new(wearableslotdata, newparent)
+	if wearableslotdata.has("sprite"):
+		newwearableslot.sprite = newparent.sprite_by_file(wearableslotdata["sprite"])
 	newparent.append_new(newwearableslot)
 
 

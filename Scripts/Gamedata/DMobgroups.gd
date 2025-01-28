@@ -79,6 +79,8 @@ func duplicate_to_disk(mobgroupid: String, newmobgroupid: String, new_mod_id: St
 
 	# Instantiate and append the new DMobgroup instance
 	var newmobgroup: DMobgroup = DMobgroup.new(mobgroupdata, newparent)
+	if mobgroupdata.has("sprite"):
+		newmobgroup.sprite = newparent.sprite_by_file(mobgroupdata["sprite"])
 	newparent.append_new(newmobgroup)
 
 

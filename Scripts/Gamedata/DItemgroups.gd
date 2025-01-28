@@ -84,6 +84,8 @@ func duplicate_to_disk(itemgroupid: String, newitemgroupid: String, new_mod_id: 
 
 	# Instantiate and append the new DItemgroup instance
 	var newitemgroup: DItemgroup = DItemgroup.new(itemgroupdata, newparent)
+	if itemgroupdata.has("sprite"):
+		newitemgroup.sprite = newparent.sprite_by_file(itemgroupdata["sprite"])
 	newparent.append_new(newitemgroup)
 
 

@@ -85,6 +85,8 @@ func duplicate_to_disk(mobid: String, newmobid: String, new_mod_id: String) -> v
 
 	# Instantiate and append the new DMob instance
 	var newmob: DMob = DMob.new(mobdata, newparent)
+	if mobdata.has("sprite"):
+		newmob.sprite = newparent.sprite_by_file(mobdata["sprite"])
 	newparent.append_new(newmob)
 
 

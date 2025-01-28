@@ -87,6 +87,8 @@ func duplicate_to_disk(playerattributeid: String, newplayerattributeid: String, 
 
 	# Instantiate and append the new DPlayerAttribute instance
 	var newplayerattribute: DPlayerAttribute = DPlayerAttribute.new(playerattributedata, newparent)
+	if playerattributedata.has("sprite"):
+		newplayerattribute.sprite = newparent.sprite_by_file(playerattributedata["sprite"])
 	newparent.append_new(newplayerattribute)
 
 

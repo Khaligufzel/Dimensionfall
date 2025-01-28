@@ -128,7 +128,6 @@ func _on_ok_button_up():
 	load_data()
 
 
-
 # Called after the users presses cancel on the popup asking for an ID
 func _on_cancel_button_up():
 	pupup_ID.hide()

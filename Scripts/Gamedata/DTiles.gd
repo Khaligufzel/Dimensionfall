@@ -86,6 +86,8 @@ func duplicate_to_disk(tileid: String, newtileid: String, new_mod_id: String) ->
 
 	# Instantiate and append the new DTile instance
 	var newtile: DTile = DTile.new(tiledata, newparent)
+	if tiledata.has("sprite"):
+		newtile.sprite = newparent.sprite_by_file(tiledata["sprite"])
 	newparent.append_new(newtile)
 
 

@@ -81,6 +81,8 @@ func duplicate_to_disk(mobfactionid: String, newmobfactionid: String, new_mod_id
 
 	# Instantiate and append the new DMobfaction instance
 	var newmobfaction: DMobfaction = DMobfaction.new(mobfactiondata, newparent)
+	if mobfactiondata.has("sprite"):
+		newmobfaction.sprite = newparent.sprite_by_file(mobfactiondata["sprite"])
 	newparent.append_new(newmobfaction)
 
 

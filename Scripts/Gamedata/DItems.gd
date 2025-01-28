@@ -144,11 +144,21 @@ func get_references_by_id(item_id: String) -> Dictionary:
 func duplicate_to_disk(item_id: String, new_item_id: String, new_mod_id: String) -> void:
 	var original_item = by_id(item_id)
 	if original_item:
+		# Duplicate the item data and update the ID
 		var duplicated_data = original_item.get_data().duplicate(true)
 		duplicated_data.id = new_item_id
+
+		# Determine the target items container (current mod or another mod)
 		var target_items = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).items
+
+		# Create the new item and update its sprite
 		var new_item = DItem.new(duplicated_data, target_items)
+		if duplicated_data.has("sprite"):
+			new_item.sprite = target_items.sprite_by_file(duplicated_data["sprite"])
+
+		# Add the new item to the target items container
 		target_items._append_new_item(new_item)
+
 
 # -----------------------
 # Bulk Editing
