@@ -35,7 +35,7 @@ func set_sprite_texture(res: Resource) -> void:
 		$SpriteImage.texture = texture
 		# Set the minimum size to the texture size, but ensure it's at least 64x64
 		var texture_size = texture.get_size()
-		custom_minimum_size = Vector2(max(texture_size.x, 64), max(texture_size.y, 64))
+		custom_minimum_size = Vector2(64,64)
 
 		# Set the tooltip with the name or path of the texture
 		if texture.resource_path and texture.resource_path != "":

@@ -15,13 +15,18 @@
 	"debris_rock": {
 		"maps": [
 			"subway_station",
-			"abandoned_building"
+			"abandoned_building",
+			"scrap_yard",
+			"warehouse_storage"
 		]
 	},
 	"debris_urban": {
 		"maps": [
 			"subway_station",
-			"abandoned_building"
+			"abandoned_building",
+			"scrap_yard",
+			"factory_hall",
+			"warehouse_storage"
 		]
 	},
 	"destroyed_furniture_medium": {
@@ -31,7 +36,11 @@
 			"skyscraper",
 			"city_square",
 			"abandoned_building",
-			"forest_camp_00"
+			"forest_camp_00",
+			"scrap_yard",
+			"industrial_control_center",
+			"factory_hall",
+			"warehouse_storage"
 		]
 	},
 	"electronics_damaged": {
@@ -98,7 +107,8 @@
 	},
 	"loot_electronic": {
 		"maps": [
-			"radio_tower"
+			"radio_tower",
+			"factory_hall"
 		],
 		"mobs": [
 			"venom_crawler",
@@ -147,7 +157,8 @@
 			"skyscraper",
 			"city_square",
 			"parking_garage",
-			"police_station"
+			"police_station",
+			"warehouse_storage"
 		]
 	},
 	"vending_machine_drinks": {
@@ -157,7 +168,9 @@
 			"subway_station",
 			"city_square",
 			"police_station",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"vending_machine_snacks": {
@@ -167,7 +180,9 @@
 			"neighborhood_school",
 			"subway_station",
 			"city_square",
-			"police_station"
+			"police_station",
+			"industrial_control_center",
+			"factory_hall"
 		]
 	},
 	"zombie_loot": {

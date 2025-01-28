@@ -94,7 +94,7 @@ var area_grid: Dictionary = {}  # Grid containing the generated area
 # Dictionary to store the percentage distance from the center for each grid position
 var distance_from_center_map: Dictionary = {}  # Key: Vector2 (position), Value: float (percentage distance)
 var dimensions: Vector2 = Vector2.ZERO # The dimensions of the grid
-var dovermaparea: ROvermaparea = null
+var rovermaparea: ROvermaparea = null
 var tile_catalog: Array = []  # List of all tile instances with rotations
 var tried_tiles: Dictionary = {}  # Key: (x, y), Value: Set of tried tile IDs
 var processed_tiles: Dictionary = {}  # Dictionary to track processed tiles
@@ -421,7 +421,7 @@ func place_starting_tile(center: Vector2) -> Tile:
 
 # An algorithm that takes an area id and gets the required maps and instances them into tiles
 # 1. Get the DOvermaparea from Runtimedata.overmapareas.by_id(area_id)
-# 2. Get the regions from dovermaparea.regions. This will be a dictionary where the region name 
+# 2. Get the regions from rovermaparea.regions. This will be a dictionary where the region name 
 # is the key and the region data is the value. The value will be of the DOvermaparea.Region class
 # 3. For each region:
 # 3.1 Create a new key in tile_dictionary for the region name
@@ -432,12 +432,12 @@ func create_tile_entries() -> void:
 	tile_catalog.clear()
 	tile_dictionary.clear()
 
-	if dovermaparea == null:
+	if rovermaparea == null:
 		print_debug("create_tile_entries: Overmap area not found")
 		return
 
 	# Step 2: Get the regions from the overmap area
-	var regions: Dictionary = dovermaparea.regions
+	var regions: Dictionary = rovermaparea.regions
 	var rotations: Array = [0, 90, 180, 270]
 
 	# Step 3: Loop through each region to create tile entries
@@ -459,7 +459,7 @@ func create_tile_entries() -> void:
 			if Runtimedata.maps:
 				map = Runtimedata.maps.by_id(map_id)
 			else:
-				var dmap = Gamedata.mods.by_id("Core").maps.by_id(map_id)
+				var dmap = Gamedata.mods.by_id("Dimensionfall").maps.by_id(map_id)
 				map = RMap.new(null,map_id,dmap.dataPath)
 				map.overwrite_from_dmap(dmap)
 			if map == null:
@@ -566,13 +566,13 @@ func get_regions_for_percentage(percentage: float) -> Array:
 	var overlapping_regions: Array = []
 
 	# Ensure the overmap area data is available
-	if dovermaparea == null or not dovermaparea.regions:
+	if rovermaparea == null or not rovermaparea.regions:
 		print_debug("get_regions_for_percentage: Overmap area data not found or has no regions.")
 		return overlapping_regions
 
 	# Loop through each region in the overmap area
-	for region_name in dovermaparea.regions.keys():
-		var region_data = dovermaparea.regions[region_name]
+	for region_name in rovermaparea.regions.keys():
+		var region_data = rovermaparea.regions[region_name]
 		var start_range = region_data.spawn_probability.range.start_range
 		var end_range = region_data.spawn_probability.range.end_range
 
@@ -608,13 +608,13 @@ func setup_noise(myseed: int = 1234, frequency: float = 0.05) -> void:
 	noise.frequency = frequency  # Frequency of the noise for overall pattern
 
 
-# Function to set the dimensions for the area generator based on the dovermaparea data
+# Function to set the dimensions for the area generator based on the rovermaparea data
 func set_area_dimensions() -> void:
-	if dimensions != Vector2.ZERO or dovermaparea == null:
+	if dimensions != Vector2.ZERO or rovermaparea == null:
 		print_debug("set_area_dimensions: Dimensions already set or no overmap area data.")
 		return
-	# Randomly set dimensions using the min and max width/height from the dovermaparea data
+	# Randomly set dimensions using the min and max width/height from the rovermaparea data
 	dimensions = Vector2(
-		randi() % (dovermaparea.max_width - dovermaparea.min_width + 1) + dovermaparea.min_width,
-		randi() % (dovermaparea.max_height - dovermaparea.min_height + 1) + dovermaparea.min_height
+		randi() % (rovermaparea.max_width - rovermaparea.min_width + 1) + rovermaparea.min_width,
+		randi() % (rovermaparea.max_height - rovermaparea.min_height + 1) + rovermaparea.min_height
 	)

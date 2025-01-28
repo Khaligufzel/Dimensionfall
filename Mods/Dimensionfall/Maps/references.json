@@ -45,6 +45,11 @@
 			"city"
 		]
 	},
+	"factory_hall": {
+		"tacticalmaps": [
+			"industrial_zone"
+		]
+	},
 	"field_grass_basic_00": {
 		"overmapareas": [
 			"city"
@@ -85,6 +90,11 @@
 			"city"
 		]
 	},
+	"industrial_control_center": {
+		"tacticalmaps": [
+			"industrial_zone"
+		]
+	},
 	"neighborhood_school": {
 		"overmapareas": [
 			"city"
@@ -116,6 +126,11 @@
 			"quest_radio_signal_01"
 		]
 	},
+	"scrap_yard": {
+		"tacticalmaps": [
+			"industrial_zone"
+		]
+	},
 	"skyscraper": {
 		"overmapareas": [
 			"city"
@@ -139,6 +154,11 @@
 	"two_story_house": {
 		"overmapareas": [
 			"city"
+		]
+	},
+	"warehouse_storage": {
+		"tacticalmaps": [
+			"industrial_zone"
 		]
 	}
 }

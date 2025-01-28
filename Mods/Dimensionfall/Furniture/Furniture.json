@@ -100,7 +100,7 @@
 		"support_shape": {
 			"color": "653102ff",
 			"height": 0.5,
-			"radius_scale": 50,
+			"radius_scale": 100,
 			"shape": "Cylinder",
 			"transparent": false
 		}
@@ -1170,6 +1170,304 @@
 			"radius_scale": 40,
 			"shape": "Cylinder",
 			"transparent": false
+		}
+	},
+	{
+		"Function": {
+			"container_group": "cabinet_general",
+			"container_sprite_mode": "Hide",
+			"is_container": true
+		},
+		"categories": [
+			"Urban",
+			"Vehicle"
+		],
+		"description": "A wrecked car that is immobile.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "car_00",
+		"moveable": false,
+		"name": "Car wreck",
+		"sprite": "car_01_300_200.png",
+		"support_shape": {
+			"color": "bc7c5aff",
+			"depth_scale": 75,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
+	},
+	{
+		"Function": {
+			"container_group": "cabinet_general",
+			"container_sprite_mode": "Hide",
+			"is_container": true
+		},
+		"categories": [
+			"Urban",
+			"Vehicle"
+		],
+		"description": "A wrecked car that is immobile.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "car_01",
+		"moveable": false,
+		"name": "Car wreck",
+		"sprite": "car_00_300_200.png",
+		"support_shape": {
+			"color": "bc7c5aff",
+			"depth_scale": 75,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
+	},
+	{
+		"Function": {
+			"container_group": "cabinet_general",
+			"container_sprite_mode": "Hide",
+			"is_container": true
+		},
+		"categories": [
+			"Urban",
+			"Vehicle"
+		],
+		"description": "A wrecked truck that is immobile.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "truck_wreck_01",
+		"moveable": false,
+		"name": "Truck wreck",
+		"sprite": "truck_00_600_250.png",
+		"support_shape": {
+			"color": "bc7c5aff",
+			"depth_scale": 85,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
+	},
+	{
+		"Function": {
+			"container_group": "cabinet_general",
+			"container_sprite_mode": "Hide",
+			"is_container": true
+		},
+		"categories": [
+			"Urban",
+			"Vehicle"
+		],
+		"description": "A wrecked tanker that is immobile.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "tanker_wreck_01",
+		"moveable": false,
+		"name": "Tanker wreck",
+		"sprite": "tanker_250_400.png",
+		"support_shape": {
+			"color": "2e52b7ff",
+			"depth_scale": 75,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
+	},
+	{
+		"Function": {
+			"container_sprite_mode": "Hide",
+			"is_container": true
+		},
+		"categories": [
+			"Urban",
+			"Industrial"
+		],
+		"description": "An old conveyor that once supported the work of a fabrication chain.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "conveyor",
+		"moveable": false,
+		"name": "Conveyor",
+		"sprite": "conveyor_straight_100.png",
+		"support_shape": {
+			"color": "d76c2eff",
+			"depth_scale": 80,
+			"height": 0.4,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
+	},
+	{
+		"Function": {
+			"container_sprite_mode": "Hide",
+			"is_container": true
+		},
+		"categories": [
+			"Urban",
+			"Industrial"
+		],
+		"description": "An old conveyor that once supported the work of a fabrication chain.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "conveyor_corner",
+		"moveable": false,
+		"name": "Conveyor corner",
+		"sprite": "conveyor_corner_100.png",
+		"support_shape": {
+			"color": "d76c2eff",
+			"depth_scale": 80,
+			"height": 0.4,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
+	},
+	{
+		"Function": {
+			"container_group": "cabinet_general",
+			"is_container": true
+		},
+		"categories": [
+			"Urban"
+		],
+		"description": "A wooden crate, once used for storing items.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "crate_wood",
+		"moveable": false,
+		"name": "Wooden crate",
+		"sprite": "wooden_crate_64.png",
+		"support_shape": {
+			"color": "b75a2eff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
+	},
+	{
+		"Function": {
+			"container_group": "cabinet_general",
+			"is_container": true
+		},
+		"categories": [
+			"Urban"
+		],
+		"description": "A wooden crate, once used for storing items.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "crate_wood_long",
+		"moveable": false,
+		"name": "Wooden crate",
+		"sprite": "wooden_crate_48_64.png",
+		"support_shape": {
+			"color": "b75a2eff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
+	},
+	{
+		"categories": [
+			"Urban",
+			"Industrial"
+		],
+		"description": "An old machine that is connected to a conveyor that once supported the work of a fabrication chain.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "conveyor_machine_mid",
+		"moveable": false,
+		"name": "Machine with conveyor",
+		"sprite": "machine_conveyor_mid_100.png",
+		"support_shape": {
+			"color": "d76c2eff",
+			"depth_scale": 90,
+			"height": 0.4,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 90
+		}
+	},
+	{
+		"categories": [
+			"Urban",
+			"Industrial"
+		],
+		"description": "An old machine that is connected to a conveyor that once supported the work of a fabrication chain.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "conveyor_machine_end",
+		"moveable": false,
+		"name": "Machine with conveyor",
+		"sprite": "machine_conveyor_end_100.png",
+		"support_shape": {
+			"color": "d76c2eff",
+			"depth_scale": 80,
+			"height": 0.4,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 90
+		}
+	},
+	{
+		"categories": [
+			"Urban",
+			"Industrial"
+		],
+		"description": "An old machine that that once supported the work of a fabrication chain.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "light_machinery",
+		"moveable": false,
+		"name": "Light machinery",
+		"sprite": "machine_light_standalone_64.png",
+		"support_shape": {
+			"color": "736861ff",
+			"depth_scale": 95,
+			"height": 0.4,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
 		}
 	}
 ]

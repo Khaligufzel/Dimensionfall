@@ -190,6 +190,7 @@ func _on_save_button_button_up() -> void:
 	# Save the updated data to disk and emit the data_changed signal
 	dovermaparea.changed(olddata)
 	data_changed.emit()
+	overmap_area_visualization.set_area(dovermaparea)
 
 	# Store the current data as the old data for future comparisons
 	olddata = DOvermaparea.new(dovermaparea.get_data().duplicate(true), null)
