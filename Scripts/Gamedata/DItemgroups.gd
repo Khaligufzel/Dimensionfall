@@ -127,3 +127,10 @@ func sprite_by_file(spritefile: String) -> Texture:
 func remove_reference(itemgroupid: String):
 	references.erase(itemgroupid)
 	Gamedata.mods.save_references(self)
+
+
+# Remove the provided item from all itemgroups
+# This will erase it from the items list in the itemgroup
+func remove_item_from_all_itemgroups(item_id: String):
+	for itemgroup: DItemgroup in itemgroupdict.values():
+		itemgroup.remove_item_by_id(item_id)

@@ -487,18 +487,6 @@
 		"weight": 0.5
 	},
 	{
-		"description": "It's a carton pack that contains sigarrettes. You need a fire source to light them and start smoking",
-		"id": "pack_sigarrettes",
-		"image": "./Mods/Dimensionfall/Items/sigarrette_pack_32.png",
-		"max_stack_size": 5,
-		"name": "Pack of sigarrettes",
-		"sprite": "sigarrette_pack_32.png",
-		"stack_size": 1,
-		"two_handed": false,
-		"volume": 10,
-		"weight": 0.1
-	},
-	{
 		"Wearable": {
 			"slot": "head"
 		},
@@ -2909,5 +2897,17 @@
 		"two_handed": false,
 		"volume": 20,
 		"weight": 0.5
+	},
+	{
+		"description": "It's a carton pack that contains cigarettes. You need a fire source to light them and start smoking",
+		"id": "pack_cigarettes",
+		"image": "./Mods/Dimensionfall/Items/sigarrette_pack_32.png",
+		"max_stack_size": 5,
+		"name": "Pack of cigarettes",
+		"sprite": "sigarrette_pack_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 10,
+		"weight": 0.1
 	}
 ]

@@ -365,5 +365,5 @@ func get_all_mod_ids() -> Array:
 
 # ------------------------------------------------------------------
 # Retrieves all loaded mods as an array of DMod instances.
-func get_all_mods() -> Array[DMod]:
+func get_all_mods() -> Array:
 	return mod_dict.values()

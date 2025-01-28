@@ -628,8 +628,8 @@ func delete():
 		return
 		
 	# For each mod, remove this item from the itemgroup in this item's references
-	for mod: DMod in Gamedata.mods.get_all_mods():
-		mod.itemgroups.remove_item_by_id(id)
+	for mod: DMod in (Gamedata.mods.get_all_mods() as Array[DMod]):
+		mod.itemgroups.remove_item_from_all_itemgroups(id)
 		mod.items.remove_item_from_all_recipes(id)
 		mod.quests.remove_item_from_all_quests(id)
 		mod.furnitures.remove_item_from_all_furniture(id)
