@@ -126,6 +126,8 @@ func _load_metadata():
 	moveable_checkbox.button_pressed = dfurniture.moveable
 	weight_spinbox.value = dfurniture.weight
 	select_option_by_string(edge_snapping_option, dfurniture.edgesnapping)
+	# Update sprite_texture_rect with the current sprite
+	update_sprite_texture_rect(furniture_image_display.texture)
 
 func _load_destruction_data():
 	# Load destruction-specific data
