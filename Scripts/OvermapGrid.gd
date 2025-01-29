@@ -13,6 +13,7 @@ var pos: Vector2 = Vector2.ZERO
 var cells: Dictionary = {}
 # Dictionary to store map_id and their corresponding coordinates
 var map_id_to_coordinates: Dictionary = {}
+var tactical_map_positions: Dictionary = {}  # Tracks tactical map cell coordinates
 var grid_width: int = 100 # TODO: Pass the global grid_width to this class
 var grid_height: int = 100
 # Dictionary to store lists of area positions sorted by dovermaparea.id
@@ -47,7 +48,7 @@ class map_cell:
 			map_id = value
 			rmap = Runtimedata.maps.by_id(map_id)
 	var tacticalmapname: String = "town_00.json"
-	var revealed: int = RevealedState.HIDDEN  # Default state is HIDDEN
+	var revealed: int = RevealedState.REVEALED  # Default state is HIDDEN
 	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
 
 	func get_data() -> Dictionary:
@@ -204,7 +205,7 @@ func build_map_id_to_coordinates():
 func connect_cities_by_riverlike_path(city_positions: Array) -> void:
 	var all_road_positions: Array = []  # To collect all road positions
 
-	# Step 1: Generate paths between each city and assign road maps
+	# Generate paths between each city and assign road maps
 	for i in range(city_positions.size() - 1):
 		var start_pos = city_positions[i]
 		var end_pos = city_positions[i + 1]
@@ -222,7 +223,7 @@ func connect_cities_by_riverlike_path(city_positions: Array) -> void:
 		# Collect all positions in the path for later connection updates
 		all_road_positions.append_array(path)
 
-	# Step 2: Once all paths are generated, update road connections for all roads
+	# Once all paths are generated, update road connections for all roads
 	update_all_road_connections(all_road_positions)
 
 
@@ -266,11 +267,16 @@ func update_path_on_grid(path: Array) -> void:
 		print("Missing road or forest road maps!")
 		return
 
-	# Step 1: Assign road maps to path cells without updating connections
+	# Assign road maps to path cells without overwriting tactical maps
 	for global_position in path:
 		if cells.has(global_position):
-			var cell = cells[global_position] # Will be a map_cell instance
-			if not "Urban" in cell.rmap.categories: # Skip urban areas
+			var cell = cells[global_position]
+
+			# 🚨 Prevent roads from replacing tactical maps
+			if tactical_map_positions.has(global_position):
+				continue  # Skip this cell since it contains a tactical map
+
+			if not "Urban" in cell.rmap.categories:  # Skip urban areas
 				assign_road_map_to_cell(global_position, cell)
 
 
@@ -280,26 +286,43 @@ func update_all_road_connections(road_positions: Array) -> void:
 	var edge_positions: Dictionary = edge_data["edge_positions"]
 	var edgeglobals: Array = edge_data["edgeglobals"]
 
-	# Step 2: Update connections for non-edge positions within this grid
+	# Update connections for non-edge positions within this grid
 	for global_position in road_positions:
 		if cells.has(global_position) and not global_position in edgeglobals:
 			var cell = cells[global_position]
+
+			# 🚨 Prevent roads from replacing tactical maps
+			if tactical_map_positions.has(global_position):
+				continue  # Skip this cell since it contains a tactical map
+
 			if not "Urban" in cell.rmap.categories:
 				update_road_connections(global_position, cell)
 
-	# Step 3: Handle connections for edge positions with neighboring grids
+	# Handle connections for edge positions with neighboring grids
 	for direction in edge_positions.keys():
 		for edge_position in edge_positions[direction]: # All positions on the south border for example
 			# Update within this grid first
 			if cells.has(edge_position): # Should be true for all edge positions
-				update_road_connections(edge_position, cells[edge_position])
-			
+				var cell = cells[edge_position]
+
+				# 🚨 Prevent roads from replacing tactical maps
+				if tactical_map_positions.has(edge_position):
+					continue
+
+				update_road_connections(edge_position, cell)
+
 			# Update in the neighboring grid
 			var neighbor_pos: Vector2 = edge_position + Gamedata.DIRECTION_OFFSETS[direction]
 			if neighbor_pos:
 				var neighbor_grid: OvermapGrid = Helper.overmap_manager.get_grid_from_local_pos(neighbor_pos)
 				var neighbor_cell = neighbor_grid.get_cell_from_global_pos(neighbor_pos) # A map_cell instance
+
+				# 🚨 Prevent roads from replacing tactical maps in neighboring grids
+				if neighbor_cell and neighbor_grid.tactical_map_positions.has(neighbor_pos):
+					continue
+				
 				neighbor_grid.update_road_connections(neighbor_pos, neighbor_cell)
+
 
 
 # Function to categorize road positions by grid edge
@@ -333,6 +356,10 @@ func get_edge_positions(road_positions: Array) -> Dictionary:
 # Assign the appropriate road map (forest or regular) to a cell
 # cell: A map_cell instance
 func assign_road_map_to_cell(global_position: Vector2, cell) -> void:
+	# 🚨 Prevent roads from replacing tactical maps
+	if tactical_map_positions.has(global_position):
+		return
+
 	# If it's a forest cell, assign a forest road, otherwise a normal road
 	var map_to_use = road_maps
 	if "Forest" in cell.rmap.categories:
@@ -528,10 +555,12 @@ func _place_single_overmap_area(placed_positions: Array) -> void:
 # Function to place tactical maps on this grid
 func place_tactical_maps() -> void:
 	var placed_positions = []
+	tactical_map_positions.clear()  # Reset the tracking dictionary before placing new maps
+
 	for n in range(5):  # Loop to place up to 10 tactical maps on the grid
 		var dmap: RTacticalmap = Runtimedata.tacticalmaps.get_random_map()
 		if not dmap:
-			return # We were unable to find any random map so we should return
+			return  # No random map found, exit function
 		var map_width = dmap.mapwidth
 		var map_height = dmap.mapheight
 		var chunks = dmap.chunks
@@ -554,6 +583,10 @@ func place_tactical_maps() -> void:
 					var cell_key = Vector2(local_x, local_y)
 					var chunk_index = j * map_width + i
 					var dchunk: RTacticalmap.TChunk = chunks[chunk_index]
+
+					# 🚨 Track tactical map position
+					tactical_map_positions[cell_key] = true
+
 					update_cell(local_to_global(cell_key), dchunk.id, dchunk.rotation)
 					placed_positions.append(cell_key)  # Track the positions that have been occupied
 
@@ -681,11 +714,9 @@ func connect_cities_by_hub_path(city_positions: Array) -> void:
 	var city_pairs: Array = get_city_pairs(city_positions)
 	var all_road_positions: Array = []
 
-	# Step 1: Handle hub connections for distant city pairs
+	# Handle hub connections for distant city pairs
 	connect_distant_city_pairs_with_hubs(city_pairs, city_positions, all_road_positions)
-
-	# Step 2: Finalize all road connections
-	update_all_road_connections(all_road_positions)
+	update_all_road_connections(all_road_positions) # Finalize all road connections
 
 
 # New function to connect city pairs directly if their distance is less than 40
