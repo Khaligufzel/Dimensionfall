@@ -192,7 +192,7 @@ func delete():
 	# Check to see if any mod has a copy of this overmaparea. if one or more remain, we can keep references
 	# Otherwise, the last copy was removed and we need to remove references
 	var all_results: Array = Gamedata.mods.get_all_content_by_id(DMod.ContentType.OVERMAPAREAS, id)
-	if all_results.size() > 0:
+	if all_results.size() > 1:
 		return
 		
 	var map_ids = get_all_map_ids()

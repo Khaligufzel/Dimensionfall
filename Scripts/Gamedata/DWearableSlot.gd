@@ -88,4 +88,4 @@ func delete():
 func remove_item(item_id: String):
 	if starting_item == item_id:
 		starting_item = ""
-	parent.save_furnitures_to_disk()
+	parent.save_wearableslots_to_disk()

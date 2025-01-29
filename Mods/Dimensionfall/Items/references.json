@@ -452,7 +452,7 @@
 			"debris_urban"
 		]
 	},
-	"pack_sigarrettes": {
+	"pack_cigarettes": {
 		"itemgroups": [
 			"vending_machine_snacks",
 			"urban_litter",
