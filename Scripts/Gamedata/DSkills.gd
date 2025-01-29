@@ -85,6 +85,8 @@ func duplicate_to_disk(skillid: String, newskillid: String, new_mod_id: String) 
 
 	# Instantiate and append the new DSkill instance
 	var newskill: DSkill = DSkill.new(skilldata, newparent)
+	if skilldata.has("sprite"):
+		newskill.sprite = newparent.sprite_by_file(skilldata["sprite"])
 	newparent.append_new(newskill)
 
 

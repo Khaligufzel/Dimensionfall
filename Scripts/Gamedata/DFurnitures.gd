@@ -83,6 +83,8 @@ func duplicate_to_disk(furnitureid: String, newfurnitureid: String, new_mod_id: 
 	var newparent: DFurnitures = self if new_mod_id == mod_id else Gamedata.mods.by_id(new_mod_id).furnitures
 	# Instantiate and append the new DFurniture instance
 	var newfurniture: DFurniture = DFurniture.new(furnituredata, newparent)
+	if furnituredata.has("sprite"):
+		newfurniture.sprite = newparent.sprite_by_file(furnituredata["sprite"])
 	newparent.append_new(newfurniture)
 
 

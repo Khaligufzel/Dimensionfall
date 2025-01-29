@@ -72,6 +72,8 @@ func duplicate_to_disk(statid: String, newstatid: String, new_mod_id: String) ->
 
 	# Instantiate and append the new DStat instance
 	var newstat: DStat = DStat.new(statdata, newparent)
+	if statdata.has("sprite"):
+		newstat.sprite = newparent.sprite_by_file(statdata["sprite"])
 	newparent.append_new(newstat)
 
 

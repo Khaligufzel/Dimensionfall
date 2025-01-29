@@ -47,7 +47,7 @@ class map_cell:
 			map_id = value
 			rmap = Runtimedata.maps.by_id(map_id)
 	var tacticalmapname: String = "town_00.json"
-	var revealed: int = RevealedState.REVEALED  # Default state is HIDDEN
+	var revealed: int = RevealedState.HIDDEN  # Default state is HIDDEN
 	var rotation: int = 0  # Will be any of [0, 90, 180, 270]
 
 	func get_data() -> Dictionary:

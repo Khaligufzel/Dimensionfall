@@ -76,6 +76,8 @@ func duplicate_to_disk(questid: String, newquestid: String, new_mod_id: String) 
 
 	# Instantiate and append the new DQuest instance
 	var newquest: DQuest = DQuest.new(questdata, newparent)
+	if questdata.has("sprite"):
+		newquest.sprite = newparent.sprite_by_file(questdata["sprite"])
 	newparent.append_new(newquest)
 
 
