@@ -355,6 +355,7 @@ func reset_attack_position(original_position, original_rotation_degrees):
 	position = original_position
 	rotation_degrees = original_rotation_degrees
 
+
 # Function to perform a melee attack
 func perform_melee_attack():
 	var melee_properties = heldItem.get_property("Melee")
@@ -371,17 +372,45 @@ func perform_melee_attack():
 	var hit_chance = 0.65 + (skill_level / 100.0) * (1.0 - 0.65)
 
 	var attack: Dictionary = {"damage": melee_damage, "hit_chance": hit_chance}
-	# Each mob in range will get hit with the weapon
-	# TODO: Hit only one entity each swing unless the weapon has some kind of flag
-	# TODO: Check if the entity is behind an obstacle
+
+	# Define the layers that should be checked for obstacles
+	var obstacle_layers = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 6)
+
+	# Adjusted player position to account for short obstacles
+	var adjusted_player_position = player.global_position - Vector3(0, 0.5, 0)
+
+	# Iterate through entities in melee range
 	for entity in entities_in_melee_range:
+		var target_position: Vector3
+		var target_rid: RID  # Store the entity's physics body RID for comparison
+
+		# Determine target position and RID based on entity type
+		if entity is Node3D:
+			target_position = entity.global_position
+			target_rid = entity.get_rid()  # Get the physics RID from the Node3D
+		elif entity is RID:
+			target_position = PhysicsServer3D.body_get_state(entity, PhysicsServer3D.BODY_STATE_TRANSFORM).origin
+			target_rid = entity  # The entity itself is already an RID
+		else:
+			continue  # Skip unknown entity types
+
+		# Perform a raycast from the player to the target
+		var result = Helper.raycast(adjusted_player_position, target_position, obstacle_layers, [player])
+
+		# If there's an obstacle blocking the attack, skip this entity
+		if result and result.rid != target_rid:
+			continue  # Skip attack if raycast hits something else first
+
+		# Attack logic: Emit signal for RID entities, call function for Node3D entities
 		if entity is RID:
 			Helper.signal_broker.melee_attacked_rid.emit(entity, attack)
 		else:
 			entity.get_hit(attack)
 
+	# Play attack animation and grant XP
 	animate_attack()
 	add_weapon_xp_on_use()
+
 
 
 # The player has equipped an item in one of the equipment slots
