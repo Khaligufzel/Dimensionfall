@@ -358,59 +358,80 @@ func reset_attack_position(original_position, original_rotation_degrees):
 
 # Function to perform a melee attack
 func perform_melee_attack():
-	var melee_properties = heldItem.get_property("Melee")
-	if melee_properties == null:
-		print_debug("Error: Melee properties not found.")
+	if not heldItem or heldItem.get_property("Melee") == null:
+		print_debug("Error: No melee weapon equipped.")
 		return
-		
-	in_cooldown = true
-	attack_cooldown_timer.start()
-	
-	var melee_damage = melee_properties.get("damage", 0)
-	var melee_skill_id = melee_properties.get("used_skill", {}).get("skill_id", "")
-	var skill_level = player.get_skill_level(melee_skill_id)
-	var hit_chance = 0.65 + (skill_level / 100.0) * (1.0 - 0.65)
 
-	var attack: Dictionary = {"damage": melee_damage, "hit_chance": hit_chance}
+	# Start cooldown to prevent spamming attacks
+	_start_attack_cooldown()
 
-	# Define the layers that should be checked for obstacles
-	var obstacle_layers = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 6)
+	# Prepare attack parameters
+	var attack_data = _calculate_melee_attack_data()
 
-	# Adjusted player position to account for short obstacles
-	var adjusted_player_position = player.global_position - Vector3(0, 0.5, 0)
-
-	# Iterate through entities in melee range
+	# Iterate through all entities in melee range and process attacks
 	for entity in entities_in_melee_range:
-		var target_position: Vector3
-		var target_rid: RID  # Store the entity's physics body RID for comparison
-
-		# Determine target position and RID based on entity type
-		if entity is Node3D:
-			target_position = entity.global_position
-			target_rid = entity.get_rid()  # Get the physics RID from the Node3D
-		elif entity is RID:
-			target_position = PhysicsServer3D.body_get_state(entity, PhysicsServer3D.BODY_STATE_TRANSFORM).origin
-			target_rid = entity  # The entity itself is already an RID
-		else:
-			continue  # Skip unknown entity types
-
-		# Perform a raycast from the player to the target
-		var result = Helper.raycast(adjusted_player_position, target_position, obstacle_layers, [player])
-
-		# If there's an obstacle blocking the attack, skip this entity
-		if result and result.rid != target_rid:
-			continue  # Skip attack if raycast hits something else first
-
-		# Attack logic: Emit signal for RID entities, call function for Node3D entities
-		if entity is RID:
-			Helper.signal_broker.melee_attacked_rid.emit(entity, attack)
-		else:
-			entity.get_hit(attack)
+		_attempt_melee_attack(entity, attack_data)
 
 	# Play attack animation and grant XP
 	animate_attack()
 	add_weapon_xp_on_use()
 
+
+# --------------------------
+# 🔹 HELPER FUNCTIONS BELOW
+# --------------------------
+
+# Start cooldown after an attack
+func _start_attack_cooldown() -> void:
+	in_cooldown = true
+	attack_cooldown_timer.start()
+
+
+# Calculate melee attack damage and hit chance
+func _calculate_melee_attack_data() -> Dictionary:
+	var melee_properties = heldItem.get_property("Melee")
+	var damage = melee_properties.get("damage", 0)
+	var skill_id = melee_properties.get("used_skill", {}).get("skill_id", "")
+	var skill_level = player.get_skill_level(skill_id)
+	var hit_chance = 0.65 + (skill_level / 100.0) * (1.0 - 0.65)  # Scales up to 100% with skill level
+
+	return {"damage": damage, "hit_chance": hit_chance}
+
+
+# Attempts to hit an entity, ensuring no obstacles are in the way
+func _attempt_melee_attack(entity, attack_data: Dictionary) -> void:
+	var target_position: Vector3
+	var target_rid: RID
+
+	# Determine the entity's position and physics RID
+	if entity is Node3D:
+		target_position = entity.global_position
+		target_rid = entity.get_rid()
+	elif entity is RID:
+		target_position = PhysicsServer3D.body_get_state(entity, PhysicsServer3D.BODY_STATE_TRANSFORM).origin
+		target_rid = entity
+	else:
+		return  # Skip unknown entity types
+
+	# Check if an obstacle blocks the attack
+	if _is_obstacle_between(target_position, target_rid):
+		return  # Skip attack if something is in the way
+
+	# Apply attack to the entity
+	if entity is RID:
+		Helper.signal_broker.melee_attacked_rid.emit(entity, attack_data)
+	else:
+		entity.get_hit(attack_data)
+
+
+# Checks if an obstacle is between the player and the target
+func _is_obstacle_between(target_position: Vector3, target_rid: RID) -> bool:
+	var obstacle_layers = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 6)  # Layers to check for obstacles
+	var adjusted_player_position = player.global_position - Vector3(0, 0.5, 0)  # Adjust height for short objects
+
+	var result = Helper.raycast(adjusted_player_position, target_position, obstacle_layers, [player])
+
+	return result and result.rid != target_rid  # True if something else is blocking the attack
 
 
 # The player has equipped an item in one of the equipment slots
