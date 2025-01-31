@@ -6,7 +6,7 @@ extends RefCounted
 # This script handles the list of items. You can access it trough Gamedata.mods.by_id("Core").items
 
 
-var data_path: String = "./Mods/Core/Items/"
+var dataPath: String = "./Mods/Core/Items/"
 var file_path: String = "./Mods/Core/Items/Items.json"
 var sprite_path: String = "./Mods/Core/Items/"
 var items: Dictionary = {}
@@ -17,8 +17,8 @@ var mod_id: String = "Core"
 # Initialize paths and load all data
 func _init(new_mod_id: String) -> void:
 	mod_id = new_mod_id
-	# Update data_path and sprite_path using the provided mod_id
-	data_path = "./Mods/" + mod_id + "/Items/"
+	# Update dataPath and sprite_path using the provided mod_id
+	dataPath = "./Mods/" + mod_id + "/Items/"
 	file_path = "./Mods/" + mod_id + "/Items/Items.json"
 	sprite_path = "./Mods/" + mod_id + "/Items/"
 	load_sprites()
@@ -31,7 +31,7 @@ func _init(new_mod_id: String) -> void:
 # -----------------------
 # Load item references from "references.json"
 func load_references() -> void:
-	var path = data_path + "references.json"
+	var path = dataPath + "references.json"
 	if FileAccess.file_exists(path):
 		references = Helper.json_helper.load_json_dictionary_file(path)
 	else:
