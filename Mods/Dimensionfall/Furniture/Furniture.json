@@ -1486,7 +1486,7 @@
 		"name": "Rusted tool bench",
 		"sprite": "tool_bench_100_45.png",
 		"support_shape": {
-			"color": "a7a7a7ff",
+			"color": "d0642eff",
 			"depth_scale": 80,
 			"height": 0.3,
 			"shape": "Box",
@@ -1511,7 +1511,7 @@
 		"name": "Wooden bed",
 		"sprite": "military_cot_100_45.png",
 		"support_shape": {
-			"color": "8d4925ff",
+			"color": "a6a6a6ff",
 			"depth_scale": 95,
 			"height": 0.2,
 			"shape": "Box",
@@ -1535,7 +1535,7 @@
 		"name": "Tattered Couch",
 		"sprite": "couch_damaged_100_50.png",
 		"support_shape": {
-			"color": "2d369dff",
+			"color": "a66c52ff",
 			"depth_scale": 80,
 			"height": 0.2,
 			"shape": "Box",
@@ -1558,7 +1558,7 @@
 		"name": "Control Panel",
 		"sprite": "control_panel_80_30.png",
 		"support_shape": {
-			"color": "8a8a8aff",
+			"color": "dfc998ff",
 			"depth_scale": 100,
 			"height": 0.9,
 			"shape": "Box",
@@ -1609,7 +1609,7 @@
 		"name": "Chemical rack",
 		"sprite": "chemical_rack_100_45.png",
 		"support_shape": {
-			"color": "864100ff",
+			"color": "dfcf9eff",
 			"depth_scale": 95,
 			"height": 0.5,
 			"shape": "Box",
@@ -1737,7 +1737,7 @@
 		"name": "Sandbag barricade",
 		"sprite": "sandbags_barricade_100_20.png",
 		"support_shape": {
-			"color": "c75a1cff",
+			"color": "dfc796ff",
 			"depth_scale": 95,
 			"height": 0.5,
 			"shape": "Box",

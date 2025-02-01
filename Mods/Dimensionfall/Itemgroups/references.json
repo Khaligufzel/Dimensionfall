@@ -17,7 +17,8 @@
 			"subway_station",
 			"abandoned_building",
 			"scrap_yard",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"debris_urban": {
@@ -26,7 +27,8 @@
 			"abandoned_building",
 			"scrap_yard",
 			"factory_hall",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"destroyed_furniture_medium": {
@@ -40,7 +42,8 @@
 			"scrap_yard",
 			"industrial_control_center",
 			"factory_hall",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"electronics_damaged": {
@@ -85,7 +88,8 @@
 			"RockyHill_NE",
 			"police_station",
 			"RockyHill_SW",
-			"field_grass_hill_00"
+			"field_grass_hill_00",
+			"military_bunker"
 		]
 	},
 	"generic_forest_finds": {
