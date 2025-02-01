@@ -225,6 +225,7 @@
 		}
 	],
 	"categories": [
+		"Military",
 		"Field",
 		"Plains"
 	],
@@ -234,7 +235,7 @@
 		"south": "ground",
 		"west": "ground"
 	},
-	"description": "A simple and vast field covered with green grass, perfect for beginners.",
+	"description": "A partially collapsed underground survival bunker, once a refuge but now a deathtrap filled with environmental hazards, hidden loot, and lurking threats.",
 	"id": "military_bunker",
 	"levels": [
 		[],
@@ -36850,6 +36851,6 @@
 	],
 	"mapheight": 32,
 	"mapwidth": 32,
-	"name": "Basic Grass Field",
-	"weight": 1000
+	"name": "Military Bunker",
+	"weight": 1
 }
