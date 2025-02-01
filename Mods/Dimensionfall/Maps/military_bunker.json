@@ -222,6 +222,25 @@
 					"id": "null"
 				}
 			]
+		},
+		{
+			"entities": [
+				{
+					"count": 1,
+					"id": "urban_litter",
+					"type": "itemgroup"
+				}
+			],
+			"id": "litter",
+			"pick_one": false,
+			"rotate_random": false,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 20,
+					"id": "null"
+				}
+			]
 		}
 	],
 	"categories": [
@@ -1168,7 +1187,9 @@
 				],
 				"furniture": {
 					"id": "first_aid_rack",
-					"itemgroups": [],
+					"itemgroups": [
+						"first_aid"
+					],
 					"rotation": 270
 				},
 				"id": "concrete__cracked_debris_02"
@@ -1310,7 +1331,10 @@
 				],
 				"furniture": {
 					"id": "equipment_rack",
-					"itemgroups": [],
+					"itemgroups": [
+						"M4A1_gun_ammo",
+						"police_station_locker"
+					],
 					"rotation": 180
 				},
 				"id": "concrete__cracked_debris_00"
@@ -1324,7 +1348,10 @@
 				],
 				"furniture": {
 					"id": "equipment_rack",
-					"itemgroups": [],
+					"itemgroups": [
+						"M4A1_gun_ammo",
+						"police_station_locker"
+					],
 					"rotation": 180
 				},
 				"id": "concrete__cracked_01"
@@ -1338,7 +1365,10 @@
 				],
 				"furniture": {
 					"id": "equipment_rack",
-					"itemgroups": [],
+					"itemgroups": [
+						"M4A1_gun_ammo",
+						"police_station_locker"
+					],
 					"rotation": 180
 				},
 				"id": "concrete__cracked_01"
@@ -1352,7 +1382,10 @@
 				],
 				"furniture": {
 					"id": "equipment_rack",
-					"itemgroups": [],
+					"itemgroups": [
+						"M4A1_gun_ammo",
+						"police_station_locker"
+					],
 					"rotation": 180
 				},
 				"id": "concrete_00"
@@ -1423,7 +1456,10 @@
 				],
 				"furniture": {
 					"id": "equipment_rack",
-					"itemgroups": [],
+					"itemgroups": [
+						"M4A1_gun_ammo",
+						"police_station_locker"
+					],
 					"rotation": 270
 				},
 				"id": "concrete_00"
@@ -1533,7 +1569,9 @@
 				],
 				"furniture": {
 					"id": "first_aid_rack",
-					"itemgroups": [],
+					"itemgroups": [
+						"first_aid"
+					],
 					"rotation": 270
 				},
 				"id": "concrete_00"
@@ -1674,7 +1712,10 @@
 				],
 				"furniture": {
 					"id": "equipment_rack",
-					"itemgroups": []
+					"itemgroups": [
+						"M4A1_gun_ammo",
+						"police_station_locker"
+					]
 				},
 				"id": "concrete_00"
 			},
@@ -1687,7 +1728,10 @@
 				],
 				"furniture": {
 					"id": "equipment_rack",
-					"itemgroups": []
+					"itemgroups": [
+						"M4A1_gun_ammo",
+						"police_station_locker"
+					]
 				},
 				"id": "concrete_00"
 			},
@@ -1700,7 +1744,10 @@
 				],
 				"furniture": {
 					"id": "equipment_rack",
-					"itemgroups": []
+					"itemgroups": [
+						"M4A1_gun_ammo",
+						"police_station_locker"
+					]
 				},
 				"id": "concrete__cracked_debris_01"
 			},
@@ -1713,7 +1760,10 @@
 				],
 				"furniture": {
 					"id": "equipment_rack",
-					"itemgroups": []
+					"itemgroups": [
+						"M4A1_gun_ammo",
+						"police_station_locker"
+					]
 				},
 				"id": "concrete__cracked_01"
 			},
@@ -2387,8 +2437,15 @@
 				],
 				"furniture": {
 					"id": "crate_wood",
-					"itemgroups": [],
-					"rotation": 180
+					"itemgroups": [
+						"urban_litter",
+						"vending_machine_drinks",
+						"vending_machine_snacks",
+						"destroyed_furniture_medium",
+						"cabinet_general",
+						"mob_loot"
+					],
+					"rotation": 270
 				},
 				"id": "concrete__cracked_debris_00"
 			},
@@ -2705,8 +2762,15 @@
 				],
 				"furniture": {
 					"id": "crate_wood",
-					"itemgroups": [],
-					"rotation": 180
+					"itemgroups": [
+						"urban_litter",
+						"vending_machine_drinks",
+						"vending_machine_snacks",
+						"destroyed_furniture_medium",
+						"cabinet_general",
+						"mob_loot"
+					],
+					"rotation": 270
 				},
 				"id": "concrete_00"
 			},
@@ -3018,6 +3082,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3027,6 +3095,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3036,6 +3108,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_debris_00"
@@ -3045,6 +3121,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3058,6 +3138,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3067,6 +3151,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_debris_02"
@@ -3076,6 +3164,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3085,6 +3177,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3094,6 +3190,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3116,7 +3216,10 @@
 				],
 				"furniture": {
 					"id": "equipment_rack",
-					"itemgroups": []
+					"itemgroups": [
+						"M4A1_gun_ammo",
+						"police_station_locker"
+					]
 				},
 				"id": "concrete_00"
 			},
@@ -3129,7 +3232,10 @@
 				],
 				"furniture": {
 					"id": "equipment_rack",
-					"itemgroups": []
+					"itemgroups": [
+						"M4A1_gun_ammo",
+						"police_station_locker"
+					]
 				},
 				"id": "concrete_00"
 			},
@@ -3332,6 +3438,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3381,6 +3491,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3426,6 +3540,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3641,6 +3759,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3708,6 +3830,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3771,6 +3897,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -3824,7 +3954,15 @@
 				],
 				"furniture": {
 					"id": "crate_wood",
-					"itemgroups": []
+					"itemgroups": [
+						"urban_litter",
+						"vending_machine_drinks",
+						"vending_machine_snacks",
+						"destroyed_furniture_medium",
+						"cabinet_general",
+						"mob_loot"
+					],
+					"rotation": 270
 				},
 				"id": "concrete__cracked_00"
 			},
@@ -3841,7 +3979,15 @@
 				],
 				"furniture": {
 					"id": "crate_wood",
-					"itemgroups": []
+					"itemgroups": [
+						"urban_litter",
+						"vending_machine_drinks",
+						"vending_machine_snacks",
+						"destroyed_furniture_medium",
+						"cabinet_general",
+						"mob_loot"
+					],
+					"rotation": 270
 				},
 				"id": "concrete__cracked_debris_02"
 			},
@@ -3858,7 +4004,15 @@
 				],
 				"furniture": {
 					"id": "crate_wood",
-					"itemgroups": []
+					"itemgroups": [
+						"urban_litter",
+						"vending_machine_drinks",
+						"vending_machine_snacks",
+						"destroyed_furniture_medium",
+						"cabinet_general",
+						"mob_loot"
+					],
+					"rotation": 270
 				},
 				"id": "concrete_00"
 			},
@@ -4023,6 +4177,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4071,6 +4229,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_01"
@@ -4115,6 +4277,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4168,7 +4334,15 @@
 				],
 				"furniture": {
 					"id": "crate_wood",
-					"itemgroups": []
+					"itemgroups": [
+						"urban_litter",
+						"vending_machine_drinks",
+						"vending_machine_snacks",
+						"destroyed_furniture_medium",
+						"cabinet_general",
+						"mob_loot"
+					],
+					"rotation": 270
 				},
 				"id": "concrete__cracked_00"
 			},
@@ -4185,7 +4359,15 @@
 				],
 				"furniture": {
 					"id": "crate_wood",
-					"itemgroups": []
+					"itemgroups": [
+						"urban_litter",
+						"vending_machine_drinks",
+						"vending_machine_snacks",
+						"destroyed_furniture_medium",
+						"cabinet_general",
+						"mob_loot"
+					],
+					"rotation": 270
 				},
 				"id": "concrete_00"
 			},
@@ -4202,7 +4384,15 @@
 				],
 				"furniture": {
 					"id": "crate_wood",
-					"itemgroups": []
+					"itemgroups": [
+						"urban_litter",
+						"vending_machine_drinks",
+						"vending_machine_snacks",
+						"destroyed_furniture_medium",
+						"cabinet_general",
+						"mob_loot"
+					],
+					"rotation": 270
 				},
 				"id": "concrete_00"
 			},
@@ -4352,6 +4542,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4365,6 +4559,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_01"
@@ -4378,6 +4576,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_01"
@@ -4391,6 +4593,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4404,6 +4610,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4417,6 +4627,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4430,6 +4644,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4443,6 +4661,23 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
+					}
+				],
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "concrete_floor",
+						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_debris_01"
@@ -4454,15 +4689,6 @@
 						"rotation": 0
 					}
 				],
-				"id": "concrete__cracked_debris_01"
-			},
-			{
-				"areas": [
-					{
-						"id": "concrete_floor",
-						"rotation": 0
-					}
-				],
 				"id": "concrete_00"
 			},
 			{
@@ -4483,6 +4709,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4496,6 +4726,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_00"
@@ -4509,6 +4743,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_01"
@@ -4522,6 +4760,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4535,6 +4777,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4548,6 +4794,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_debris_02"
@@ -4557,6 +4807,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4718,6 +4972,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4727,6 +4985,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4790,6 +5052,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_02"
@@ -4799,6 +5065,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4839,6 +5109,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4852,6 +5126,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4865,6 +5143,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_01"
@@ -4878,6 +5160,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_debris_00"
@@ -4891,6 +5177,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4904,6 +5194,10 @@
 					{
 						"id": "mobs_underground",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4913,6 +5207,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "litter",
+						"rotation": 270
 					}
 				],
 				"id": "concrete_00"
@@ -4930,7 +5228,15 @@
 				],
 				"furniture": {
 					"id": "crate_wood",
-					"itemgroups": []
+					"itemgroups": [
+						"urban_litter",
+						"vending_machine_drinks",
+						"vending_machine_snacks",
+						"destroyed_furniture_medium",
+						"cabinet_general",
+						"mob_loot"
+					],
+					"rotation": 270
 				},
 				"id": "concrete_00"
 			},
@@ -4947,7 +5253,15 @@
 				],
 				"furniture": {
 					"id": "crate_wood",
-					"itemgroups": []
+					"itemgroups": [
+						"urban_litter",
+						"vending_machine_drinks",
+						"vending_machine_snacks",
+						"destroyed_furniture_medium",
+						"cabinet_general",
+						"mob_loot"
+					],
+					"rotation": 270
 				},
 				"id": "concrete__cracked_01"
 			},
@@ -4964,7 +5278,15 @@
 				],
 				"furniture": {
 					"id": "crate_wood",
-					"itemgroups": []
+					"itemgroups": [
+						"urban_litter",
+						"vending_machine_drinks",
+						"vending_machine_snacks",
+						"destroyed_furniture_medium",
+						"cabinet_general",
+						"mob_loot"
+					],
+					"rotation": 270
 				},
 				"id": "concrete_00"
 			},
@@ -5639,8 +5961,15 @@
 				],
 				"furniture": {
 					"id": "crate_wood",
-					"itemgroups": [],
-					"rotation": 180
+					"itemgroups": [
+						"urban_litter",
+						"vending_machine_drinks",
+						"vending_machine_snacks",
+						"destroyed_furniture_medium",
+						"cabinet_general",
+						"mob_loot"
+					],
+					"rotation": 270
 				},
 				"id": "concrete_00"
 			},
