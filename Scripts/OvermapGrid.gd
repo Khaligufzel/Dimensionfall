@@ -18,8 +18,8 @@ var grid_width: int = 100 # TODO: Pass the global grid_width to this class
 var grid_height: int = 100
 # Dictionary to store lists of area positions sorted by dovermaparea.id
 var area_positions: Dictionary = {}
-var road_maps: Array = Runtimedata.maps.get_maps_by_category("Road")
-var forest_road_maps: Array = Runtimedata.maps.get_maps_by_category("Forest Road")
+var road_maps: Array[RMap] = Runtimedata.maps.get_maps_by_category("Road")
+var forest_road_maps: Array[RMap] = Runtimedata.maps.get_maps_by_category("Forest Road")
 const NOISE_VALUE_PLAINS = -0.2
 
 enum Region {
@@ -364,8 +364,10 @@ func assign_road_map_to_cell(global_position: Vector2, cell) -> void:
 	var map_to_use = road_maps
 	if "Forest" in cell.rmap.categories:
 		map_to_use = forest_road_maps
-	var selected_map = map_to_use.pick_random()
-	update_cell(global_position, selected_map.id, 0)
+	
+	# Select a weighted random map
+	var selected_map_id = pick_random_map_by_weight(map_to_use)
+	update_cell(global_position, selected_map_id, 0)
 
 
 # Update the road connections for a cell based on its type (forest or non-forest)
@@ -928,3 +930,23 @@ func get_cell_from_global_pos(global_pos: Vector2):
 	if cells.has(global_pos):
 		return cells[global_pos]
 	return null
+
+
+# Function to pick a random map based on weight
+func pick_random_map_by_weight(maps: Array) -> String:
+	var total_weight = 0
+
+	# Calculate total weight
+	for map in maps:
+		total_weight += map.weight if map is RMap else map["weight"]
+
+	var random_value = randi() % total_weight
+	var current_weight = 0
+
+	# Select map based on weighted probability
+	for map in maps:
+		current_weight += map.weight if map is RMap else map["weight"]
+		if random_value < current_weight:
+			return map.id if map is RMap else map["id"]
+
+	return "field_grass_basic_00.json"  # Fallback if selection fails
