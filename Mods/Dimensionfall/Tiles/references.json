@@ -225,7 +225,8 @@
 			"store_electronic_clothing",
 			"forest_basic_00",
 			"forest_camp_00",
-			"forest_burned_00"
+			"forest_burned_00",
+			"crater_small"
 		]
 	},
 	"dirt_light_01": {
@@ -248,7 +249,8 @@
 			"field_grass_hill_00",
 			"forest_basic_00",
 			"forest_camp_00",
-			"forest_burned_00"
+			"forest_burned_00",
+			"crater_small"
 		]
 	},
 	"dirt_light_02": {
@@ -268,7 +270,8 @@
 			"field_grass_hill_00",
 			"forest_basic_00",
 			"forest_camp_00",
-			"forest_burned_00"
+			"forest_burned_00",
+			"crater_small"
 		]
 	},
 	"dirt_light_grass_north_00": {
@@ -280,6 +283,11 @@
 	"dirt_light_grass_north_01": {
 		"maps": [
 			"field_grass_hill_00"
+		]
+	},
+	"dirt_light_ramp_00": {
+		"maps": [
+			"crater_small"
 		]
 	},
 	"floor_wood_boards_00": {
@@ -530,7 +538,8 @@
 			"forest_basic_00",
 			"forest_camp_00",
 			"forest_burned_00",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"grass_dirt_01": {
@@ -568,7 +577,8 @@
 			"forest_basic_00",
 			"forest_camp_00",
 			"forest_burned_00",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"grass_dirt_02": {
@@ -605,7 +615,8 @@
 			"forest_basic_00",
 			"forest_camp_00",
 			"forest_burned_00",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"grass_dirt_center_00": {
@@ -648,7 +659,8 @@
 			"RockyHill_SW",
 			"field_grass_hill_00",
 			"store_electronic_clothing",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"grass_flowers_01": {
@@ -680,7 +692,8 @@
 			"RockyHill_SW",
 			"field_grass_hill_00",
 			"store_electronic_clothing",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"grass_flowers_02": {
@@ -711,7 +724,8 @@
 			"field_grass_hill_00",
 			"store_electronic_clothing",
 			"forest_camp_00",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"grass_flowers_03": {
@@ -743,7 +757,8 @@
 			"field_grass_hill_00",
 			"store_electronic_clothing",
 			"forest_camp_00",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"grass_medium_dirt_00": {
@@ -783,7 +798,8 @@
 			"forest_basic_00",
 			"forest_camp_00",
 			"forest_burned_00",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"grass_medium_dirt_01": {
@@ -823,7 +839,8 @@
 			"forest_basic_00",
 			"forest_camp_00",
 			"forest_burned_00",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"grass_medium_dirt_02": {
@@ -862,7 +879,8 @@
 			"forest_basic_00",
 			"forest_camp_00",
 			"forest_burned_00",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"grass_plain": {
@@ -902,7 +920,8 @@
 			"field_grass_hill_00",
 			"store_electronic_clothing",
 			"forest_camp_00",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"grass_ramp_00": {
@@ -1521,7 +1540,8 @@
 			"RockyHill_SE",
 			"RockyHill_NW",
 			"RockyHill_NE",
-			"RockyHill_SW"
+			"RockyHill_SW",
+			"crater_small"
 		]
 	},
 	"rock_floor_01": {
@@ -1529,14 +1549,16 @@
 			"RockyHill_SE",
 			"RockyHill_NW",
 			"RockyHill_NE",
-			"RockyHill_SW"
+			"RockyHill_SW",
+			"crater_small"
 		]
 	},
 	"rock_floor_02": {
 		"maps": [
 			"RockyHill_SE",
 			"RockyHill_NW",
-			"RockyHill_SW"
+			"RockyHill_SW",
+			"crater_small"
 		]
 	},
 	"rock_floor_03": {
@@ -1578,7 +1600,8 @@
 			"parking_garage",
 			"RockyHill_NE",
 			"RockyHill_SW",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"rocky_earth_00": {
@@ -1589,7 +1612,8 @@
 	},
 	"sand_fine_00": {
 		"maps": [
-			"neighborhood_school"
+			"neighborhood_school",
+			"crater_small"
 		]
 	},
 	"sidewalk_00": {
@@ -1612,6 +1636,36 @@
 			"generichouse_corner",
 			"abandoned_building",
 			"store_electronic_clothing"
+		]
+	},
+	"wasteland_00": {
+		"maps": [
+			"crater_small"
+		]
+	},
+	"wasteland_01": {
+		"maps": [
+			"crater_small"
+		]
+	},
+	"wasteland_02": {
+		"maps": [
+			"crater_small"
+		]
+	},
+	"wasteland_03": {
+		"maps": [
+			"crater_small"
+		]
+	},
+	"wasteland_04": {
+		"maps": [
+			"crater_small"
+		]
+	},
+	"wasteland_05": {
+		"maps": [
+			"crater_small"
 		]
 	},
 	"wood_stairs": {
