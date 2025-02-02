@@ -116,7 +116,8 @@
 			"scrap_yard",
 			"industrial_control_center",
 			"factory_hall",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"concrete__cracked_00": {
@@ -128,7 +129,8 @@
 			"scrap_yard",
 			"industrial_control_center",
 			"factory_hall",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"concrete__cracked_01": {
@@ -140,7 +142,8 @@
 			"scrap_yard",
 			"industrial_control_center",
 			"factory_hall",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"concrete__cracked_02": {
@@ -152,7 +155,8 @@
 			"scrap_yard",
 			"industrial_control_center",
 			"factory_hall",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"concrete__cracked_debris_00": {
@@ -164,7 +168,8 @@
 			"scrap_yard",
 			"industrial_control_center",
 			"factory_hall",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"concrete__cracked_debris_01": {
@@ -176,7 +181,8 @@
 			"scrap_yard",
 			"industrial_control_center",
 			"factory_hall",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"concrete__cracked_debris_02": {
@@ -188,7 +194,8 @@
 			"scrap_yard",
 			"industrial_control_center",
 			"factory_hall",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"dirt_light_00": {
@@ -522,7 +529,8 @@
 			"store_electronic_clothing",
 			"forest_basic_00",
 			"forest_camp_00",
-			"forest_burned_00"
+			"forest_burned_00",
+			"military_bunker"
 		]
 	},
 	"grass_dirt_01": {
@@ -559,7 +567,8 @@
 			"store_electronic_clothing",
 			"forest_basic_00",
 			"forest_camp_00",
-			"forest_burned_00"
+			"forest_burned_00",
+			"military_bunker"
 		]
 	},
 	"grass_dirt_02": {
@@ -595,7 +604,8 @@
 			"store_electronic_clothing",
 			"forest_basic_00",
 			"forest_camp_00",
-			"forest_burned_00"
+			"forest_burned_00",
+			"military_bunker"
 		]
 	},
 	"grass_dirt_center_00": {
@@ -637,7 +647,8 @@
 			"generichouse_corner",
 			"RockyHill_SW",
 			"field_grass_hill_00",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"military_bunker"
 		]
 	},
 	"grass_flowers_01": {
@@ -668,7 +679,8 @@
 			"generichouse_corner",
 			"RockyHill_SW",
 			"field_grass_hill_00",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"military_bunker"
 		]
 	},
 	"grass_flowers_02": {
@@ -698,7 +710,8 @@
 			"RockyHill_SW",
 			"field_grass_hill_00",
 			"store_electronic_clothing",
-			"forest_camp_00"
+			"forest_camp_00",
+			"military_bunker"
 		]
 	},
 	"grass_flowers_03": {
@@ -729,7 +742,8 @@
 			"RockyHill_SW",
 			"field_grass_hill_00",
 			"store_electronic_clothing",
-			"forest_camp_00"
+			"forest_camp_00",
+			"military_bunker"
 		]
 	},
 	"grass_medium_dirt_00": {
@@ -768,7 +782,8 @@
 			"store_electronic_clothing",
 			"forest_basic_00",
 			"forest_camp_00",
-			"forest_burned_00"
+			"forest_burned_00",
+			"military_bunker"
 		]
 	},
 	"grass_medium_dirt_01": {
@@ -807,7 +822,8 @@
 			"store_electronic_clothing",
 			"forest_basic_00",
 			"forest_camp_00",
-			"forest_burned_00"
+			"forest_burned_00",
+			"military_bunker"
 		]
 	},
 	"grass_medium_dirt_02": {
@@ -845,7 +861,8 @@
 			"store_electronic_clothing",
 			"forest_basic_00",
 			"forest_camp_00",
-			"forest_burned_00"
+			"forest_burned_00",
+			"military_bunker"
 		]
 	},
 	"grass_plain": {
@@ -884,7 +901,8 @@
 			"RockyHill_SW",
 			"field_grass_hill_00",
 			"store_electronic_clothing",
-			"forest_camp_00"
+			"forest_camp_00",
+			"military_bunker"
 		]
 	},
 	"grass_ramp_00": {
@@ -1381,6 +1399,11 @@
 			"store_electronic_clothing"
 		]
 	},
+	"metal_grate_rusted": {
+		"maps": [
+			"military_bunker"
+		]
+	},
 	"metal_wall_00": {
 		"maps": [
 			"radio_tower"
@@ -1554,7 +1577,8 @@
 			"skyscraper",
 			"parking_garage",
 			"RockyHill_NE",
-			"RockyHill_SW"
+			"RockyHill_SW",
+			"military_bunker"
 		]
 	},
 	"rocky_earth_00": {

@@ -1458,5 +1458,16 @@
 		"name": "Cracked concrete with debris",
 		"shape": "cube",
 		"sprite": "concrete_cracked_debris_02.png"
+	},
+	{
+		"categories": [
+			"Wall",
+			"Urban"
+		],
+		"description": "Sections of the floor are reinforced with rusting metal grates, some of which may be broken.",
+		"id": "metal_grate_rusted",
+		"name": "Rusted metal grate",
+		"shape": "cube",
+		"sprite": "metal_grate_rusted.png"
 	}
 ]

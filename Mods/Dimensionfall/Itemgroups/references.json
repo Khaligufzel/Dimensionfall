@@ -1,7 +1,8 @@
 {
 	"M4A1_gun_ammo": {
 		"maps": [
-			"RockyHill_SW"
+			"RockyHill_SW",
+			"military_bunker"
 		]
 	},
 	"cabinet_general": {
@@ -9,7 +10,8 @@
 			"store_groceries",
 			"office_building_00",
 			"police_station",
-			"generichouse_end"
+			"generichouse_end",
+			"military_bunker"
 		]
 	},
 	"debris_rock": {
@@ -17,7 +19,8 @@
 			"subway_station",
 			"abandoned_building",
 			"scrap_yard",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"debris_urban": {
@@ -26,7 +29,8 @@
 			"abandoned_building",
 			"scrap_yard",
 			"factory_hall",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"destroyed_furniture_medium": {
@@ -40,7 +44,8 @@
 			"scrap_yard",
 			"industrial_control_center",
 			"factory_hall",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"electronics_damaged": {
@@ -68,7 +73,8 @@
 	"first_aid": {
 		"maps": [
 			"radio_tower",
-			"police_station"
+			"police_station",
+			"military_bunker"
 		]
 	},
 	"generic_field_finds": {
@@ -85,7 +91,8 @@
 			"RockyHill_NE",
 			"police_station",
 			"RockyHill_SW",
-			"field_grass_hill_00"
+			"field_grass_hill_00",
+			"military_bunker"
 		]
 	},
 	"generic_forest_finds": {
@@ -117,6 +124,9 @@
 		]
 	},
 	"mob_loot": {
+		"maps": [
+			"military_bunker"
+		],
 		"mobs": [
 			"iron_stalker",
 			"scrapwalker",
@@ -126,7 +136,8 @@
 	},
 	"police_station_locker": {
 		"maps": [
-			"police_station"
+			"police_station",
+			"military_bunker"
 		]
 	},
 	"refridgerator": {
@@ -158,7 +169,8 @@
 			"city_square",
 			"parking_garage",
 			"police_station",
-			"warehouse_storage"
+			"warehouse_storage",
+			"military_bunker"
 		]
 	},
 	"vending_machine_drinks": {
@@ -170,7 +182,8 @@
 			"police_station",
 			"store_electronic_clothing",
 			"industrial_control_center",
-			"factory_hall"
+			"factory_hall",
+			"military_bunker"
 		]
 	},
 	"vending_machine_snacks": {
@@ -182,7 +195,8 @@
 			"city_square",
 			"police_station",
 			"industrial_control_center",
-			"factory_hall"
+			"factory_hall",
+			"military_bunker"
 		]
 	},
 	"zombie_loot": {

@@ -1469,5 +1469,280 @@
 			"transparent": false,
 			"width_scale": 95
 		}
+	},
+	{
+		"categories": [
+			"Industrial",
+			"Indoor"
+		],
+		"description": "A makeshift workbench for crafting, covered in rusted tools and blueprints.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "tool_bench",
+		"moveable": false,
+		"name": "Rusted tool bench",
+		"sprite": "tool_bench_100_45.png",
+		"support_shape": {
+			"color": "d0642eff",
+			"depth_scale": 80,
+			"height": 0.3,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor",
+			"Bedroom"
+		],
+		"description": "Foldable metal cot with thin, stained mattresses.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "military_cot",
+		"moveable": false,
+		"name": "Wooden bed",
+		"sprite": "military_cot_100_45.png",
+		"support_shape": {
+			"color": "a6a6a6ff",
+			"depth_scale": 95,
+			"height": 0.2,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
+	},
+	{
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "A worn-out couch, possibly stained with blood or covered in dust.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "tattered_couch",
+		"moveable": false,
+		"name": "Tattered Couch",
+		"sprite": "couch_damaged_100_50.png",
+		"support_shape": {
+			"color": "a66c52ff",
+			"depth_scale": 80,
+			"height": 0.2,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
+	},
+	{
+		"categories": [
+			"Urban",
+			"Infrastructure"
+		],
+		"description": "A series of blinking lights and switches, once used to monitor the facility.",
+		"destruction": {
+			"group": "destroyed_furniture_large"
+		},
+		"edgesnapping": "North",
+		"id": "control_panel",
+		"moveable": false,
+		"name": "Control Panel",
+		"sprite": "control_panel_80_30.png",
+		"support_shape": {
+			"color": "dfc998ff",
+			"depth_scale": 100,
+			"height": 0.9,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 100
+		}
+	},
+	{
+		"categories": [
+			"Urban",
+			"Infrastructure"
+		],
+		"description": "Rows of depleted batteries, some still holding a charge for crafting. ",
+		"destruction": {
+			"group": "destroyed_furniture_large"
+		},
+		"edgesnapping": "North",
+		"id": "battery_bank",
+		"moveable": false,
+		"name": "Battery Bank",
+		"sprite": "battery_bank_80_45.png",
+		"support_shape": {
+			"color": "8a8a8aff",
+			"depth_scale": 100,
+			"height": 0.9,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 100
+		}
+	},
+	{
+		"Function": {
+			"container_group": "cabinet_general",
+			"is_container": true
+		},
+		"categories": [
+			"Urban",
+			"Indoor"
+		],
+		"description": "A cabinet holding vials and containers of unknown substances.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "chemical_rack",
+		"moveable": false,
+		"name": "Chemical rack",
+		"sprite": "chemical_rack_100_45.png",
+		"support_shape": {
+			"color": "dfcf9eff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 95
+		}
+	},
+	{
+		"categories": [
+			"Urban"
+		],
+		"description": " Covered in faded memos, evacuation plans, and graffiti.  ",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "bulletin_board",
+		"moveable": false,
+		"name": "Bulletin Board",
+		"sprite": "bullitin_board_80_15.png",
+		"support_shape": {
+			"color": "c75a1cff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": true,
+			"width_scale": 95
+		}
+	},
+	{
+		"categories": [
+			"Urban",
+			"Industrial"
+		],
+		"description": "A rusted metal barrel marked with a faded radioactive hazard symbol. A slow, greenish ooze leaks from its seams, pooling around its base and casting an eerie glow in the darkness. Prolonged exposure may be dangerous.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "barrel_radioactive_red",
+		"moveable": true,
+		"name": "Radioactive Barrel",
+		"sprite": "radioactive_barrel_red_32.png",
+		"weight": 10
+	},
+	{
+		"categories": [
+			"Urban",
+			"Industrial"
+		],
+		"description": "A rusted metal barrel marked with a faded radioactive hazard symbol. A slow, greenish ooze leaks from its seams, pooling around its base and casting an eerie glow in the darkness. Prolonged exposure may be dangerous.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "barrel_radioactive_black",
+		"moveable": true,
+		"name": "Radioactive Barrel",
+		"sprite": "radioactive_barrel_black_32.png",
+		"weight": 10
+	},
+	{
+		"categories": [
+			"Urban",
+			"Industrial"
+		],
+		"description": "A rusted metal barrel marked with a faded radioactive hazard symbol. A slow, greenish ooze leaks from its seams, pooling around its base and casting an eerie glow in the darkness. Prolonged exposure may be dangerous.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "barrel_radioactive_yellow",
+		"moveable": true,
+		"name": "Radioactive Barrel",
+		"sprite": "radioactive_barrel_yellow_32.png",
+		"weight": 10
+	},
+	{
+		"Function": {
+			"container_group": "cabinet_general",
+			"container_sprite_mode": "Hide",
+			"is_container": true
+		},
+		"categories": [
+			"Urban",
+			"Vehicle",
+			"Military"
+		],
+		"description": "A wrecked military car that is immobile.",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "None",
+		"id": "military_car_wreck",
+		"moveable": false,
+		"name": "Military Car wreck",
+		"sprite": "military_car_300_200.png",
+		"support_shape": {
+			"color": "38752fff",
+			"depth_scale": 75,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
+	},
+	{
+		"categories": [
+			"Urban",
+			"Outdoor"
+		],
+		"description": "Piles of sandbags, used to keep something out… or in.  ",
+		"destruction": {
+			"group": "destroyed_furniture_medium",
+			"sprite": "wreck_wood_generic_32.png"
+		},
+		"edgesnapping": "North",
+		"id": "sandbag_barricade",
+		"moveable": false,
+		"name": "Sandbag barricade",
+		"sprite": "sandbags_barricade_100_20.png",
+		"support_shape": {
+			"color": "dfc796ff",
+			"depth_scale": 95,
+			"height": 0.5,
+			"shape": "Box",
+			"transparent": true,
+			"width_scale": 95
+		}
 	}
 ]
