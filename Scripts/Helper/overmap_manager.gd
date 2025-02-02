@@ -142,7 +142,6 @@ func _on_game_loaded():
 
 # Function for handling game ended signal
 func _on_game_ended():
-	save_all_grids()
 	player = null
 
 

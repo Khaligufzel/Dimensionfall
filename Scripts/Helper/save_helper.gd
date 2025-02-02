@@ -101,6 +101,7 @@ func get_saved_map_folder(level_pos: Vector2) -> String:
 func save_game():
 	save_map_data()
 	Helper.overmap_manager.save_all_segments()
+	Helper.overmap_manager.save_all_grids()
 	save_player_inventory()
 	save_player_equipment()
 	save_quest_state()
