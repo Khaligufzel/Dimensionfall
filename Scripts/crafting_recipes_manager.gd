@@ -9,6 +9,7 @@ var craftable_items: Array[RItem]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Helper.signal_broker.game_started.connect(get_crafting_recipes_from_json)
+	Helper.signal_broker.game_loaded.connect(get_crafting_recipes_from_json)
 
 func get_crafting_recipes_from_json() -> void:
 	craftable_items = Runtimedata.items.get_hand_craftable_items()

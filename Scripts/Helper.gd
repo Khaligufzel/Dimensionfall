@@ -84,9 +84,8 @@ func save_and_exit_game():
 	exit_game()
 
 
-#Level_name is a filename in /mods/core/maps
-#global_pos is the absolute position on the overmap
-#see overmap.gd for how global_pos is used there
+# Changes the scene to "level_generation", which is the main game
+# chunk_navigation_maps holds the navigation maps for the mobs until issue #438 is fixed
 func initiate_game() -> void:
 	chunk_navigation_maps.clear()
 	get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()

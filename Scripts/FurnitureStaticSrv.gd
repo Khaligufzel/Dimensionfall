@@ -686,7 +686,6 @@ class Consumption:
 		
 		# Check if the parent furniture has a container
 		if not parent_furniture.container:
-			print("No container found in the furniture.")
 			return
 		
 		# Get the container inventory
