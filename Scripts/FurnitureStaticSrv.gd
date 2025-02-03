@@ -390,8 +390,11 @@ class FurnitureContainer:
 			"Default":
 				# Handle the default case (no special behavior)
 				if sprite_mesh:
-					material = Gamedata.materials.container_filled  # Use filled container material
-					sprite_mesh.material = material  # Update the mesh material
+					# Check if the container is empty before setting material
+					if inventory.get_item_count() <= 0:
+						sprite_mesh.material = Gamedata.materials.container  # Empty container material
+					else:
+						sprite_mesh.material = Gamedata.materials.container_filled  # Filled container material
 
 
 # Class representing a queued item for the CraftingContainer
