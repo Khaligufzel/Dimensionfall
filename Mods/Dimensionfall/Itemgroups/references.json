@@ -20,7 +20,8 @@
 			"abandoned_building",
 			"scrap_yard",
 			"warehouse_storage",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"debris_urban": {
@@ -92,7 +93,8 @@
 			"police_station",
 			"RockyHill_SW",
 			"field_grass_hill_00",
-			"military_bunker"
+			"military_bunker",
+			"crater_small"
 		]
 	},
 	"generic_forest_finds": {

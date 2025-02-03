@@ -74,7 +74,7 @@
 			},
 			{
 				"amount": 1,
-				"map_guide": "explored",
+				"map_guide": "revealed",
 				"mob": "disruptor_drone",
 				"tip": "Circuit boards can often be scavenged from scrap piles or robotic enemies. Defeat a Disruptor Drone to find one.",
 				"type": "kill"
