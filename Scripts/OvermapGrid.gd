@@ -361,13 +361,13 @@ func assign_road_map_to_cell(global_position: Vector2, cell) -> void:
 		return
 
 	# If it's a forest cell, assign a forest road, otherwise a normal road
-	var map_to_use = road_maps
+	var map_to_use: Array[RMap] = road_maps
 	if "Forest" in cell.rmap.categories:
 		map_to_use = forest_road_maps
 	
 	# Select a weighted random map
-	var selected_map_id = pick_random_map_by_weight(map_to_use)
-	update_cell(global_position, selected_map_id, 0)
+	var selected_map: RMap = pick_random_rmap_by_weight(map_to_use)
+	update_cell(global_position, selected_map.id, 0)
 
 
 # Update the road connections for a cell based on its type (forest or non-forest)
@@ -381,7 +381,7 @@ func update_road_connections(global_position: Vector2, cell) -> void:
 	var map_to_use = forest_road_maps if "Forest Road" in cell.rmap.categories else road_maps
 	var matching_maps = get_road_maps_with_connections(map_to_use, needed_connections)
 	if matching_maps.size() > 0:
-		var selected_map = matching_maps.pick_random()
+		var selected_map = pick_random_map_dict_by_weight(matching_maps)
 		update_cell(global_position, selected_map.id, selected_map.rotation)
 
 
@@ -440,7 +440,8 @@ func get_road_maps_with_connections(myroad_maps: Array, required_directions: Arr
 				# If it matches, add a dictionary with map id and rotation
 				matching_maps.append({
 					"id": road_map.id,
-					"rotation": rotation
+					"rotation": rotation,
+					"weight": road_map.weight
 				})
 				break  # Stop checking other rotations for this road_map once a match is found
 
@@ -932,21 +933,41 @@ func get_cell_from_global_pos(global_pos: Vector2):
 	return null
 
 
-# Function to pick a random map based on weight
-func pick_random_map_by_weight(maps: Array) -> String:
+# Function to pick a random RMap object based on weight
+func pick_random_rmap_by_weight(maps: Array[RMap]) -> RMap:
 	var total_weight = 0
 
 	# Calculate total weight
 	for map in maps:
-		total_weight += map.weight if map is RMap else map["weight"]
+		total_weight += map.weight
 
 	var random_value = randi() % total_weight
 	var current_weight = 0
 
 	# Select map based on weighted probability
 	for map in maps:
-		current_weight += map.weight if map is RMap else map["weight"]
+		current_weight += map.weight
 		if random_value < current_weight:
-			return map.id if map is RMap else map["id"]
+			return map  # Return the entire RMap object
 
-	return "field_grass_basic_00.json"  # Fallback if selection fails
+	return maps[0] if maps.size() > 0 else null  # Fallback to first map or null if empty
+
+
+# Function to pick a random map dictionary based on weight
+func pick_random_map_dict_by_weight(maps: Array[Dictionary]) -> Dictionary:
+	var total_weight = 0
+
+	# Calculate total weight
+	for map in maps:
+		total_weight += map["weight"]
+
+	var random_value = randi() % total_weight
+	var current_weight = 0
+
+	# Select map based on weighted probability
+	for map in maps:
+		current_weight += map["weight"]
+		if random_value < current_weight:
+			return map  # Return the entire dictionary
+
+	return maps[0] if maps.size() > 0 else {"id": "field_grass_basic_00.json", "rotation": 0, "weight": 1}  # Fallback dictionary
