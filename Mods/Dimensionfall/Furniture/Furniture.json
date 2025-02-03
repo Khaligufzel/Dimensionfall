@@ -1842,7 +1842,7 @@
 		"destruction": {
 			"group": "destroyed_furniture_medium"
 		},
-		"edgesnapping": "South",
+		"edgesnapping": "North",
 		"id": "chain_link_fence",
 		"moveable": false,
 		"name": "Chain-Link Fence",

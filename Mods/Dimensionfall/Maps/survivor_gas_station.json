@@ -188,7 +188,7 @@
 			"spawn_chance": 100,
 			"tiles": [
 				{
-					"count": 10,
+					"count": 8,
 					"id": "null"
 				}
 			]
@@ -2000,7 +2000,7 @@
 			},
 			{
 				"furniture": {
-					"id": "bulletin_board",
+					"id": "door_wood",
 					"itemgroups": [],
 					"rotation": 180
 				},
@@ -2272,6 +2272,10 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "bulletin_board",
+					"itemgroups": []
+				},
 				"id": "concrete_00",
 				"rotation": 180
 			},
@@ -6788,7 +6792,7 @@
 			},
 			{
 				"furniture": {
-					"id": "bulletin_board",
+					"id": "door_wood",
 					"itemgroups": []
 				},
 				"id": "concrete__cracked_02"
