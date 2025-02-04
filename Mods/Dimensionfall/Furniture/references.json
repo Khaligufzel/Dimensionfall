@@ -215,12 +215,17 @@
 		"maps": [
 			"scrap_yard",
 			"industrial_control_center",
-			"survivor_gas_station"
+			"survivor_gas_station",
+			"generichouse_t",
+			"generichouse_cross",
+			"office_building_00"
 		]
 	},
 	"car_01": {
 		"maps": [
-			"scrap_yard"
+			"scrap_yard",
+			"generichouse_cross",
+			"office_building_00"
 		]
 	},
 	"cash_register": {
@@ -235,7 +240,8 @@
 	},
 	"chain_link_fence": {
 		"maps": [
-			"survivor_gas_station"
+			"survivor_gas_station",
+			"skyscraper"
 		]
 	},
 	"chair_office": {
@@ -339,7 +345,9 @@
 			"factory_hall",
 			"warehouse_storage",
 			"military_bunker",
-			"survivor_gas_station"
+			"survivor_gas_station",
+			"office_building_00",
+			"abandoned_building"
 		]
 	},
 	"crate_wood_long": {
@@ -348,7 +356,8 @@
 			"industrial_control_center",
 			"factory_hall",
 			"warehouse_storage",
-			"survivor_gas_station"
+			"survivor_gas_station",
+			"office_building_00"
 		]
 	},
 	"damaged_shelves": {
@@ -387,7 +396,8 @@
 			"parking_garage",
 			"abandoned_building",
 			"forest_camp_00",
-			"scrap_yard"
+			"scrap_yard",
+			"generichouse_corner"
 		]
 	},
 	"display_case": {
@@ -529,7 +539,8 @@
 	},
 	"rusted_fridge": {
 		"maps": [
-			"survivor_gas_station"
+			"survivor_gas_station",
+			"generichouse_t"
 		]
 	},
 	"sandbag_barricade": {
@@ -565,7 +576,9 @@
 			"Generichouse_00",
 			"two_story_house",
 			"industrial_control_center",
-			"factory_hall"
+			"factory_hall",
+			"generichouse_t",
+			"generichouse_cross"
 		]
 	},
 	"standing_mirror": {
@@ -657,13 +670,19 @@
 	},
 	"tanker_wreck_01": {
 		"maps": [
-			"scrap_yard"
+			"scrap_yard",
+			"generichouse_cross"
 		]
 	},
 	"tattered_couch": {
 		"maps": [
 			"military_bunker",
-			"survivor_gas_station"
+			"survivor_gas_station",
+			"generichouse_t",
+			"generichouse_corner",
+			"generichouse_cross",
+			"office_building_00",
+			"abandoned_building"
 		]
 	},
 	"toilet_00": {
@@ -721,7 +740,8 @@
 	"truck_wreck_01": {
 		"maps": [
 			"scrap_yard",
-			"factory_hall"
+			"factory_hall",
+			"generichouse_cross"
 		]
 	},
 	"ups": {

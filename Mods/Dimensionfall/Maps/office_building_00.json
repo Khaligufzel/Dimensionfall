@@ -544,6 +544,30 @@
 					"id": "null"
 				}
 			]
+		},
+		{
+			"entities": [
+				{
+					"count": 1,
+					"id": "car_00",
+					"type": "furniture"
+				},
+				{
+					"count": 1,
+					"id": "car_01",
+					"type": "furniture"
+				}
+			],
+			"id": "car",
+			"pick_one": false,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 5,
+					"id": "null"
+				}
+			]
 		}
 	],
 	"categories": [
@@ -1552,12 +1576,8 @@
 					}
 				],
 				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard",
-						"cabinet_general",
-						"vending_machine_snacks"
-					]
+					"id": "crate_wood",
+					"itemgroups": []
 				},
 				"id": "linoleum_white_00",
 				"rotation": 180
@@ -1570,12 +1590,8 @@
 					}
 				],
 				"furniture": {
-					"id": "store_shelf",
-					"itemgroups": [
-						"kitchen_cupboard",
-						"cabinet_general",
-						"vending_machine_snacks"
-					]
+					"id": "crate_wood_long",
+					"itemgroups": []
 				},
 				"id": "linoleum_white_00",
 				"rotation": 180
@@ -2873,62 +2889,26 @@
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
@@ -3233,62 +3213,26 @@
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal",
 				"rotation": 180
 			},
@@ -3621,62 +3565,26 @@
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
@@ -3981,9 +3889,17 @@
 				"rotation": 180
 			},
 			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
 				"areas": [
 					{
-						"id": "mobs",
+						"id": "car",
 						"rotation": 0
 					}
 				],
@@ -3991,52 +3907,14 @@
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
-				"id": "road_asphalt_basic",
-				"rotation": 180
-			},
-			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
-				"id": "road_asphalt_basic",
-				"rotation": 180
-			},
-			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
@@ -4333,62 +4211,26 @@
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
@@ -4692,62 +4534,26 @@
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mobs",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 180
 			},
@@ -17931,7 +17737,7 @@
 					}
 				],
 				"furniture": {
-					"id": "sofa",
+					"id": "tattered_couch",
 					"itemgroups": []
 				},
 				"id": "linoleum_lightblue_01",

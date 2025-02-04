@@ -526,6 +526,25 @@
 					"id": "linoleum_lightblue_00"
 				}
 			]
+		},
+		{
+			"entities": [
+				{
+					"count": 1,
+					"id": "car_00",
+					"type": "furniture"
+				}
+			],
+			"id": "car",
+			"pick_one": false,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 5,
+					"id": "null"
+				}
+			]
 		}
 	],
 	"categories": [
@@ -1134,6 +1153,10 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "tattered_couch",
+					"itemgroups": []
+				},
 				"id": "floor_wood_boards_03",
 				"rotation": 90
 			},
@@ -3127,7 +3150,8 @@
 					}
 				],
 				"furniture": {
-					"id": "refrigerator_00",
+					"id": "rusted_fridge",
+					"itemgroups": [],
 					"rotation": 180
 				},
 				"id": "kitchen_tiles_mint_00"
@@ -4019,7 +4043,7 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 90
 			},
 			{
 				"id": "concrete_00",
@@ -4176,41 +4200,17 @@
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic"
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
@@ -4432,42 +4432,18 @@
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
@@ -4672,41 +4648,22 @@
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
 				"areas": [
 					{
-						"id": "mob_spawn",
+						"id": "car",
 						"rotation": 0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
-				"id": "road_asphalt_horizontal_top",
-				"rotation": 90
-			},
-			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic",
 				"rotation": 270
 			},
@@ -4912,41 +4869,17 @@
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic"
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic"
 			},
 			{
@@ -5154,41 +5087,17 @@
 				"rotation": 180
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic"
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 90
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_horizontal_top",
 				"rotation": 270
 			},
 			{
-				"areas": [
-					{
-						"id": "mob_spawn",
-						"rotation": 0
-					}
-				],
 				"id": "road_asphalt_basic"
 			},
 			{
@@ -6608,7 +6517,8 @@
 					}
 				],
 				"furniture": {
-					"id": "cabinet_wood_00",
+					"id": "sofa",
+					"itemgroups": [],
 					"rotation": 180
 				},
 				"id": "floor_wood_boards_00",

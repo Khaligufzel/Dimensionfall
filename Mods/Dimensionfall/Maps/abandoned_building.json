@@ -3640,6 +3640,11 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "tattered_couch",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "concrete__cracked_debris_02",
 				"rotation": 90
 			},
@@ -9627,10 +9632,12 @@
 				"id": "concrete__cracked_01"
 			},
 			{
-				"id": "concrete_00",
-				"itemgroups": [
-					"destroyed_furniture_medium"
-				]
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_00",
@@ -9858,10 +9865,12 @@
 				"id": "concrete_00"
 			},
 			{
-				"id": "concrete_00",
-				"itemgroups": [
-					"destroyed_furniture_medium"
-				]
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_02",
@@ -9874,10 +9883,12 @@
 				"id": "concrete__cracked_00"
 			},
 			{
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "concrete__cracked_01",
-				"itemgroups": [
-					"destroyed_furniture_medium"
-				],
 				"rotation": 90
 			},
 			{

@@ -12651,6 +12651,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 0
 			},
@@ -12669,6 +12674,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -12687,6 +12697,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
@@ -12705,6 +12720,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_medium_dirt_02",
 				"rotation": 0
 			},
@@ -12723,6 +12743,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
@@ -12741,6 +12766,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
@@ -12759,6 +12789,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 0
 			},
@@ -12777,6 +12812,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -12795,6 +12835,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_medium_dirt_00",
 				"rotation": 0
 			},
@@ -12891,6 +12936,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
@@ -12909,6 +12959,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_medium_dirt_00",
 				"rotation": 180
 			},
@@ -12927,6 +12982,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
@@ -12945,6 +13005,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 270
 			},
@@ -12963,6 +13028,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
@@ -12981,6 +13051,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 180
 			},
@@ -12999,6 +13074,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_medium_dirt_02",
 				"rotation": 90
 			},
@@ -13017,6 +13097,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
@@ -13035,6 +13120,11 @@
 						"rotation": 0
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "grass_medium_dirt_02",
 				"rotation": 0
 			},
@@ -13119,6 +13209,11 @@
 						"rotation": 90
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
@@ -13477,6 +13572,11 @@
 						"rotation": 270
 					}
 				],
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "grass_plain_01",
 				"rotation": 90
 			},
