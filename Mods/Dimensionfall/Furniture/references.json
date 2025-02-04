@@ -27,7 +27,8 @@
 			"store_electronic_clothing",
 			"forest_camp_00",
 			"forest_burned_00",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"Tree_00": {
@@ -60,7 +61,8 @@
 			"store_electronic_clothing",
 			"forest_camp_00",
 			"forest_burned_00",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"WillowTree_00": {
@@ -93,7 +95,8 @@
 			"store_electronic_clothing",
 			"forest_camp_00",
 			"forest_burned_00",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"bathtub": {
@@ -161,7 +164,13 @@
 			"generichouse_corner",
 			"generichouse_t",
 			"industrial_control_center",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
+		]
+	},
+	"bulletin_board": {
+		"maps": [
+			"survivor_gas_station"
 		]
 	},
 	"burned_tree": {
@@ -187,12 +196,14 @@
 			"generichouse_corner",
 			"generichouse_t",
 			"industrial_control_center",
-			"warehouse_storage"
+			"warehouse_storage",
+			"survivor_gas_station"
 		]
 	},
 	"campfire_off": {
 		"maps": [
-			"forest_camp_00"
+			"forest_camp_00",
+			"survivor_gas_station"
 		]
 	},
 	"campfire_on": {
@@ -203,7 +214,8 @@
 	"car_00": {
 		"maps": [
 			"scrap_yard",
-			"industrial_control_center"
+			"industrial_control_center",
+			"survivor_gas_station"
 		]
 	},
 	"car_01": {
@@ -217,7 +229,13 @@
 			"office_building_00",
 			"skyscraper",
 			"police_station",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"survivor_gas_station"
+		]
+	},
+	"chain_link_fence": {
+		"maps": [
+			"survivor_gas_station"
 		]
 	},
 	"chair_office": {
@@ -233,7 +251,8 @@
 			"police_station",
 			"store_electronic_clothing",
 			"industrial_control_center",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"chair_wood": {
@@ -255,7 +274,8 @@
 			"generichouse_t",
 			"forest_camp_00",
 			"industrial_control_center",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"chemical_rack": {
@@ -270,7 +290,8 @@
 	},
 	"control_panel": {
 		"maps": [
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"conveyor": {
@@ -317,7 +338,8 @@
 			"industrial_control_center",
 			"factory_hall",
 			"warehouse_storage",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"crate_wood_long": {
@@ -325,7 +347,8 @@
 			"scrap_yard",
 			"industrial_control_center",
 			"factory_hall",
-			"warehouse_storage"
+			"warehouse_storage",
+			"survivor_gas_station"
 		]
 	},
 	"damaged_shelves": {
@@ -352,7 +375,8 @@
 			"two_story_house",
 			"police_station",
 			"store_electronic_clothing",
-			"industrial_control_center"
+			"industrial_control_center",
+			"survivor_gas_station"
 		]
 	},
 	"destroyed_fence": {
@@ -370,7 +394,8 @@
 		"maps": [
 			"store_groceries",
 			"skyscraper",
-			"store_electronic_clothing"
+			"store_electronic_clothing",
+			"survivor_gas_station"
 		]
 	},
 	"door_wood": {
@@ -392,7 +417,8 @@
 			"industrial_control_center",
 			"factory_hall",
 			"warehouse_storage",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"equipment_rack": {
@@ -402,7 +428,8 @@
 			"industrial_control_center",
 			"factory_hall",
 			"warehouse_storage",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"first_aid_rack": {
@@ -410,6 +437,11 @@
 			"radio_tower",
 			"industrial_control_center",
 			"military_bunker"
+		]
+	},
+	"gas_pump": {
+		"maps": [
+			"survivor_gas_station"
 		]
 	},
 	"lamp_standing": {
@@ -425,7 +457,8 @@
 			"RockyHill_SW",
 			"store_electronic_clothing",
 			"industrial_control_center",
-			"factory_hall"
+			"factory_hall",
+			"survivor_gas_station"
 		]
 	},
 	"light_machinery": {
@@ -494,9 +527,15 @@
 			"military_bunker"
 		]
 	},
+	"rusted_fridge": {
+		"maps": [
+			"survivor_gas_station"
+		]
+	},
 	"sandbag_barricade": {
 		"maps": [
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"security_gate": {
@@ -553,7 +592,8 @@
 			"store_electronic_clothing",
 			"industrial_control_center",
 			"warehouse_storage",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"stove": {
@@ -566,6 +606,11 @@
 			"two_story_house",
 			"industrial_control_center",
 			"military_bunker"
+		]
+	},
+	"survivor_cot": {
+		"maps": [
+			"survivor_gas_station"
 		]
 	},
 	"table_metal": {
@@ -617,7 +662,8 @@
 	},
 	"tattered_couch": {
 		"maps": [
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"toilet_00": {
@@ -637,6 +683,11 @@
 			"store_electronic_clothing",
 			"factory_hall",
 			"military_bunker"
+		]
+	},
+	"tool_bench": {
+		"maps": [
+			"survivor_gas_station"
 		]
 	},
 	"transformer_box": {
@@ -663,7 +714,8 @@
 			"generichouse_t",
 			"store_electronic_clothing",
 			"industrial_control_center",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"truck_wreck_01": {
@@ -690,7 +742,8 @@
 			"police_station",
 			"store_electronic_clothing",
 			"industrial_control_center",
-			"factory_hall"
+			"factory_hall",
+			"survivor_gas_station"
 		]
 	},
 	"wall_shelf": {
@@ -735,7 +788,8 @@
 			"generichouse_t",
 			"store_electronic_clothing",
 			"industrial_control_center",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	}
 }

@@ -1744,5 +1744,116 @@
 			"transparent": true,
 			"width_scale": 95
 		}
+	},
+	{
+		"categories": [
+			"Urban"
+		],
+		"description": "An old, rusting gas pump. Some still have traces of fuel, but most have been drained dry.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "gas_pump",
+		"moveable": false,
+		"name": "Gas Pump",
+		"sprite": "gas_pump_70_40.png",
+		"support_shape": {
+			"color": "a6a6a6ff",
+			"depth_scale": 90,
+			"height": 0.2,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 90
+		}
+	},
+	{
+		"categories": [
+			"Urban",
+			"Survivor"
+		],
+		"description": "A hastily assembled barricade of wooden planks, metal scraps, and barbed wire.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "North",
+		"id": "makeshift_barricade",
+		"moveable": false,
+		"name": "Makeshift Barricade",
+		"sprite": "makeshift_barricade_100_20.png",
+		"support_shape": {
+			"color": "b8541cff",
+			"depth_scale": 80,
+			"height": 0.2,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 80
+		}
+	},
+	{
+		"categories": [],
+		"description": "An old convenience store fridge, its glass shattered, now used to store scavenged supplies.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "North",
+		"id": "rusted_fridge",
+		"moveable": false,
+		"name": "Rusted Fridge",
+		"sprite": "refridgerator_rusted_50_48.png",
+		"support_shape": {
+			"color": "e0c7b7ff",
+			"depth_scale": 90,
+			"height": 0.8,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 90
+		}
+	},
+	{
+		"categories": [
+			"Urban",
+			"Survivor"
+		],
+		"description": "A makeshift cot assembled from salvaged fabric and metal bars, offering a place to rest.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "None",
+		"id": "survivor_cot",
+		"moveable": false,
+		"name": "Survivor Cot",
+		"sprite": "survivor_cot_100_48.png",
+		"support_shape": {
+			"color": "c6b6aeff",
+			"depth_scale": 90,
+			"height": 0.15,
+			"shape": "Box",
+			"transparent": false,
+			"width_scale": 90
+		}
+	},
+	{
+		"categories": [
+			"Urban",
+			"Fence"
+		],
+		"description": "A rusted chain-link fence, once a barrier against trespassers, now sagging in places and riddled with holes. Some sections have been reinforced with scrap metal and barbed wire, while others have been forcibly cut or torn apart, leaving jagged openings.",
+		"destruction": {
+			"group": "destroyed_furniture_medium"
+		},
+		"edgesnapping": "North",
+		"id": "chain_link_fence",
+		"moveable": false,
+		"name": "Chain-Link Fence",
+		"sprite": "chain_link_fence_100_10.png",
+		"support_shape": {
+			"color": "363636ff",
+			"depth_scale": 90,
+			"height": 0.8,
+			"shape": "Box",
+			"transparent": true,
+			"width_scale": 90
+		}
 	}
 ]

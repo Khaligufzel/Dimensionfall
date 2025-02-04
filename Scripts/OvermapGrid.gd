@@ -18,8 +18,8 @@ var grid_width: int = 100 # TODO: Pass the global grid_width to this class
 var grid_height: int = 100
 # Dictionary to store lists of area positions sorted by dovermaparea.id
 var area_positions: Dictionary = {}
-var road_maps: Array = Runtimedata.maps.get_maps_by_category("Road")
-var forest_road_maps: Array = Runtimedata.maps.get_maps_by_category("Forest Road")
+var road_maps: Array[RMap] = Runtimedata.maps.get_maps_by_category("Road")
+var forest_road_maps: Array[RMap] = Runtimedata.maps.get_maps_by_category("Forest Road")
 const NOISE_VALUE_PLAINS = -0.2
 
 enum Region {
@@ -361,10 +361,12 @@ func assign_road_map_to_cell(global_position: Vector2, cell) -> void:
 		return
 
 	# If it's a forest cell, assign a forest road, otherwise a normal road
-	var map_to_use = road_maps
+	var map_to_use: Array[RMap] = road_maps
 	if "Forest" in cell.rmap.categories:
 		map_to_use = forest_road_maps
-	var selected_map = map_to_use.pick_random()
+	
+	# Select a weighted random map
+	var selected_map: RMap = pick_random_rmap_by_weight(map_to_use)
 	update_cell(global_position, selected_map.id, 0)
 
 
@@ -379,7 +381,7 @@ func update_road_connections(global_position: Vector2, cell) -> void:
 	var map_to_use = forest_road_maps if "Forest Road" in cell.rmap.categories else road_maps
 	var matching_maps = get_road_maps_with_connections(map_to_use, needed_connections)
 	if matching_maps.size() > 0:
-		var selected_map = matching_maps.pick_random()
+		var selected_map = pick_random_map_dict_by_weight(matching_maps)
 		update_cell(global_position, selected_map.id, selected_map.rotation)
 
 
@@ -438,7 +440,8 @@ func get_road_maps_with_connections(myroad_maps: Array, required_directions: Arr
 				# If it matches, add a dictionary with map id and rotation
 				matching_maps.append({
 					"id": road_map.id,
-					"rotation": rotation
+					"rotation": rotation,
+					"weight": road_map.weight
 				})
 				break  # Stop checking other rotations for this road_map once a match is found
 
@@ -616,7 +619,7 @@ func generate_cells() -> void:
 			# If you need to test a specific map, uncomment these two lines and put in your map name.
 			# It will spawn the map at position (0,0), where the player starts
 			#if global_x == 0 and global_y == 0:
-				#cell.map_id = "forest_burned_00"
+				#cell.map_id = "survivor_gas_station"
 
 			# Add the cell to the grid's cells dictionary
 			cells[cell_key] = cell
@@ -928,3 +931,43 @@ func get_cell_from_global_pos(global_pos: Vector2):
 	if cells.has(global_pos):
 		return cells[global_pos]
 	return null
+
+
+# Function to pick a random RMap object based on weight
+func pick_random_rmap_by_weight(maps: Array[RMap]) -> RMap:
+	var total_weight = 0
+
+	# Calculate total weight
+	for map in maps:
+		total_weight += map.weight
+
+	var random_value = randi() % total_weight
+	var current_weight = 0
+
+	# Select map based on weighted probability
+	for map in maps:
+		current_weight += map.weight
+		if random_value < current_weight:
+			return map  # Return the entire RMap object
+
+	return maps[0] if maps.size() > 0 else null  # Fallback to first map or null if empty
+
+
+# Function to pick a random map dictionary based on weight
+func pick_random_map_dict_by_weight(maps: Array[Dictionary]) -> Dictionary:
+	var total_weight = 0
+
+	# Calculate total weight
+	for map in maps:
+		total_weight += map["weight"]
+
+	var random_value = randi() % total_weight
+	var current_weight = 0
+
+	# Select map based on weighted probability
+	for map in maps:
+		current_weight += map["weight"]
+		if random_value < current_weight:
+			return map  # Return the entire dictionary
+
+	return maps[0] if maps.size() > 0 else {"id": "field_grass_basic_00.json", "rotation": 0, "weight": 1}  # Fallback dictionary

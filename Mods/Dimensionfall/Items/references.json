@@ -187,7 +187,8 @@
 			"refridgerator",
 			"vending_machine_drinks",
 			"starting_items",
-			"zombie_loot"
+			"zombie_loot",
+			"loot_gas_station"
 		]
 	},
 	"canned_food": {
@@ -259,7 +260,8 @@
 	},
 	"damaged_concrete_slab": {
 		"itemgroups": [
-			"debris_urban"
+			"debris_urban",
+			"loot_gas_station"
 		]
 	},
 	"damaged_transmitter": {
@@ -312,7 +314,8 @@
 	},
 	"gas_mask": {
 		"itemgroups": [
-			"police_station_locker"
+			"police_station_locker",
+			"loot_gas_station"
 		]
 	},
 	"glass_shards": {
@@ -372,6 +375,11 @@
 			"zombie_loot"
 		]
 	},
+	"jerrycan_gasoline": {
+		"itemgroups": [
+			"loot_gas_station"
+		]
+	},
 	"kiwi": {
 		"itemgroups": [
 			"refridgerator"
@@ -379,7 +387,8 @@
 	},
 	"large_rock": {
 		"itemgroups": [
-			"debris_rock"
+			"debris_rock",
+			"loot_gas_station"
 		]
 	},
 	"leaf": {
@@ -425,7 +434,8 @@
 		"itemgroups": [
 			"generic_field_finds",
 			"debris_urban",
-			"debris_rock"
+			"debris_rock",
+			"loot_gas_station"
 		]
 	},
 	"metal_parts": {
@@ -433,7 +443,8 @@
 			"electronics_damaged",
 			"urban_litter",
 			"debris_urban",
-			"loot_electronic"
+			"loot_electronic",
+			"loot_gas_station"
 		]
 	},
 	"microwave_oven": {
@@ -575,7 +586,8 @@
 	},
 	"rusted_metal_sheets": {
 		"itemgroups": [
-			"debris_urban"
+			"debris_urban",
+			"loot_gas_station"
 		]
 	},
 	"scarf": {
@@ -624,7 +636,8 @@
 		"itemgroups": [
 			"generic_forest_finds",
 			"generic_field_finds",
-			"debris_rock"
+			"debris_rock",
+			"loot_gas_station"
 		]
 	},
 	"small_stick": {
@@ -739,7 +752,8 @@
 	},
 	"wallet": {
 		"itemgroups": [
-			"zombie_loot"
+			"zombie_loot",
+			"loot_gas_station"
 		]
 	},
 	"wrist_watch": {

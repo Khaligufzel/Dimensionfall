@@ -1,0 +1,14799 @@
+{
+	"areas": [
+		{
+			"entities": [],
+			"id": "grass",
+			"pick_one": false,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 600,
+					"id": "grass_plain_01"
+				},
+				{
+					"count": 10,
+					"id": "grass_dirt_00"
+				},
+				{
+					"count": 10,
+					"id": "grass_dirt_02"
+				},
+				{
+					"count": 10,
+					"id": "grass_dirt_01"
+				},
+				{
+					"count": 1,
+					"id": "grass_medium_dirt_00"
+				},
+				{
+					"count": 1,
+					"id": "grass_medium_dirt_01"
+				},
+				{
+					"count": 1,
+					"id": "grass_medium_dirt_02"
+				},
+				{
+					"count": 1,
+					"id": "grass_flowers_00"
+				},
+				{
+					"count": 1,
+					"id": "grass_flowers_01"
+				},
+				{
+					"count": 1,
+					"id": "grass_flowers_02"
+				},
+				{
+					"count": 1,
+					"id": "grass_flowers_03"
+				}
+			]
+		},
+		{
+			"entities": [
+				{
+					"count": 1,
+					"id": "Tree_00",
+					"type": "furniture"
+				},
+				{
+					"count": 1,
+					"id": "PineTree_00",
+					"type": "furniture"
+				},
+				{
+					"count": 1,
+					"id": "WillowTree_00",
+					"type": "furniture"
+				}
+			],
+			"id": "trees",
+			"pick_one": false,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 800,
+					"id": "null"
+				}
+			]
+		},
+		{
+			"entities": [
+				{
+					"count": 1,
+					"id": "basic_zombies",
+					"type": "mobgroup"
+				}
+			],
+			"id": "zombies",
+			"pick_one": false,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 200,
+					"id": "null"
+				}
+			]
+		},
+		{
+			"entities": [
+				{
+					"count": 1,
+					"id": "generic_field_finds",
+					"type": "itemgroup"
+				}
+			],
+			"id": "field_finds",
+			"pick_one": false,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 2000,
+					"id": "null"
+				}
+			]
+		},
+		{
+			"entities": [
+				{
+					"count": 10,
+					"id": "crate_wood",
+					"type": "furniture"
+				},
+				{
+					"count": 10,
+					"id": "crate_wood_long",
+					"type": "furniture"
+				},
+				{
+					"count": 10,
+					"id": "loot_gas_station",
+					"type": "itemgroup"
+				},
+				{
+					"count": 2,
+					"id": "destroyed_furniture_medium",
+					"type": "itemgroup"
+				},
+				{
+					"count": 2,
+					"id": "urban_litter",
+					"type": "itemgroup"
+				},
+				{
+					"count": 1,
+					"id": "debris_urban",
+					"type": "itemgroup"
+				}
+			],
+			"id": "gasstation_junk",
+			"pick_one": false,
+			"rotate_random": true,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 200,
+					"id": "null"
+				}
+			]
+		},
+		{
+			"entities": [
+				{
+					"count": 1,
+					"id": "destroyed_furniture_medium",
+					"type": "itemgroup"
+				},
+				{
+					"count": 1,
+					"id": "debris_urban",
+					"type": "itemgroup"
+				},
+				{
+					"count": 1,
+					"id": "debris_rock",
+					"type": "itemgroup"
+				}
+			],
+			"id": "rubble",
+			"pick_one": false,
+			"rotate_random": false,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 8,
+					"id": "null"
+				}
+			]
+		},
+		{
+			"entities": [
+				{
+					"count": 1,
+					"id": "destroyed_furniture_medium",
+					"type": "itemgroup"
+				}
+			],
+			"id": "destroyed_furniture",
+			"pick_one": false,
+			"rotate_random": false,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 12,
+					"id": "null"
+				}
+			]
+		}
+	],
+	"categories": [
+		"Infrastructure",
+		"Road"
+	],
+	"connections": {
+		"east": "road",
+		"north": "ground",
+		"south": "ground",
+		"west": "road"
+	},
+	"description": "A standard urban road, suitable for city environments.",
+	"id": "survivor_gas_station",
+	"levels": [
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_02",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 90
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "tool_bench",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "lamp_standing",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "tattered_couch",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "trash_bin",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "rusted_fridge",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "lamp_standing",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "door_wood",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "equipment_rack",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "survivor_cot",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "survivor_cot",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "survivor_cot",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "crate_wood_long",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "crate_wood_long",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "crate_wood",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "door_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "rubble",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 90
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "bulletin_board",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_dirt_02"
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 270
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "gas_pump",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "road_asphalt_basic"
+			},
+			{
+				"furniture": {
+					"id": "gas_pump",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "sandbag_barricade",
+					"itemgroups": []
+				},
+				"id": "road_asphalt_basic"
+			},
+			{
+				"furniture": {
+					"id": "sandbag_barricade",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "campfire_off",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_00",
+				"rotation": 90
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 90
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 0
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 0
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 0
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "gasstation_junk",
+						"rotation": 0
+					}
+				],
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 180
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "sandbag_barricade",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "sandbag_barricade",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "sandbag_barricade",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "sandbag_barricade",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "road_asphalt_basic"
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "road_asphalt_basic"
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"furniture": {
+					"id": "chain_link_fence",
+					"itemgroups": []
+				},
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"furniture": {
+					"id": "car_00",
+					"itemgroups": []
+				},
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 270
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"furniture": {
+					"id": "gas_pump",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"furniture": {
+					"id": "gas_pump",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "gas_pump",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "gas_pump",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 270
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"furniture": {
+					"id": "gas_pump",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_01"
+			},
+			{
+				"furniture": {
+					"id": "gas_pump",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "gas_pump",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_02"
+			},
+			{
+				"furniture": {
+					"id": "gas_pump",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_horizontal_top",
+				"rotation": 180
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"furniture": {
+					"id": "car_00",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_horizontal_top"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "road_asphalt_basic"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_02",
+				"rotation": 270
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "door_wood",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "desk",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "control_panel",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "trash_bin",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "cabinet_wood_00",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "display_case",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "display_case",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "bookcase_wood_00",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "store_shelf",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_02"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "store_shelf",
+					"itemgroups": []
+				},
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "store_shelf",
+					"itemgroups": []
+				},
+				"id": "concrete__cracked_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "vending_machine",
+					"itemgroups": [
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "vending_machine",
+					"itemgroups": [
+						"vending_machine_drinks",
+						"vending_machine_snacks"
+					],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 270
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"furniture": {
+					"id": "chair_office",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "door_wood",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "cash_register",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "destroyed_furniture",
+						"rotation": 0
+					}
+				],
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": [],
+					"rotation": 270
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": [],
+					"rotation": 90
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_02",
+				"rotation": 90
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_debris_02"
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete__cracked_02"
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_debris_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"furniture": {
+					"id": "window_glass",
+					"itemgroups": [],
+					"rotation": 180
+				},
+				"id": "concrete__cracked_02"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_01"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete__cracked_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_00",
+				"rotation": 270
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 180
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_dirt_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_dirt_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_dirt_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_dirt_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					},
+					{
+						"id": "trees",
+						"rotation": 0
+					},
+					{
+						"id": "zombies",
+						"rotation": 90
+					},
+					{
+						"id": "field_finds",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01",
+				"rotation": 90
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_02"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_dirt_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_medium_dirt_00"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			},
+			{
+				"areas": [
+					{
+						"id": "grass",
+						"rotation": 0
+					}
+				],
+				"id": "grass_plain_01"
+			}
+		],
+		[
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+				"id": "concrete_00"
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			}
+		],
+		[
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 0
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 0
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_02",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete_00",
+				"rotation": 180
+			},
+			{
+				"id": "concrete__cracked_debris_01",
+				"rotation": 180
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			}
+		],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[]
+	],
+	"mapheight": 32,
+	"mapwidth": 32,
+	"name": "Urban Road",
+	"weight": 15
+}

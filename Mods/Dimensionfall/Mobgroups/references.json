@@ -2,7 +2,8 @@
 	"basic_zombies": {
 		"maps": [
 			"urbanroad",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		],
 		"quests": [
 			"quest_holy_crusade_01",

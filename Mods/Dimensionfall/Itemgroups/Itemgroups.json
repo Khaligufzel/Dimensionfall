@@ -1624,5 +1624,75 @@
 		"name": "Starting items",
 		"sprite": "jacket_32.png",
 		"use_sprite": false
+	},
+	{
+		"description": "Stuff you find at a gas station",
+		"id": "loot_gas_station",
+		"items": [
+			{
+				"id": "wallet",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "rusted_metal_sheets",
+				"max": 1,
+				"min": 1,
+				"probability": 5
+			},
+			{
+				"id": "damaged_concrete_slab",
+				"max": 1,
+				"min": 1,
+				"probability": 5
+			},
+			{
+				"id": "medium_rock",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "small_rock",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "large_rock",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "can_soda",
+				"max": 1,
+				"min": 1,
+				"probability": 21
+			},
+			{
+				"id": "metal_parts",
+				"max": 1,
+				"min": 1,
+				"probability": 10
+			},
+			{
+				"id": "gas_mask",
+				"max": 1,
+				"min": 1,
+				"probability": 20
+			},
+			{
+				"id": "jerrycan_gasoline",
+				"max": 1,
+				"min": 1,
+				"probability": 85
+			}
+		],
+		"mode": "Collection",
+		"name": "Gas station loot",
+		"sprite": "jerrycan_gas_32.png",
+		"use_sprite": false
 	}
 ]

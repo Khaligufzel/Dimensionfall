@@ -21,7 +21,8 @@
 			"scrap_yard",
 			"warehouse_storage",
 			"military_bunker",
-			"crater_small"
+			"crater_small",
+			"survivor_gas_station"
 		]
 	},
 	"debris_urban": {
@@ -31,10 +32,18 @@
 			"scrap_yard",
 			"factory_hall",
 			"warehouse_storage",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"destroyed_furniture_medium": {
+		"furnitures": [
+			"gas_pump",
+			"makeshift_barricade",
+			"rusted_fridge",
+			"survivor_cot",
+			"chain_link_fence"
+		],
 		"maps": [
 			"neighborhood_school",
 			"subway_station",
@@ -46,7 +55,8 @@
 			"industrial_control_center",
 			"factory_hall",
 			"warehouse_storage",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"electronics_damaged": {
@@ -94,7 +104,8 @@
 			"RockyHill_SW",
 			"field_grass_hill_00",
 			"military_bunker",
-			"crater_small"
+			"crater_small",
+			"survivor_gas_station"
 		]
 	},
 	"generic_forest_finds": {
@@ -123,6 +134,11 @@
 			"venom_crawler",
 			"disruptor_drone",
 			"scavenger_skitter"
+		]
+	},
+	"loot_gas_station": {
+		"maps": [
+			"survivor_gas_station"
 		]
 	},
 	"mob_loot": {
@@ -172,7 +188,8 @@
 			"parking_garage",
 			"police_station",
 			"warehouse_storage",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"vending_machine_drinks": {
@@ -185,7 +202,8 @@
 			"store_electronic_clothing",
 			"industrial_control_center",
 			"factory_hall",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"vending_machine_snacks": {
@@ -198,7 +216,8 @@
 			"police_station",
 			"industrial_control_center",
 			"factory_hall",
-			"military_bunker"
+			"military_bunker",
+			"survivor_gas_station"
 		]
 	},
 	"zombie_loot": {
