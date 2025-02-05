@@ -4489,8 +4489,7 @@
 						"rotation": 0
 					}
 				],
-				"id": "road_asphalt_basic",
-				"rotation": 90
+				"id": "road_asphalt_horizontal_top"
 			},
 			{
 				"areas": [
@@ -4830,6 +4829,11 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5024,6 +5028,11 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5071,6 +5080,11 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5263,6 +5277,11 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5302,6 +5321,11 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5386,6 +5410,11 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5425,6 +5454,11 @@
 				"id": "grass_dirt_02"
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5439,18 +5473,38 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -5459,14 +5513,29 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 180
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -5529,26 +5598,51 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5569,6 +5663,11 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5579,6 +5678,11 @@
 				"id": "grass_dirt_00"
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -5727,6 +5831,11 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5750,6 +5859,11 @@
 				"id": "grass_dirt_02"
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5760,6 +5874,11 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -5917,6 +6036,11 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5936,6 +6060,11 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -5946,6 +6075,11 @@
 				"id": "grass_plain_01"
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 90
+				},
 				"id": "dirt_light_00",
 				"rotation": 270
 			},
@@ -6093,6 +6227,11 @@
 				"id": "grass_dirt_01"
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -6121,6 +6260,11 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -6287,6 +6431,11 @@
 				"id": "grass_dirt_01"
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -6307,6 +6456,11 @@
 				"rotation": 90
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -6527,6 +6681,11 @@
 				"id": "grass_medium_dirt_00"
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -6555,6 +6714,11 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -6772,6 +6936,11 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -6791,6 +6960,11 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -6911,8 +7085,9 @@
 					}
 				],
 				"furniture": {
-					"id": "chair_wood",
-					"rotation": 90
+					"id": "tattered_couch",
+					"itemgroups": [],
+					"rotation": 270
 				},
 				"id": "floor_wood_boards_08"
 			},
@@ -6989,6 +7164,11 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -7011,6 +7191,11 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -7226,6 +7411,11 @@
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -7249,6 +7439,11 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": [],
+					"rotation": 270
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
@@ -7351,46 +7546,90 @@
 				"rotation": 270
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
 			{
+				"furniture": {
+					"id": "destroyed_fence",
+					"itemgroups": []
+				},
 				"id": "dirt_light_00",
 				"rotation": 180
 			},
