@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://drl78uuphij1l"]
 
-[ext_resource type="PackedScene" uid="uid://cesy3sdpbal3f" path="res://Scenes/input_manager.tscn" id="1_78rss"]
+[ext_resource type="PackedScene" path="res://Scenes/input_manager.tscn" id="1_78rss"]
 [ext_resource type="Script" path="res://LevelGenerator.gd" id="1_i8qa4"]
 [ext_resource type="Script" path="res://LevelManager.gd" id="2_gm6x7"]
 [ext_resource type="Material" uid="uid://ot2fpooebty0" path="res://Defaults/Blocks/Materials/construction_ghost_material.tres" id="4_ujcgp"]
@@ -56,12 +56,13 @@ construction_ghost = NodePath("ConstructionGhost")
 LevelGenerator = NodePath("../LevelGenerator")
 hud = NodePath("../../HUD")
 
-[node name="ConstructionGhost" type="MeshInstance3D" parent="TacticalMap/BuildManager" node_paths=PackedStringArray("buildmanager", "construction_ghost_area_3d", "construction_ghost_collision_shape_3d")]
+[node name="ConstructionGhost" type="MeshInstance3D" parent="TacticalMap/BuildManager" node_paths=PackedStringArray("player", "buildmanager", "construction_ghost_area_3d", "construction_ghost_collision_shape_3d")]
 editor_description = "Visualizes the construction of blocks and slopes for the player"
 visible = false
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_usfn3")
 script = ExtResource("5_iwiv4")
+player = NodePath("../../Entities/Player")
 buildmanager = NodePath("..")
 construction_ghost_area_3d = NodePath("../ConstructionGhostArea3D")
 construction_ghost_collision_shape_3d = NodePath("../ConstructionGhostArea3D/ConstructionGhostCollisionShape3D")

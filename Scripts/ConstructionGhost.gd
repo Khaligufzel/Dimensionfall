@@ -5,7 +5,6 @@ extends MeshInstance3D
 
 # Reference to the player node
 @export var player: Node3D
-@export var sceneCam: Camera3D
 @export var buildmanager: Node3D
 @export var construction_ghost_area_3d: Area3D = null
 @export var construction_ghost_collision_shape_3d: CollisionShape3D = null
@@ -64,9 +63,9 @@ func _process(_delta):
 func get_mouse_3d_position() -> Vector3:
 	var mouse_position_2d = get_viewport().get_mouse_position()
 	var plane = Plane(Vector3.UP, player.global_position.y + y_offset)
-	var ray_origin = sceneCam.project_ray_origin(mouse_position_2d)
-	var ray_direction = sceneCam.project_ray_normal(mouse_position_2d)
-	var mouse_position = ray_origin + ray_direction * sceneCam.global_transform.origin.distance_to(plane.project(ray_origin))
+	var ray_origin = player.camera_3d.project_ray_origin(mouse_position_2d)
+	var ray_direction = player.camera_3d.project_ray_normal(mouse_position_2d)
+	var mouse_position = ray_origin + ray_direction * player.camera_3d.global_transform.origin.distance_to(plane.project(ray_origin))
 	
 	return Vector3(mouse_position.x, player.global_position.y + y_offset, mouse_position.z)
 
