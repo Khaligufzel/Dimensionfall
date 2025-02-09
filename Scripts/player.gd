@@ -43,6 +43,8 @@ var knockback_distance_remaining: float = 0.0
 @export var collision_detector : Area3D # Used for detecting collision with furniture
 @export var testing: bool = false # Used to test in the test_environment
 @export var interact_range : float = 10
+@export var camera_3d: Camera3D = null
+
 
 #@export var progress_bar : NodePath
 #@export var progress_bar_filling : NodePath

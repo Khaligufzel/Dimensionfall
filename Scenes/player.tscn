@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://delyq5g2t13cx" path="res://Defaults/Player/weapon_right.png" id="10_j5u52"]
 [ext_resource type="PackedScene" uid="uid://c6txt3py4smbb" path="res://front_light.tscn" id="11_b146k"]
 [ext_resource type="Script" path="res://front_light.gd" id="12_5v7lk"]
-[ext_resource type="PackedScene" uid="uid://bisxe8aexlshr" path="res://day_night.tscn" id="13_4vnbq"]
+[ext_resource type="PackedScene" path="res://day_night.tscn" id="13_4vnbq"]
 [ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="14_h4gah"]
 [ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="15_paufw"]
 [ext_resource type="Script" path="res://Scripts/ItemDetector.gd" id="16_gq4uc"]
@@ -46,7 +46,7 @@ points = PackedVector3Array(0, 0, 0.325, -1, -1, 0.325, -1, 1, 0.325, 0, 0, -0.3
 height = 1.0
 radius = 1.5
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sprite", "collision_detector") groups=["Players"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sprite", "collision_detector", "camera_3d") groups=["Players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)
 collision_mask = 22
 floor_constant_speed = true
@@ -54,6 +54,7 @@ floor_max_angle = 0.872665
 script = ExtResource("1_8wv3l")
 sprite = NodePath("Sprite3D2")
 collision_detector = NodePath("Sprite3D2/CollisionDetector")
+camera_3d = NodePath("Camera3D")
 
 [node name="Camera3D" type="Camera3D" parent="." groups=["Camera"]]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 19, 0)
