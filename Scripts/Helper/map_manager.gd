@@ -27,20 +27,25 @@ func process_area_data(area_data: Dictionary, original_tile_id: String, picked_t
 	return result
 
 
-# Function to get a random rotation
+# Function to get a random rotation or return -1 if rotate_random is false
 func _get_random_rotation(area_data: Dictionary) -> int:
 	var rotate_random: bool = area_data.get("rotate_random", false)
-	return [0, 90, 180, 270].pick_random() if rotate_random else 0
+	return [0, 90, 180, 270].pick_random() if rotate_random else -1
 
 
 # Function to process and assign tile ID
 func _process_tile_id(area_data: Dictionary, original_tile_id: String, result: Dictionary, picked_tile: Dictionary = {}) -> void:
 	var tiles_data = area_data.get("tiles", [])
 
+	# Determine rotation using the new logic
+	var rotation = _get_random_rotation(area_data)
+	if rotation == -1:
+		rotation = area_data.get("rotation", 0)  # Use area-defined rotation if no random rotation is applied
+
 	# Check if pick_one is set to true and a tile has already been picked for this cluster
 	if picked_tile and not picked_tile.is_empty() and not picked_tile["id"] == "null":
 		result["id"] = picked_tile["id"]
-		result["rotation"] = _get_random_rotation(area_data)
+		result["rotation"] = rotation
 		return  # Exit the function since the tile has been set
 
 	# If no tile has been picked or pick_one is false, pick a new tile
@@ -52,8 +57,7 @@ func _process_tile_id(area_data: Dictionary, original_tile_id: String, result: D
 			result["id"] = original_tile_id  # Keep the original tile ID
 		else:
 			result["id"] = new_picked_tile["id"]
-			# Apply the rotation to the result
-			result["rotation"] = _get_random_rotation(area_data)
+			result["rotation"] = rotation  # Apply the determined rotation
 
 
 # Function to process entities data and add them to result
@@ -77,6 +81,9 @@ func _process_entities_data(area_data: Dictionary, result: Dictionary) -> void:
 		var selected_entity = pick_item_based_on_count(entities_data)
 		if selected_entity["type"] != "None":
 			var rotation = _get_random_rotation(area_data)
+			if rotation == -1:
+				rotation = area_data.get("rotation", 0)
+
 			match selected_entity["type"]:
 				"furniture":
 					result["furniture"] = {"id": selected_entity["id"], "rotation": rotation}
@@ -106,36 +113,6 @@ func calculate_total_count(items: Array) -> int:
 	for item in items:
 		total_count += item["count"]
 	return total_count
-
-
-# Apply an area to a tile, overwriting its id based on a picked tile
-# It will loop over all selected areas from mapdata in order, from top to bottom
-# Each area will pick a new tile id for this tile, so it may be overwritten more than once
-# This only happens if the tile has more than one area (i.e., overlapping areas)
-# The order of areas in the tile doesn't matter, only the order of areas in the mapdata.
-func apply_area_to_tile(tile: Dictionary, selected_areas: Array, mapData: Dictionary) -> void:
-	# Store the areas property from the tile data into a variable
-	var tile_areas = tile.get("areas", [])
-	
-	# Loop over every area from the selected areas
-	for area in selected_areas:
-		# Check if the area ID is present in the tile's areas list
-		for tile_area in tile_areas:
-			if area["id"] == tile_area["id"]:
-				var original_tile_id = tile.get("id", "")  # Store the original tile ID
-				var area_data = get_area_data_by_id(area["id"], mapData)
-				var processed_data = process_area_data(area_data, original_tile_id)
-				# Check if any of ["mob", "furniture", "itemgroups"] are in tile.keys()
-				var entities_to_check = ["mob", "furniture", "mobgroup", "itemgroups"]
-				var new_has_entities = entities_to_check.any(func(entity): return processed_data.has(entity))
-				
-				if new_has_entities:
-					# The processed data has an entity. Erase existing entities from the tile
-					for key in entities_to_check:
-						tile.erase(key)
-				for key in processed_data.keys():
-					tile[key] = processed_data[key]
-	tile.erase("areas")
 
 
 # Function to get area data by ID
@@ -230,10 +207,10 @@ func process_areas_in_map(mapdata: Dictionary):
 	apply_areas_to_tiles(selected_areas, mapdata)
 
 
-
 # Helper function to check if a position is within bounds
 func is_within_bounds(x: int, y: int, width: int, height: int) -> bool:
 	return x >= 0 and y >= 0 and x < width and y < height
+
 
 # Function to get adjacent tile positions (up, down, left, right)
 func get_adjacent_positions(pos: Vector2) -> Array:
@@ -243,6 +220,7 @@ func get_adjacent_positions(pos: Vector2) -> Array:
 		Vector2(pos.x, pos.y - 1),  # Up
 		Vector2(pos.x, pos.y + 1)   # Down
 	]
+
 
 # Flood-fill function to find a cluster of tiles
 func flood_fill(level: Array, area_id: String, start_pos: Vector2, visited: Dictionary, width: int, height: int) -> Array:
@@ -345,6 +323,19 @@ func apply_area_clusters_to_tiles(level: Array, area_id: String, mapData: Dictio
 			var original_tile_id = tile.get("id", "")
 			var processed_data = process_area_data(area_data, original_tile_id, picked_tile)
 
+			# Step 1: Get a random rotation first
+			var tile_rotation = _get_random_rotation(area_data)
+
+			# Step 2: If random rotation is -1, get rotation from the tile's area data
+			if tile_rotation == -1 and tile.has("areas"):
+				for area in tile["areas"]:
+					if area.get("id") == area_id:
+						tile_rotation = area.get("rotation", 0)  # Get rotation from the area inside tile
+						break
+
+			# Apply rotation to the processed data
+			processed_data["rotation"] = tile_rotation if tile_rotation > -1 else 0
+
 			# Remove existing entities if new entities are present in processed data
 			var entities_to_check = ["mob", "furniture", "mobgroup", "itemgroups"]
 			var new_has_entities = entities_to_check.any(func(entity): return processed_data.has(entity))
@@ -356,9 +347,11 @@ func apply_area_clusters_to_tiles(level: Array, area_id: String, mapData: Dictio
 
 			# Apply the processed data to the tile
 			for key in processed_data.keys():
-				tile[key] = processed_data[key]
-
-
+				if key in ["mob", "furniture", "mobgroup"]:
+					# If key is an entity, also apply rotation
+					tile[key] = {"id": processed_data[key]["id"], "rotation": tile_rotation}
+				else:
+					tile[key] = processed_data[key]
 
 
 # Modify the existing function to integrate clusters when applying areas to tiles

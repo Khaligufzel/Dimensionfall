@@ -110,15 +110,18 @@ func set_tooltip(tileData: Dictionary) -> void:
 		tooltiptext += "Tile Item areas: " + str(tileData.itemgroups) + "\n"
 	else:
 		tooltiptext += "Tile Item areas: None\n"
-	
+
 	# Display areas information
 	if tileData.has("areas"):
 		tooltiptext += "Tile areas: "
 		for area in tileData.areas:
-			tooltiptext += area.id + ", "
+			var rotation_text = " (" + str(area.get("rotation", 0)) + ")"  # Get rotation or default to 0
+			tooltiptext += area.id + rotation_text + ", "
+		tooltiptext = tooltiptext.rstrip(", ")  # Remove the last comma and space
 		tooltiptext += "\n"
 	else:
 		tooltiptext += "Tile areas: None\n"
+
 	
 	# Set the tooltip
 	self.tooltip_text = tooltiptext
