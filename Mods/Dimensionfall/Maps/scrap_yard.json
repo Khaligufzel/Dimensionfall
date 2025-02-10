@@ -136,6 +136,40 @@
 					"id": "null"
 				}
 			]
+		},
+		{
+			"entities": [
+				{
+					"count": 1,
+					"id": "car_00",
+					"type": "furniture"
+				},
+				{
+					"count": 1,
+					"id": "car_01",
+					"type": "furniture"
+				},
+				{
+					"count": 1,
+					"id": "truck_wreck_01",
+					"type": "furniture"
+				},
+				{
+					"count": 1,
+					"id": "tanker_wreck_01",
+					"type": "furniture"
+				}
+			],
+			"id": "cars",
+			"pick_one": false,
+			"rotate_random": false,
+			"spawn_chance": 100,
+			"tiles": [
+				{
+					"count": 1,
+					"id": "null"
+				}
+			]
 		}
 	],
 	"categories": [
@@ -3088,6 +3122,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "cars",
+						"rotation": 90
 					}
 				],
 				"id": "concrete_00",
@@ -3100,11 +3138,6 @@
 						"rotation": 0
 					}
 				],
-				"furniture": {
-					"id": "car_00",
-					"itemgroups": [],
-					"rotation": 90
-				},
 				"id": "concrete_00",
 				"rotation": 270
 			},
@@ -4295,13 +4328,12 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "cars",
+						"rotation": 90
 					}
 				],
-				"furniture": {
-					"id": "truck_wreck_01",
-					"itemgroups": [],
-					"rotation": 90
-				},
 				"id": "concrete_00",
 				"rotation": 90
 			},
@@ -5517,6 +5549,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "cars",
+						"rotation": 90
 					}
 				],
 				"id": "concrete__cracked_debris_01",
@@ -5529,11 +5565,6 @@
 						"rotation": 0
 					}
 				],
-				"furniture": {
-					"id": "tanker_wreck_01",
-					"itemgroups": [],
-					"rotation": 90
-				},
 				"id": "concrete_00"
 			},
 			{
@@ -6702,6 +6733,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "cars",
+						"rotation": 90
 					}
 				],
 				"id": "concrete__cracked_02",
@@ -6714,11 +6749,6 @@
 						"rotation": 0
 					}
 				],
-				"furniture": {
-					"id": "car_01",
-					"itemgroups": [],
-					"rotation": 90
-				},
 				"id": "concrete_00"
 			},
 			{
@@ -7225,11 +7255,6 @@
 						"rotation": 0
 					}
 				],
-				"furniture": {
-					"id": "tanker_wreck_01",
-					"itemgroups": [],
-					"rotation": 270
-				},
 				"id": "concrete__cracked_01",
 				"rotation": 180
 			},
@@ -7238,6 +7263,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "cars",
+						"rotation": 270
 					}
 				],
 				"id": "concrete__cracked_02",
@@ -7841,6 +7870,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "cars",
+						"rotation": 90
 					}
 				],
 				"id": "concrete_00",
@@ -7853,11 +7886,6 @@
 						"rotation": 0
 					}
 				],
-				"furniture": {
-					"id": "car_00",
-					"itemgroups": [],
-					"rotation": 90
-				},
 				"id": "concrete_00",
 				"rotation": 90
 			},
@@ -9050,6 +9078,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "cars",
+						"rotation": 90
 					}
 				],
 				"id": "concrete_00",
@@ -9062,11 +9094,6 @@
 						"rotation": 0
 					}
 				],
-				"furniture": {
-					"id": "tanker_wreck_01",
-					"itemgroups": [],
-					"rotation": 90
-				},
 				"id": "concrete__cracked_02",
 				"rotation": 180
 			},
@@ -10049,6 +10076,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "cars",
+						"rotation": 180
 					}
 				],
 				"id": "concrete_00"
@@ -10201,6 +10232,10 @@
 					{
 						"id": "concrete_floor",
 						"rotation": 0
+					},
+					{
+						"id": "cars",
+						"rotation": 180
 					}
 				],
 				"id": "concrete_00"
@@ -10418,11 +10453,6 @@
 						"rotation": 0
 					}
 				],
-				"furniture": {
-					"id": "car_00",
-					"itemgroups": [],
-					"rotation": 180
-				},
 				"id": "concrete__cracked_01",
 				"rotation": 270
 			},
@@ -10573,11 +10603,6 @@
 						"rotation": 0
 					}
 				],
-				"furniture": {
-					"id": "car_01",
-					"itemgroups": [],
-					"rotation": 180
-				},
 				"id": "concrete_00"
 			},
 			{
@@ -10616,11 +10641,6 @@
 						"rotation": 0
 					}
 				],
-				"furniture": {
-					"id": "truck_wreck_01",
-					"itemgroups": [],
-					"rotation": 90
-				},
 				"id": "concrete_00",
 				"rotation": 180
 			},
