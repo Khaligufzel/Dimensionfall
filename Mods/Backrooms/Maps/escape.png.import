@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://4uoyb066glyb"
-path="res://.godot/imported/escape?.png-e883f708043a93ab3e64f30df3bda836.ctex"
+path="res://.godot/imported/escape.png-4ecb9e5a0918d6038541b52d26090793.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Mods/Backrooms/Maps/escape?.png"
-dest_files=["res://.godot/imported/escape?.png-e883f708043a93ab3e64f30df3bda836.ctex"]
+source_file="res://Mods/Backrooms/Maps/escape.png"
+dest_files=["res://.godot/imported/escape.png-4ecb9e5a0918d6038541b52d26090793.ctex"]
 
 [params]
 
