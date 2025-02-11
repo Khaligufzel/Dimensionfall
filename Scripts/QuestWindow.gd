@@ -69,12 +69,24 @@ func initialize_quests():
 # Function to handle quest completion
 func _on_quest_complete(quest: Dictionary):
 	var quest_id = quest.quest_name
-	
+
+	# Prevent duplicate entries in the completed quest list
+	if is_quest_in_list(quest_id, completed_quests_list):
+		return  # Quest is already marked as completed, so exit early
+
 	# Move the quest to the completed quests list
 	remove_quest_from_list(quest_id, current_quests_list)
 	add_quest_to_list(quest_id, completed_quests_list)
-	
+
 	_update_quest_details()
+
+
+# Helper function to check if a quest is already in a given list
+func is_quest_in_list(quest_id: String, list: ItemList) -> bool:
+	for i in range(list.get_item_count()):
+		if list.get_item_metadata(i) == quest_id:
+			return true
+	return false
 
 
 func remove_quest_from_list(quest_id: String, list: ItemList):
