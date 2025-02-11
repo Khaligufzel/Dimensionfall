@@ -7,7 +7,7 @@
 		"sprite": "",
 		"steps": [
 			{
-				"map_id": "escape?",
+				"map_id": "escape",
 				"reveal_condition": "HIDDEN",
 				"type": "enter"
 			}
