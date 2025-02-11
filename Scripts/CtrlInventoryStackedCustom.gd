@@ -45,6 +45,8 @@ var header_sort_order: Dictionary = {}
 var mouse_press_position: Vector2 = Vector2()
 var selection_state_changed: bool = false
 var ui_updates_enabled = true
+var last_sorted_column: String = ""  # Stores the last sorted column
+var last_sort_order: bool = false  # Stores whether sorting was reversed
 
 
 # Signals for context menu actions
@@ -161,7 +163,12 @@ func update_inventory_list(changedItem: InventoryItem, action: String):
 		if add_item:
 			var row_name = "item_row_" + str(item.get_name())
 			_add_item_to_grid(item, row_name)
+
 	_update_bars(changedItem, action)
+
+	# **Reapply last sorting after inventory updates**
+	if last_sorted_column != "":
+		_sort_inventory_by_property(last_sorted_column, last_sort_order)
 
 
 # Gets the row name from an item
@@ -439,23 +446,31 @@ func _sort_items(a, b):
 
 # When a header is clicked, we will apply sorting to that column
 func _on_header_clicked(headerItem: Control) -> void:
-	var header_mapping = {"I": "icon", "Name": "name", "S": "stack_size", "W": "weight", "V": "volume", "F": "favorite"}
+	var header_mapping = {
+		"I": "icon", "Name": "name", "S": "stack_size",
+		"W": "weight", "V": "volume", "F": "favorite"
+	}
 	var header_label = headerItem.get_label_text()
 
 	var reverse_order = false
 	if selected_header == header_label and header_label in header_sort_order:
-		# Reverse the sort order if the same header is clicked again
+		# Reverse order if the same header is clicked again
 		reverse_order = !header_sort_order[header_label]
 
 	if selected_header != header_label:
-		# Update the visual state of the previously selected header
+		# Update previous header state
 		if selected_header in header_controls:
 			header_controls[selected_header].unselect_item()
 		selected_header = header_label
 		headerItem.select_item()
 
 	if header_label in header_mapping:
-		_sort_inventory_by_property(header_mapping[header_label], reverse_order)
+		# Store sorting preferences
+		last_sorted_column = header_mapping[header_label]
+		last_sort_order = reverse_order
+
+		# Apply sorting
+		_sort_inventory_by_property(last_sorted_column, last_sort_order)
 		header_sort_order[header_label] = reverse_order
 
 
