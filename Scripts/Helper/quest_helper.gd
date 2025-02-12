@@ -127,11 +127,19 @@ func _on_step_complete(step: Dictionary):
 # step: the new step in the quest
 func _on_next_step(step: Dictionary):
 	check_and_emit_target_map(step)
-	# The player might already have the item for the next step so check it
+
+	# Extract step metadata (stepjson)
+	var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
+
+	# If the step has a "description", update the quest description
+	if stepmeta.has("description"):
+		var quest = QuestManager.get_quest(tracked_quest)
+		if quest:
+			quest.set_quest_details(stepmeta["description"])
+
+	# The player might already have the item for the next step, so check it
 	match step.get("step_type", ""):	
-		QuestManager.INCREMENTAL_STEP:
-			update_quest_by_inventory(null)
-		QuestManager.ITEMS_STEP:
+		QuestManager.INCREMENTAL_STEP, QuestManager.ITEMS_STEP:
 			update_quest_by_inventory(null)
 
 
@@ -178,6 +186,14 @@ func create_quest_from_data(quest_data: RQuest):
 
 
 # Add a quest step to the quest. In this case, the step is just a dictionary with some data
+# Example step dictionary:
+#			{
+#				"amount": 1,
+#				"item": "long_stick",
+#				"tip": "You can find one in the forest",
+#				"description": "This stick will help figure out the truth!", # updates the quest description
+#				"type": "collect"
+#			}
 func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 	match step.type:
 		"collect":
