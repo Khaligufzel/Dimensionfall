@@ -19,6 +19,7 @@ extends RefCounted
 #				"amount": 1,
 #				"item": "long_stick",
 #				"tip": "You can find one in the forest",
+#				"description": "This stick will help figure out the truth!", # updates the quest description
 #				"type": "collect"
 #			}
 #			{

@@ -128,10 +128,14 @@ func _on_save_button_button_up() -> void:
 			var map_guide_option_button: OptionButton = hbox.get_child(3)
 			step["map_guide"] = map_guide_option_button.get_item_text(map_guide_option_button.selected)
 
-		# **Retrieve tip from metadata**
+		# **Retrieve tip and description from metadata**
 		var step_tip = hbox.get_meta("tip", "")
 		if step_tip != "":
-			step["tip"] = step_tip  # Only add tip if it is not empty
+			step["tip"] = step_tip  # Only add tip if it's not empty
+
+		var step_description = hbox.get_meta("description", "")
+		if step_description != "":
+			step["description"] = step_description  # Only add description if it's not empty
 
 		dquest.steps.append(step)
 
@@ -155,6 +159,7 @@ func _on_save_button_button_up() -> void:
 	dquest.changed(olddata)
 	data_changed.emit()
 	olddata = DQuest.new(dquest.get_data().duplicate(true), null)
+
 
 
 
@@ -382,9 +387,11 @@ func add_step_from_data(step: Dictionary):
 			hbox = add_kill_step(step)
 	add_step_controls(hbox, step)
 
-	# **Store step tip in metadata**
+	# **Store tip and description in metadata**
 	if step.has("tip"):
 		hbox.set_meta("tip", step["tip"])  # Save tip to metadata
+	if step.has("description"):
+		hbox.set_meta("description", step["description"])  # Save description to metadata
 
 	steps_container.add_child(hbox)
 
@@ -594,14 +601,17 @@ func create_map_guide_option_button() -> OptionButton:
 # Function to open the step properties popup
 func _on_settings_button_pressed(hbox: HBoxContainer):
 	selected_step = hbox  # Store the reference to the step being edited
-	hint_text_edit.text = selected_step.get_meta("tip", "")  # Load existing tip from metadata
+	hint_text_edit.text = selected_step.get_meta("tip", "")  # Load tip from metadata
+	description_text_edit.text = selected_step.get_meta("description", "")  # Load description from metadata
 	step_properties_popup_panel.popup_centered()
 
 # Function to handle OK button press
 func _on_ok_button_pressed():
 	if selected_step:
 		selected_step.set_meta("tip", hint_text_edit.text)  # Store tip in metadata
+		selected_step.set_meta("description", description_text_edit.text)  # Store description in metadata
 	step_properties_popup_panel.hide()
+
 
 # Function to handle Cancel button press
 func _on_cancel_button_pressed():
