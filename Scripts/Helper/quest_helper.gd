@@ -127,15 +127,13 @@ func _on_step_complete(step: Dictionary):
 # step: the new step in the quest
 func _on_next_step(step: Dictionary):
 	check_and_emit_target_map(step)
+	update_active_quest_descriptions()  # Centralized quest description update
 
-	# Extract step metadata (stepjson)
-	var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
+	# The player might already have the item for the next step, so check it
+	match step.get("step_type", ""):	
+		QuestManager.INCREMENTAL_STEP, QuestManager.ITEMS_STEP:
+			update_quest_by_inventory(null)
 
-	# If the step has a "description", update the quest description
-	if stepmeta.has("description"):
-		var quest = QuestManager.get_quest(tracked_quest)
-		if quest:
-			quest.set_quest_details(stepmeta["description"])
 
 	# The player might already have the item for the next step, so check it
 	match step.get("step_type", ""):	
@@ -451,3 +449,15 @@ func _on_item_was_unequipped(heldItem: InventoryItem, _equipmentSlot: Control) -
 		
 		# Reevaluate quests based on the updated inventory
 		update_quest_by_inventory(null)
+
+func update_active_quest_descriptions():
+	var quests_in_progress: Dictionary = QuestManager.get_quests_in_progress()
+	
+	for quest in quests_in_progress.values():
+		var step = QuestManager.get_current_step(quest.quest_name)
+		if not step:
+			continue  # Skip if there is no active step
+
+		var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
+		if stepmeta.has("description"):
+			quest["quest_details"] = stepmeta["description"]  # Update quest description

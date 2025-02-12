@@ -223,7 +223,7 @@ visible = false
 
 [node name="StepPropertiesPopupPanel" type="PopupPanel" parent="."]
 initial_position = 1
-size = Vector2i(800, 261)
+size = Vector2i(800, 277)
 theme_override_styles/panel = SubResource("StyleBoxFlat_fhs5k")
 
 [node name="StepPropertiesVBoxContainer" type="VBoxContainer" parent="StepPropertiesPopupPanel"]
@@ -242,7 +242,7 @@ layout_mode = 2
 text = "Hint (optional): Shows the entered text in the quest window in-game next to the step."
 
 [node name="HintTextEdit" type="TextEdit" parent="StepPropertiesPopupPanel/StepPropertiesVBoxContainer"]
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 placeholder_text = "Open the craft menu (c) to start crafting"
 

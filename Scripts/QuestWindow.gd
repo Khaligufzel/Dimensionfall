@@ -169,7 +169,7 @@ func _update_quest_details():
 	
 	# Update quest title and description
 	quest_details_section.get_node("QuestTitle").text = rquest.name
-	quest_details_section.get_node("QuestDescription").text = rquest.description
+	quest_details_section.get_node("QuestDescription").text = quest.quest_details
 	
 	# Update rewards details
 	update_rewards_details(quest)

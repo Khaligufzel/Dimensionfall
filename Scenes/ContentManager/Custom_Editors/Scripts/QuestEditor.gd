@@ -351,7 +351,7 @@ func add_step_controls(hbox: HBoxContainer, step: Dictionary):
 	var settings_button = Button.new()
 	settings_button.text = "⚙️"  # Use a cog emoji as the button text
 	settings_button.tooltip_text = "Edit step properties"
-	settings_button.pressed.connect(_on_settings_button_pressed)
+	settings_button.pressed.connect(_on_settings_button_pressed.bind(hbox))
 	hbox.add_child(settings_button)
 
 	var move_up_button = Button.new()
