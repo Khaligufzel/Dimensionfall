@@ -29,6 +29,8 @@ extends Control
 signal data_changed()
 
 var olddata: DQuest  # Remember what the value of the data was before editing
+var selected_step: HBoxContainer = null  # Store the selected step when opening the popup
+
 
 # The data that represents this quest
 # The data is selected from dquest.parent.quests
@@ -67,14 +69,15 @@ func load_quest_data() -> void:
 		for child in steps_container.get_children():
 			child.queue_free()
 		for step in dquest.steps:
-			add_step_from_data(step)
-	
+			add_step_from_data(step)  # Loads step UI and metadata
+
 	# Load rewards
 	if rewards_item_list:
 		for child in rewards_item_list.get_children():
 			child.queue_free()
 		for reward in dquest.rewards:
 			add_reward_entry(reward["item_id"], reward["amount"], true)
+
 
 # This function takes all data from the form elements and stores them in the DQuest instance
 # Since dquest is a reference to an item in Gamedata.mods.by_id("Core").quests
@@ -95,30 +98,25 @@ func _on_save_button_button_up() -> void:
 		if step_type_label.text == "Craft item:":
 			step["type"] = "craft"
 			step["item"] = (hbox.get_child(1)).get_text()
-			step["tip"] = (hbox.get_child(2) as TextEdit).text
 		elif step_type_label.text == "Collect:":
 			step["type"] = "collect"
 			step["item"] = (hbox.get_child(1)).get_text()
 			step["amount"] = (hbox.get_child(2) as SpinBox).value
-			step["tip"] = (hbox.get_child(3) as TextEdit).text
 		elif step_type_label.text == "Call function:":
 			step["type"] = "call"
 			step["function"] = (hbox.get_child(1) as OptionButton).get_item_text(0)
 			step["params"] = (hbox.get_child(2) as TextEdit).text
-			step["tip"] = (hbox.get_child(2) as TextEdit).text
 		elif step_type_label.text == "Enter map:":
 			step["type"] = "enter"
 			step["map_id"] = (hbox.get_child(1)).get_text()
 			var myoptionbutton: OptionButton = hbox.get_child(2)
 			step["reveal_condition"] = myoptionbutton.get_item_text(myoptionbutton.selected)
-			step["tip"] = (hbox.get_child(3) as TextEdit).text
 		elif step_type_label.text == "Kill:":
 			step["type"] = "kill"
 			var dropable_control = hbox.get_child(1) as HBoxContainer
 			var mob_or_group = dropable_control.get_text()
 			var entity_type = dropable_control.get_meta("entity_type")
 
-			# Save as mob or mobgroup based on metadata
 			if entity_type == "mob":
 				step["mob"] = mob_or_group
 			elif entity_type == "mobgroup":
@@ -129,11 +127,12 @@ func _on_save_button_button_up() -> void:
 			step["amount"] = (hbox.get_child(2) as SpinBox).value
 			var map_guide_option_button: OptionButton = hbox.get_child(3)
 			step["map_guide"] = map_guide_option_button.get_item_text(map_guide_option_button.selected)
-			step["tip"] = (hbox.get_child(4) as TextEdit).text
-		
-		# Remove "tip" key if it is empty
-		if step["tip"] == "":
-			step.erase("tip")
+
+		# **Retrieve tip from metadata**
+		var step_tip = hbox.get_meta("tip", "")
+		if step_tip != "":
+			step["tip"] = step_tip  # Only add tip if it is not empty
+
 		dquest.steps.append(step)
 
 	# Save rewards
@@ -156,6 +155,7 @@ func _on_save_button_button_up() -> void:
 	dquest.changed(olddata)
 	data_changed.emit()
 	olddata = DQuest.new(dquest.get_data().duplicate(true), null)
+
 
 
 # When the questImageDisplay is clicked, the user will be prompted to select an image from 
@@ -381,6 +381,11 @@ func add_step_from_data(step: Dictionary):
 		"kill":
 			hbox = add_kill_step(step)
 	add_step_controls(hbox, step)
+
+	# **Store step tip in metadata**
+	if step.has("tip"):
+		hbox.set_meta("tip", step["tip"])  # Save tip to metadata
+
 	steps_container.add_child(hbox)
 
 
@@ -587,15 +592,17 @@ func create_map_guide_option_button() -> OptionButton:
 	return option_button
 
 # Function to open the step properties popup
-func _on_settings_button_pressed():
-	step_properties_popup_panel.popup_centered()  # Show the popup at the center
+func _on_settings_button_pressed(hbox: HBoxContainer):
+	selected_step = hbox  # Store the reference to the step being edited
+	hint_text_edit.text = selected_step.get_meta("tip", "")  # Load existing tip from metadata
+	step_properties_popup_panel.popup_centered()
 
 # Function to handle OK button press
 func _on_ok_button_pressed():
-	step_properties_popup_panel.hide()  # Hide the popup
-	print("ok")  # Print confirmation
+	if selected_step:
+		selected_step.set_meta("tip", hint_text_edit.text)  # Store tip in metadata
+	step_properties_popup_panel.hide()
 
 # Function to handle Cancel button press
 func _on_cancel_button_pressed():
 	step_properties_popup_panel.hide()  # Hide the popup
-	print("cancel")  # Print cancellation
