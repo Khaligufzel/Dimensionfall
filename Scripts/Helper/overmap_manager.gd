@@ -48,14 +48,17 @@ var segment_unload_distance: int = 28
 # Dictionary to cache loaded segment data to avoid redundant load calls to save_helper
 var loaded_segments: Dictionary = {}
 
-# Dictionary to hold data of chunks that are unloaded
-# These chunks are the actual 32x32x21 collection of blocks, furniture, mobs and items
-# That makes up the map that the player is walking on.
+# Dictionary to hold data of chunks that are currently loaded or have been unloaded.
+# The data of these chunks are the actual 32x32x21 collection of blocks, furniture, mobs and items
+# - If a chunk is currently active in the game world, its data may still be present here.
+# - If a chunk is unloaded, its data remains stored here for potential reloading.
+# This allows the game to persist chunk states efficiently without needing to reload from disk immediately.
+# Chunk data is added trough Chunk.save_chunk()
 var loaded_chunk_data: Dictionary = {"chunks": {}}
+
 
 var player: Player
 var player_current_cell: Vector2 = Vector2.ZERO # Player's position per cell, updated regularly
-var loaded_chunks = {}
 
 var noise: FastNoiseLite
 

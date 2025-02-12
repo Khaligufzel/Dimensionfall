@@ -1415,3 +1415,7 @@ func spawn_furniture(furniture_data: Dictionary):
 		furniture_blueprint_spawner.spawn_furniture(furniture_data)
 	else:
 		furniture_static_spawner.spawn_furniture(furniture_data)
+
+
+func get_furniture_at_y_level(target_y_level: float) -> Array[FurnitureStaticSrv]:
+	return furniture_static_spawner.get_furniture_at_y_level(target_y_level)

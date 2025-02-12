@@ -1410,3 +1410,18 @@ func transform_into():
 
 	# Remove the instance afterwards and don't add a corpse
 	_die(false)
+
+
+# Takes an item_id and quantity and adds it to the inventory
+func add_item_to_inventory(item_id: String, quantity: int) -> bool:
+	# Check if inventory has items and insert them into the new item
+	if is_container() and container.get_inventory():
+		container.add_item_to_inventory(item_id, quantity)
+		return true
+	return false
+
+# Returns the y position of the furniture.
+# If 'snapped' is true, it returns the y position snapped to the nearest integer.
+func get_y_position(is_snapped: bool = false) -> float:
+	var y_pos = furniture_transform.posy
+	return round(y_pos) if is_snapped else y_pos

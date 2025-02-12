@@ -158,3 +158,19 @@ func _on_melee_attacked_rid(body_rid: RID, attack: Dictionary):
 		var furniturenode: FurnitureStaticSrv = collider_to_furniture[body_rid]
 		if furniturenode.has_method("get_hit"):
 			furniturenode.get_hit(attack)
+
+# Function to get all furniture at the specified y level
+func get_furniture_at_y_level(target_y_level: float) -> Array[FurnitureStaticSrv]:
+	var matching_furniture: Array[FurnitureStaticSrv] = []  # Array to store matching furniture
+
+	# Loop over all tracked furniture instances
+	for furniture in collider_to_furniture.values():
+		if is_instance_valid(furniture):
+			# Get furniture's snapped y position
+			var furniture_y = furniture.get_y_position(true)
+
+			# If y positions match, add to the array
+			if furniture_y == target_y_level:
+				matching_furniture.append(furniture)
+
+	return matching_furniture  # Return the list of furniture at the specified y level

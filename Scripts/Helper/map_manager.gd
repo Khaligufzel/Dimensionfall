@@ -13,6 +13,34 @@ var level_generator: Node = null
 func get_chunk_from_position(position_in_3d_space: Vector3) -> Chunk:
 	return level_generator.get_chunk_from_position(position_in_3d_space)
 
+# Takes an overmap coordinate like -12,-6 or -1,-1 or 0,0 or 1,1 and
+# returns the cunk at that position or null if the chunk doesn't exist
+func get_chunk_from_overmap_coordinate(coordinate: Vector2) -> Chunk:
+	return level_generator.get_chunk(coordinate)
+
+# Takes an item_id (of an RItem) and a quantity and spawns it onto
+# the map that the player is currently on. It will make two attempts:
+# 1. spawn the item at a random static furniture on the same y level as the player
+# We spawn at the same y level to increase the chance that it is reachable
+# 2. TODO: Spawn the item on a free tile on the chunk as an ContainerItem
+func spawn_item_at_current_player_map(item_id: String, quantity: int) -> bool:
+	var player: Player = Helper.overmap_manager.player
+	var player_coordinate: Vector2 = Helper.overmap_manager.player_current_cell
+	var chunk: Chunk = get_chunk_from_overmap_coordinate(player_coordinate)
+	var current_player_y: float = player.get_y_position(true)
+	var same_y_furniture: Array[FurnitureStaticSrv] = chunk.get_furniture_at_y_level(current_player_y)
+	# Filter out furniture that is not a container
+	var container_furniture: Array[FurnitureStaticSrv] = same_y_furniture.filter(func(furniture): 
+		return furniture.is_container()
+	)
+
+	# If there are valid container furniture options, pick one at random
+	if container_furniture.size() > 0:
+		var random_furniture = container_furniture.pick_random()
+		return random_furniture.add_item_to_inventory(item_id, quantity)
+
+	return false
+	
 
 # Function to process area data and assign to tile
 func process_area_data(area_data: Dictionary, original_tile_id: String, picked_tile: Dictionary = {}) -> Dictionary:
