@@ -1470,11 +1470,11 @@ func get_free_position_on_level(y: int) -> Vector3:
 
 # Spawns a mob by its ID at a random free position on the specified Y level.
 # Uses `get_free_position_on_level` to find the position.
-func spawn_mob_at_free_position(mob_id: String, y: int) -> void:
+func spawn_mob_at_free_position(mob_id: String, y: int) -> bool:
 	var free_position: Vector3 = get_free_position_on_level(y)
 	if free_position.y == -1:
 		print_debug("No free position found on level %s for mob %s" % [y, mob_id])
-		return
+		return false
 
 	# Construct the mob JSON as expected by Mob.new() (assuming it takes ID and other params)
 	var mob_json: Dictionary = {"id": mob_id}
@@ -1484,6 +1484,7 @@ func spawn_mob_at_free_position(mob_id: String, y: int) -> void:
 
 	# Parent to level_manager because mobs can move across chunks
 	level_manager.add_child.call_deferred(new_mob)
+	return true
 
 
 # Spawns a single item by its ID at a random free position on the specified Y level.

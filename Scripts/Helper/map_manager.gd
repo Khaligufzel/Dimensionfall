@@ -42,6 +42,20 @@ func spawn_item_at_current_player_map(item_id: String, quantity: int) -> bool:
 	# Attempt to spawn the item on an empty tile
 	return chunk.spawn_item_at_free_position(item_id,quantity,current_player_y)
 	return false
+
+# Takes an mob_id (of an RMob) and spawns it onto
+# the map that is indicated by the coordinates.
+# We use the same Y coordinate as the player but we can change this if it is unreliable
+func spawn_mob_at_nearby_map(mob_id: String, coordinates: Vector2) -> bool:
+	var player: Player = Helper.overmap_manager.player
+	var chunk: Chunk = get_chunk_from_overmap_coordinate(coordinates)
+	if not chunk:
+		return false
+	var current_player_y: float = player.get_y_position(true)
+	
+	# Attempt to spawn the item on an empty tile
+	return chunk.spawn_mob_at_free_position(mob_id, current_player_y)
+	return false
 	
 
 # Function to process area data and assign to tile
