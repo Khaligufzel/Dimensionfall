@@ -1419,3 +1419,92 @@ func spawn_furniture(furniture_data: Dictionary):
 
 func get_furniture_at_y_level(target_y_level: float) -> Array[FurnitureStaticSrv]:
 	return furniture_static_spawner.get_furniture_at_y_level(target_y_level)
+
+# Takes an y cooridnate and tests random positions until a free space has been found
+# or until all blocks (1024 at most) are checked.
+# Position that have a block (a terrain tile) are skipped
+# That leaves only tiles that could have a furniture or mob on them.
+func get_free_position_on_level(y: int) -> Vector3:
+	# Create an array of all possible (x, z) positions on the level
+	var positions: Array[Vector2i] = []
+	for x in range(LEVEL_WIDTH):
+		for z in range(LEVEL_HEIGHT):
+			positions.append(Vector2i(x, z))
+
+	# Shuffle the positions to randomize the search order
+	positions.shuffle()
+
+	# Collision shape representing a 1x1x1 block
+	var collision_shape = BoxShape3D.new()
+	collision_shape.extents = Vector3(0.5, 0.5, 0.5)
+
+	# Access the physics space for collision checks
+	var space_state = get_world_3d().direct_space_state
+	var query_parameters = PhysicsShapeQueryParameters3D.new()
+	query_parameters.set_shape(collision_shape)
+	# Set collision mask to check only against layers 1, 2, 3, and 4
+	query_parameters.collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3)
+
+	# Iterate over randomized positions
+	for pos in positions:
+		var x = pos.x
+		var z = pos.y
+
+		# Skip if a block is present
+		var block_key = "%s,%s,%s" % [x, y, z]
+		if block_positions.has(block_key):
+			continue
+
+		# Set the transform to the position in world space
+		var test_position = mypos + Vector3(x, y, z)
+		query_parameters.transform = Transform3D(Basis(), test_position)
+
+		# Check for collisions
+		var result = space_state.intersect_shape(query_parameters)
+		if result.is_empty():
+			# Found a free position
+			return test_position
+
+	# No free position found
+	return Vector3(-1, -1, -1)
+
+# Spawns a mob by its ID at a random free position on the specified Y level.
+# Uses `get_free_position_on_level` to find the position.
+func spawn_mob_at_free_position(mob_id: String, y: int) -> void:
+	var free_position: Vector3 = get_free_position_on_level(y)
+	if free_position.y == -1:
+		print_debug("No free position found on level %s for mob %s" % [y, mob_id])
+		return
+
+	# Construct the mob JSON as expected by Mob.new() (assuming it takes ID and other params)
+	var mob_json: Dictionary = {"id": mob_id}
+
+	# Create the mob and position it correctly
+	var new_mob: Mob = Mob.new(free_position, mob_json)
+
+	# Parent to level_manager because mobs can move across chunks
+	level_manager.add_child.call_deferred(new_mob)
+
+
+# Spawns a single item by its ID at a random free position on the specified Y level.
+func spawn_item_at_free_position(item_id: String, y: int, optional_sprite: Texture2D = null) -> void:
+	var free_position := get_free_position_on_level(y)
+	if free_position.y == -1:
+		print_debug("No free position found on level %s for item %s" % [y, item_id])
+		return
+
+	# Prepare the position data for the item
+	var item_json: Dictionary = {
+		"global_position_x": free_position.x,
+		"global_position_y": free_position.y + 1.01, # Slightly above the ground
+		"global_position_z": free_position.z
+	}
+
+	# Create the item and add it to the mapitems group
+	var new_item := ContainerItem.new(item_json)
+	# Add the actual item to the container's inventory
+	new_item.add_item(item_id)
+	new_item.add_to_group("mapitems")
+
+	# Add the item to the scene tree
+	Helper.map_manager.level_generator.get_tree().get_root().add_child.call_deferred(new_item)
