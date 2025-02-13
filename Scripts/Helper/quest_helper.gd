@@ -217,6 +217,12 @@ func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 			# Add an action step for spawning an item on the map
 			quest.add_action_step("Spawn " + Runtimedata.items.by_id(step.item).name + " on map", {"stepjson": step})
 			return true
+		"spawn_mob":
+			# Add an action step for spawning a mob when approaching a map
+			var mob_name: String = Runtimedata.mobs.by_id(step.mob).name
+			var map_name: String = Runtimedata.maps.by_id(step.map_id).name
+			quest.add_action_step("Approach " + map_name + " to spawn " + mob_name, {"stepjson": step})
+			return true
 	return false
 
 
