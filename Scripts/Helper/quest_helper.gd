@@ -354,7 +354,7 @@ func _on_map_entered(_player: Player, _old_pos: Vector2, new_pos: Vector2):
 		elif step.step_type == "action_step" and stepmeta.get("type", "") == "spawn_mob":
 			# Make sure the coordinate is set
 			if stepmeta.has("coordinate"):
-				var target_coordinate: Vector2 = stepmeta["coordinate"]
+				var target_coordinate: Vector2 = General.string_to_vector2(stepmeta["coordinate"])
 				var chunk = Helper.map_manager.get_chunk_from_overmap_coordinate(target_coordinate)
 
 				# When the map at the coordinate is instantiated, spawn the mob

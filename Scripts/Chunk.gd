@@ -1456,7 +1456,7 @@ func get_free_position_on_level(y: int) -> Vector3:
 			continue
 
 		# Set the transform to the position in world space
-		var test_position = mypos + Vector3(x, y, z)
+		var test_position = mypos + Vector3(x, y+0.5, z)
 		query_parameters.transform = Transform3D(Basis(), test_position)
 
 		# Check for collisions

@@ -48,3 +48,22 @@ func _on_action_timer_timeout():
 	# Reset the callback function
 	action_complete_callback = Callable()
 	# Code to handle the completion of the action
+
+
+# Converts a string to a Vector2. If it's already a Vector2, it remains a Vector2
+static func string_to_vector2(input: Variant) -> Vector2:
+	# If input is already a Vector2, return it as is
+	if input is Vector2:
+		return input
+	
+	# If input is a String, attempt to parse it
+	if input is String and input != "":
+		var new_string: String = input
+		new_string = new_string.erase(0, 1)
+		new_string = new_string.erase(new_string.length() - 1, 1)
+		var array: Array = new_string.split(", ")
+
+		return Vector2(int(array[0]), int(array[1]))
+
+	# If input is invalid, return Vector2.ZERO
+	return Vector2.ZERO
