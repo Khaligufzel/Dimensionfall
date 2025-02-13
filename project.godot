@@ -39,7 +39,7 @@ movie_writer/movie_file="D:/CataX resources/catax.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gloot/plugin.cfg", "res://addons/markdownlabel/plugin.cfg", "res://addons/quest_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/gloot/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/quest_manager/plugin.cfg")
 
 [file_customization]
 
