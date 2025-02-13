@@ -1,5 +1,8 @@
 extends Control
 
+# This script belongs to "overmap.tscn", which is the UI scene displaying the overmap
+# This script is intended to display the data from Helper.overmap_manager
+
 @export var positionLabel: Label = null
 @export var tilesContainer: Control = null
 @export var overmapTile: PackedScene = null
