@@ -236,7 +236,7 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 #		"id": selected_item_id,
 #		"text": selected_item_text,
 #		"mod_id": mod_id,
-#		"contentType": contentType
+#		"contentType": contentType # an DMod.ContentType
 #	}
 func _can_drop_data(_newpos, data) -> bool:
 	# Check if the data dictionary has the 'id' property

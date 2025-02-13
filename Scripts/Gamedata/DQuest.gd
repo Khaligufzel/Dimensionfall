@@ -38,6 +38,12 @@ extends RefCounted
 #				"tip": "You can find them in town",
 #				"type": "kill"
 #			},
+#			{ #spawns a mob as soon as the player gets close to the map with the selected id
+#				"mob": "big_boss",
+#				"map_id": "city_square",
+#				"tip": "The target must be near the city square",
+#				"type": "spawn_mob"
+#			},
 #			{
 #				"amount": 3,
 #				"mobgroup": "bandits",  # Example mobgroup kill step

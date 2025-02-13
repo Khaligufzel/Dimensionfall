@@ -102,6 +102,10 @@ func _on_save_button_button_up() -> void:
 			step["type"] = "spawn_item"
 			step["item"] = (hbox.get_child(1)).get_text()
 			step["amount"] = (hbox.get_child(2) as SpinBox).value
+		elif step_type_label.text == "Spawn mob:":
+			step["type"] = "spawn_mob"
+			step["mob"] = (hbox.get_child(1)).get_text()
+			step["map_id"] = (hbox.get_child(2)).get_text()
 		elif step_type_label.text == "Collect:":
 			step["type"] = "collect"
 			step["item"] = (hbox.get_child(1)).get_text()
@@ -198,6 +202,8 @@ func _on_add_step_button_button_up():
 			empty_step = {"type": "kill", "mob": "", "amount": 1}
 		5: # Spawn item on map
 			empty_step = {"type": "spawn_item", "item": "", "amount": 1}
+		6: # Spawn mob on map
+			empty_step = {"type": "spawn_mob", "mob": "", "map_id": ""}
 	
 	add_step_from_data(empty_step)
 
@@ -379,6 +385,42 @@ func add_spawn_item_step(step: Dictionary) -> HBoxContainer:
 
 	return hbox
 
+
+# Adds a spawn mob step. The user configures a mob id and a map id where it will spawn
+func add_spawn_mob_step(step: Dictionary) -> HBoxContainer:
+	var hbox = HBoxContainer.new()
+	var labelinstance: Label = Label.new()
+	labelinstance.text = "Spawn mob:"
+	hbox.add_child(labelinstance)
+
+	# Mob ID (dropable)
+	var mob_dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
+	mob_dropabletextedit_instance.set_text(step["mob"])
+	mob_dropabletextedit_instance.set_meta("step_type", "spawn_mob")
+	mob_dropabletextedit_instance.myplaceholdertext = "Drop a mob from the left menu"
+	mob_dropabletextedit_instance.tooltip_text = "The mob that will spawn on the \n" + \
+		"selected map. The mob will spawn the moment the player gets close enough. \n" + \
+		"Then the quest will move on to the next step."
+	set_drop_functions(mob_dropabletextedit_instance)
+	hbox.add_child(mob_dropabletextedit_instance)
+
+	# Map ID (dropable)
+	var map_dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
+	map_dropabletextedit_instance.set_text(step["map_id"])
+	map_dropabletextedit_instance.set_meta("step_type", "spawn_mob_map")
+	map_dropabletextedit_instance.myplaceholdertext = "Drop a map from the left menu"
+	map_dropabletextedit_instance.tooltip_text = "The map that the mob will spawn on. \n" + \
+		"This will select the nearest overmap cell with this map id that's either \n" + \
+		"hidden or revealed (meaning the player hasn't seen it or hasn't been close \n" + \
+		"enough). The player will see a marker on the map for the target location. \n" + \
+		"When the player gets close enough, the marker will disappear, the mob will \n" + \
+		"spawn and the quest moves on to the next step."
+	set_drop_functions(map_dropabletextedit_instance)
+	hbox.add_child(map_dropabletextedit_instance)
+
+	return hbox
+
+
 # This function adds the move up, move down, and delete controls to a step
 func add_step_controls(hbox: HBoxContainer, step: Dictionary):
 	# Create the settings button (⚙️)
@@ -420,7 +462,9 @@ func add_step_from_data(step: Dictionary):
 		"kill":
 			hbox = add_kill_step(step)
 		"spawn_item":
-			hbox = add_spawn_item_step(step) # ✅ NEW CASE FOR SPAWN ITEM STEP
+			hbox = add_spawn_item_step(step)
+		"spawn_mob":
+			hbox = add_spawn_mob_step(step)
 	add_step_controls(hbox, step)
 
 	# **Store tip and description in metadata**
@@ -463,26 +507,28 @@ func get_child_index(container: VBoxContainer, child: Control) -> int:
 
 
 # Called when the user has successfully dropped data onto the texteditcontrol
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType # an DMod.ContentType
+#	}
 func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> void:
 	if dropped_data and "id" in dropped_data:
 		var step_type = texteditcontrol.get_meta("step_type")
-		var valid_data = false
 		var entity_type = ""  # To store whether it is mob or mobgroup
 		
-		match step_type:
-			"craft", "collect", "spawn_item":
-				valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).items.has_id(dropped_data["id"])
-			"kill":
-				if dropped_data["contentType"] == DMod.ContentType.MOBS:
-					valid_data = true
-					entity_type = "mob"
-				elif dropped_data["contentType"] == DMod.ContentType.MOBGROUPS:
-					valid_data = true
-					entity_type = "mobgroup"
-			"enter":
-				valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).maps.has_id(dropped_data["id"])
+		var content_type: DMod.ContentType = dropped_data.get("contentType", -1)
+		var mymod: String = dropped_data.get("mod_id", "")
+		var datainstance: RefCounted = Gamedata.mods.by_id(mymod).get_data_of_type(content_type)
 		
-		if valid_data:
+		if content_type == DMod.ContentType.MOBS:
+			entity_type = "mob"
+		elif content_type == DMod.ContentType.MOBGROUPS:
+			entity_type = "mobgroup"
+		
+		if datainstance.has_id(dropped_data["id"]):
 			texteditcontrol.set_text(dropped_data["id"])
 			if step_type == "kill":
 				# Set metadata to specify if this is a mob or mobgroup
@@ -490,6 +536,13 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 
 
 # Determines if the dropped data can be accepted
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType # an DMod.ContentType
+#	}
 func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> bool:
 	if not dropped_data or not dropped_data.has("id"):
 		return false
@@ -497,15 +550,11 @@ func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -
 	var step_type = texteditcontrol.get_meta("step_type")
 	var valid_data = false
 	
-	match step_type:
-		"craft", "collect", "spawn_item":
-			valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).items.has_id(dropped_data["id"])
-		"kill":
-			valid_data = not Gamedata.mods.get_content_by_id(DMod.ContentType.MOBS, dropped_data["id"]) == null or not Gamedata.mods.get_content_by_id(DMod.ContentType.MOBGROUPS, dropped_data["id"]) == null
-		"enter":
-			valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).maps.has_id(dropped_data["id"])
-	
-	return valid_data
+	var content_type: DMod.ContentType = dropped_data.get("contentType", -1)
+	var mymod: String = dropped_data.get("mod_id", "")
+	var datainstance: RefCounted = Gamedata.mods.by_id(mymod).get_data_of_type(content_type)
+
+	return datainstance.has_id(dropped_data["id"])
 
 
 # Set the drop functions on the provided control. It should be a dropabletextedit
