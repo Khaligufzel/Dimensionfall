@@ -270,8 +270,21 @@ func _on_item_added(_item: InventoryItem):
 		set_random_inventory_item_texture() # Update to a new sprite
 
 
-func add_item(item_id: String):
-	inventory.create_and_add_item.call_deferred(item_id)
+# Adds an item with a specific ID and quantity to the container's inventory
+# Default quantity is 1 if not provided
+func add_item(item_id: String, quantity: int = 1):
+	# Fetch the individual item data for stack size verification
+	var ritem: RItem = Runtimedata.items.by_id(item_id)
+	if not ritem:
+		push_error("Item ID %s not found in Runtimedata.items" % item_id)
+		return
+
+	# Split into stacks based on max_stack_size
+	while quantity > 0:
+		var stack_size = min(quantity, ritem.max_stack_size)
+		var item = inventory.create_and_add_item(item_id)
+		InventoryStacked.set_item_stack_size(item, stack_size)
+		quantity -= stack_size
 
 
 func insert_item(item: InventoryItem) -> bool:

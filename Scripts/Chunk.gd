@@ -1487,11 +1487,11 @@ func spawn_mob_at_free_position(mob_id: String, y: int) -> void:
 
 
 # Spawns a single item by its ID at a random free position on the specified Y level.
-func spawn_item_at_free_position(item_id: String, y: int, optional_sprite: Texture2D = null) -> void:
+func spawn_item_at_free_position(item_id: String, quantity: int, y: int) -> bool:
 	var free_position := get_free_position_on_level(y)
 	if free_position.y == -1:
 		print_debug("No free position found on level %s for item %s" % [y, item_id])
-		return
+		return false
 
 	# Prepare the position data for the item
 	var item_json: Dictionary = {
@@ -1503,8 +1503,9 @@ func spawn_item_at_free_position(item_id: String, y: int, optional_sprite: Textu
 	# Create the item and add it to the mapitems group
 	var new_item := ContainerItem.new(item_json)
 	# Add the actual item to the container's inventory
-	new_item.add_item(item_id)
+	new_item.add_item(item_id, quantity)
 	new_item.add_to_group("mapitems")
 
 	# Add the item to the scene tree
 	Helper.map_manager.level_generator.get_tree().get_root().add_child.call_deferred(new_item)
+	return true

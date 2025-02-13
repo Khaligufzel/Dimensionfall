@@ -22,7 +22,7 @@ func get_chunk_from_overmap_coordinate(coordinate: Vector2) -> Chunk:
 # the map that the player is currently on. It will make two attempts:
 # 1. spawn the item at a random static furniture on the same y level as the player
 # We spawn at the same y level to increase the chance that it is reachable
-# 2. TODO: Spawn the item on a free tile on the chunk as an ContainerItem
+# 2. Spawn the item on a free tile on the chunk as an ContainerItem
 func spawn_item_at_current_player_map(item_id: String, quantity: int) -> bool:
 	var player: Player = Helper.overmap_manager.player
 	var player_coordinate: Vector2 = Helper.overmap_manager.player_current_cell
@@ -38,7 +38,9 @@ func spawn_item_at_current_player_map(item_id: String, quantity: int) -> bool:
 	if container_furniture.size() > 0:
 		var random_furniture = container_furniture.pick_random()
 		return random_furniture.add_item_to_inventory(item_id, quantity)
-
+	
+	# Attempt to spawn the item on an empty tile
+	return chunk.spawn_item_at_free_position(item_id,quantity,current_player_y)
 	return false
 	
 
