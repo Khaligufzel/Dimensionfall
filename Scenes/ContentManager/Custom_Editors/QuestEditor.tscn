@@ -155,9 +155,11 @@ Call function: Select a function and add parameters. When the quest reaches this
 
 Enter map: Select the id of a map. This step completes when the player has entered a chunk that is generated from the map with this id
 
-Kill x mobs of type: This step completes when the player has killed x amount of the mob you selected"
+Kill x mobs of type: This step completes when the player has killed x amount of the mob you selected
+
+Spawn item: Spawns an item on the chunk that the player is on. First it will try a furniture container and if that's not possible, a free tile."
 selected = 0
-item_count = 5
+item_count = 6
 popup/item_0/text = "Craft item"
 popup/item_1/text = "Collect x amount of item"
 popup/item_1/id = 1
@@ -167,6 +169,8 @@ popup/item_3/text = "Enter map"
 popup/item_3/id = 3
 popup/item_4/text = "Kill x mobs of type"
 popup/item_4/id = 4
+popup/item_5/text = "Spawn item (current map)"
+popup/item_5/id = 5
 
 [node name="AddStepButton" type="Button" parent="VBoxContainer/FormGrid/StepControlsHBoxContainer"]
 layout_mode = 2
@@ -227,7 +231,7 @@ size = Vector2i(800, 277)
 theme_override_styles/panel = SubResource("StyleBoxFlat_fhs5k")
 
 [node name="StepPropertiesVBoxContainer" type="VBoxContainer" parent="StepPropertiesPopupPanel"]
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0

@@ -98,6 +98,10 @@ func _on_save_button_button_up() -> void:
 		if step_type_label.text == "Craft item:":
 			step["type"] = "craft"
 			step["item"] = (hbox.get_child(1)).get_text()
+		elif step_type_label.text == "Spawn item:":
+			step["type"] = "spawn_item"
+			step["item"] = (hbox.get_child(1)).get_text()
+			step["amount"] = (hbox.get_child(2) as SpinBox).value
 		elif step_type_label.text == "Collect:":
 			step["type"] = "collect"
 			step["item"] = (hbox.get_child(1)).get_text()
@@ -192,6 +196,8 @@ func _on_add_step_button_button_up():
 			empty_step = {"type": "enter", "map_id": ""}
 		4: # Kill x mobs of type
 			empty_step = {"type": "kill", "mob": "", "amount": 1}
+		5: # Spawn item on map
+			empty_step = {"type": "spawn_item", "item": "", "amount": 1}
 	
 	add_step_from_data(empty_step)
 
@@ -345,6 +351,34 @@ func add_kill_step(step: Dictionary) -> HBoxContainer:
 	return hbox
 
 
+# Adds a spawn item step. The user configures an item id and an amount
+# When this step is reached in-game, the item will spawn on the map where the player is at
+func add_spawn_item_step(step: Dictionary) -> HBoxContainer:
+	var hbox = HBoxContainer.new()
+	var labelinstance: Label = Label.new()
+	labelinstance.text = "Spawn item:"
+	hbox.add_child(labelinstance)
+
+	var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
+	dropabletextedit_instance.set_text(step["item"])
+	dropabletextedit_instance.set_meta("step_type", "spawn_item")
+	dropabletextedit_instance.myplaceholdertext = "Drop an item from the left menu"
+	dropabletextedit_instance.tooltip_text = "The id of the item to spawn. The item \n" + \
+		" will spawn on the map that the player is currently on. So if the player is \n" + \
+		" at the overmap coordinate (-4,2), the item will spawn on the chunk that \n" + \
+		" represents that coordinate. First, it will try to spawn in a static \n" + \
+		" furniture container on the same y level as the player. If that's not  \n" + \
+		" available, it will find an empty tile and spawn the item there."
+	set_drop_functions(dropabletextedit_instance)
+	hbox.add_child(dropabletextedit_instance)
+
+	var spinbox = SpinBox.new()
+	spinbox.min_value = 1
+	spinbox.value = step["amount"]
+	hbox.add_child(spinbox)
+
+	return hbox
+
 # This function adds the move up, move down, and delete controls to a step
 func add_step_controls(hbox: HBoxContainer, step: Dictionary):
 	# Create the settings button (⚙️)
@@ -385,6 +419,8 @@ func add_step_from_data(step: Dictionary):
 			hbox = add_enter_step(step)
 		"kill":
 			hbox = add_kill_step(step)
+		"spawn_item":
+			hbox = add_spawn_item_step(step) # ✅ NEW CASE FOR SPAWN ITEM STEP
 	add_step_controls(hbox, step)
 
 	# **Store tip and description in metadata**
@@ -394,6 +430,7 @@ func add_step_from_data(step: Dictionary):
 		hbox.set_meta("description", step["description"])  # Save description to metadata
 
 	steps_container.add_child(hbox)
+
 
 
 # Function to handle moving a step up
@@ -433,7 +470,7 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 		var entity_type = ""  # To store whether it is mob or mobgroup
 		
 		match step_type:
-			"craft", "collect":
+			"craft", "collect", "spawn_item":
 				valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).items.has_id(dropped_data["id"])
 			"kill":
 				if dropped_data["contentType"] == DMod.ContentType.MOBS:
@@ -461,7 +498,7 @@ func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -
 	var valid_data = false
 	
 	match step_type:
-		"craft", "collect":
+		"craft", "collect", "spawn_item":
 			valid_data = Gamedata.mods.by_id(dropped_data["mod_id"]).items.has_id(dropped_data["id"])
 		"kill":
 			valid_data = not Gamedata.mods.get_content_by_id(DMod.ContentType.MOBS, dropped_data["id"]) == null or not Gamedata.mods.get_content_by_id(DMod.ContentType.MOBGROUPS, dropped_data["id"]) == null
