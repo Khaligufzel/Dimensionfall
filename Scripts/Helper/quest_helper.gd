@@ -127,11 +127,17 @@ func _on_step_complete(step: Dictionary):
 # step: the new step in the quest
 func _on_next_step(step: Dictionary):
 	check_and_emit_target_map(step)
-	# The player might already have the item for the next step so check it
+	update_active_quest_descriptions()  # Centralized quest description update
+
+	# The player might already have the item for the next step, so check it
 	match step.get("step_type", ""):	
-		QuestManager.INCREMENTAL_STEP:
+		QuestManager.INCREMENTAL_STEP, QuestManager.ITEMS_STEP:
 			update_quest_by_inventory(null)
-		QuestManager.ITEMS_STEP:
+
+
+	# The player might already have the item for the next step, so check it
+	match step.get("step_type", ""):	
+		QuestManager.INCREMENTAL_STEP, QuestManager.ITEMS_STEP:
 			update_quest_by_inventory(null)
 
 
@@ -178,6 +184,14 @@ func create_quest_from_data(quest_data: RQuest):
 
 
 # Add a quest step to the quest. In this case, the step is just a dictionary with some data
+# Example step dictionary:
+#			{
+#				"amount": 1,
+#				"item": "long_stick",
+#				"tip": "You can find one in the forest",
+#				"description": "This stick will help figure out the truth!", # updates the quest description
+#				"type": "collect"
+#			}
 func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 	match step.type:
 		"collect":
@@ -435,3 +449,15 @@ func _on_item_was_unequipped(heldItem: InventoryItem, _equipmentSlot: Control) -
 		
 		# Reevaluate quests based on the updated inventory
 		update_quest_by_inventory(null)
+
+func update_active_quest_descriptions():
+	var quests_in_progress: Dictionary = QuestManager.get_quests_in_progress()
+	
+	for quest in quests_in_progress.values():
+		var step = QuestManager.get_current_step(quest.quest_name)
+		if not step:
+			continue  # Skip if there is no active step
+
+		var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
+		if stepmeta.has("description"):
+			quest["quest_details"] = stepmeta["description"]  # Update quest description

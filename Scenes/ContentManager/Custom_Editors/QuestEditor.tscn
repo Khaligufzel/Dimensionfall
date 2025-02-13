@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b7k2j4d6wx4yy"]
+[gd_scene load_steps=8 format=3 uid="uid://b7k2j4d6wx4yy"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/QuestEditor.gd" id="1_4a2kk"]
 [ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="2_w4cgs"]
@@ -18,7 +18,15 @@ content_margin_right = 8.0
 content_margin_bottom = 8.0
 bg_color = Color(0.671296, 0.576576, 0.548227, 1)
 
-[node name="QuestEditor" type="Control" node_paths=PackedStringArray("questImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "questSelector", "step_type_option_button", "steps_container", "rewards_item_list")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fhs5k"]
+bg_color = Color(0.239866, 0.290419, 0.348841, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.120738, 0.170336, 0.226543, 1)
+
+[node name="QuestEditor" type="Control" node_paths=PackedStringArray("questImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "questSelector", "step_type_option_button", "steps_container", "rewards_item_list", "step_properties_popup_panel", "hint_text_edit", "description_text_edit", "ok_button", "cancel_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,6 +44,11 @@ step_type_option_button = NodePath("VBoxContainer/FormGrid/StepControlsHBoxConta
 steps_container = NodePath("VBoxContainer/FormGrid/ScrollContainer/StepsPanelContainer/StepsVBoxContainer")
 rewards_item_list = NodePath("VBoxContainer/FormGrid/ScrollContainer2/RewardsPanelContainer/RewardsItemList")
 dropabletextedit = ExtResource("2_w4cgs")
+step_properties_popup_panel = NodePath("StepPropertiesPopupPanel")
+hint_text_edit = NodePath("StepPropertiesPopupPanel/StepPropertiesVBoxContainer/HintTextEdit")
+description_text_edit = NodePath("StepPropertiesPopupPanel/StepPropertiesVBoxContainer/DescriptionTextEdit")
+ok_button = NodePath("StepPropertiesPopupPanel/StepPropertiesVBoxContainer/ControlsHBoxContainer/OkButton")
+cancel_button = NodePath("StepPropertiesPopupPanel/StepPropertiesVBoxContainer/ControlsHBoxContainer/CancelButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -207,6 +220,54 @@ columns = 3
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_2twbp")]
 visible = false
+
+[node name="StepPropertiesPopupPanel" type="PopupPanel" parent="."]
+initial_position = 1
+size = Vector2i(800, 277)
+theme_override_styles/panel = SubResource("StyleBoxFlat_fhs5k")
+
+[node name="StepPropertiesVBoxContainer" type="VBoxContainer" parent="StepPropertiesPopupPanel"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HintLabel" type="Label" parent="StepPropertiesPopupPanel/StepPropertiesVBoxContainer"]
+layout_mode = 2
+text = "Hint (optional): Shows the entered text in the quest window in-game next to the step."
+
+[node name="HintTextEdit" type="TextEdit" parent="StepPropertiesPopupPanel/StepPropertiesVBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+placeholder_text = "Open the craft menu (c) to start crafting"
+
+[node name="DescriptionLabel" type="Label" parent="StepPropertiesPopupPanel/StepPropertiesVBoxContainer"]
+layout_mode = 2
+text = "Description (optional): Replaces the quest's description with the entered text once this step is reached."
+
+[node name="DescriptionTextEdit" type="TextEdit" parent="StepPropertiesPopupPanel/StepPropertiesVBoxContainer"]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+placeholder_text = "Once you reached the location, you realized the truth..."
+
+[node name="ControlsHBoxContainer" type="HBoxContainer" parent="StepPropertiesPopupPanel/StepPropertiesVBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="OkButton" type="Button" parent="StepPropertiesPopupPanel/StepPropertiesVBoxContainer/ControlsHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ok"
+
+[node name="CancelButton" type="Button" parent="StepPropertiesPopupPanel/StepPropertiesVBoxContainer/ControlsHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
