@@ -7,7 +7,7 @@
 				"id": "generic_test_item",
 				"max": 1,
 				"min": 1,
-				"probability": 20
+				"probability": 100
 			}
 		],
 		"mode": "Collection",

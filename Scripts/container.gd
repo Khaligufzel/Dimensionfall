@@ -50,7 +50,7 @@ func _initialize_container(item: Dictionary):
 	_create_inventory()
 	_create_area3d()
 
-	if item.has("inventory"):
+	if item.has("inventory"): # inventory gets added in the get_data function below
 		deserialize_and_apply_items.call_deferred(item.inventory)
 	# containertexture may be set when a furniture is destroyed and spawns this container
 	if item.has("containertexture"):
