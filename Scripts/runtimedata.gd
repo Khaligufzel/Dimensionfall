@@ -64,3 +64,6 @@ func reconstruct() -> void:
 		DMod.ContentType.ITEMS: items,
 		DMod.ContentType.MOBFACTIONS: mobfactions
 	}
+
+func reset() -> void:
+	gamedata_map.clear()

@@ -25,6 +25,13 @@ func _ready():
 
 # Called when a function creates this class using ContainerItem.new(container_json)
 # Basic setup for this container. Should be called before adding it to the scene tree
+# Example item:
+# {
+# 	"itemgroups": ["destroyed_furniture_medium"],
+# 	"global_position_x": 2,
+# 	"global_position_y": 1,
+# 	"global_position_z": 17
+# }
 func _init(item: Dictionary):
 	_initialize_container(item)
 	create_loot()
