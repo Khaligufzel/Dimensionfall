@@ -157,9 +157,11 @@ Enter map: Select the id of a map. This step completes when the player has enter
 
 Kill x mobs of type: This step completes when the player has killed x amount of the mob you selected
 
-Spawn item: Spawns an item on the chunk that the player is on. First it will try a furniture container and if that's not possible, a free tile."
+Spawn item: Spawns an item on the chunk that the player is on. First it will try a furniture container and if that's not possible, a free tile.
+
+Spawn mob: Spawns the selected mob on the nearest map of the selected id. The nearest map with that id will be selected from coordinates that the player hasn't visited."
 selected = 0
-item_count = 6
+item_count = 7
 popup/item_0/text = "Craft item"
 popup/item_1/text = "Collect x amount of item"
 popup/item_1/id = 1
@@ -171,6 +173,8 @@ popup/item_4/text = "Kill x mobs of type"
 popup/item_4/id = 4
 popup/item_5/text = "Spawn item (current map)"
 popup/item_5/id = 5
+popup/item_6/text = "Spawn mob (on target map)"
+popup/item_6/id = 6
 
 [node name="AddStepButton" type="Button" parent="VBoxContainer/FormGrid/StepControlsHBoxContainer"]
 layout_mode = 2
@@ -236,8 +240,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_right = 796.0
+offset_bottom = 273.0
 grow_horizontal = 2
 grow_vertical = 2
 
