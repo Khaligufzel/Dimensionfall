@@ -1,6 +1,6 @@
 # Dimensionfall:
 
-Dimensionfall is a top-down real-time survival game set in a post-apocalyptic world. Survive in a strange place where you can visit multiple dimensions. Will you fight demons? Aliens? Zombies? Who knows what you will come across.
+Dimensionfall is a top-down real-time survival game set in a post-apocalyptic world. Survive in a strange place where multiple dimensions have merged. Will you fight demons? Aliens? Zombies? Who knows what you will come across. The [lore](https://github.com/Khaligufzel/Dimensionfall/blob/main/Documentation/Game_design/Lore.md) has many interesting angles.
 
 ![Catax_basic](Media/Catax_basic.png)
 
