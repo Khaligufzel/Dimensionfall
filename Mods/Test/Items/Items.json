@@ -1,0 +1,14 @@
+[
+	{
+		"description": "Use this item for generic tests",
+		"id": "generic_test_item",
+		"image": "./Mods/Test/Items/test_apple_32.png",
+		"max_stack_size": 1,
+		"name": "Generic test item",
+		"sprite": "test_apple_32.png",
+		"stack_size": 1,
+		"two_handed": false,
+		"volume": 1,
+		"weight": 1
+	}
+]

@@ -4,7 +4,8 @@ var test_container: ContainerItem
 	
 # Runs before each test.
 func before_all():
-	Runtimedata.reconstruct() # Load all mod data in the proper way
+	var custom_mods = [Gamedata.mods.by_id("Core"), Gamedata.mods.by_id("SomeOtherMod")]
+	Runtimedata.reconstruct(custom_mods)
 	await get_tree().process_frame 
 
 func before_each():

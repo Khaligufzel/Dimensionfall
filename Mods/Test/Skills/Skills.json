@@ -1,0 +1,8 @@
+[
+	{
+		"description": "This skill encompasses a range of physical activities that improve overall fitness, agility, and endurance. Athletics helps in running faster, jumping higher, and sustaining strenuous activities for longer periods without tiring. This skill is vital for evading enemies, navigating obstacles during exploration, and enhancing performance in physical tasks and combat.",
+		"id": "athletics",
+		"name": "Athletics",
+		"sprite": "athletics_32.png"
+	}
+]

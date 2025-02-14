@@ -267,19 +267,23 @@ func get_enabled_mod_ids() -> Array:
 # The "Core" mod is always loaded first, even if disabled.
 func get_mods_in_state_order(only_enabled: bool) -> Array[DMod]:
 	var ordered_mods: Array[DMod] = []
-	var mod_states = get_mod_list_states()  # Retrieve the saved mod states
+	var mod_states = get_mod_list_states()
 
-	# Add "Core" first if it exists
+	# Always add "Core" first if it exists
 	if mod_dict.has("Core"):
 		ordered_mods.append(mod_dict["Core"])
 
-	# Add other mods in the state order
+	# Process all other mods based on state order
 	for state in mod_states:
 		var mod_id = state["id"]
-		if mod_id != "Core" and mod_dict.has(mod_id):
+		if mod_id != "Core" and mod_id != "Test" and mod_dict.has(mod_id): # Exclude "Test"
 			var mod_instance = mod_dict[mod_id]
 			if not only_enabled or mod_instance.is_enabled:
 				ordered_mods.append(mod_instance)
+
+	# Optionally, still allow "Test" to be loaded last if needed (debug purposes)
+	if mod_dict.has("Test") and not only_enabled or mod_dict["Test"].is_enabled:
+		print_debug("Test mod is present but excluded from the standard order.")
 
 	return ordered_mods
 
@@ -316,8 +320,6 @@ func write_default_mods_state() -> void:
 	# Check if the mods_state.cfg file exists
 	if not FileAccess.file_exists(config_path):
 		var config = ConfigFile.new()
-		var path = "user://mods_state.cfg"
-
 		# Get the list of mod folder names
 		var mod_folders = get_mod_folder_names()
 
@@ -325,8 +327,11 @@ func write_default_mods_state() -> void:
 		var default_mods_state: Array[Dictionary] = []
 
 		for mod_name in mod_folders:
-			# Enable "Core" and "Dimensionfall", disable all other mods
+			# Enable "Core" and "Dimensionfall", disable others, especially "Test"
 			var is_enabled = (mod_name == "Core" or mod_name == "Dimensionfall")
+			if mod_name == "Test":
+				is_enabled = false # Explicitly disable Test mod
+
 			default_mods_state.append({
 				"id": mod_name,
 				"enabled": is_enabled
@@ -335,12 +340,12 @@ func write_default_mods_state() -> void:
 		# Write the default mod states to the config file
 		config.set_value("mods", "states", default_mods_state)
 
-		# Save the file
-		var err = config.save(path)
+		var err = config.save(config_path)
 		if err == OK:
 			print_debug("Default mod states written to mods_state.cfg.")
 		else:
 			print_debug("Failed to write default mod states to mods_state.cfg. Error code: ", err)
+
 
 # ------------------------------------------------------------------
 # Adds a new mod to the dictionary and initializes it with the given data.
