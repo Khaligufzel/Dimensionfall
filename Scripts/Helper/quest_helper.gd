@@ -127,13 +127,7 @@ func _on_step_complete(step: Dictionary):
 # step: the new step in the quest
 func _on_next_step(step: Dictionary):
 	check_and_emit_target_map(step)
-	update_active_quest_descriptions()  # Centralized quest description update
-
-	# The player might already have the item for the next step, so check it
-	match step.get("step_type", ""):	
-		QuestManager.INCREMENTAL_STEP, QuestManager.ITEMS_STEP:
-			update_quest_by_inventory(null)
-
+	process_active_quests()  # Centralized quest description update
 
 	# The player might already have the item for the next step, so check it
 	match step.get("step_type", ""):	
@@ -185,13 +179,13 @@ func create_quest_from_data(quest_data: RQuest):
 
 # Add a quest step to the quest. In this case, the step is just a dictionary with some data
 # Example step dictionary:
-#			{
-#				"amount": 1,
-#				"item": "long_stick",
-#				"tip": "You can find one in the forest",
-#				"description": "This stick will help figure out the truth!", # updates the quest description
-#				"type": "collect"
-#			}
+#	{
+#		"amount": 1,
+#		"item": "long_stick",
+#		"tip": "You can find one in the forest",
+#		"description": "This stick will help figure out the truth!", # updates the quest description
+#		"type": "collect"
+#	}
 func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 	match step.type:
 		"collect":
@@ -218,6 +212,10 @@ func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 			# Add an action step for entering a specific map
 			var map_name: String = Runtimedata.maps.by_id(step.map_id).name
 			quest.add_action_step("Travel to " + map_name, {"stepjson": step})
+			return true
+		"spawn_item":
+			# Add an action step for spawning an item on the map
+			quest.add_action_step("Spawn " + Runtimedata.items.by_id(step.item).name + " on map", {"stepjson": step})
 			return true
 	return false
 
@@ -450,14 +448,32 @@ func _on_item_was_unequipped(heldItem: InventoryItem, _equipmentSlot: Control) -
 		# Reevaluate quests based on the updated inventory
 		update_quest_by_inventory(null)
 
-func update_active_quest_descriptions():
+
+# Performs actions that are independent of player actions
+# Updates the quest description if needed
+# spawns item and moves onto the next step if needed.
+func process_active_quests():
 	var quests_in_progress: Dictionary = QuestManager.get_quests_in_progress()
-	
+
 	for quest in quests_in_progress.values():
 		var step = QuestManager.get_current_step(quest.quest_name)
 		if not step:
 			continue  # Skip if there is no active step
 
 		var stepmeta: Dictionary = step.get("meta_data", {}).get("stepjson", {})
+
+		# Update quest description if needed
 		if stepmeta.has("description"):
-			quest["quest_details"] = stepmeta["description"]  # Update quest description
+			quest["quest_details"] = stepmeta["description"]
+
+		# Handle spawn_item step (ACTION_STEP)
+		if step.step_type == QuestManager.ACTION_STEP and stepmeta.get("type", "") == "spawn_item" and not step.get("complete", false):
+			var item_id: String = stepmeta.get("item", "")
+			var amount: int = stepmeta.get("amount", 1)
+
+			# Attempt to spawn the item
+			if Helper.map_manager.spawn_item_at_current_player_map(item_id, amount):
+				# Automatically complete the step upon successful item spawn
+				QuestManager.progress_quest(quest.quest_name)
+			else:
+				print_debug("Failed to spawn item on map for quest step in quest: " + quest.quest_name)

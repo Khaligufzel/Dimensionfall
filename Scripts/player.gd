@@ -638,3 +638,10 @@ func deplete_stun(delta: float) -> void:
 # Function to increase the stun amount
 func add_stun(amount: float) -> void:
 	stun_amount += amount
+
+
+# Returns the y position of the player.
+# If 'snapped' is true, it returns the y position snapped to the nearest integer.
+func get_y_position(is_snapped: bool = false) -> float:
+	var y_pos = global_transform.origin.y
+	return round(y_pos) if is_snapped else y_pos

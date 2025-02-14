@@ -28,6 +28,11 @@ extends RefCounted
 #				"type": "craft"
 #			},
 #			{
+#				"amount": 1,
+#				"item": "quest_diary_1",
+#				"type": "spawn_item"
+#			},
+#			{
 #				"amount": 2,
 #				"mob": "scrapwalker",
 #				"tip": "You can find them in town",
