@@ -15,7 +15,7 @@ var ditem: DItem = null:
 		load_properties()
 
 func _ready():
-	set_drop_functions()
+	slot_drop_enabled_text_edit.content_types = [DMod.ContentType.WEARABLESLOTS] as Array[DMod.ContentType]
 	# Set custom can_drop_func and drop_func for the attributtes_grid_container, use default drag_func
 	attributtes_grid_container.set_drag_forwarding(Callable(), can_drop_attribute, attribute_drop)
 
@@ -90,12 +90,12 @@ func _delete_attribute(elements_to_remove: Array) -> void:
 		element.queue_free()  # Properly free the node to avoid memory leaks
 
 # This function will check if an attribute can be dropped
-func can_drop_attribute(at_position: Vector2, dropped_data: Dictionary) -> bool:
+func can_drop_attribute(_at_position: Vector2, dropped_data: Dictionary) -> bool:
 	if not dropped_data or not dropped_data.has("id"):
 		return false
 	
 	# Check if the attribute ID exists in playerattributes
-	if not Gamedata.mods.by_id("Core").playerattributes.has_id(dropped_data["id"]):
+	if not Gamedata.mods.by_id(dropped_data.get("mod_id")).playerattributes.has_id(dropped_data["id"]):
 		return false
 
 	# Prevent duplicates in the attributtes_grid_container
@@ -112,62 +112,3 @@ func attribute_drop(at_position: Vector2, dropped_data: Dictionary) -> void:
 		add_attribute_entry(dropped_data["id"], 0, false)
 	else:
 		print_debug("Failed to drop attribute: Invalid or duplicate entry.")
-
-
-# Set the drop functions on the provided control. It should be a dropabletextedit
-# This enables them to receive drop data
-func set_drop_functions():
-	slot_drop_enabled_text_edit.drop_function = entity_drop
-	slot_drop_enabled_text_edit.can_drop_function = can_entity_drop
-
-
-# Called when the user has successfully dropped data onto the texteditcontrol
-# We are expecting a dictionary like this:
-#	{
-#		"id": selected_item_id,
-#		"text": selected_item_text,
-#		"mod_id": mod_id,
-#		"contentType": contentType
-#	}
-func entity_drop(dropped_data: Dictionary) -> void:
-	if not dropped_data or not dropped_data.has("id"):
-		return
-	
-	var slot_content_type: DMod.ContentType = dropped_data.get("contentType", -1)
-	if not slot_content_type == DMod.ContentType.WEARABLESLOTS:
-		return
-		
-	var slot_id: String = dropped_data.get("id", "")
-	var mymod: DMod = Gamedata.mods.by_id(dropped_data.get("mod_id", ""))
-	var wearableslot: DWearableSlot = mymod.wearableslots.by_id(slot_id)
-	
-	if not wearableslot:
-		return
-		
-	slot_drop_enabled_text_edit.set_text(wearableslot.id)
-	slot_drop_enabled_text_edit.set_meta("dropped_data", dropped_data)
-
-
-# Determines if the dropped data can be accepted
-# We are expecting a dictionary like this:
-#	{
-#		"id": selected_item_id,
-#		"text": selected_item_text,
-#		"mod_id": mod_id,
-#		"contentType": contentType
-#	}
-func can_entity_drop(dropped_data: Dictionary) -> bool:
-	if not dropped_data or not dropped_data.has("id"):
-		return false
-	
-	var slot_content_type: DMod.ContentType = dropped_data.get("contentType", -1)
-	if not slot_content_type == DMod.ContentType.WEARABLESLOTS:
-		return false
-	
-	var slot_id: String = dropped_data.get("id", "")
-	var mymod: DMod = Gamedata.mods.by_id(dropped_data.get("mod_id", ""))
-	var wearableslot: DWearableSlot = mymod.wearableslots.by_id(slot_id)
-	
-	if not wearableslot:
-		return false
-	return true

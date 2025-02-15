@@ -1,4 +1,9 @@
 {
+	"feet": {
+		"items": [
+			"boots"
+		]
+	},
 	"torso": {
 		"items": [
 			"vest_ballistic"
