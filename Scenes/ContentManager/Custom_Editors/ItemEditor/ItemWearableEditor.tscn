@@ -6,7 +6,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3shf"]
 bg_color = Color(0.72927, 0.567349, 0.365251, 1)
 
-[node name="ItemWearableEditor" type="Control" node_paths=PackedStringArray("slot_drop_enabled_text_edit", "attributtes_grid_container")]
+[node name="ItemWearableEditor" type="Control" node_paths=PackedStringArray("slot_editor", "attributes_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,8 +14,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o5i08")
-slot_drop_enabled_text_edit = NodePath("Wearable/SlotDropEntityTextEdit")
-attributtes_grid_container = NodePath("Wearable/AttributesPanelContainer/AttributtesGridContainer")
+slot_editor = NodePath("Wearable/SlotDropEntityTextEdit")
+attributes_container = NodePath("Wearable/AttributesPanelContainer/AttributtesGridContainer")
 
 [node name="Wearable" type="GridContainer" parent="."]
 layout_mode = 0
