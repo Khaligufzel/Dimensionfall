@@ -1,0 +1,11 @@
+[
+	{
+		"description": "The amount of space available in the inventory",
+		"fixed_mode": {
+			"amount": 500
+		},
+		"id": "inventory_space",
+		"name": "Inventory space",
+		"sprite": "playerattribuge_inventory_space_32.png"
+	}
+]

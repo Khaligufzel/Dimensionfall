@@ -27,8 +27,12 @@ func get_data_of_type(type: DMod.ContentType) -> RefCounted:
 
 
 # Reconstruct function to reset and initialize stats
-func reconstruct() -> void:
-	var enabled_mods: Array[DMod] = Gamedata.mods.get_mods_in_state_order(true)
+# Reconstruct function to reset and initialize stats
+# Optional parameter to specify enabled mods manually. If empty, uses mods in state order.
+func reconstruct(enabled_mods: Array[DMod] = []) -> void:
+	if enabled_mods.is_empty():
+		enabled_mods = Gamedata.mods.get_mods_in_state_order(true)
+
 	# Clear the stats by resetting the instance
 	stats = RStats.new(enabled_mods)
 	skills = RSkills.new(enabled_mods)
@@ -45,7 +49,7 @@ func reconstruct() -> void:
 	furnitures = RFurnitures.new(enabled_mods)
 	items = RItems.new(enabled_mods)
 	mobfactions = RMobfactions.new(enabled_mods)
-	
+
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
 		DMod.ContentType.STATS: stats,
@@ -64,6 +68,7 @@ func reconstruct() -> void:
 		DMod.ContentType.ITEMS: items,
 		DMod.ContentType.MOBFACTIONS: mobfactions
 	}
+
 
 func reset() -> void:
 	gamedata_map.clear()

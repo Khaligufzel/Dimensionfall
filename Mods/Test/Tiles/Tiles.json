@@ -1,0 +1,12 @@
+[
+	{
+		"categories": [
+			"default"
+		],
+		"description": "Fallback for any missing tile",
+		"id": "default_tile",
+		"name": "Default Tile",
+		"shape": "cube",
+		"sprite": "DefaultTile.png"
+	}
+]
