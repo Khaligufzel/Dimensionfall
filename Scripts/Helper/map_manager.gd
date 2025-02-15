@@ -76,17 +76,31 @@ func _get_random_rotation(area_data: Dictionary) -> int:
 	return [0, 90, 180, 270].pick_random() if rotate_random else -1
 
 
+# Gets the rotation value for a specific area from an original tile's areas.
+# Returns 0 if the rotation is not found or invalid.
+func get_tile_area_rotation(original_tile: Dictionary, area_data: Dictionary) -> int:
+	var area_id: String = area_data.get("id", "")
+	if area_id.is_empty():
+		return 0
+
+	var tile_areas: Array = original_tile.get("areas", [])
+	var matching_areas: Array = tile_areas.filter(func(area): return area.get("id", "") == area_id)
+
+	if matching_areas.is_empty():
+		return 0
+
+	return matching_areas[0].get("rotation", 0)
+
+
 # Function to process and assign tile ID
 func _process_tile_id(area_data: Dictionary, original_tile: Dictionary, result: Dictionary, picked_tile: Dictionary = {}) -> void:
 	var tiles_data = area_data.get("tiles", [])
-	var tile_area: Dictionary = original_tile.get("areas",[]).filter(func(area): 
-		return area.get("id","") == area_data.get("id","")
-	)[0] # Might result in {"id":"cars","rotation":270}
 
 	# We get a random rotation if that's set as a property in the area data.
 	# Otherwise, randomrotation will be -1, so not random, defaulting to 0
-	var randomrotation = _get_random_rotation(area_data)
-	var rotation = randomrotation if randomrotation > -1 else tile_area.get("rotation", 0)
+	var rotation: int = _get_random_rotation(area_data)
+	if rotation == -1:
+		rotation = get_tile_area_rotation(original_tile, area_data)
 
 	# Check if pick_one is set to true and a tile has already been picked for this cluster
 	if picked_tile and not picked_tile.is_empty() and not picked_tile["id"] == "null":
@@ -123,10 +137,7 @@ func _process_entities_data(area_data: Dictionary, result: Dictionary, original_
 	# This results in the tree being picked every 1 in 100 tiles.
 	entities_data.append({"id": "None", "type": "None", "count": total_tiles_count})
 
-
-	var tile_area: Dictionary = original_tile.get("areas",[]).filter(func(area): 
-		return area.get("id","") == area_data.get("id","")
-	)[0]# Might result in {"id":"cars","rotation":270}
+	var tile_area_rotation: int = get_tile_area_rotation(original_tile, area_data)
 	
 	# Pick an entity from the duplicated entities_data
 	if not entities_data.is_empty():
@@ -134,7 +145,7 @@ func _process_entities_data(area_data: Dictionary, result: Dictionary, original_
 		if selected_entity["type"] != "None":
 			var rotation = _get_random_rotation(area_data)
 			if rotation == -1:
-				rotation = tile_area.get("rotation", 0)
+				rotation = tile_area_rotation
 
 			match selected_entity["type"]:
 				"furniture":
