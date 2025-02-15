@@ -46,18 +46,6 @@ func get_data() -> Dictionary:
 func save_to_disk():
 	parent.save_stats_to_disk()
 
-# Removes the provided reference from references
-func remove_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dremove_reference(references, module, type, refid)
-	if changes_made:
-		parent.save_stats_to_disk()
-
-# Adds a reference to the references list
-func add_reference(module: String, type: String, refid: String):
-	var changes_made = Gamedata.dadd_reference(references, module, type, refid)
-	if changes_made:
-		parent.save_stats_to_disk()
-
 # Some stat has been changed
 # INFO if the stat references other entities, update them here
 func changed(_olddata: DStat):
