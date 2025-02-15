@@ -54,7 +54,7 @@ func save_properties() -> void:
 
 # Add a new attribute entry to the attributes_container
 func add_attribute_entry(attribute_id: String, value: int = 0, use_loaded_value: bool = false):
-	if not Gamedata.mods.by_id("Core").playerattributes.has_id(attribute_id):
+	if not Gamedata.mods.get_content_by_id(DMod.ContentType.PLAYERATTRIBUTES, attribute_id):
 		print_debug("Invalid attribute ID: " + attribute_id)
 		return
 
