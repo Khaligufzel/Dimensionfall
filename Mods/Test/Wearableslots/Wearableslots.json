@@ -4,5 +4,11 @@
 		"id": "generic_test_wearable_slot",
 		"name": "Test wearable slot",
 		"sprite": "wearableslot_hands_32.png"
+	},
+	{
+		"description": "Use this wearableslot for testing drop functions",
+		"id": "drop_test_wearable_slot",
+		"name": "Drop wearable slot",
+		"sprite": "wearableslot_hands_32.png"
 	}
 ]
