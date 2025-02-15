@@ -1,1 +1,8 @@
-[]
+[
+	{
+		"description": "Use this wearableslot for testing purposes",
+		"id": "generic_test_wearable_slot",
+		"name": "Test wearable slot",
+		"sprite": "wearableslot_hands_32.png"
+	}
+]
