@@ -58,6 +58,7 @@ func spawn_mob_at_nearby_map(mob_id: String, coordinates: Vector2) -> bool:
 
 # Function to process area data and assign to tile
 # Example original_tile: {"id":"road_asphalt_basic","areas":[{"id":"cars","rotation":270}]}
+# Example picked_tile: {"id": "forest_underbrush_04", "count": 100}
 func process_area_data(area_data: Dictionary, original_tile: Dictionary, picked_tile: Dictionary = {}) -> Dictionary:
 	var result = {}
 
@@ -159,14 +160,20 @@ func _process_entities_data(area_data: Dictionary, result: Dictionary, original_
 
 
 # Function to pick an item based on its count property
-func pick_item_based_on_count(items: Array) -> Dictionary:
-	var total_count: int = calculate_total_count(items)
+# Example tiles array:
+#        "tiles": [
+#            {"id": "forest_underbrush_03", "count": 100},
+#            {"id": "forest_underbrush_04", "count": 100},
+#            {"id": "dirt_light_00", "count": 2},
+#            {"id": "grass_medium_dirt_00", "count": 2}
+#        ]
+func pick_item_based_on_count(tiles: Array) -> Dictionary:
+	var total_count: int = calculate_total_count(tiles)
 	var random_pick: int = randi() % total_count
-	for item in items:
-		if random_pick < item["count"]:
-			return item
-		random_pick -= item["count"]
-
+	for tile: Dictionary in tiles:
+		if random_pick < tile["count"]:
+			return tile
+		random_pick -= tile["count"]
 	return {}  # In case no item is selected, though this should not happen if the input is valid
 
 
@@ -383,6 +390,7 @@ func apply_area_clusters_to_tiles(level: Array, area_id: String, mapData: Dictio
 
 		# Loop through each tile in the cluster
 		# Example tile: {"id":"road_asphalt_basic","areas":[{"id":"cars","rotation":270}]}
+		# Example picked_tile: {"id": "forest_underbrush_04", "count": 100}
 		for tile: Dictionary in cluster:
 			var processed_data = process_area_data(area_data, tile, picked_tile)
 
