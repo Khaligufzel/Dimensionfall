@@ -113,7 +113,6 @@ func test_process_entities_data():
 	# In this example, the grass_medium_00 was replaced by dirt_light_00:
 	var result = {"id":"dirt_light_00","rotation":180} # Example result from _process_tile_id
 	map_manager._process_entities_data(area_data, result, original_tile)
-	var result_rotation: int = result.get("rotation",0)
 
 	# The tile id and rotation shouldn't have changed
 	assert_eq(result.get("id",""), "dirt_light_00", "Unexpected tile id")
