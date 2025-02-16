@@ -1,11 +1,36 @@
 [
 	{
-		"description": "The amount of space available in the inventory",
-		"fixed_mode": {
-			"amount": 500
+		"default_mode": {
+			"color": "ee3438ff",
+			"current_amount": 99,
+			"depleting_effect": "none",
+			"depletion_effect": "none",
+			"depletion_rate": 0.02,
+			"hide_when_empty": false,
+			"max_amount": 100,
+			"maxed_effect": "none",
+			"min_amount": 0
 		},
-		"id": "inventory_space",
-		"name": "Inventory space",
+		"description": "Use this attribute for testing purposes",
+		"id": "generic_test_attribute",
+		"name": "Test attribute",
+		"sprite": "playerattribuge_inventory_space_32.png"
+	},
+	{
+		"default_mode": {
+			"color": "ee3438ff",
+			"current_amount": 99,
+			"depleting_effect": "none",
+			"depletion_effect": "none",
+			"depletion_rate": 0.02,
+			"hide_when_empty": false,
+			"max_amount": 100,
+			"maxed_effect": "none",
+			"min_amount": 0
+		},
+		"description": "Use this attribute for testing drop properties",
+		"id": "drop_test_attribute",
+		"name": "Drop test attribute",
 		"sprite": "playerattribuge_inventory_space_32.png"
 	}
 ]
