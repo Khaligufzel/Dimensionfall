@@ -13,17 +13,19 @@ func _ready():
 	var mob_idle = create_mob_idle()
 	var mob_follow = create_mob_follow()
 	var mob_attack = create_mob_attack()
+	var mob_ranged_attack = create_mob_ranged_attack() # New Ranged Attack state
 	var mob_terminate = create_mob_terminate()
 
 	states["mobidle"] = mob_idle
 	states["mobfollow"] = mob_follow
 	states["mobattack"] = mob_attack
+	states["mobrangedattack"] = mob_ranged_attack # Register Ranged Attack state
 	states["mobterminate"] = mob_terminate
-	
+
 	# Connect transitions
 	for state in states.values():
 		state.Transistioned.connect(on_child_transition)
-	
+
 	# Set the initial state if specified
 	if initial_state:
 		initial_state.Enter()
@@ -86,3 +88,10 @@ func create_mob_terminate() -> MobTerminate:
 	var mob_terminate = MobTerminate.new()
 	add_child.call_deferred(mob_terminate)
 	return mob_terminate
+
+# Create and configure MobRangedAttack
+func create_mob_ranged_attack() -> MobRangedAttack:
+	var mob_ranged_attack = MobRangedAttack.new()
+	mob_ranged_attack.mob = mob
+	add_child.call_deferred(mob_ranged_attack)
+	return mob_ranged_attack
