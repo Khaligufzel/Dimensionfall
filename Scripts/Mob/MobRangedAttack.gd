@@ -1,0 +1,69 @@
+extends State
+class_name MobRangedAttack
+
+var attack_timer: Timer
+var mob: CharacterBody3D
+var spotted_target: CharacterBody3D
+
+func _ready():
+	name = "MobRangedAttack"
+	attack_timer = Timer.new()
+	attack_timer.wait_time = 1 #mob.rmob.ranged_cooldown # TODO: Need a ranged_cooldown in mob data
+	add_child.call_deferred(attack_timer)
+	attack_timer.timeout.connect(_on_attack_cooldown_timeout)
+
+func Enter():
+	attack_timer.start()
+	print("ENTERING RANGED ATTACK MODE")
+
+func Exit():
+	attack_timer.stop()
+
+func Physics_Update(_delta: float):
+	var ranged_range: int = 15 # TODO: implement mob.rmob.ranged_range
+	if spotted_target and mob.global_position.distance_to(spotted_target.global_position) <= ranged_range:
+		var space_state = get_world_3d().direct_space_state
+		var query = PhysicsRayQueryParameters3D.create(mob.global_position, spotted_target.global_position, 3, [self])
+		var result = space_state.intersect_ray(query)
+
+		if result and result.collider == spotted_target:
+			if not attack_timer.is_stopped():
+				attack_timer.start()
+	else:
+		Transistioned.emit(self, "mobfollow") # Exit back to follow state if out of range
+
+func _on_attack_cooldown_timeout():
+	shoot_projectile()
+
+func shoot_projectile():
+	# Ensure target is still valid before shooting
+	if not spotted_target or not is_instance_valid(spotted_target):
+		return
+
+	var spawn_position = mob.global_transform.origin + Vector3(0.0, -0.0, 0.0)
+	var target_position = spotted_target.global_position
+	var projectile_speed: float = 5 # TODO: implement mob.rmob.projectile_speed
+
+	spawn_projectile(spawn_position, target_position, projectile_speed)
+
+
+func _on_detection_target_spotted(entity):
+	spotted_target = entity
+
+
+# Spawns a projectile with the given spawn position, target position, and speed.
+func spawn_projectile(spawn_position: Vector3, target_position: Vector3, speed: float):
+	var projectile_instance = preload("res://Defaults/Projectiles/DefaultBullet.tscn").instantiate()
+
+	# Align target y-level to avoid vertical aim issues (flat projectiles)
+	target_position.y = spawn_position.y
+
+	# Calculate direction and apply speed
+	var direction = (target_position - spawn_position).normalized()
+	direction.y = 0
+
+	projectile_instance.global_transform.origin = spawn_position
+	projectile_instance.set_direction_and_speed(direction, speed)
+
+	# Emit signal for projectile spawning. Add projectile to the scene
+	Helper.signal_broker.projectile_spawned.emit(projectile_instance, mob.get_rid())
