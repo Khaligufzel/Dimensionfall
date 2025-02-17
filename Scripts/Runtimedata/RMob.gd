@@ -15,6 +15,8 @@ extends RefCounted
 #     "melee_range": 1.5,
 #     "melee_knockback": 2.0,
 #     "melee_cooldown": 2.0,
+#     "ranged_range": 15,
+#     "ranged_cooldown": 1.5,
 #     "name": "Scrap walker",
 #     "faction_id": "iron_force",
 #     "sprite": "scrapwalker64.png",
@@ -46,6 +48,8 @@ var loot_group: String
 var melee_range: float
 var melee_knockback: float
 var melee_cooldown: float
+var ranged_range: float
+var ranged_cooldown: float
 var move_speed: float
 var sense_range: int
 var sight_range: int
@@ -78,6 +82,8 @@ func overwrite_from_dmob(dmob: DMob) -> void:
 	melee_range = dmob.melee_range
 	melee_knockback = dmob.melee_knockback
 	melee_cooldown = dmob.melee_cooldown
+	ranged_range = dmob.ranged_range
+	ranged_cooldown = dmob.ranged_cooldown
 	move_speed = dmob.move_speed
 	sense_range = dmob.sense_range
 	sight_range = dmob.sight_range
@@ -106,6 +112,8 @@ func get_data() -> Dictionary:
 		"melee_range": melee_range,
 		"melee_knockback": melee_knockback,
 		"melee_cooldown": melee_cooldown,
+		"ranged_range": ranged_range,
+		"ranged_cooldown": ranged_cooldown,
 		"move_speed": move_speed,
 		"sense_range": sense_range,
 		"sight_range": sight_range,
