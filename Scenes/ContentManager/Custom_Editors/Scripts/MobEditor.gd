@@ -125,7 +125,7 @@ func update_attack_type_selection() -> String:
 		return ""
 	
 	var selected_attack_type := "Melee"
-	if dmob.has("ranged_range") and dmob.ranged_range > 0:
+	if dmob.get("ranged_range") and dmob.ranged_range > 0:
 		selected_attack_type = "Ranged"
 	
 	for i in range(attack_type_option_button.item_count):

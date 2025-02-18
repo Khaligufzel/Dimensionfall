@@ -20,7 +20,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "faction_option_button", "DescriptionTextEdit", "mobSelector", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "melee_range_numedit", "melee_cooldown_spinbox", "melee_knockback_spinbox", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "faction_option_button", "DescriptionTextEdit", "mobSelector", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "attack_type_option_button", "melee_h_box_container", "melee_range_numedit", "melee_cooldown_spinbox", "melee_knockback_spinbox", "ranged_h_box_container", "ranged_range_spin_box", "ranged_cooldown_spin_box", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,9 +46,14 @@ dash_check_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxCo
 dash_speed_multiplier_spin_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/SpeedMultiplierSpinBox")
 dash_duration_spin_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/DurationSpinBox")
 dash_cooldown_spin_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/CooldownSpinBox")
+attack_type_option_button = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/AttackTypeOptionButton")
+melee_h_box_container = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer")
 melee_range_numedit = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer/MeleeRangeSpinbox")
 melee_cooldown_spinbox = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer/MeleeCooldownSpinbox")
 melee_knockback_spinbox = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer/MeleeKnockbackSpinbox")
+ranged_h_box_container = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer")
+ranged_range_spin_box = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer/RangeSpinBox")
+ranged_cooldown_spin_box = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer/CooldownSpinBox")
 any_of_attributes_grid_container = NodePath("VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/ScrollContainer/AnyOfAttributesGridContainer")
 all_of_attributes_grid_container = NodePath("VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer/ScrollContainer/AllOfAttributesGridContainer")
 
