@@ -105,8 +105,8 @@ func _init(data: Dictionary, myparent: DMobs):
 	melee_range = data.get("melee_range", 1.5)
 	melee_knockback = data.get("melee_knockback", 2.0)  # Initialize with default value
 	melee_cooldown = data.get("melee_cooldown", 2.0)
-	ranged_range = data.get("ranged_range", 15.0)
-	ranged_cooldown = data.get("ranged_cooldown", 1.5)
+	ranged_range = data.get("ranged_range", -1)
+	ranged_cooldown = data.get("ranged_cooldown", -1)
 	move_speed = data.get("move_speed", 1.0)
 	sense_range = data.get("sense_range", 50)
 	sight_range = data.get("sight_range", 200)

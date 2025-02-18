@@ -41,7 +41,7 @@ func after_all():
 
 func test_editor_loads_mob_data():
 	assert_eq(editor_instance.NameTextEdit.text, "Test Mob", "Expected mob name to be loaded")
-	assert_eq(editor_instance.health_numedit.value, 100, "Expected health to be loaded")
+	assert_eq(editor_instance.health_numedit.value, 100.0, "Expected health to be loaded")
 
 	# Melee values
 	assert_eq(editor_instance.melee_range_numedit.value, 2.0, "Expected melee_range to load")
@@ -90,8 +90,8 @@ func test_saving_melee_data():
 	assert_eq(test_mob.melee_cooldown, 2.0, "Expected melee_cooldown to be saved")
 	assert_eq(test_mob.melee_knockback, 1.0, "Expected melee_knockback to be saved")
 
-	assert_eq(test_mob.ranged_range, -1, "Expected ranged_range to be -1 when saving Melee")
-	assert_eq(test_mob.ranged_cooldown, -1, "Expected ranged_cooldown to be -1 when saving Melee")
+	assert_eq(test_mob.ranged_range, -1.0, "Expected ranged_range to be -1 when saving Melee")
+	assert_eq(test_mob.ranged_cooldown, -1.0, "Expected ranged_cooldown to be -1 when saving Melee")
 
 
 func test_saving_ranged_data():
@@ -99,16 +99,19 @@ func test_saving_ranged_data():
 	editor_instance._on_attack_type_option_button_item_selected(1)
 
 	editor_instance.ranged_range_spin_box.value = 20.0
-	editor_instance.ranged_cooldown_spin_box.value = 1.2
+	editor_instance.ranged_cooldown_spin_box.value = 1.1
 
 	editor_instance._on_save_button_button_up()
 
 	assert_eq(test_mob.ranged_range, 20.0, "Expected ranged_range to be saved")
-	assert_eq(test_mob.ranged_cooldown, 1.2, "Expected ranged_cooldown to be saved")
+	print_debug("Actual ranged_cooldown:", test_mob.ranged_cooldown)
+	var is_equal_to: bool = test_mob.ranged_cooldown == 1.1
+	print_debug("Actual is_equal_to:", str(is_equal_to))
+	assert_eq(test_mob.ranged_cooldown, 1.1, "Expected ranged_cooldown to be saved")
 
-	assert_eq(test_mob.melee_range, -1, "Expected melee_range to be -1 when saving Ranged")
-	assert_eq(test_mob.melee_cooldown, -1, "Expected melee_cooldown to be -1 when saving Ranged")
-	assert_eq(test_mob.melee_knockback, -1, "Expected melee_knockback to be -1 when saving Ranged")
+	assert_eq(test_mob.melee_range, -1.0, "Expected melee_range to be -1 when saving Ranged")
+	assert_eq(test_mob.melee_cooldown, -1.0, "Expected melee_cooldown to be -1 when saving Ranged")
+	assert_eq(test_mob.melee_knockback, -1.0, "Expected melee_knockback to be -1 when saving Ranged")
 
 
 func test_faction_selection():

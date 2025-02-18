@@ -374,7 +374,7 @@ layout_mode = 2
 tooltip_text = "The time between attacks in seconds. 
 A lower value will make the mob attack more quickly
 A higher value will make the mob attack more slowly"
-step = 0.5
+step = 0.1
 value = 1.5
 
 [node name="AffectedAttributesLabel" type="Label" parent="VBoxContainer/TabContainer/Combat"]
