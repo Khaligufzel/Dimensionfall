@@ -15,6 +15,7 @@ var last_chunk: Vector2
 
 # Stats and attributes
 var melee_range: float = 1.5
+var ranged_range: float = -1.0
 var health: float = 100.0
 var current_health: float
 var move_speed: float = 1.0
@@ -261,6 +262,7 @@ func set_sprite(newSprite: Resource):
 func apply_stats_from_dmob() -> void:
 	set_sprite(rmob.sprite)
 	melee_range = rmob.melee_range
+	ranged_range = rmob.ranged_range
 	health = rmob.health
 	current_health = rmob.health
 	move_speed = rmob.move_speed

@@ -62,8 +62,8 @@ func spawn_projectile(spawn_position: Vector3, target_position: Vector3, speed: 
 	var direction = (target_position - spawn_position).normalized()
 	direction.y = 0
 
-	projectile_instance.global_transform.origin = spawn_position
-	projectile_instance.set_direction_and_speed(direction, speed)
-
 	# Emit signal for projectile spawning. Add projectile to the scene
 	Helper.signal_broker.projectile_spawned.emit(projectile_instance, mob.get_rid())
+
+	projectile_instance.global_transform.origin = spawn_position
+	projectile_instance.set_direction_and_speed(direction, speed)

@@ -12,15 +12,19 @@ func _ready():
 	# Create instances of each state and add them to the states dictionary
 	var mob_idle = create_mob_idle()
 	var mob_follow = create_mob_follow()
-	var mob_attack = create_mob_attack()
-	var mob_ranged_attack = create_mob_ranged_attack() # New Ranged Attack state
 	var mob_terminate = create_mob_terminate()
 
 	states["mobidle"] = mob_idle
 	states["mobfollow"] = mob_follow
-	states["mobattack"] = mob_attack
-	states["mobrangedattack"] = mob_ranged_attack # Register Ranged Attack state
 	states["mobterminate"] = mob_terminate
+
+	# Conditionally add melee or ranged attack states based on mob.ranged_range
+	if mob.ranged_range > -1:
+		var mob_ranged_attack = create_mob_ranged_attack()
+		states["mobrangedattack"] = mob_ranged_attack
+	else:
+		var mob_attack = create_mob_attack()
+		states["mobattack"] = mob_attack
 
 	# Connect transitions
 	for state in states.values():
