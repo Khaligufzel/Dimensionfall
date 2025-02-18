@@ -20,17 +20,28 @@ func Exit():
 	attack_timer.stop()
 
 func Physics_Update(_delta: float):
-	var ranged_range: int = 15 # TODO: implement mob.rmob.ranged_range
+	if mob.terminated:
+		Transistioned.emit(self, "mobterminate")
+		return
+
+	var ranged_range: int = mob.ranged_range if mob.ranged_range > -1 else 15 # Default if not set
+
 	if spotted_target and mob.global_position.distance_to(spotted_target.global_position) <= ranged_range:
+		# Make the mob look at the target
+		var target_position = spotted_target.global_position
+		target_position.y = mob.meshInstance.global_position.y # Align y to avoid tilting
+		mob.meshInstance.look_at(target_position, Vector3.UP)
+
 		var space_state = get_world_3d().direct_space_state
 		var query = PhysicsRayQueryParameters3D.create(mob.global_position, spotted_target.global_position, 3, [self])
 		var result = space_state.intersect_ray(query)
 
 		if result and result.collider == spotted_target:
-			if not attack_timer.is_stopped():
+			if attack_timer.is_stopped():
 				attack_timer.start()
 	else:
 		Transistioned.emit(self, "mobfollow") # Exit back to follow state if out of range
+
 
 func _on_attack_cooldown_timeout():
 	shoot_projectile()
@@ -54,7 +65,8 @@ func _on_detection_target_spotted(entity):
 # Spawns a projectile with the given spawn position, target position, and speed.
 func spawn_projectile(spawn_position: Vector3, target_position: Vector3, speed: float):
 	var projectile_instance = preload("res://Defaults/Projectiles/DefaultBullet.tscn").instantiate()
-
+	# Configure the projectile as an enemy projectile
+	projectile_instance.configure_collision(false)
 	# Align target y-level to avoid vertical aim issues (flat projectiles)
 	target_position.y = spawn_position.y
 
