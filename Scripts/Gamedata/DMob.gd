@@ -133,8 +133,6 @@ func get_data() -> Dictionary:
 		"melee_range": melee_range,
 		"melee_knockback": melee_knockback,
 		"melee_cooldown": melee_cooldown,
-		"ranged_range": ranged_range,
-		"ranged_cooldown": ranged_cooldown,
 		"move_speed": move_speed,
 		"sense_range": sense_range,
 		"sight_range": sight_range,
@@ -144,6 +142,10 @@ func get_data() -> Dictionary:
 		data["special_moves"] = special_moves
 	if not targetattributes.is_empty():
 		data["targetattributes"] = targetattributes
+	if not ranged_range < 0:
+		data["ranged_range"] = ranged_range
+	if not ranged_cooldown < 0:
+		data["ranged_cooldown"] = ranged_cooldown
 	return data
 
 

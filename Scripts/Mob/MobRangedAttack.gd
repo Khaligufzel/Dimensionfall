@@ -67,6 +67,7 @@ func spawn_projectile(spawn_position: Vector3, target_position: Vector3, speed: 
 	var projectile_instance = preload("res://Defaults/Projectiles/DefaultBullet.tscn").instantiate()
 	# Configure the projectile as an enemy projectile
 	projectile_instance.configure_collision(false)
+
 	# Align target y-level to avoid vertical aim issues (flat projectiles)
 	target_position.y = spawn_position.y
 
@@ -74,8 +75,26 @@ func spawn_projectile(spawn_position: Vector3, target_position: Vector3, speed: 
 	var direction = (target_position - spawn_position).normalized()
 	direction.y = 0
 
-	# Emit signal for projectile spawning. Add projectile to the scene
+	# Generate attack data and assign it to the projectile
+	projectile_instance.attack = create_attack_data(spawn_position)
+
 	Helper.signal_broker.projectile_spawned.emit(projectile_instance, mob.get_rid())
 
 	projectile_instance.global_transform.origin = spawn_position
 	projectile_instance.set_direction_and_speed(direction, speed)
+
+
+# Creates attack data for a ranged projectile
+func create_attack_data(spawn_position: Vector3) -> Dictionary:
+	var chosen_attribute: Dictionary = {"id": "", "damage": 10}
+	# Select the attribute that this projectile will hit (example: left arm health)
+	if mob.rmob.targetattributes.has("any_of") and not mob.rmob.targetattributes["any_of"].is_empty():
+		chosen_attribute = mob.rmob.targetattributes["any_of"].pick_random()
+
+	return {
+		"attributeid": chosen_attribute["id"],
+		"damage": chosen_attribute["damage"],
+		"knockback": mob.rmob.ranged_knockback if mob.rmob.get("ranged_knockback") else 0,
+		"mobposition": spawn_position,
+		"hit_chance": 100
+	}
