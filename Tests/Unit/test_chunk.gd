@@ -67,25 +67,25 @@ func test_chunk_load_unload():
 	# Validate specific blocks on level 0 (which is ground floor)
 	var level_index = 0
 
-	# Check (0, 0) -> "dot_tile", rotation 0
+	# Check (0, 0) -> "dot_tile", rotation 0 --> top-left block
 	var block_00 = test_chunk.get_block_at(level_index, Vector2i(0, 0))
 	assert_eq(block_00.get("id", ""), "dot_tile", "Block at (0, 0) is not 'dot_tile'.")
-	assert_eq(block_00.get("rotation", -1), 0, "Block at (0, 0) does not have rotation 0.")
+	assert_eq(block_00.get("rotation", 0.0), 0.0, "Block at (0, 0) does not have rotation 0.")
 
-	# Check (0, 31) -> "dot_tile", rotation 90
+	# Check (0, 31) -> "dot_tile", rotation 270 --> bottom-left block
 	var block_031 = test_chunk.get_block_at(level_index, Vector2i(0, 31))
 	assert_eq(block_031.get("id", ""), "dot_tile", "Block at (0, 31) is not 'dot_tile'.")
-	assert_eq(block_031.get("rotation", -1), 90, "Block at (0, 31) does not have rotation 90.")
+	assert_eq(block_031.get("rotation", 0.0), 270.0, "Block at (0, 31) does not have rotation 270.")
 
-	# Check (31, 0) -> "dot_tile", rotation 180
+	# Check (31, 0) -> "dot_tile", rotation 90 --> top-right block
 	var block_310 = test_chunk.get_block_at(level_index, Vector2i(31, 0))
 	assert_eq(block_310.get("id", ""), "dot_tile", "Block at (31, 0) is not 'dot_tile'.")
-	assert_eq(block_310.get("rotation", -1), 180, "Block at (31, 0) does not have rotation 180.")
+	assert_eq(block_310.get("rotation", 0.0), 90.0, "Block at (31, 0) does not have rotation 90.")
 
-	# Check (31, 31) -> "dot_tile", rotation 270
+	# Check (31, 31) -> "dot_tile", rotation 180 --> bottom-right block
 	var block_3131 = test_chunk.get_block_at(level_index, Vector2i(31, 31))
 	assert_eq(block_3131.get("id", ""), "dot_tile", "Block at (31, 31) is not 'dot_tile'.")
-	assert_eq(block_3131.get("rotation", -1), 270, "Block at (31, 31) does not have rotation 270.")
+	assert_eq(block_3131.get("rotation", 0.0), 180.0, "Block at (31, 31) does not have rotation 180.")
 
 
 	# Call `unload_chunk` and wait for the chunk to be null
