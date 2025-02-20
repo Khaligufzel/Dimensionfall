@@ -1,0 +1,3110 @@
+{
+	"connections": {
+		"east": "ground",
+		"north": "ground",
+		"south": "ground",
+		"west": "ground"
+	},
+	"description": "This map is used for the most basic testing of the chunk",
+	"id": "basic_test_map",
+	"levels": [
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[
+			{
+				"id": "dot_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "dot_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "dot_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "default_tile"
+			},
+			{
+				"id": "dot_tile"
+			}
+		],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[],
+		[]
+	],
+	"mapheight": 32,
+	"mapwidth": 32,
+	"name": "Basic test map",
+	"weight": 1000
+}
