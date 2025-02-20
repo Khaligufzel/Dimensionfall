@@ -2,7 +2,8 @@
 	"default_tile": {
 		"maps": [
 			"default_map",
-			"basic_test_map"
+			"basic_test_map",
+			"basic_mob_test_map"
 		]
 	}
 }

@@ -5,7 +5,7 @@ var idle_speed
 
 var nav_agent: NavigationAgent3D # Used for pathfinding
 var mob: CharacterBody3D # The mob we provide idle behavour for
-var move_distance: float = 50.0
+var move_distance: float = 15.0
 var moving_timer: Timer
 
 @onready var target_location: Vector3

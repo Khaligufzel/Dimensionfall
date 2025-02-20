@@ -5,6 +5,9 @@
 		]
 	},
 	"generic_test_mob": {
+		"maps": [
+			"basic_mob_test_map"
+		],
 		"mobfactions": [
 			"enemy_test_faction"
 		]
