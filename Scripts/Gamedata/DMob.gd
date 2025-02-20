@@ -20,6 +20,8 @@ extends RefCounted
 # 	"melee_range": 1.5,
 # 	"melee_knockback": 2.0,
 # 	"melee_cooldown": 2.0,
+# 	"ranged_range": 15,
+# 	"ranged_cooldown": 1.5,
 # 	"name": "Scrap walker",
 # 	"references": {
 # 		"core": {
@@ -73,8 +75,10 @@ var hearing_range: int
 var idle_move_speed: float
 var loot_group: String
 var melee_range: float
-var melee_knockback: float  # New property for melee knockback
-var melee_cooldown: float   # New property for melee cooldown
+var melee_knockback: float
+var melee_cooldown: float
+var ranged_range: float
+var ranged_cooldown: float
 var move_speed: float
 var sense_range: int
 var sight_range: int
@@ -100,7 +104,9 @@ func _init(data: Dictionary, myparent: DMobs):
 	loot_group = data.get("loot_group", "")
 	melee_range = data.get("melee_range", 1.5)
 	melee_knockback = data.get("melee_knockback", 2.0)  # Initialize with default value
-	melee_cooldown = data.get("melee_cooldown", 2.0)    # Initialize with default value
+	melee_cooldown = data.get("melee_cooldown", 2.0)
+	ranged_range = data.get("ranged_range", -1)
+	ranged_cooldown = data.get("ranged_cooldown", -1)
 	move_speed = data.get("move_speed", 1.0)
 	sense_range = data.get("sense_range", 50)
 	sight_range = data.get("sight_range", 200)
@@ -125,8 +131,8 @@ func get_data() -> Dictionary:
 		"idle_move_speed": idle_move_speed,
 		"loot_group": loot_group,
 		"melee_range": melee_range,
-		"melee_knockback": melee_knockback,  # Add to data output
-		"melee_cooldown": melee_cooldown,    # Add to data output
+		"melee_knockback": melee_knockback,
+		"melee_cooldown": melee_cooldown,
 		"move_speed": move_speed,
 		"sense_range": sense_range,
 		"sight_range": sight_range,
@@ -136,6 +142,10 @@ func get_data() -> Dictionary:
 		data["special_moves"] = special_moves
 	if not targetattributes.is_empty():
 		data["targetattributes"] = targetattributes
+	if not ranged_range < 0:
+		data["ranged_range"] = ranged_range
+	if not ranged_cooldown < 0:
+		data["ranged_cooldown"] = ranged_cooldown
 	return data
 
 

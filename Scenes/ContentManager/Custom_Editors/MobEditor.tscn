@@ -20,7 +20,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "faction_option_button", "DescriptionTextEdit", "mobSelector", "melee_range_numedit", "melee_cooldown_spinbox", "melee_knockback_spinbox", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "faction_option_button", "DescriptionTextEdit", "mobSelector", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "attack_type_option_button", "melee_h_box_container", "melee_range_numedit", "melee_cooldown_spinbox", "melee_knockback_spinbox", "ranged_h_box_container", "ranged_range_spin_box", "ranged_cooldown_spin_box", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,29 +28,34 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ubw0i")
-mobImageDisplay = NodePath("VBoxContainer/FormGrid/MobImageDisplay")
-IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
-PathTextLabel = NodePath("VBoxContainer/FormGrid/PathTextLabel")
-NameTextEdit = NodePath("VBoxContainer/FormGrid/HBoxContainer/NameTextEdit")
-faction_option_button = NodePath("VBoxContainer/FormGrid/HBoxContainer/FactionOptionButton")
-DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
+mobImageDisplay = NodePath("VBoxContainer/TabContainer/General/MobImageDisplay")
+IDTextLabel = NodePath("VBoxContainer/TabContainer/General/IDTextLabel")
+PathTextLabel = NodePath("VBoxContainer/TabContainer/General/PathTextLabel")
+NameTextEdit = NodePath("VBoxContainer/TabContainer/General/HBoxContainer/NameTextEdit")
+faction_option_button = NodePath("VBoxContainer/TabContainer/General/HBoxContainer/FactionOptionButton")
+DescriptionTextEdit = NodePath("VBoxContainer/TabContainer/General/DescriptionTextEdit")
 mobSelector = NodePath("Sprite_selector")
-melee_range_numedit = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeRangeSpinbox")
-melee_cooldown_spinbox = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeCooldownSpinbox")
-melee_knockback_spinbox = NodePath("VBoxContainer/FormGrid/MeleeHBoxContainer/MeleeKnockbackSpinbox")
-health_numedit = NodePath("VBoxContainer/FormGrid/HealthSpinBox")
-moveSpeed_numedit = NodePath("VBoxContainer/FormGrid/SpeedHBoxContainer/MoveSpeedSpinBox")
-idle_move_speed_numedit = NodePath("VBoxContainer/FormGrid/SpeedHBoxContainer/IdleMoveSpeedSpinBox")
-sightRange_numedit = NodePath("VBoxContainer/FormGrid/HBoxContainer2/SightRangeSpinBox")
-senseRange_numedit = NodePath("VBoxContainer/FormGrid/HBoxContainer2/SenseRangeSpinbox")
-hearingRange_numedit = NodePath("VBoxContainer/FormGrid/HBoxContainer2/HearingRangeSpinbox")
-ItemGroupTextEdit = NodePath("VBoxContainer/FormGrid/LootItemgroupHBoxContainer/LootItemGroupTextEdit")
-dash_check_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/DashCheckBox")
-dash_speed_multiplier_spin_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/SpeedMultiplierSpinBox")
-dash_duration_spin_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/DurationSpinBox")
-dash_cooldown_spin_box = NodePath("VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/CooldownSpinBox")
-any_of_attributes_grid_container = NodePath("VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/ScrollContainer/AnyOfAttributesGridContainer")
-all_of_attributes_grid_container = NodePath("VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer/ScrollContainer/AllOfAttributesGridContainer")
+health_numedit = NodePath("VBoxContainer/TabContainer/General/HealthSpinBox")
+moveSpeed_numedit = NodePath("VBoxContainer/TabContainer/General/SpeedHBoxContainer/MoveSpeedSpinBox")
+idle_move_speed_numedit = NodePath("VBoxContainer/TabContainer/General/SpeedHBoxContainer/IdleMoveSpeedSpinBox")
+sightRange_numedit = NodePath("VBoxContainer/TabContainer/General/HBoxContainer2/SightRangeSpinBox")
+senseRange_numedit = NodePath("VBoxContainer/TabContainer/General/HBoxContainer2/SenseRangeSpinbox")
+hearingRange_numedit = NodePath("VBoxContainer/TabContainer/General/HBoxContainer2/HearingRangeSpinbox")
+ItemGroupTextEdit = NodePath("VBoxContainer/TabContainer/General/LootItemgroupHBoxContainer/LootItemGroupTextEdit")
+dash_check_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/DashCheckBox")
+dash_speed_multiplier_spin_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/SpeedMultiplierSpinBox")
+dash_duration_spin_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/DurationSpinBox")
+dash_cooldown_spin_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/CooldownSpinBox")
+attack_type_option_button = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/AttackTypeOptionButton")
+melee_h_box_container = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer")
+melee_range_numedit = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer/MeleeRangeSpinbox")
+melee_cooldown_spinbox = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer/MeleeCooldownSpinbox")
+melee_knockback_spinbox = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer/MeleeKnockbackSpinbox")
+ranged_h_box_container = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer")
+ranged_range_spin_box = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer/RangeSpinBox")
+ranged_cooldown_spin_box = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer/CooldownSpinBox")
+any_of_attributes_grid_container = NodePath("VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/ScrollContainer/AnyOfAttributesGridContainer")
+all_of_attributes_grid_container = NodePath("VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer/ScrollContainer/AllOfAttributesGridContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -71,16 +76,23 @@ text = "Close"
 layout_mode = 2
 text = "Save"
 
-[node name="FormGrid" type="GridContainer" parent="VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 1
+
+[node name="General" type="GridContainer" parent="VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
+metadata/_tab_index = 0
 
-[node name="ImageLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="ImageLabel" type="Label" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 text = "Sprite:"
 
-[node name="MobImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
+[node name="MobImageDisplay" type="TextureRect" parent="VBoxContainer/TabContainer/General"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -88,38 +100,38 @@ size_flags_stretch_ratio = 0.4
 texture = ExtResource("2_woy6i")
 expand_mode = 3
 
-[node name="PathLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="PathLabel" type="Label" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 text = "Sprite name"
 
-[node name="PathTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="PathTextLabel" type="Label" parent="VBoxContainer/TabContainer/General"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 
-[node name="IDLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="IDLabel" type="Label" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 text = "ID:"
 
-[node name="IDTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="IDTextLabel" type="Label" parent="VBoxContainer/TabContainer/General"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 
-[node name="NameLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="NameLabel" type="Label" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 text = "Name"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer"]
+[node name="NameLabel" type="Label" parent="VBoxContainer/TabContainer/General/HBoxContainer"]
 layout_mode = 2
 text = "Name:"
 
-[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid/HBoxContainer"]
+[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/TabContainer/General/HBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -127,19 +139,19 @@ focus_next = NodePath("../../DescriptionTextEdit")
 focus_previous = NodePath("../../MobImageDisplay")
 placeholder_text = "Scorpion	"
 
-[node name="FactionLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer"]
+[node name="FactionLabel" type="Label" parent="VBoxContainer/TabContainer/General/HBoxContainer"]
 layout_mode = 2
 text = "Faction:"
 
-[node name="FactionOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid/HBoxContainer"]
+[node name="FactionOptionButton" type="OptionButton" parent="VBoxContainer/TabContainer/General/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 text = "Description"
 
-[node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+[node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -149,122 +161,86 @@ focus_previous = NodePath("../HBoxContainer/NameTextEdit")
 placeholder_text = "A very dangerous land animal often found in dry climates"
 wrap_mode = 1
 
-[node name="HealthLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="HealthLabel" type="Label" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 text = "Health"
 
-[node name="HealthSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
+[node name="HealthSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 max_value = 1000.0
 value = 100.0
 
-[node name="MeleeLabel" type="Label" parent="VBoxContainer/FormGrid"]
-layout_mode = 2
-text = "Melee"
-
-[node name="MeleeHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
-layout_mode = 2
-
-[node name="MeleeRangeLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
-layout_mode = 2
-text = "Range"
-
-[node name="MeleeRangeSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
-layout_mode = 2
-tooltip_text = "The maximum distance it can reach when attacking in melee"
-step = 0.5
-value = 1.5
-
-[node name="MeleeCooldownLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
-layout_mode = 2
-text = "Cooldown"
-
-[node name="MeleeCooldownSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
-layout_mode = 2
-tooltip_text = "The cooldown in seconds. During the cooldown, the mob cannot perform another melee attack."
-step = 0.5
-value = 1.5
-
-[node name="MeleeKnockbackLabel" type="Label" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
-layout_mode = 2
-text = "Knockback"
-
-[node name="MeleeKnockbackSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/MeleeHBoxContainer"]
-layout_mode = 2
-tooltip_text = "The number of tiles that the  player will be knocked back. If the value is 0, no knockback will be applied."
-step = 0.5
-
-[node name="SpeedLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="SpeedLabel" type="Label" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 text = "Speed"
 
-[node name="SpeedHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+[node name="SpeedHBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 
-[node name="MoveSpeedLabel" type="Label" parent="VBoxContainer/FormGrid/SpeedHBoxContainer"]
+[node name="MoveSpeedLabel" type="Label" parent="VBoxContainer/TabContainer/General/SpeedHBoxContainer"]
 layout_mode = 2
 text = "Move speed"
 
-[node name="MoveSpeedSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/SpeedHBoxContainer"]
+[node name="MoveSpeedSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/General/SpeedHBoxContainer"]
 layout_mode = 2
 tooltip_text = "The speed at which it moves"
 step = 0.1
 value = 1.0
 
-[node name="IdleMoveSpeedLabel" type="Label" parent="VBoxContainer/FormGrid/SpeedHBoxContainer"]
+[node name="IdleMoveSpeedLabel" type="Label" parent="VBoxContainer/TabContainer/General/SpeedHBoxContainer"]
 layout_mode = 2
 text = "Idle move speed"
 
-[node name="IdleMoveSpeedSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/SpeedHBoxContainer"]
+[node name="IdleMoveSpeedSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/General/SpeedHBoxContainer"]
 layout_mode = 2
 tooltip_text = "The speed at which it moves when idle"
 step = 0.1
 value = 0.5
 
-[node name="RangeLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="RangeLabel" type="Label" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 text = "Range"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 
-[node name="SightRangeLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer2"]
+[node name="SightRangeLabel" type="Label" parent="VBoxContainer/TabContainer/General/HBoxContainer2"]
 layout_mode = 2
 text = "Sight"
 
-[node name="SightRangeSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/HBoxContainer2"]
+[node name="SightRangeSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/General/HBoxContainer2"]
 layout_mode = 2
 tooltip_text = "The maximum distance it can visually detect other entities"
 max_value = 500.0
 value = 200.0
 
-[node name="SenseRangeLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer2"]
+[node name="SenseRangeLabel" type="Label" parent="VBoxContainer/TabContainer/General/HBoxContainer2"]
 layout_mode = 2
 text = "Sense"
 
-[node name="SenseRangeSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/HBoxContainer2"]
+[node name="SenseRangeSpinbox" type="SpinBox" parent="VBoxContainer/TabContainer/General/HBoxContainer2"]
 layout_mode = 2
 tooltip_text = "The maximum distance at which it can detect entities with senses other then sight and hearing"
 value = 50.0
 
-[node name="HearingRangeLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer2"]
+[node name="HearingRangeLabel" type="Label" parent="VBoxContainer/TabContainer/General/HBoxContainer2"]
 layout_mode = 2
 text = "Hearing"
 
-[node name="HearingRangeSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/HBoxContainer2"]
+[node name="HearingRangeSpinbox" type="SpinBox" parent="VBoxContainer/TabContainer/General/HBoxContainer2"]
 layout_mode = 2
 tooltip_text = "The maximum distance at which it can detect entities trough hearing"
 max_value = 5000.0
 value = 1000.0
 
-[node name="LootItemGroupLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="LootItemGroupLabel" type="Label" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 text = "Loot itemgroup"
 
-[node name="LootItemgroupHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+[node name="LootItemgroupHBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 
-[node name="LootItemGroupTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid/LootItemgroupHBoxContainer"]
+[node name="LootItemGroupTextEdit" type="TextEdit" parent="VBoxContainer/TabContainer/General/LootItemgroupHBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -276,79 +252,159 @@ mouse_filter = 1
 placeholder_text = "Drop an itemgroup here"
 editable = false
 
-[node name="ItemGroupClearButton" type="Button" parent="VBoxContainer/FormGrid/LootItemgroupHBoxContainer"]
+[node name="ItemGroupClearButton" type="Button" parent="VBoxContainer/TabContainer/General/LootItemgroupHBoxContainer"]
 layout_mode = 2
 tooltip_text = "Clears the id of the itemgroup"
 text = "Clear itemgroup"
 
-[node name="SpecialMovesLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="SpecialMovesLabel" type="Label" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 text = "Special moves"
 
-[node name="SpecialMovesHBoxContainer3" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+[node name="SpecialMovesHBoxContainer3" type="HBoxContainer" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 
-[node name="DashCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+[node name="DashCheckBox" type="CheckBox" parent="VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3"]
 layout_mode = 2
 tooltip_text = "Allow this mob to perform the dash move."
 text = "Dash"
 
-[node name="SpeedMultiplierLabel" type="Label" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+[node name="SpeedMultiplierLabel" type="Label" parent="VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3"]
 layout_mode = 2
 text = "Speed multiplier"
 
-[node name="SpeedMultiplierSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+[node name="SpeedMultiplierSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3"]
 layout_mode = 2
 tooltip_text = "The speed multiplier for the dash move. This will multiply the move speed for the specified duration."
 value = 2.0
 
-[node name="DurationLabel" type="Label" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+[node name="DurationLabel" type="Label" parent="VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3"]
 layout_mode = 2
 text = "Duration"
 
-[node name="DurationSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+[node name="DurationSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3"]
 layout_mode = 2
 tooltip_text = "The duration of the dash move in seconds"
 step = 0.1
 value = 0.5
 
-[node name="CooldownLabel" type="Label" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+[node name="CooldownLabel" type="Label" parent="VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3"]
 layout_mode = 2
 text = "Cooldown"
 
-[node name="CooldownSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3"]
+[node name="CooldownSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3"]
 layout_mode = 2
 tooltip_text = "The cooldown for the dash move in seconds."
 value = 5.0
 
-[node name="AffectedAttributesLabel" type="Label" parent="VBoxContainer/FormGrid"]
+[node name="Combat" type="GridContainer" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
+columns = 2
+metadata/_tab_index = 1
+
+[node name="AttackLabel" type="Label" parent="VBoxContainer/TabContainer/Combat"]
+layout_mode = 2
+text = "Attack"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Combat"]
+layout_mode = 2
+
+[node name="AttackTypeOptionButton" type="OptionButton" parent="VBoxContainer/TabContainer/Combat/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Select the type of attack.
+Melee: This mob uses melee attack
+Ranged: This mob uses ranged attacks (only bullets for now)"
+selected = 0
+item_count = 2
+popup/item_0/text = "Melee"
+popup/item_1/text = "Ranged"
+popup/item_1/id = 1
+
+[node name="MeleeHBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Combat/HBoxContainer"]
+layout_mode = 2
+
+[node name="MeleeRangeLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer"]
+layout_mode = 2
+text = "Range"
+
+[node name="MeleeRangeSpinbox" type="SpinBox" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The maximum distance it can reach when attacking in melee"
+step = 0.5
+value = 1.5
+
+[node name="MeleeCooldownLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer"]
+layout_mode = 2
+text = "Cooldown"
+
+[node name="MeleeCooldownSpinbox" type="SpinBox" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The cooldown in seconds. During the cooldown, the mob cannot perform another melee attack."
+step = 0.5
+value = 1.5
+
+[node name="MeleeKnockbackLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer"]
+layout_mode = 2
+text = "Knockback"
+
+[node name="MeleeKnockbackSpinbox" type="SpinBox" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The number of tiles that the  player will be knocked back. If the value is 0, no knockback will be applied."
+step = 0.5
+
+[node name="RangedHBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Combat/HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="RangeLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
+layout_mode = 2
+text = "Range"
+
+[node name="RangeSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The maxium range that the ranged attack can occur at"
+value = 15.0
+
+[node name="CooldownLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
+layout_mode = 2
+text = "Cooldown"
+
+[node name="CooldownSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
+layout_mode = 2
+tooltip_text = "The time between attacks in seconds. 
+A lower value will make the mob attack more quickly
+A higher value will make the mob attack more slowly"
+step = 0.1
+value = 1.5
+
+[node name="AffectedAttributesLabel" type="Label" parent="VBoxContainer/TabContainer/Combat"]
 layout_mode = 2
 text = "Target attributes"
 
-[node name="AttributesHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+[node name="AttributesHBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Combat"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="AnyOfPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer"]
+[node name="AnyOfPanelContainer" type="PanelContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_apoql")
 
-[node name="AnyOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer"]
+[node name="AnyOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer"]
 layout_mode = 2
 
-[node name="AnyOfLabel" type="Label" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
+[node name="AnyOfLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
 layout_mode = 2
 text = "Any of:"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
 
-[node name="AnyOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/ScrollContainer"]
+[node name="AnyOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/ScrollContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
@@ -359,27 +415,27 @@ can drag body parts to this field to have the mob target them.
 Selecting multiple will have the mob attack one part at a time at random."
 columns = 4
 
-[node name="AllOfPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer"]
+[node name="AllOfPanelContainer" type="PanelContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer"]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_apoql")
 
-[node name="AllOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer"]
+[node name="AllOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AllOfPanelContainer"]
 clip_contents = true
 layout_mode = 2
 
-[node name="AllOfLabel" type="Label" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer"]
+[node name="AllOfLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer"]
 layout_mode = 2
 text = "All of:"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
 
-[node name="AllOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer/ScrollContainer"]
+[node name="AllOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer/ScrollContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
@@ -395,7 +451,7 @@ visible = false
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
-[connection signal="gui_input" from="VBoxContainer/FormGrid/MobImageDisplay" to="." method="_on_mob_image_display_gui_input"]
-[connection signal="button_up" from="VBoxContainer/FormGrid/LootItemgroupHBoxContainer/ItemGroupClearButton" to="." method="_on_item_group_clear_button_button_up"]
-[connection signal="toggled" from="VBoxContainer/FormGrid/SpecialMovesHBoxContainer3/DashCheckBox" to="." method="_on_dash_check_box_toggled"]
+[connection signal="gui_input" from="VBoxContainer/TabContainer/General/MobImageDisplay" to="." method="_on_mob_image_display_gui_input"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/General/LootItemgroupHBoxContainer/ItemGroupClearButton" to="." method="_on_item_group_clear_button_button_up"]
+[connection signal="toggled" from="VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/DashCheckBox" to="." method="_on_dash_check_box_toggled"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

@@ -15,6 +15,7 @@ var last_chunk: Vector2
 
 # Stats and attributes
 var melee_range: float = 1.5
+var ranged_range: float = -1.0
 var health: float = 100.0
 var current_health: float
 var move_speed: float = 1.0
@@ -67,12 +68,12 @@ func setup_basic_properties():
 # Set collision layers and masks
 func setup_collision_layers_and_masks():
 	collision_layer = 1 << 1  # Layer 2 is 1 << 1 (bit shift by 1)
-	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 4)
+	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 5)
 	# Explanation:
 	# - 1 << 0: Layer 1 (player layer)
 	# - 1 << 1: Layer 2 (enemy layer)
 	# - 1 << 2: Layer 3 (static obstacles layer)
-	# - 1 << 4: Layer 5 (friendly projectiles layer)
+	# - 1 << 5: Layer 6 (friendly projectiles layer)
 
 
 # Create and configure NavigationAgent3D
@@ -261,6 +262,7 @@ func set_sprite(newSprite: Resource):
 func apply_stats_from_dmob() -> void:
 	set_sprite(rmob.sprite)
 	melee_range = rmob.melee_range
+	ranged_range = rmob.ranged_range
 	health = rmob.health
 	current_health = rmob.health
 	move_speed = rmob.move_speed

@@ -3,6 +3,16 @@ extends RigidBody3D
 var velocity = Vector3()
 var damage = 10
 var lifetime = 5.0
+# The attack that will be executed when this bullet hits anything
+# The default value is used for attacks from the player towards an enemy.
+# If the player needs to get hit by the bullet, we will need an attack like this:
+# {
+# 	"attributeid": "torso_health", # The PlayerAttribute that is targeted by this attack
+# 	"damage": 20, # The amount to subtract from the target attribute
+# 	"knockback": 2, # The number of tiles to push the player away
+# 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
+# }
+var attack: Dictionary = {"damage":damage, "hit_chance":100}
 
 func _ready():
 	# Call a function to destroy the projectile after its lifetime expires
@@ -36,8 +46,8 @@ func set_lifetime(time: float):
 # The bullet has hit something
 func _on_Projectile_body_entered(body: Node):
 	if body.has_method("get_hit"):
-		var attack: Dictionary = {"damage":damage, "hit_chance":100}
 		body.get_hit(attack)
+
 	queue_free()  # Destroy the projectile upon collision
 
 
@@ -48,11 +58,19 @@ func _on_body_shape_entered(_body_rid: RID, _body: Node, _body_shape_index: int,
 # For some reason, the _on_body_shape_entered function does not trigger when the bullet collides
 # with a collider that's not inside the tree, like with FurnitureStaticSrv. That's why an Area3d
 # was added so it can still use the functionality it's supposed to. The Area3d listens to 
-# Layer 7 which is the static obstacles layer.
+# Layer 3 and 4 which are the static and movable obstacles layers.
 func _on_area_3d_body_shape_entered(body_rid: RID, _body: Node3D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body_rid:
-		print_debug("a bullet hit ", body_rid)
-		var attack: Dictionary = {"damage":damage, "hit_chance":100}
 		# Used for bodies that exist outside the scene tree, like StaticFurnitureSrv
 		Helper.signal_broker.bullet_hit.emit(body_rid, attack)
 	queue_free()  # Destroy the projectile upon collision
+
+# Switch between friendly or enemy projectiles
+# is_friendly: true: It's a friendly projectile. false: It's an enemy projectile
+func configure_collision(is_friendly: bool):
+	if is_friendly:
+		collision_layer = 1 << 5  # Layer 6 (Friendly Projectiles)
+		collision_mask = (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4)  # Layers 2, 3, 4, 5
+	else:
+		collision_layer = 1 << 4  # Layer 5 (Enemy Projectiles)
+		collision_mask = (1 << 0) | (1 << 2) | (1 << 3) | (1 << 5)  # Layers 1, 3, 4, 6

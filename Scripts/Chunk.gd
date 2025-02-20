@@ -98,6 +98,7 @@ func reset_state():
 	load_state = LoadStates.NEITHER
 
 
+# Initialize the chunk data. Example chunk data: {"id": "field_grass_basic_00", "rotation": 0}
 func initialize_chunk_data():
 	if Helper.test_map_name: # If we have a map explicitly set for test purposes, override it
 		chunk_data["id"] = Helper.test_map_name
@@ -225,7 +226,7 @@ func add_block_mobs():
 	# If you want to test a mob, you can use this to spawn it at 0,2,0
 	# Comment it out again when you're done testing
 	#if mypos == Vector3(0,0,0):
-		#var tempmob: CharacterBody3D = Mob.new(Vector3(0,1,0), {"id":"iron_stalker"})
+		#var tempmob: CharacterBody3D = Mob.new(Vector3(0,1,0), {"id":"outpost_guardian"})
 		#level_manager.add_child.call_deferred(tempmob)
 
 # When a map is loaded for the first time we spawn the furniture on the block

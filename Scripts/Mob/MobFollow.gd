@@ -104,10 +104,20 @@ func check_for_target_in_range():
 		[self] # Exclude self
 	)
 	var result = space_state.intersect_ray(query)
+
 	if result and result.collider:
-		if (result.collider.is_in_group("Players") or result.collider.is_in_group("mobs")) and Vector3(mobCol.global_position).distance_to(spotted_target.global_position) <= mob.melee_range / 2:
-			print("changing state to mobattack...")
-			Transistioned.emit(self, "mobattack")
+		var is_valid_target = result.collider.is_in_group("Players") or result.collider.is_in_group("mobs")
+		var distance_to_target = mobCol.global_position.distance_to(spotted_target.global_position)
+
+		if is_valid_target:
+			if mob.ranged_range > 0: # Assume the mob is ranged if it has ranged_range
+				if distance_to_target <= mob.ranged_range:
+					print("Changing state to mobrangedattack...")
+					Transistioned.emit(self, "mobrangedattack")
+			else:
+				if distance_to_target <= mob.melee_range / 2:
+					print("Changing state to mobattack...")
+					Transistioned.emit(self, "mobattack")
 
 
 # Checks if the mob has reached its target location, transitions to idle if true

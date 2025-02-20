@@ -1,0 +1,46 @@
+[
+	{
+		"default_faction": "",
+		"description": "Use this for testing purposes",
+		"faction_id": "generic_test_faction",
+		"health": 100,
+		"hearing_range": 1000,
+		"id": "generic_test_mob",
+		"idle_move_speed": 0.5,
+		"loot_group": "",
+		"melee_cooldown": 2,
+		"melee_knockback": 2,
+		"melee_range": 1.5,
+		"move_speed": 1,
+		"name": "Test mob",
+		"sense_range": 50,
+		"sight_range": 200,
+		"sprite": "test_scrapwalker64.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": []
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "Use this enemy for testing purposes",
+		"faction_id": "enemy_test_faction",
+		"health": 100,
+		"hearing_range": 1000,
+		"id": "generic_enemy_mob",
+		"idle_move_speed": 0.5,
+		"loot_group": "",
+		"melee_cooldown": 2,
+		"melee_knockback": 2,
+		"melee_range": 1.5,
+		"move_speed": 1,
+		"name": "Enemy mob",
+		"sense_range": 50,
+		"sight_range": 200,
+		"sprite": "test_zombie_64_64.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": []
+		}
+	}
+]

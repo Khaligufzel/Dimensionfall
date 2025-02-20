@@ -1,0 +1,12 @@
+{
+	"generic_enemy_mob": {
+		"mobfactions": [
+			"generic_test_faction"
+		]
+	},
+	"generic_test_mob": {
+		"mobfactions": [
+			"enemy_test_faction"
+		]
+	}
+}

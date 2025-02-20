@@ -1,1 +1,28 @@
-[]
+[
+	{
+		"description": "Use this for testing purposes",
+		"id": "generic_test_faction",
+		"name": "Generic test faction",
+		"relations": [
+			{
+				"mobs": [
+					"generic_enemy_mob"
+				],
+				"relation_type": "hostile"
+			}
+		]
+	},
+	{
+		"description": "Use this for testing purposes",
+		"id": "enemy_test_faction",
+		"name": "Enemy faction",
+		"relations": [
+			{
+				"mobs": [
+					"generic_test_mob"
+				],
+				"relation_type": "hostile"
+			}
+		]
+	}
+]
