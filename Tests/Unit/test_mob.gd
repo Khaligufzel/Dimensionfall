@@ -165,3 +165,26 @@ func test_mob_melee_combat():
 	var mob_has_transitioned = func():
 		return second_state is MobAttack
 	assert_true(await wait_until(mob_has_transitioned, 10, 1),"Mob should have transitioned")
+
+	# Test that the mobs attack eachother
+	var mob_taken_damage = func():
+		return first_mob.current_health < first_mob.health and second_mob.current_health < second_mob.health
+	assert_true(await wait_until(mob_taken_damage, 10, 1),"Mob should have taken damage")
+	
+	# Kill second_mob. Alternatively, wait for one to kill the other but that will take time
+	second_mob.get_hit({"damage": 100,"hit_chance":100})
+		
+	# Wait for the second mob to be removed from the tree
+	var second_mob_removed = func():
+		var mobs_after_death: Array = get_tree().get_nodes_in_group("mobs")
+		return mobs_after_death.size() == 1
+	assert_true(await wait_until(second_mob_removed, 5, 1), "Second mob should be removed after death.")
+
+	# Verify that only the first mob remains
+	var remaining_mobs: Array = get_tree().get_nodes_in_group("mobs")
+	assert_eq(remaining_mobs[0], first_mob, "The remaining mob should be the first mob.")
+
+	# Verify that the first mob transitions back to MobIdle state
+	var first_mob_idle = func():
+		return first_mob.get_current_state() is MobIdle
+	assert_true(await wait_until(first_mob_idle, 5, 1), "First mob should transition back to MobIdle after the second mob dies.")
