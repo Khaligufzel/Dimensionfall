@@ -113,7 +113,8 @@
 				"id": "default_tile"
 			},
 			{
-				"id": "dot_tile"
+				"id": "dot_tile",
+				"rotation": 90
 			},
 			{
 				"id": "default_tile"
@@ -2996,7 +2997,8 @@
 				"id": "default_tile"
 			},
 			{
-				"id": "dot_tile"
+				"id": "dot_tile",
+				"rotation": 270
 			},
 			{
 				"id": "default_tile"
@@ -3089,7 +3091,8 @@
 				"id": "default_tile"
 			},
 			{
-				"id": "dot_tile"
+				"id": "dot_tile",
+				"rotation": 180
 			}
 		],
 		[],

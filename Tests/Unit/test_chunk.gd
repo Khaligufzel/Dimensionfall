@@ -63,6 +63,30 @@ func test_chunk_load_unload():
 	assert_eq(test_chunk.level_generator, mock_level_generator, "Level generator is not set correctly.")
 	assert_has(test_chunk.chunk_data, "id", "Chunk data does not contain 'id' key.")
 	assert_eq(test_chunk.chunk_data["id"], "basic_test_map", "Chunk data ID is not correct.")
+	
+	# Validate specific blocks on level 0 (which is ground floor)
+	var level_index = 0
+
+	# Check (0, 0) -> "dot_tile", rotation 0
+	var block_00 = test_chunk.get_block_at(level_index, Vector2i(0, 0))
+	assert_eq(block_00.get("id", ""), "dot_tile", "Block at (0, 0) is not 'dot_tile'.")
+	assert_eq(block_00.get("rotation", -1), 0, "Block at (0, 0) does not have rotation 0.")
+
+	# Check (0, 31) -> "dot_tile", rotation 90
+	var block_031 = test_chunk.get_block_at(level_index, Vector2i(0, 31))
+	assert_eq(block_031.get("id", ""), "dot_tile", "Block at (0, 31) is not 'dot_tile'.")
+	assert_eq(block_031.get("rotation", -1), 90, "Block at (0, 31) does not have rotation 90.")
+
+	# Check (31, 0) -> "dot_tile", rotation 180
+	var block_310 = test_chunk.get_block_at(level_index, Vector2i(31, 0))
+	assert_eq(block_310.get("id", ""), "dot_tile", "Block at (31, 0) is not 'dot_tile'.")
+	assert_eq(block_310.get("rotation", -1), 180, "Block at (31, 0) does not have rotation 180.")
+
+	# Check (31, 31) -> "dot_tile", rotation 270
+	var block_3131 = test_chunk.get_block_at(level_index, Vector2i(31, 31))
+	assert_eq(block_3131.get("id", ""), "dot_tile", "Block at (31, 31) is not 'dot_tile'.")
+	assert_eq(block_3131.get("rotation", -1), 270, "Block at (31, 31) does not have rotation 270.")
+
 
 	# Call `unload_chunk` and wait for the chunk to be null
 	# Awaiting the `chunk_unloaded` signal will produce an error in GUT somehow, so don't do that
