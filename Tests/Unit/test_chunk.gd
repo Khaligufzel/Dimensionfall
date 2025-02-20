@@ -33,7 +33,7 @@ func before_each():
 
 # Runs after each test.
 func after_each():
-	if test_chunk:
+	if test_chunk and is_instance_valid(test_chunk):
 		test_chunk.queue_free()
 	if mock_level_manager:
 		mock_level_manager.queue_free()
@@ -45,7 +45,7 @@ func after_all():
 	Runtimedata.reset()
 
 # Test if the chunk initializes and spawns correctly.
-func test_chunk_initialization():
+func test_chunk_load_unload():
 	# Test that the chunk is part of the 'chunks' group
 	assert_true(test_chunk.is_in_group("chunks"), "Chunk is not added to 'chunks' group.")
 
@@ -63,3 +63,13 @@ func test_chunk_initialization():
 	assert_eq(test_chunk.level_generator, mock_level_generator, "Level generator is not set correctly.")
 	assert_has(test_chunk.chunk_data, "id", "Chunk data does not contain 'id' key.")
 	assert_eq(test_chunk.chunk_data["id"], "basic_test_map", "Chunk data ID is not correct.")
+
+	# Call `unload_chunk` and wait for the chunk to be null
+	# Awaiting the `chunk_unloaded` signal will produce an error in GUT somehow, so don't do that
+	test_chunk.unload_chunk()
+	# Verify that the load state is `UNLOADING`)
+	assert_eq(test_chunk.load_state, Chunk.LoadStates.UNLOADING, "Chunk load_state should be UNLOADING.")
+	var chunk_is_unloaded = func():
+		return test_chunk == null
+	# Calls chunk_is_unloaded every second until it returns true and asserts on the returned value
+	assert_true(await wait_until(chunk_is_unloaded, 10, 1),"Chunk should be unloaded in 10 seconds")

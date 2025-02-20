@@ -419,9 +419,8 @@ func get_chunk_data() -> Dictionary:
 	return chunkdata
 
 
-# Called by LevelGenerator.gd which manages the chunks and also by Helper.save_helper when
-# switching to a different map. We start a new thread to collect map data and save it in
-# the helper variable. First we wait until the current thread is finished.
+# Called by LevelGenerator.gd which manages the chunks
+# We start a new thread to free all resources in the chunk
 func unload_chunk():
 	start_unloading()
 	await Helper.task_manager.create_task(free_chunk_resources).completed
