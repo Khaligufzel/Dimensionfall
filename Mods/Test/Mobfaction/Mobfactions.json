@@ -19,7 +19,8 @@
 		"relations": [
 			{
 				"mobs": [
-					"generic_test_mob"
+					"generic_test_mob",
+					"generic_ranged_mob"
 				],
 				"relation_type": "hostile"
 			}

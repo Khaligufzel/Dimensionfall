@@ -2,7 +2,8 @@
 	"generic_test_attribute": {
 		"mobs": [
 			"generic_test_mob",
-			"generic_enemy_mob"
+			"generic_enemy_mob",
+			"generic_ranged_mob"
 		]
 	}
 }

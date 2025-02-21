@@ -66,7 +66,7 @@ func _on_detection_target_spotted(entity):
 func spawn_projectile(spawn_position: Vector3, target_position: Vector3, speed: float):
 	var projectile_instance = preload("res://Defaults/Projectiles/DefaultBullet.tscn").instantiate()
 	# Configure the projectile as an enemy projectile
-	projectile_instance.configure_collision(false)
+	projectile_instance.configure_collision(false, mob)
 
 	# Align target y-level to avoid vertical aim issues (flat projectiles)
 	target_position.y = spawn_position.y
