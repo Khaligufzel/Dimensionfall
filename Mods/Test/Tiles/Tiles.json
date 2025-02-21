@@ -8,5 +8,35 @@
 		"name": "Default Tile",
 		"shape": "cube",
 		"sprite": "DefaultTile.png"
+	},
+	{
+		"categories": [
+			"default"
+		],
+		"description": "Use this for testing purposes",
+		"id": "dot_tile",
+		"name": "Dot Tile",
+		"shape": "cube",
+		"sprite": "DotTile.png"
+	},
+	{
+		"categories": [
+			"default"
+		],
+		"description": "Use this for testing purposes",
+		"id": "line_tile",
+		"name": "Line Tile",
+		"shape": "cube",
+		"sprite": "LineTile.png"
+	},
+	{
+		"categories": [
+			"default"
+		],
+		"description": "Use this for testing purposes",
+		"id": "arrow_tile",
+		"name": "Arrow Tile",
+		"shape": "cube",
+		"sprite": "ArrowTile.png"
 	}
 ]

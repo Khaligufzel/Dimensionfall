@@ -419,9 +419,8 @@ func get_chunk_data() -> Dictionary:
 	return chunkdata
 
 
-# Called by LevelGenerator.gd which manages the chunks and also by Helper.save_helper when
-# switching to a different map. We start a new thread to collect map data and save it in
-# the helper variable. First we wait until the current thread is finished.
+# Called by LevelGenerator.gd which manages the chunks
+# We start a new thread to free all resources in the chunk
 func unload_chunk():
 	start_unloading()
 	await Helper.task_manager.create_task(free_chunk_resources).completed
@@ -1511,3 +1510,32 @@ func spawn_item_at_free_position(item_id: String, quantity: int, y: int) -> bool
 	# Add the item to the scene tree
 	Helper.map_manager.level_generator.get_tree().get_root().add_child.call_deferred(new_item)
 	return true
+
+
+# Gets the block data from a specific level and block position
+# level_index: int (0 to 20) -> corresponds to levels -10 to 10
+# block_position: Vector2 (x: 0 to 31, y: 0 to 31) -> position in the 32x32 grid
+func get_block_at(level_index: int, block_position: Vector2i) -> Dictionary:
+	var level_index_internal = level_index + 10 # Convert to _mapleveldata index
+	if level_index_internal < 0 or level_index_internal >= _mapleveldata.size():
+		printerr("Level index out of range: ", level_index)
+		return {}
+
+	if block_position.x < 0 or block_position.x >= LEVEL_WIDTH or \
+	   block_position.y < 0 or block_position.y >= LEVEL_HEIGHT:
+		printerr("Block position out of range: ", block_position)
+		return {}
+
+	var level = _mapleveldata[level_index_internal]
+	if level.is_empty():
+		print_debug("Level %d is empty." % level_index)
+		return {}
+
+	var block_index = block_position.y * LEVEL_WIDTH + block_position.x
+	var block_data = level[block_index]
+
+	if block_data and block_data.has("id"):
+		return block_data
+	else:
+		print_debug("Block at %s on level %d is empty or has no 'id'." % [block_position, level_index])
+		return {}

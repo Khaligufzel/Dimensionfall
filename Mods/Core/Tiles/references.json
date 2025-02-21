@@ -1,7 +1,8 @@
 {
 	"default_tile": {
 		"maps": [
-			"default_map"
+			"default_map",
+			"basic_test_map"
 		]
 	}
 }
