@@ -26,7 +26,7 @@ func Physics_Update(_delta: float):
 
 	var ranged_range: int = mob.ranged_range if mob.ranged_range > -1 else 15 # Default if not set
 
-	if spotted_target and mob.global_position.distance_to(spotted_target.global_position) <= ranged_range:
+	if spotted_target and is_instance_valid(spotted_target) and mob.global_position.distance_to(spotted_target.global_position) <= ranged_range:
 		# Make the mob look at the target
 		var target_position = spotted_target.global_position
 		target_position.y = mob.meshInstance.global_position.y # Align y to avoid tilting

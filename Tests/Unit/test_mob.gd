@@ -196,6 +196,10 @@ func test_mob_melee_combat():
 
 
 # Test if a ranged mob can hit a melee mob with an attack.
+# - Two mobs spawn onto the map
+# - The first mob immediately starts it's ranged attack
+# - Wait until the second mob takes damage and then kill it
+# - Test that one mob remains and it's idle
 func test_mob_ranged_vs_melee():
 	# Initialize the projectiles container
 	const EntityManager = preload("res://entity_manager.gd")
@@ -217,6 +221,7 @@ func test_mob_ranged_vs_melee():
 	# Wait for `chunk_generated` signal before verifying post-generation state
 	assert_true(await wait_for_signal(test_chunk.chunk_generated, 5), "Chunk should have emitted chunk_generated signal.")
 	
+	# Verify that the mobs are spawned at the correct position and id
 	var mobs: Array = get_tree().get_nodes_in_group("mobs") 
 	assert_eq(mobs.size(),2,"too many or not enough mobs")
 	var first_mob: Mob = mobs[0]
@@ -235,40 +240,37 @@ func test_mob_ranged_vs_melee():
 		"Mobs did not get closer to each other. Initial distance: %s, New distance: %s" % [initial_distance, new_distance]
 	)
 	
-	# Test that the mob transitions into the mob attack state
+	# Test that the mob transitions into the mob ranged attack state
 	var first_state: State = first_mob.get_current_state()
 	assert_not_null(first_state, "Mob has no state")
-	#assert_true(await wait_for_signal(first_state.Transistioned, 5), "Mob doesn't transition")
-	first_state = first_mob.get_current_state()
 	assert_is(first_state,MobRangedAttack,"A different state then expected")
 	
-	# Test that the second mob transitions into the MobAttack state
-	# Since we can't await two signals at once, we periodically try the state assert
+	# Test that the second mob transitions into the MobFollow state
 	var second_state: State = second_mob.get_current_state()
 	assert_not_null(second_state, "Second mob has no state")
 	var mob_has_transitioned = func():
 		return second_state is MobFollow
 	assert_true(await wait_until(mob_has_transitioned, 10, 1),"Mob should have transitioned")
 
-	# Test that the mobs attack eachother
+	# Test that the first mob hits the second mob with it's projectile
 	var mob_taken_damage = func():
 		return second_mob.current_health < second_mob.health
 	assert_true(await wait_until(mob_taken_damage, 10, 1),"Mob should have taken damage")
 	
 	# Kill second_mob. Alternatively, wait for one to kill the other but that will take time
 	second_mob.get_hit({"damage": 100,"hit_chance":100})
-		
-	## Wait for the second mob to be removed from the tree
-	#var second_mob_removed = func():
-		#var mobs_after_death: Array = get_tree().get_nodes_in_group("mobs")
-		#return mobs_after_death.size() == 1
-	#assert_true(await wait_until(second_mob_removed, 5, 1), "Second mob should be removed after death.")
-#
-	## Verify that only the first mob remains
-	#var remaining_mobs: Array = get_tree().get_nodes_in_group("mobs")
-	#assert_eq(remaining_mobs[0], first_mob, "The remaining mob should be the first mob.")
-#
-	## Verify that the first mob transitions back to MobIdle state
-	#var first_mob_idle = func():
-		#return first_mob.get_current_state() is MobIdle
-	#assert_true(await wait_until(first_mob_idle, 5, 1), "First mob should transition back to MobIdle after the second mob dies.")
+
+	# Wait for the second mob to be removed from the tree
+	var second_mob_removed = func():
+		var mobs_after_death: Array = get_tree().get_nodes_in_group("mobs")
+		return mobs_after_death.size() == 1
+	assert_true(await wait_until(second_mob_removed, 5, 1), "Second mob should be removed after death.")
+
+	# Verify that only the first mob remains
+	var remaining_mobs: Array = get_tree().get_nodes_in_group("mobs")
+	assert_eq(remaining_mobs[0], first_mob, "The remaining mob should be the first mob.")
+
+	# Verify that the first mob transitions back to MobIdle state
+	var first_mob_idle = func():
+		return first_mob.get_current_state() is MobIdle
+	assert_true(await wait_until(first_mob_idle, 5, 1), "First mob should transition back to MobIdle after the second mob dies.")
