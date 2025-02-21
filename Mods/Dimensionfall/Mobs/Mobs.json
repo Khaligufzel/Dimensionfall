@@ -689,22 +689,50 @@
 		"default_faction": "",
 		"description": "A decayed zombie with a grotesquely swollen throat. It spits a corrosive bile at its target, dealing damage over time and reducing armor effectiveness. Though slow-moving, it can attack from a distance, making it a persistent threat.",
 		"faction_id": "zombie",
-		"health": 100,
+		"health": 40,
 		"hearing_range": 1000,
 		"id": "spitter_zombie",
 		"idle_move_speed": 0.5,
-		"loot_group": "",
-		"melee_cooldown": 2,
-		"melee_knockback": 2,
-		"melee_range": 1.5,
-		"move_speed": 1,
+		"loot_group": "mob_loot",
+		"melee_cooldown": -1,
+		"melee_knockback": -1,
+		"melee_range": -1,
+		"move_speed": 0.5,
 		"name": "Spitter Zombie",
+		"ranged_cooldown": 2,
+		"ranged_range": 10,
 		"sense_range": 50,
 		"sight_range": 200,
 		"sprite": "zombie_bloated_64_42.png",
 		"targetattributes": {
-			"all_of": [],
-			"any_of": []
+			"all_of": [
+				{
+					"damage": 10,
+					"id": "poison"
+				}
+			],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				}
+			]
 		}
 	},
 	{
@@ -715,18 +743,45 @@
 		"hearing_range": 1000,
 		"id": "bone_thrower",
 		"idle_move_speed": 0.5,
-		"loot_group": "",
-		"melee_cooldown": 2,
-		"melee_knockback": 2,
-		"melee_range": 1.5,
-		"move_speed": 1,
+		"loot_group": "mob_loot",
+		"melee_cooldown": -1,
+		"melee_knockback": -1,
+		"melee_range": -1,
+		"move_speed": 0.8,
 		"name": "Bone Thrower",
+		"ranged_cooldown": 2,
+		"ranged_range": 6,
 		"sense_range": 50,
 		"sight_range": 200,
 		"sprite": "zombie_bloated_64_42.png",
 		"targetattributes": {
 			"all_of": [],
-			"any_of": []
+			"any_of": [
+				{
+					"damage": 0,
+					"id": "head_health"
+				},
+				{
+					"damage": 0,
+					"id": "torso_health"
+				},
+				{
+					"damage": 0,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 0,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 0,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 0,
+					"id": "right_leg_health"
+				}
+			]
 		}
 	}
 ]
