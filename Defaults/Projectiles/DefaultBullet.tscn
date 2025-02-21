@@ -6,7 +6,7 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_8jjgy"]
 radius = 0.2
 
-[node name="BulletProjectile" type="RigidBody3D"]
+[node name="BulletProjectile" type="RigidBody3D" node_paths=PackedStringArray("bullet_sprite")]
 collision_layer = 32
 collision_mask = 30
 mass = 0.01
@@ -14,6 +14,7 @@ gravity_scale = 0.001
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_tleh8")
+bullet_sprite = NodePath("BulletSprite")
 
 [node name="BulletSprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

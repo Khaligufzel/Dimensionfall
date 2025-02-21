@@ -684,5 +684,49 @@
 				}
 			]
 		}
+	},
+	{
+		"default_faction": "",
+		"description": "A decayed zombie with a grotesquely swollen throat. It spits a corrosive bile at its target, dealing damage over time and reducing armor effectiveness. Though slow-moving, it can attack from a distance, making it a persistent threat.",
+		"faction_id": "zombie",
+		"health": 100,
+		"hearing_range": 1000,
+		"id": "spitter_zombie",
+		"idle_move_speed": 0.5,
+		"loot_group": "",
+		"melee_cooldown": 2,
+		"melee_knockback": 2,
+		"melee_range": 1.5,
+		"move_speed": 1,
+		"name": "Spitter Zombie",
+		"sense_range": 50,
+		"sight_range": 200,
+		"sprite": "zombie_bloated_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": []
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A withered zombie with jagged bones protruding from its body. It breaks off its own ribs and throws them as crude projectiles at enemies. While its aim is erratic, the sharp bone shards can cause bleeding and stagger players.",
+		"faction_id": "zombie",
+		"health": 100,
+		"hearing_range": 1000,
+		"id": "bone_thrower",
+		"idle_move_speed": 0.5,
+		"loot_group": "",
+		"melee_cooldown": 2,
+		"melee_knockback": 2,
+		"melee_range": 1.5,
+		"move_speed": 1,
+		"name": "Bone Thrower",
+		"sense_range": 50,
+		"sight_range": 200,
+		"sprite": "zombie_bloated_64_42.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": []
+		}
 	}
 ]
