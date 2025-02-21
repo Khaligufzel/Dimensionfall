@@ -379,6 +379,10 @@ A higher value will make the mob attack more slowly"
 step = 0.1
 value = 1.5
 
+[node name="SpriteLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
+layout_mode = 2
+text = "Sprite:"
+
 [node name="ProjectileTextureRect" type="TextureRect" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
