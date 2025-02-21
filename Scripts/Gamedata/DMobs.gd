@@ -42,6 +42,8 @@ func load_mobs_from_disk() -> void:
 		var mob: DMob = DMob.new(mymob, self)
 		if mob.spriteid:
 			mob.sprite = sprites[mob.spriteid]
+		if mob.projectile_sprite_id:
+			mob.projectile_sprite_id = sprites[mob.projectile_sprite_id]
 		mobdict[mob.id] = mob
 
 

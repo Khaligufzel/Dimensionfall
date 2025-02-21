@@ -22,6 +22,7 @@ extends RefCounted
 # 	"melee_cooldown": 2.0,
 # 	"ranged_range": 15,
 # 	"ranged_cooldown": 1.5,
+# 	"projectile_sprite_id": "projectile_spit.png"
 # 	"name": "Scrap walker",
 # 	"references": {
 # 		"core": {
@@ -79,6 +80,7 @@ var melee_knockback: float
 var melee_cooldown: float
 var ranged_range: float
 var ranged_cooldown: float
+var projectile_sprite_id: String
 var move_speed: float
 var sense_range: int
 var sight_range: int
@@ -107,6 +109,7 @@ func _init(data: Dictionary, myparent: DMobs):
 	melee_cooldown = data.get("melee_cooldown", 2.0)
 	ranged_range = data.get("ranged_range", -1)
 	ranged_cooldown = data.get("ranged_cooldown", -1)
+	projectile_sprite_id = data.get("projectile_sprite_id", "")
 	move_speed = data.get("move_speed", 1.0)
 	sense_range = data.get("sense_range", 50)
 	sight_range = data.get("sight_range", 200)
@@ -144,6 +147,8 @@ func get_data() -> Dictionary:
 		data["targetattributes"] = targetattributes
 	if not ranged_range < 0:
 		data["ranged_range"] = ranged_range
+	if not ranged_range < 0: # Only save the projectile sprite if it's ranged
+		data["projectile_sprite_id"] = projectile_sprite_id
 	if not ranged_cooldown < 0:
 		data["ranged_cooldown"] = ranged_cooldown
 	return data

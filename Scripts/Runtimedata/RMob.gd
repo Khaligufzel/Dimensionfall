@@ -50,6 +50,8 @@ var melee_knockback: float
 var melee_cooldown: float
 var ranged_range: float
 var ranged_cooldown: float
+var projectile_sprite_id: String
+var projectile_sprite: Texture
 var move_speed: float
 var sense_range: int
 var sight_range: int
@@ -84,6 +86,8 @@ func overwrite_from_dmob(dmob: DMob) -> void:
 	melee_cooldown = dmob.melee_cooldown
 	ranged_range = dmob.ranged_range
 	ranged_cooldown = dmob.ranged_cooldown
+	projectile_sprite_id = dmob.projectile_sprite_id
+	projectile_sprite = dmob.projectile_sprite
 	move_speed = dmob.move_speed
 	sense_range = dmob.sense_range
 	sight_range = dmob.sight_range

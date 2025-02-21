@@ -35,11 +35,13 @@ extends Control
 @export var ranged_h_box_container: HBoxContainer = null
 @export var ranged_range_spin_box: SpinBox = null
 @export var ranged_cooldown_spin_box: SpinBox = null
+@export var projectile_texture_rect: TextureRect = null
 
 @export var any_of_attributes_grid_container: GridContainer = null
 @export var all_of_attributes_grid_container: GridContainer = null
 
-
+# Track which TextureRect triggered the mobSelector
+var selected_texture_rect: TextureRect = null
 
 signal data_changed()
 var olddata: DMob # Remember what the value of the data was before editing
@@ -202,12 +204,20 @@ func _save_combat_properties() -> void:
 # "res://Mods/Core/mobs/". The texture of the mobImageDisplay will change to the selected image
 func _on_mob_image_display_gui_input(event) -> void:
 	if event is InputEventMouseButton and event.pressed:
+		selected_texture_rect = mobImageDisplay
 		mobSelector.show()
 
+# Assign the selected sprite to the appropriate TextureRect
 func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
-	var mobTexture: Resource = clicked_sprite.get_texture()
-	mobImageDisplay.texture = mobTexture
-	PathTextLabel.text = mobTexture.resource_path.get_file()
+	if selected_texture_rect:
+		var sprite_texture: Texture2D = clicked_sprite.get_texture()
+		selected_texture_rect.texture = sprite_texture
+		
+		# Update PathTextLabel only if the mob sprite was changed
+		if selected_texture_rect == mobImageDisplay:
+			PathTextLabel.text = sprite_texture.resource_path.get_file()
+	else:
+		push_warning("No TextureRect was selected before choosing a sprite.")
 
 # This function should return true if the dragged data can be dropped here
 # We are expecting a dictionary like this:
@@ -429,3 +439,9 @@ func _on_attack_type_option_button_item_selected(index: int) -> void:
 	elif selected_text == "Melee":
 		ranged_h_box_container.visible = false
 		melee_h_box_container.visible = true
+
+
+func _on_projectile_texture_rect_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		selected_texture_rect = projectile_texture_rect
+		mobSelector.show()
