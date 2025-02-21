@@ -86,6 +86,8 @@ func load_mob_data() -> void:
 		ranged_range_spin_box.value = max(dmob.ranged_range, 0)
 	if ranged_cooldown_spin_box != null:
 		ranged_cooldown_spin_box.value = max(dmob.ranged_cooldown, 0)
+	if projectile_texture_rect != null:
+		projectile_texture_rect.texture = dmob.projectile_sprite if dmob.projectile_sprite else preload("res://Textures/bullet.png")
 	if health_numedit != null:
 		health_numedit.value = dmob.health
 	if moveSpeed_numedit != null:
@@ -190,6 +192,8 @@ func _save_combat_properties() -> void:
 
 		dmob.ranged_range = -1
 		dmob.ranged_cooldown = -1
+		dmob.projectile_sprite_id = ""
+		dmob.projectile_sprite = null
 
 	elif selected_attack_type == "Ranged":
 		dmob.ranged_range = ranged_range_spin_box.value
@@ -198,6 +202,11 @@ func _save_combat_properties() -> void:
 		dmob.melee_range = -1
 		dmob.melee_cooldown = -1
 		dmob.melee_knockback = -1
+		if projectile_texture_rect.texture:
+			var texture_path: String = projectile_texture_rect.texture.resource_path
+			if not texture_path == "res://Textures/bullet.png":
+				dmob.projectile_sprite_id = projectile_texture_rect.texture.resource_path.get_file()
+				dmob.projectile_sprite = projectile_texture_rect.texture
 
 
 # When the mobImageDisplay is clicked, the user will be prompted to select an image from 

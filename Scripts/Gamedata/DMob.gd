@@ -81,6 +81,7 @@ var melee_cooldown: float
 var ranged_range: float
 var ranged_cooldown: float
 var projectile_sprite_id: String
+var projectile_sprite: Texture
 var move_speed: float
 var sense_range: int
 var sight_range: int
