@@ -2,12 +2,16 @@
 	"default_tile": {
 		"maps": [
 			"default_map",
-			"basic_test_map"
+			"basic_test_map",
+			"basic_mob_test_map",
+			"melee_mob_combat_map"
 		]
 	},
 	"dot_tile": {
 		"maps": [
-			"basic_test_map"
+			"basic_test_map",
+			"basic_mob_test_map",
+			"melee_mob_combat_map"
 		]
 	}
 }

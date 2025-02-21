@@ -1,10 +1,17 @@
 {
 	"generic_enemy_mob": {
+		"maps": [
+			"melee_mob_combat_map"
+		],
 		"mobfactions": [
 			"generic_test_faction"
 		]
 	},
 	"generic_test_mob": {
+		"maps": [
+			"basic_mob_test_map",
+			"melee_mob_combat_map"
+		],
 		"mobfactions": [
 			"enemy_test_faction"
 		]

@@ -9,7 +9,7 @@
 		"idle_move_speed": 0.5,
 		"loot_group": "",
 		"melee_cooldown": 2,
-		"melee_knockback": 2,
+		"melee_knockback": 0,
 		"melee_range": 1.5,
 		"move_speed": 1,
 		"name": "Test mob",
@@ -18,7 +18,12 @@
 		"sprite": "test_scrapwalker64.png",
 		"targetattributes": {
 			"all_of": [],
-			"any_of": []
+			"any_of": [
+				{
+					"damage": 25,
+					"id": "generic_test_attribute"
+				}
+			]
 		}
 	},
 	{
@@ -31,7 +36,7 @@
 		"idle_move_speed": 0.5,
 		"loot_group": "",
 		"melee_cooldown": 2,
-		"melee_knockback": 2,
+		"melee_knockback": 0,
 		"melee_range": 1.5,
 		"move_speed": 1,
 		"name": "Enemy mob",
@@ -40,7 +45,12 @@
 		"sprite": "test_zombie_64_64.png",
 		"targetattributes": {
 			"all_of": [],
-			"any_of": []
+			"any_of": [
+				{
+					"damage": 30,
+					"id": "generic_test_attribute"
+				}
+			]
 		}
 	}
 ]

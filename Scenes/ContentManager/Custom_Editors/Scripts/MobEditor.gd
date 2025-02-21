@@ -335,13 +335,20 @@ func _delete_attribute_entry(elements_to_remove: Array) -> void:
 
 
 # Function to determine if the dragged data can be dropped in the attribute grid container
+# We are expecting a dictionary like this:
+#	{
+#		"id": selected_item_id,
+#		"text": selected_item_text,
+#		"mod_id": mod_id,
+#		"contentType": contentType
+#	}
 func _can_drop_attribute_data(_newpos, data) -> bool:
 	# Check if the data dictionary has the 'id' property
 	if not data or not data.has("id"):
 		return false
 
 	# Fetch attribute by ID from the Gamedata to ensure it exists and is valid
-	if not Gamedata.mods.by_id("Core").playerattributes.has_id(data["id"]):
+	if not Gamedata.mods.by_id(data["mod_id"]).playerattributes.has_id(data["id"]):
 		return false
 
 	# Check if the attribute ID already exists in either of the attribute grids
@@ -374,7 +381,7 @@ func _drop_all_of_attribute_data(newpos, data) -> void:
 func _handle_attribute_drop(dropped_data, container: GridContainer) -> void:
 	if dropped_data and "id" in dropped_data:
 		var attribute_id = dropped_data["id"]
-		if not Gamedata.mods.by_id("Core").playerattributes.has_id(attribute_id):
+		if not Gamedata.mods.by_id(dropped_data["mod_id"]).playerattributes.has_id(attribute_id):
 			print_debug("No attribute data found for ID: " + attribute_id)
 			return
 

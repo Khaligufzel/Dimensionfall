@@ -338,3 +338,8 @@ func terminate():
 # Return the faction id of the mob
 func get_faction() -> String:
 	return rmob.faction_id
+
+# Returns the current state of the state machine.
+# The return type is `State` or `null` if the state_machine is not initialized.
+func get_current_state() -> State:
+	return state_machine.current_state if state_machine else null
