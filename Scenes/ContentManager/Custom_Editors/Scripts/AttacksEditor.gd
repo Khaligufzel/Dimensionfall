@@ -6,13 +6,15 @@ extends Control
 # To load data, provide the name of the attack data file and an ID
 
 
-@export var type_option_button: OptionButton = null
-@export var attackImageDisplay: TextureRect = null
-@export var IDTextLabel: Label = null
-@export var PathTextLabel: Label = null
-@export var NameTextEdit: TextEdit = null
+@export var type_option_button: OptionButton = null # Allows selecting "melee" or "ranged"
+@export var image_label: Label = null # The label in front of the sprite display
+@export var attackImageDisplay: TextureRect = null # The sprite for the projectile
+@export var path_label: Label = null # Label in front of the path text label
+@export var PathTextLabel: Label = null # shows the path to the sprite
+@export var IDTextLabel: Label = null # Shows the id of this attack
+@export var NameTextEdit: TextEdit = null # Shows the name of this attack
 @export var DescriptionTextEdit: TextEdit = null
-@export var attackSelector: Popup = null
+@export var attackSelector: Popup = null # Allows the user to select a sprite from a popup
 
 @export var stats_range_spinbox: SpinBox = null
 @export var stats_cooldown_spinbox: SpinBox = null
@@ -44,6 +46,9 @@ func _ready() -> void:
 	any_of_attributes_grid_container.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_any_of_attribute_data)
 	all_of_attributes_grid_container.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_all_of_attribute_data)
 
+	# Connect the selection change signal to a new function
+	if type_option_button:
+		type_option_button.item_selected.connect(_on_type_option_button_selected)
 
 # This function updates the form based on the DAttack that has been loaded
 func load_attack_data() -> void:
@@ -56,11 +61,21 @@ func load_attack_data() -> void:
 		NameTextEdit.text = dattack.name
 	if DescriptionTextEdit != null:
 		DescriptionTextEdit.text = dattack.description
+	if stats_range_spinbox != null:
+		stats_range_spinbox.value = dattack.range
+	if stats_cooldown_spinbox != null:
+		stats_cooldown_spinbox.value = dattack.cooldown
+	if stats_knockback_spinbox != null:
+		stats_knockback_spinbox.value = dattack.knockback
+	if stats_projectile_speed_spinbox != null:
+		stats_projectile_speed_spinbox.value = dattack.projectile_speed if dattack.type == "ranged" else 0.0
+	
 	# Load 'any_of' and 'all_of' attributes into their respective grids
 	if dattack.targetattributes.has("any_of"):
 		_load_attributes_into_grid(any_of_attributes_grid_container, dattack.targetattributes["any_of"])
 	if dattack.targetattributes.has("all_of"):
 		_load_attributes_into_grid(all_of_attributes_grid_container, dattack.targetattributes["all_of"])
+	_toggle_ranged_controls(dattack.type == "ranged")  # Update UI based on type
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -76,6 +91,10 @@ func _on_save_button_button_up() -> void:
 	dattack.name = NameTextEdit.text
 	dattack.description = DescriptionTextEdit.text
 	dattack.sprite = attackImageDisplay.texture
+	dattack.range = stats_range_spinbox.value
+	dattack.cooldown = stats_cooldown_spinbox.value
+	dattack.knockback = stats_knockback_spinbox.value
+	dattack.projectile_speed = stats_projectile_speed_spinbox.value if dattack.type == "ranged" else 0.0  # Only save for ranged attacks
 
 	dattack.targetattributes = _get_attributes_from_ui()
 	dattack.save_to_disk()
@@ -225,3 +244,16 @@ func _handle_attribute_drop(dropped_data, container: GridContainer) -> void:
 		_add_attribute_entry_to_grid(container, {"id": attribute_id})
 	else:
 		print_debug("Dropped data does not contain an 'id' key.")
+
+# Hide these controls if the type is melee, otherwise show them
+func _toggle_ranged_controls(is_ranged: bool) -> void:
+	image_label.visible = is_ranged
+	attackImageDisplay.visible = is_ranged
+	path_label.visible = is_ranged
+	PathTextLabel.visible = is_ranged
+	stats_projectile_speed_label.visible = is_ranged
+	stats_projectile_speed_spinbox.visible = is_ranged
+
+func _on_type_option_button_selected(index: int) -> void:
+	var selected_type: String = type_option_button.get_item_text(index)
+	_toggle_ranged_controls(selected_type == "ranged")

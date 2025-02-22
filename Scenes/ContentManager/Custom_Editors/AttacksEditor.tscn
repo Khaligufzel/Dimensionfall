@@ -20,7 +20,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="AttacksEditor" type="Control"]
+[node name="AttacksEditor" type="Control" node_paths=PackedStringArray("type_option_button", "attackImageDisplay", "PathTextLabel", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "attackSelector", "stats_range_spinbox", "stats_cooldown_spinbox", "stats_knockback_spinbox", "stats_projectile_speed_label", "stats_projectile_speed_spinbox", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,6 +28,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l1ui3")
+type_option_button = NodePath("VBoxContainer/FormGrid/TypeOptionButton")
+attackImageDisplay = NodePath("VBoxContainer/FormGrid/AttackImageDisplay")
+PathTextLabel = NodePath("VBoxContainer/FormGrid/PathTextLabel")
+IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
+NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
+DescriptionTextEdit = NodePath("VBoxContainer/FormGrid/DescriptionTextEdit")
+attackSelector = NodePath("Sprite_selector")
+stats_range_spinbox = NodePath("VBoxContainer/FormGrid/HBoxContainer/StatsRangeSpinbox")
+stats_cooldown_spinbox = NodePath("VBoxContainer/FormGrid/HBoxContainer/StatsCooldownSpinbox")
+stats_knockback_spinbox = NodePath("VBoxContainer/FormGrid/HBoxContainer/StatsKnockbackSpinbox")
+stats_projectile_speed_label = NodePath("VBoxContainer/FormGrid/HBoxContainer/StatsProjectileSpeedLabel")
+stats_projectile_speed_spinbox = NodePath("VBoxContainer/FormGrid/HBoxContainer/StatsProjectileSpeedSpinbox")
+any_of_attributes_grid_container = NodePath("VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/ScrollContainer/AnyOfAttributesGridContainer")
+all_of_attributes_grid_container = NodePath("VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer/ScrollContainer/AllOfAttributesGridContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -69,7 +83,7 @@ popup/item_1/id = 1
 layout_mode = 2
 text = "Sprite:"
 
-[node name="StatImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
+[node name="AttackImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -107,7 +121,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
 focus_next = NodePath("../DescriptionTextEdit")
-focus_previous = NodePath("../StatImageDisplay")
+focus_previous = NodePath("../AttackImageDisplay")
 placeholder_text = "Basic attack"
 
 [node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
@@ -242,5 +256,5 @@ visible = false
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
-[connection signal="gui_input" from="VBoxContainer/FormGrid/StatImageDisplay" to="." method="_on_stat_image_display_gui_input"]
+[connection signal="gui_input" from="VBoxContainer/FormGrid/AttackImageDisplay" to="." method="_on_stat_image_display_gui_input"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

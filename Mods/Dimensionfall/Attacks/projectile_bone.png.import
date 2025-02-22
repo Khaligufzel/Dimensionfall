@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfkl7ijd8a85r"
-path.s3tc="res://.godot/imported/projectile_spit.png-227f9fa02be68f0b46c8e457c7721857.s3tc.ctex"
+uid="uid://b7e5hf45xskv5"
+path.s3tc="res://.godot/imported/projectile_bone.png-29a1a15fcab6890c5a3ac11353c67174.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mods/Dimensionfall/Mobs/projectile_spit.png"
-dest_files=["res://.godot/imported/projectile_spit.png-227f9fa02be68f0b46c8e457c7721857.s3tc.ctex"]
+source_file="res://Mods/Dimensionfall/Attacks/projectile_bone.png"
+dest_files=["res://.godot/imported/projectile_bone.png-29a1a15fcab6890c5a3ac11353c67174.s3tc.ctex"]
 
 [params]
 
