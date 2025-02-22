@@ -267,6 +267,7 @@
 		"melee_range": -1,
 		"move_speed": 1.3,
 		"name": "Outpost Guardian",
+		"projectile_sprite_id": "projectile_bullet.png",
 		"ranged_cooldown": 1,
 		"ranged_range": 15,
 		"sense_range": 100,
@@ -681,6 +682,107 @@
 				{
 					"damage": 10,
 					"id": "left_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A decayed zombie with a grotesquely swollen throat. It spits a corrosive bile at its target, dealing damage over time and reducing armor effectiveness. Though slow-moving, it can attack from a distance, making it a persistent threat.",
+		"faction_id": "zombie",
+		"health": 40,
+		"hearing_range": 1000,
+		"id": "spitter_zombie",
+		"idle_move_speed": 0.5,
+		"loot_group": "mob_loot",
+		"melee_cooldown": -1,
+		"melee_knockback": -1,
+		"melee_range": -1,
+		"move_speed": 0.5,
+		"name": "Spitter Zombie",
+		"projectile_sprite_id": "projectile_spit.png",
+		"ranged_cooldown": 2,
+		"ranged_range": 10,
+		"sense_range": 50,
+		"sight_range": 200,
+		"sprite": "spitter_zombie_64.png",
+		"targetattributes": {
+			"all_of": [
+				{
+					"damage": 10,
+					"id": "poison"
+				}
+			],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				}
+			]
+		}
+	},
+	{
+		"default_faction": "",
+		"description": "A withered zombie with jagged bones protruding from its body. It breaks off its own ribs and throws them as crude projectiles at enemies. While its aim is erratic, the sharp bone shards can cause bleeding and stagger players.",
+		"faction_id": "zombie",
+		"health": 100,
+		"hearing_range": 1000,
+		"id": "bone_thrower",
+		"idle_move_speed": 0.5,
+		"loot_group": "mob_loot",
+		"melee_cooldown": -1,
+		"melee_knockback": -1,
+		"melee_range": -1,
+		"move_speed": 0.8,
+		"name": "Bone Thrower",
+		"projectile_sprite_id": "projectile_bone.png",
+		"ranged_cooldown": 2,
+		"ranged_range": 6,
+		"sense_range": 50,
+		"sight_range": 200,
+		"sprite": "bone_thrower_64.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
 				}
 			]
 		}

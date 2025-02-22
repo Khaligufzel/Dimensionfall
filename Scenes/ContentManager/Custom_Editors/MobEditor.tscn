@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://drby7yfu8t38e"]
+[gd_scene load_steps=6 format=3 uid="uid://drby7yfu8t38e"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/MobEditor.gd" id="1_ubw0i"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_woy6i"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_847a0"]
+[ext_resource type="Texture2D" uid="uid://kn2f7jcrfnfm" path="res://Textures/bullet.png" id="3_wf06t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apoql"]
 content_margin_left = 11.0
@@ -20,7 +21,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "faction_option_button", "DescriptionTextEdit", "mobSelector", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "attack_type_option_button", "melee_h_box_container", "melee_range_numedit", "melee_cooldown_spinbox", "melee_knockback_spinbox", "ranged_h_box_container", "ranged_range_spin_box", "ranged_cooldown_spin_box", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "faction_option_button", "DescriptionTextEdit", "mobSelector", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "attack_type_option_button", "melee_h_box_container", "melee_range_numedit", "melee_cooldown_spinbox", "melee_knockback_spinbox", "ranged_h_box_container", "ranged_range_spin_box", "ranged_cooldown_spin_box", "projectile_texture_rect", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,6 +55,7 @@ melee_knockback_spinbox = NodePath("VBoxContainer/TabContainer/Combat/HBoxContai
 ranged_h_box_container = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer")
 ranged_range_spin_box = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer/RangeSpinBox")
 ranged_cooldown_spin_box = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer/CooldownSpinBox")
+projectile_texture_rect = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer/ProjectileTextureRect")
 any_of_attributes_grid_container = NodePath("VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/ScrollContainer/AnyOfAttributesGridContainer")
 all_of_attributes_grid_container = NodePath("VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer/ScrollContainer/AllOfAttributesGridContainer")
 
@@ -377,6 +379,15 @@ A higher value will make the mob attack more slowly"
 step = 0.1
 value = 1.5
 
+[node name="SpriteLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
+layout_mode = 2
+text = "Sprite:"
+
+[node name="ProjectileTextureRect" type="TextureRect" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+texture = ExtResource("3_wf06t")
+
 [node name="AffectedAttributesLabel" type="Label" parent="VBoxContainer/TabContainer/Combat"]
 layout_mode = 2
 text = "Target attributes"
@@ -454,4 +465,5 @@ visible = false
 [connection signal="gui_input" from="VBoxContainer/TabContainer/General/MobImageDisplay" to="." method="_on_mob_image_display_gui_input"]
 [connection signal="button_up" from="VBoxContainer/TabContainer/General/LootItemgroupHBoxContainer/ItemGroupClearButton" to="." method="_on_item_group_clear_button_button_up"]
 [connection signal="toggled" from="VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/DashCheckBox" to="." method="_on_dash_check_box_toggled"]
+[connection signal="gui_input" from="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer/ProjectileTextureRect" to="." method="_on_projectile_texture_rect_gui_input"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

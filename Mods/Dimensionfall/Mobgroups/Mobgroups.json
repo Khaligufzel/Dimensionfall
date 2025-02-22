@@ -28,11 +28,13 @@
 			"basic_zombie_1": 100,
 			"basic_zombie_2": 100,
 			"bloated_zombie": 50,
+			"bone_thrower": 8,
 			"charred_zombie": 10,
 			"heavy_zombie": 50,
 			"limping_zombie": 25,
 			"rushing_zombie": 25,
-			"skeleton_zombie": 10
+			"skeleton_zombie": 10,
+			"spitter_zombie": 8
 		},
 		"name": "Basic zombies",
 		"references": {

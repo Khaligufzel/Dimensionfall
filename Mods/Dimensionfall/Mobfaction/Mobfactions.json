@@ -13,7 +13,9 @@
 					"charred_zombie",
 					"heavy_zombie",
 					"skeleton_zombie",
-					"limping_zombie"
+					"limping_zombie",
+					"spitter_zombie",
+					"bone_thrower"
 				],
 				"relation_type": "hostile"
 			}

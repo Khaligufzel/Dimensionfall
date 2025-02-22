@@ -4,6 +4,8 @@ var velocity = Vector3()
 var damage = 10
 var lifetime = 5.0
 var owner_entity: Node3D = null  # Reference to the entity that fired the projectile
+@export var bullet_sprite: Sprite3D = null
+
 # The attack that will be executed when this bullet hits anything
 # The default value is used for attacks from the player towards an enemy.
 # If the player needs to get hit by the bullet, we will need an attack like this:
@@ -83,3 +85,10 @@ func configure_collision(is_friendly: bool, shooter: Node3D = null):
 	else:
 		collision_layer = 1 << 4  # Layer 5 (Enemy Projectiles)
 		collision_mask = (1 << 0) | (1 << 2) | (1 << 3) | (1 << 5)  # Can hit Layers 1, 3, 4, 6
+
+# Sets the bullet sprite texture
+func set_bullet_texture(texture: Texture2D):
+	if bullet_sprite:
+		bullet_sprite.texture = texture
+	else:
+		push_warning("Bullet sprite is not assigned.")
