@@ -52,5 +52,34 @@
 				}
 			]
 		}
+	},
+	{
+		"default_faction": "",
+		"description": "Use this for testing ranged combat",
+		"faction_id": "generic_test_faction",
+		"health": 100,
+		"hearing_range": 1000,
+		"id": "generic_ranged_mob",
+		"idle_move_speed": 0.5,
+		"loot_group": "",
+		"melee_cooldown": -1,
+		"melee_knockback": -1,
+		"melee_range": -1,
+		"move_speed": 1,
+		"name": "Ranged test mob",
+		"ranged_cooldown": 1,
+		"ranged_range": 5,
+		"sense_range": 50,
+		"sight_range": 200,
+		"sprite": "test_disruptor_drone_48.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 25,
+					"id": "generic_test_attribute"
+				}
+			]
+		}
 	}
 ]

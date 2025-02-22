@@ -3,6 +3,7 @@ extends RigidBody3D
 var velocity = Vector3()
 var damage = 10
 var lifetime = 5.0
+var owner_entity: Node3D = null  # Reference to the entity that fired the projectile
 # The attack that will be executed when this bullet hits anything
 # The default value is used for attacks from the player towards an enemy.
 # If the player needs to get hit by the bullet, we will need an attack like this:
@@ -45,13 +46,18 @@ func set_lifetime(time: float):
 
 # The bullet has hit something
 func _on_Projectile_body_entered(body: Node):
+	# Ignore if the projectile hits the entity that fired it
+	if body == owner_entity:
+		return  # Don't collide with the shooter
+
 	if body.has_method("get_hit"):
 		body.get_hit(attack)
-
 	queue_free()  # Destroy the projectile upon collision
 
 
-func _on_body_shape_entered(_body_rid: RID, _body: Node, _body_shape_index: int, _local_shape_index: int):
+func _on_body_shape_entered(_body_rid: RID, body: Node, _body_shape_index: int, _local_shape_index: int):
+	if body and body == owner_entity:
+		return
 	queue_free()  # Destroy the projectile upon collision
 
 
@@ -65,12 +71,15 @@ func _on_area_3d_body_shape_entered(body_rid: RID, _body: Node3D, _body_shape_in
 		Helper.signal_broker.bullet_hit.emit(body_rid, attack)
 	queue_free()  # Destroy the projectile upon collision
 
-# Switch between friendly or enemy projectiles
-# is_friendly: true: It's a friendly projectile. false: It's an enemy projectile
-func configure_collision(is_friendly: bool):
+# Configure the projectile collision settings.
+# is_friendly: true = friendly projectile (fired by player), false = enemy projectile (fired by mobs)
+# shooter: Reference to the entity that fired the projectile, used to prevent self-hits.
+func configure_collision(is_friendly: bool, shooter: Node3D = null):
+	owner_entity = shooter  # Store the reference to the shooter to prevent self-hits
+	
 	if is_friendly:
 		collision_layer = 1 << 5  # Layer 6 (Friendly Projectiles)
-		collision_mask = (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4)  # Layers 2, 3, 4, 5
+		collision_mask = (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4)  # Can hit Layers 2, 3, 4, 5
 	else:
 		collision_layer = 1 << 4  # Layer 5 (Enemy Projectiles)
-		collision_mask = (1 << 0) | (1 << 2) | (1 << 3) | (1 << 5)  # Layers 1, 3, 4, 6
+		collision_mask = (1 << 0) | (1 << 2) | (1 << 3) | (1 << 5)  # Can hit Layers 1, 3, 4, 6
