@@ -249,50 +249,42 @@ func _can_drop_attack_data(_newpos, data) -> bool:
 func _drop_attack_data(newpos, data) -> void:
 	if not _can_drop_attack_data(newpos, data):
 		return
-	
-	# Determine attack type (melee or ranged)
-	var attack_data: DAttack = Gamedata.mods.by_id(data["mod_id"]).attacks.by_id(data["id"])
-	var attack_type: String = attack_data.type if attack_data.get("type") else "melee"  # Default to melee
 
 	# Initialize attack list if necessary
-	if not dmob.attacks.has(attack_type):
-		dmob.attacks[attack_type] = []
-
-	# Ensure attack is not duplicated
-	for attack in dmob.attacks[attack_type]:
-		if attack["id"] == data["id"]:
-			return  # Prevent duplicate attacks
-
-	# Add the new attack with a default multiplier
-	dmob.attacks[attack_type].append({"id": data["id"], "multiplier": 1.0})
-
-	# Update UI
-	_load_attacks_into_grid(dmob.attacks[attack_type])
-	data_changed.emit()
+	if _is_attack_in_grid(data["id"]):
+		return  # Prevent duplicate attacks
+	_add_attack_to_grid({"id": data["id"], "multiplier": 1.0})
 
 
+# Function to add a single attack to the grid container
+func _add_attack_to_grid(attack: Dictionary) -> void:
+	var attack_id = attack["id"]
+	var multiplier = attack.get("multiplier", 1.0)
+
+	# Create a label for attack ID
+	var attack_label = Label.new()
+	attack_label.text = attack_id
+	attack_label.set_meta("attack_data", attack)  # Store attack metadata in the label
+	attacks_grid_container.add_child(attack_label)
+
+	# Create a spinbox for the multiplier
+	var multiplier_spinbox = SpinBox.new()
+	multiplier_spinbox.min_value = 0.1
+	multiplier_spinbox.max_value = 5.0
+	multiplier_spinbox.step = 0.1
+	multiplier_spinbox.value = multiplier
+	attacks_grid_container.add_child(multiplier_spinbox)
+
+
+# Function to populate the grid with attack data
 func _load_attacks_into_grid(attacks: Array) -> void:
 	# Clear existing entries
 	for child in attacks_grid_container.get_children():
 		child.queue_free()
 
-	# Populate grid with attacks
+	# Add each attack using the helper function
 	for attack in attacks:
-		var attack_id = attack["id"]
-		var multiplier = attack.get("multiplier", 1.0)
-
-		# Create a label for attack ID
-		var attack_label = Label.new()
-		attack_label.text = attack_id
-		attacks_grid_container.add_child(attack_label)
-
-		# Create a spinbox for the multiplier
-		var multiplier_spinbox = SpinBox.new()
-		multiplier_spinbox.min_value = 0.1
-		multiplier_spinbox.max_value = 5.0
-		multiplier_spinbox.step = 0.1
-		multiplier_spinbox.value = multiplier
-		attacks_grid_container.add_child(multiplier_spinbox)
+		_add_attack_to_grid(attack)
 
 
 func _get_attacks_from_ui() -> Dictionary:
@@ -316,3 +308,10 @@ func _get_attacks_from_ui() -> Dictionary:
 					extracted_attacks[attack_type].append({"id": attack_id, "multiplier": spinbox.value})
 
 	return extracted_attacks
+
+# Function to check if an attack ID already exists in the grid
+func _is_attack_in_grid(attack_id: String) -> bool:
+	for child in attacks_grid_container.get_children():
+		if child is Label and child.text == attack_id:
+			return true  # The attack is already present
+	return false  # No match found

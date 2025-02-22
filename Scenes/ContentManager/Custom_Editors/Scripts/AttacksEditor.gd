@@ -56,6 +56,11 @@ func load_attack_data() -> void:
 		NameTextEdit.text = dattack.name
 	if DescriptionTextEdit != null:
 		DescriptionTextEdit.text = dattack.description
+	# Load 'any_of' and 'all_of' attributes into their respective grids
+	if dattack.targetattributes.has("any_of"):
+		_load_attributes_into_grid(any_of_attributes_grid_container, dattack.targetattributes["any_of"])
+	if dattack.targetattributes.has("all_of"):
+		_load_attributes_into_grid(all_of_attributes_grid_container, dattack.targetattributes["all_of"])
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
