@@ -77,6 +77,7 @@ func spawn_projectile(spawn_position: Vector3, target_position: Vector3, speed: 
 
 	# Generate attack data and assign it to the projectile
 	projectile_instance.attack = create_attack_data(spawn_position)
+	projectile_instance.set_bullet_texture(mob.get_bullet_sprite())
 
 	Helper.signal_broker.projectile_spawned.emit(projectile_instance, mob.get_rid())
 

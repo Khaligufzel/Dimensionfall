@@ -705,7 +705,7 @@
 		"ranged_range": 10,
 		"sense_range": 50,
 		"sight_range": 200,
-		"sprite": "zombie_bloated_64_42.png",
+		"sprite": "spitter_zombie_64.png",
 		"targetattributes": {
 			"all_of": [
 				{
@@ -751,37 +751,37 @@
 		"melee_range": -1,
 		"move_speed": 0.8,
 		"name": "Bone Thrower",
-		"projectile_sprite_id": "",
+		"projectile_sprite_id": "projectile_bone.png",
 		"ranged_cooldown": 2,
 		"ranged_range": 6,
 		"sense_range": 50,
 		"sight_range": 200,
-		"sprite": "zombie_bloated_64_42.png",
+		"sprite": "bone_thrower_64.png",
 		"targetattributes": {
 			"all_of": [],
 			"any_of": [
 				{
-					"damage": 0,
+					"damage": 10,
 					"id": "head_health"
 				},
 				{
-					"damage": 0,
+					"damage": 10,
 					"id": "torso_health"
 				},
 				{
-					"damage": 0,
+					"damage": 10,
 					"id": "left_arm_health"
 				},
 				{
-					"damage": 0,
+					"damage": 10,
 					"id": "right_arm_health"
 				},
 				{
-					"damage": 0,
+					"damage": 10,
 					"id": "left_leg_health"
 				},
 				{
-					"damage": 0,
+					"damage": 10,
 					"id": "right_leg_health"
 				}
 			]
