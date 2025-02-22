@@ -5,34 +5,53 @@ extends RefCounted
 # Only used while the game is running
 # Example mob data:
 # {
-#     "description": "A small robot",
-#     "health": 80,
-#     "hearing_range": 1000,
-#     "id": "scrapwalker",
-#     "idle_move_speed": 0.5,
-#     "loot_group": "mob_loot",
-#     "move_speed": 2.1,
-#     "melee_range": 1.5,
-#     "melee_knockback": 2.0,
-#     "melee_cooldown": 2.0,
-#     "ranged_range": -1,
-#     "ranged_cooldown": -1,
-#     "name": "Scrap walker",
-#     "faction_id": "iron_force",
-#     "sprite": "scrapwalker64.png",
-#     "special_moves": {
-#         "dash": {"speed_multiplier":2,"cooldown":5,"duration":0.5}
-#     },
-#     "targetattributes": {
-#         "any_of": [
-#             {"id": "head_health", "damage": 10},
-#             {"id": "torso_health", "damage": 10}
-#         ],
-#         "all_of": [
-#             {"id": "poison", "damage": 10},
-#             {"id": "stun", "damage": 10}
-#         ]
-#     }
+# 	"description": "A small robot",
+# 	"health": 80,
+# 	"hearing_range": 1000,
+# 	"id": "scrapwalker",
+# 	"idle_move_speed": 0.5,
+# 	"loot_group": "mob_loot",
+# 	"move_speed": 2.1,
+# 	"name": "Scrap walker",
+# 	"references": {
+# 		"core": {
+# 			"maps": [
+# 				"Generichouse",
+# 				"store_electronic_clothing"
+# 			],
+# 			"quests": [
+# 				"starter_tutorial_00"
+# 			]
+# 		}
+# 	},
+# 	"sense_range": 50,
+# 	"sight_range": 200,
+# 	"special_moves": {
+# 		"dash": {"speed_multiplier":2,"cooldown":5,"duration":0.5}
+# 	},
+#	"attacks": {
+#		"melee": [
+#			{
+#				"id": "basic_melee",
+#				"multiplier": 1.1
+#			},
+#			{
+#				"id": "advanced_melee",
+#				"multiplier": 1.0
+#			}
+#		],
+#		"ranged": [
+#			{
+#				"id": "basic_ranged",
+#				"multiplier": 1.0
+#			},
+#			{
+#				"id": "advanced_ranged",
+#				"multiplier": 1.0
+#			}
+#		]
+#	}
+# 	"spriteid": "scrapwalker64.png"
 # }
 
 # Properties defined in the mob
@@ -45,20 +64,13 @@ var health: int
 var hearing_range: int
 var idle_move_speed: float
 var loot_group: String
-var melee_range: float
-var melee_knockback: float
-var melee_cooldown: float
-var ranged_range: float
-var ranged_cooldown: float
-var projectile_sprite_id: String
-var projectile_sprite: Texture
 var move_speed: float
 var sense_range: int
 var sight_range: int
 var special_moves: Dictionary = {}
 var spriteid: String
 var sprite: Texture
-var targetattributes: Dictionary = {}
+var attacks: Dictionary = {}
 var referenced_maps: Array[String]
 var parent: RMobs  # Reference to the list containing all runtime mobs for this mod
 
@@ -81,20 +93,13 @@ func overwrite_from_dmob(dmob: DMob) -> void:
 	hearing_range = dmob.hearing_range
 	idle_move_speed = dmob.idle_move_speed
 	loot_group = dmob.loot_group
-	melee_range = dmob.melee_range
-	melee_knockback = dmob.melee_knockback
-	melee_cooldown = dmob.melee_cooldown
-	ranged_range = dmob.ranged_range
-	ranged_cooldown = dmob.ranged_cooldown
-	projectile_sprite_id = dmob.projectile_sprite_id
-	projectile_sprite = dmob.projectile_sprite
 	move_speed = dmob.move_speed
 	sense_range = dmob.sense_range
 	sight_range = dmob.sight_range
 	special_moves = dmob.special_moves.duplicate(true)
 	spriteid = dmob.spriteid
 	sprite = dmob.sprite
-	targetattributes = dmob.targetattributes.duplicate(true)
+	attacks = dmob.attacks.duplicate(true)
 	# Append each value from mobmaps to referenced_maps
 	var mobmaps: Array = dmob.get_maps()
 	for map_id in mobmaps:
@@ -113,11 +118,6 @@ func get_data() -> Dictionary:
 		"hearing_range": hearing_range,
 		"idle_move_speed": idle_move_speed,
 		"loot_group": loot_group,
-		"melee_range": melee_range,
-		"melee_knockback": melee_knockback,
-		"melee_cooldown": melee_cooldown,
-		"ranged_range": ranged_range,
-		"ranged_cooldown": ranged_cooldown,
 		"move_speed": move_speed,
 		"sense_range": sense_range,
 		"sight_range": sight_range,
@@ -125,8 +125,8 @@ func get_data() -> Dictionary:
 	}
 	if not special_moves.is_empty():
 		data["special_moves"] = special_moves
-	if not targetattributes.is_empty():
-		data["targetattributes"] = targetattributes
+	if not attacks.is_empty():
+		data["attacks"] = attacks
 	if not referenced_maps.is_empty():
 		data["referenced_maps"] = referenced_maps
 	return data

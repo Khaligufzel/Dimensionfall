@@ -1,0 +1,246 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3rielcw177vm"]
+
+[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/AttacksEditor.gd" id="1_l1ui3"]
+[ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_sjkox"]
+[ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_0gl02"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fbs5"]
+content_margin_left = 11.0
+content_margin_top = 11.0
+content_margin_right = 11.0
+content_margin_bottom = 11.0
+bg_color = Color(0.358505, 0.289355, 0.48639, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="AttacksEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l1ui3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="FormGrid" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="TypeLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Type:"
+
+[node name="TypeOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "melee"
+popup/item_1/text = "ranged"
+popup/item_1/id = 1
+
+[node name="ImageLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Sprite:"
+
+[node name="StatImageDisplay" type="TextureRect" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_stretch_ratio = 0.4
+texture = ExtResource("2_sjkox")
+expand_mode = 3
+
+[node name="PathLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Sprite name"
+
+[node name="PathTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="IDLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "ID:"
+
+[node name="IDTextLabel" type="Label" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="NameLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Name:"
+
+[node name="NameTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.1
+focus_next = NodePath("../DescriptionTextEdit")
+focus_previous = NodePath("../StatImageDisplay")
+placeholder_text = "Basic attack"
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Description:"
+
+[node name="DescriptionTextEdit" type="TextEdit" parent="VBoxContainer/FormGrid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.9
+focus_previous = NodePath("../NameTextEdit")
+placeholder_text = "A basic melee attack"
+wrap_mode = 1
+
+[node name="StatsLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Stats:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+
+[node name="StatsRangeLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer"]
+layout_mode = 2
+text = "Range:"
+
+[node name="StatsRangeSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "The maximum distance it can reach when attacking in melee"
+step = 0.5
+value = 1.5
+
+[node name="StatsCooldownLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer"]
+layout_mode = 2
+text = "Cooldown:"
+
+[node name="StatsCooldownSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "The cooldown in seconds. During the cooldown, the mob cannot perform another melee attack."
+step = 0.5
+value = 1.5
+
+[node name="StatsKnockbackLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer"]
+layout_mode = 2
+text = "Knockback:"
+
+[node name="StatsKnockbackSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "The number of tiles that the  player will be knocked back. If the value is 0, no knockback will be applied."
+step = 0.5
+
+[node name="StatsProjectileSpeedLabel" type="Label" parent="VBoxContainer/FormGrid/HBoxContainer"]
+layout_mode = 2
+text = "Projectile speed:"
+
+[node name="StatsProjectileSpeedSpinbox" type="SpinBox" parent="VBoxContainer/FormGrid/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "The number of tiles that the  player will be knocked back. If the value is 0, no knockback will be applied."
+step = 0.5
+
+[node name="AffectedAttributesLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Target attributes"
+
+[node name="AttributesHBoxContainer" type="HBoxContainer" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AnyOfPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_8fbs5")
+
+[node name="AnyOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer"]
+layout_mode = 2
+
+[node name="AnyOfLabel" type="Label" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
+layout_mode = 2
+text = "Any of:"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="AnyOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/ScrollContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Enter the target player attributes that this mob will attack. You 
+can drag body parts to this field to have the mob target them.
+Selecting multiple will have the mob attack one part at a time at random."
+columns = 4
+
+[node name="AllOfPanelContainer" type="PanelContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_8fbs5")
+
+[node name="AllOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer"]
+clip_contents = true
+layout_mode = 2
+
+[node name="AllOfLabel" type="Label" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer"]
+layout_mode = 2
+text = "All of:"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="AllOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/FormGrid/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer/ScrollContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "Enter the target player attributes that this mob will attack. You 
+can drag body parts to this field to have the mob target them.
+All attributes listed here will be attacked every time."
+columns = 4
+
+[node name="Sprite_selector" parent="." instance=ExtResource("3_0gl02")]
+visible = false
+
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_button_up"]
+[connection signal="gui_input" from="VBoxContainer/FormGrid/StatImageDisplay" to="." method="_on_stat_image_display_gui_input"]
+[connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

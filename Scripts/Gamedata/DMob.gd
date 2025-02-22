@@ -17,12 +17,6 @@ extends RefCounted
 # 	"idle_move_speed": 0.5,
 # 	"loot_group": "mob_loot",
 # 	"move_speed": 2.1,
-# 	"melee_range": 1.5,
-# 	"melee_knockback": 2.0,
-# 	"melee_cooldown": 2.0,
-# 	"ranged_range": 15,
-# 	"ranged_cooldown": 1.5,
-# 	"projectile_sprite_id": "projectile_spit.png"
 # 	"name": "Scrap walker",
 # 	"references": {
 # 		"core": {
@@ -40,25 +34,25 @@ extends RefCounted
 # 	"special_moves": {
 # 		"dash": {"speed_multiplier":2,"cooldown":5,"duration":0.5}
 # 	},
-#	"targetattributes": {
-#		"any_of": [
+#	"attacks": {
+#		"melee": [
 #			{
-#				"id": "head_health",
-#				"damage": 10
+#				"id": "basic_melee",
+#				"multiplier": 1.1
 #			},
 #			{
-#				"id": "torso_health",
-#				"damage": 10
+#				"id": "advanced_melee",
+#				"multiplier": 1.0
 #			}
 #		],
-#		"all_of": [
+#		"ranged": [
 #			{
-#				"id": "poison",
-#				"damage": 10
+#				"id": "basic_ranged",
+#				"multiplier": 1.0
 #			},
 #			{
-#				"id": "stun",
-#				"damage": 10
+#				"id": "advanced_ranged",
+#				"multiplier": 1.0
 #			}
 #		]
 #	}
@@ -75,21 +69,13 @@ var health: int
 var hearing_range: int
 var idle_move_speed: float
 var loot_group: String
-var melee_range: float
-var melee_knockback: float
-var melee_cooldown: float
-var ranged_range: float
-var ranged_cooldown: float
-var projectile_sprite_id: String
-var projectile_sprite: Texture
 var move_speed: float
 var sense_range: int
 var sight_range: int
 var special_moves: Dictionary = {} # Holds special moves like {"dash":{"speed_multiplier":2,"cooldown":5,"duration":0.5}}
 var spriteid: String
 var sprite: Texture
-# Updated targetattributes variable to use the new data structure
-var targetattributes: Dictionary = {}
+var attacks: Dictionary = {} # List of attacks this mob can use
 var parent: DMobs
 
 # Constructor to initialize mob properties from a dictionary
@@ -105,12 +91,6 @@ func _init(data: Dictionary, myparent: DMobs):
 	hearing_range = data.get("hearing_range", 1000)
 	idle_move_speed = data.get("idle_move_speed", 0.5)
 	loot_group = data.get("loot_group", "")
-	melee_range = data.get("melee_range", 1.5)
-	melee_knockback = data.get("melee_knockback", 2.0)  # Initialize with default value
-	melee_cooldown = data.get("melee_cooldown", 2.0)
-	ranged_range = data.get("ranged_range", -1)
-	ranged_cooldown = data.get("ranged_cooldown", -1)
-	projectile_sprite_id = data.get("projectile_sprite_id", "")
 	move_speed = data.get("move_speed", 1.0)
 	sense_range = data.get("sense_range", 50)
 	sight_range = data.get("sight_range", 200)
@@ -118,9 +98,8 @@ func _init(data: Dictionary, myparent: DMobs):
 	special_moves = data.get("special_moves", {})
 	spriteid = data.get("sprite", "")
 	
-	# Initialize targetattributes based on the new format
-	if data.has("targetattributes"):
-		targetattributes = data["targetattributes"]
+	if data.has("attacks"):
+		attacks = data["attacks"]
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -134,9 +113,6 @@ func get_data() -> Dictionary:
 		"hearing_range": hearing_range,
 		"idle_move_speed": idle_move_speed,
 		"loot_group": loot_group,
-		"melee_range": melee_range,
-		"melee_knockback": melee_knockback,
-		"melee_cooldown": melee_cooldown,
 		"move_speed": move_speed,
 		"sense_range": sense_range,
 		"sight_range": sight_range,
@@ -144,26 +120,20 @@ func get_data() -> Dictionary:
 	}
 	if not special_moves.is_empty():
 		data["special_moves"] = special_moves
-	if not targetattributes.is_empty():
-		data["targetattributes"] = targetattributes
-	if not ranged_range < 0:
-		data["ranged_range"] = ranged_range
-	if not ranged_range < 0: # Only save the projectile sprite if it's ranged
-		data["projectile_sprite_id"] = projectile_sprite_id
-	if not ranged_cooldown < 0:
-		data["ranged_cooldown"] = ranged_cooldown
+	if not attacks.is_empty():
+		data["attacks"] = attacks
 	return data
 
 
-# Function to return an array of all "id" values in the targetattributes
-func get_attr_ids() -> Array:
+# Function to return an array of all "id" values in the attacks
+func get_attk_ids() -> Array:
 	var ids: Array = []
-	for attribute in targetattributes.get("any_of", []):
-		if attribute.has("id"):
-			ids.append(attribute["id"])
-	for attribute in targetattributes.get("all_of", []):
-		if attribute.has("id"):
-			ids.append(attribute["id"])
+	for attack in attacks.get("melee", []):
+		if attack.has("id"):
+			ids.append(attack["id"])
+	for attack in attacks.get("ranged", []):
+		if attack.has("id"):
+			ids.append(attack["id"])
 	return ids
 
 
@@ -179,7 +149,7 @@ func changed(olddata: DMob):
 		
 	# This mob will be added to the new itemgroup's references
 	Gamedata.mods.add_reference(DMod.ContentType.ITEMGROUPS, loot_group, DMod.ContentType.MOBS, id)
-	update_mob_attribute_references(olddata)
+	update_mob_attack_references(olddata)
 	parent.save_mobs_to_disk() # Save changes regardless of whether or not a reference was updated
 
 
@@ -227,20 +197,20 @@ func execute_callable_on_references_of_type(type: DMod.ContentType, callable: Ca
 			callable.call(ref_id)
 
 
-# Collects all attributes defined in an item and updates the references to that attribute
-func update_mob_attribute_references(olddata: DMob):
+# Collects all attacks defined in an item and updates the references to that attack
+func update_mob_attack_references(olddata: DMob):
 	# Collect skill IDs from old and new data
-	var old_attr_ids = olddata.get_attr_ids()
-	var new_attr_ids = get_attr_ids()
+	var old_attk_ids = olddata.get_attk_ids()
+	var new_attk_ids = get_attk_ids()
 
 	# Remove old skill references that are not in the new list
-	for old_attr_id in old_attr_ids:
-		if not new_attr_ids.has(old_attr_id):
-			Gamedata.mods.remove_reference(DMod.ContentType.PLAYERATTRIBUTES, old_attr_id, DMod.ContentType.MOBS, id)
+	for old_attk_id in old_attk_ids:
+		if not new_attk_ids.has(old_attk_id):
+			Gamedata.mods.remove_reference(DMod.ContentType.ATTACKS, old_attk_id, DMod.ContentType.MOBS, id)
 	
-	# Add new attribute references
-	for new_attr_id in new_attr_ids:
-		Gamedata.mods.add_reference(DMod.ContentType.PLAYERATTRIBUTES, new_attr_id, DMod.ContentType.MOBS, id)
+	# Add new attack references
+	for new_attk_id in new_attk_ids:
+		Gamedata.mods.add_reference(DMod.ContentType.ATTACKS, new_attk_id, DMod.ContentType.MOBS, id)
 
 
 # Function to retrieve an array of maps from the references
