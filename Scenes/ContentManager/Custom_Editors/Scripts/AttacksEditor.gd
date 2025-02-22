@@ -89,8 +89,6 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	PathTextLabel.text = attackTexture.resource_path.get_file()
 
 
-
-
 # Helper function to load attributes into a specified grid container
 func _load_attributes_into_grid(container: GridContainer, attributes: Array) -> void:
 	# Clear previous entries

@@ -20,7 +20,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "faction_option_button", "DescriptionTextEdit", "mobSelector", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "any_of_attributes_grid_container")]
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "faction_option_button", "DescriptionTextEdit", "mobSelector", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,17 +46,6 @@ dash_check_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxCo
 dash_speed_multiplier_spin_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/SpeedMultiplierSpinBox")
 dash_duration_spin_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/DurationSpinBox")
 dash_cooldown_spin_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/CooldownSpinBox")
-attack_type_option_button = null
-melee_h_box_container = null
-melee_range_numedit = null
-melee_cooldown_spinbox = null
-melee_knockback_spinbox = null
-ranged_h_box_container = null
-ranged_range_spin_box = null
-ranged_cooldown_spin_box = null
-projectile_texture_rect = null
-any_of_attributes_grid_container = NodePath("VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/ScrollContainer/AnyOfAttributesGridContainer")
-all_of_attributes_grid_container = null
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -311,30 +300,30 @@ text = "Hint"
 layout_mode = 2
 text = "Drag attacks from the left to give this mob some attacks"
 
-[node name="AffectedAttributesLabel" type="Label" parent="VBoxContainer/TabContainer/Combat"]
+[node name="AttacksLabel" type="Label" parent="VBoxContainer/TabContainer/Combat"]
 layout_mode = 2
 text = "Attacks:"
 
-[node name="AttributesHBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Combat"]
+[node name="AttacksHBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Combat"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="AnyOfPanelContainer" type="PanelContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer"]
+[node name="AttacksPanelContainer" type="PanelContainer" parent="VBoxContainer/TabContainer/Combat/AttacksHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_apoql")
 
-[node name="AnyOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer"]
+[node name="AttacksVBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Combat/AttacksHBoxContainer/AttacksPanelContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Combat/AttacksHBoxContainer/AttacksPanelContainer/AttacksVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
 
-[node name="AnyOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/ScrollContainer"]
+[node name="AttackGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Combat/AttacksHBoxContainer/AttacksPanelContainer/AttacksVBoxContainer/ScrollContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2

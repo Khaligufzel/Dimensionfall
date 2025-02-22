@@ -25,20 +25,7 @@ extends Control
 @export var dash_cooldown_spin_box: SpinBox = null
 
 # Combat properties:
-@export var attack_type_option_button: OptionButton = null
-
-@export var melee_h_box_container: HBoxContainer = null
-@export var melee_range_numedit: SpinBox
-@export var melee_cooldown_spinbox: SpinBox = null
-@export var melee_knockback_spinbox: SpinBox = null
-
-@export var ranged_h_box_container: HBoxContainer = null
-@export var ranged_range_spin_box: SpinBox = null
-@export var ranged_cooldown_spin_box: SpinBox = null
-@export var projectile_texture_rect: TextureRect = null
-
-@export var any_of_attributes_grid_container: GridContainer = null
-@export var all_of_attributes_grid_container: GridContainer = null
+@export var attacks_grid_container: GridContainer = null
 
 # Track which TextureRect triggered the mobSelector
 var selected_texture_rect: TextureRect = null
@@ -59,10 +46,7 @@ var dmob: DMob:
 
 # Forward drag-and-drop functionality to the attributesGridContainer
 func _ready() -> void:
-	any_of_attributes_grid_container.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_any_of_attribute_data)
-	all_of_attributes_grid_container.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_all_of_attribute_data)
-
-	attack_type_option_button.item_selected.connect(_on_attack_type_option_button_item_selected)
+	attacks_grid_container.set_drag_forwarding(Callable(), _can_drop_attack_data, _drop_attack_data)
 
 
 # This function update the form based on the DMob data that has been loaded
@@ -76,18 +60,6 @@ func load_mob_data() -> void:
 		NameTextEdit.text = dmob.name
 	if DescriptionTextEdit != null:
 		DescriptionTextEdit.text = dmob.description
-	if melee_range_numedit != null:
-		melee_range_numedit.value = dmob.melee_range
-	if melee_cooldown_spinbox != null:
-		melee_cooldown_spinbox.value = dmob.melee_cooldown
-	if melee_knockback_spinbox != null:
-		melee_knockback_spinbox.value = dmob.melee_knockback
-	if ranged_range_spin_box != null:
-		ranged_range_spin_box.value = max(dmob.ranged_range, 0)
-	if ranged_cooldown_spin_box != null:
-		ranged_cooldown_spin_box.value = max(dmob.ranged_cooldown, 0)
-	if projectile_texture_rect != null:
-		projectile_texture_rect.texture = dmob.projectile_sprite if dmob.projectile_sprite else preload("res://Textures/bullet.png")
 	if health_numedit != null:
 		health_numedit.value = dmob.health
 	if moveSpeed_numedit != null:
@@ -113,31 +85,13 @@ func load_mob_data() -> void:
 	_on_dash_check_box_toggled(dash_check_box.is_pressed())
 	
 	# Load 'any_of' and 'all_of' attributes into their respective grids
-	if dmob.targetattributes.has("any_of"):
-		_load_attributes_into_grid(any_of_attributes_grid_container, dmob.targetattributes["any_of"])
-	if dmob.targetattributes.has("all_of"):
-		_load_attributes_into_grid(all_of_attributes_grid_container, dmob.targetattributes["all_of"])
+	if dmob.attacks.has("any_of"):
+		_load_attacks_into_grid(dmob.attacks["melee"])
+	if dmob.attacks.has("all_of"):
+		_load_attacks_into_grid(dmob.attacks["ranged"])
 	
 	# Call the new function to populate and refresh the faction_option_button
 	refresh_faction_option_button()
-	update_attack_type_selection() # Set attack type UI state
-
-
-# Updates the attack type selection based on the current mob data
-func update_attack_type_selection() -> String:
-	if attack_type_option_button == null or dmob == null:
-		return ""
-	
-	var selected_attack_type := "Melee"
-	if dmob.get("ranged_range") and dmob.ranged_range > 0:
-		selected_attack_type = "Ranged"
-	
-	for i in range(attack_type_option_button.item_count):
-		if attack_type_option_button.get_item_text(i) == selected_attack_type:
-			attack_type_option_button.select(i)
-			_on_attack_type_option_button_item_selected(i)
-			return attack_type_option_button.get_item_text(i)
-	return ""
 
 
 # The editor is closed, destroy the instance
@@ -173,6 +127,7 @@ func _on_save_button_button_up() -> void:
 
 	if faction_option_button != null:
 		dmob.faction_id = faction_option_button.get_item_text(faction_option_button.selected)
+	dmob.attacks = _get_attacks_from_ui()
 
 	dmob.changed(olddata)
 	data_changed.emit()
@@ -181,30 +136,7 @@ func _on_save_button_button_up() -> void:
 
 # Saves melee and ranged properties based on the selected attack type.
 func _save_combat_properties() -> void:
-	var selected_attack_type := attack_type_option_button.get_item_text(attack_type_option_button.selected)
-
-	if selected_attack_type == "Melee":
-		dmob.melee_range = melee_range_numedit.value
-		dmob.melee_cooldown = melee_cooldown_spinbox.value
-		dmob.melee_knockback = melee_knockback_spinbox.value
-
-		dmob.ranged_range = -1
-		dmob.ranged_cooldown = -1
-		dmob.projectile_sprite_id = ""
-		dmob.projectile_sprite = null
-
-	elif selected_attack_type == "Ranged":
-		dmob.ranged_range = ranged_range_spin_box.value
-		dmob.ranged_cooldown = ranged_cooldown_spin_box.value
-
-		dmob.melee_range = -1
-		dmob.melee_cooldown = -1
-		dmob.melee_knockback = -1
-		if projectile_texture_rect.texture:
-			var texture_path: String = projectile_texture_rect.texture.resource_path
-			if not texture_path == "res://Textures/bullet.png":
-				dmob.projectile_sprite_id = projectile_texture_rect.texture.resource_path.get_file()
-				dmob.projectile_sprite = projectile_texture_rect.texture
+	print("saving combat data")
 
 
 # When the mobImageDisplay is clicked, the user will be prompted to select an image from 
@@ -304,18 +236,83 @@ func refresh_faction_option_button() -> void:
 			faction_option_button.select(i)
 			break
 
-# The user selects an attack type option
-func _on_attack_type_option_button_item_selected(index: int) -> void:
-	var selected_text: String = attack_type_option_button.get_item_text(index)
-	if selected_text == "Ranged":
-		ranged_h_box_container.visible = true
-		melee_h_box_container.visible = false
-	elif selected_text == "Melee":
-		ranged_h_box_container.visible = false
-		melee_h_box_container.visible = true
+
+func _can_drop_attack_data(_newpos, data) -> bool:
+	# Validate that the data has the necessary properties
+	if not data or not data.has("id") or not data.has("mod_id"):
+		return false
+	
+	# Check if the attack exists in Gamedata
+	return Gamedata.mods.by_id(data["mod_id"]).attacks.has_id(data["id"])
 
 
-func _on_projectile_texture_rect_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		selected_texture_rect = projectile_texture_rect
-		mobSelector.show()
+func _drop_attack_data(newpos, data) -> void:
+	if not _can_drop_attack_data(newpos, data):
+		return
+	
+	# Determine attack type (melee or ranged)
+	var attack_data: DAttack = Gamedata.mods.by_id(data["mod_id"]).attacks.by_id(data["id"])
+	var attack_type: String = attack_data.type if attack_data.get("type") else "melee"  # Default to melee
+
+	# Initialize attack list if necessary
+	if not dmob.attacks.has(attack_type):
+		dmob.attacks[attack_type] = []
+
+	# Ensure attack is not duplicated
+	for attack in dmob.attacks[attack_type]:
+		if attack["id"] == data["id"]:
+			return  # Prevent duplicate attacks
+
+	# Add the new attack with a default multiplier
+	dmob.attacks[attack_type].append({"id": data["id"], "multiplier": 1.0})
+
+	# Update UI
+	_load_attacks_into_grid(dmob.attacks[attack_type])
+	data_changed.emit()
+
+
+func _load_attacks_into_grid(attacks: Array) -> void:
+	# Clear existing entries
+	for child in attacks_grid_container.get_children():
+		child.queue_free()
+
+	# Populate grid with attacks
+	for attack in attacks:
+		var attack_id = attack["id"]
+		var multiplier = attack.get("multiplier", 1.0)
+
+		# Create a label for attack ID
+		var attack_label = Label.new()
+		attack_label.text = attack_id
+		attacks_grid_container.add_child(attack_label)
+
+		# Create a spinbox for the multiplier
+		var multiplier_spinbox = SpinBox.new()
+		multiplier_spinbox.min_value = 0.1
+		multiplier_spinbox.max_value = 5.0
+		multiplier_spinbox.step = 0.1
+		multiplier_spinbox.value = multiplier
+		attacks_grid_container.add_child(multiplier_spinbox)
+
+
+func _get_attacks_from_ui() -> Dictionary:
+	var extracted_attacks: Dictionary = {"melee": [], "ranged": []}
+
+	# Retrieve children from the attack grid container
+	var children = attacks_grid_container.get_children()
+
+	for i in range(0, children.size(), 2):  # Each attack entry has a Label and a SpinBox
+		var label = children[i] as Label
+		var spinbox = children[i + 1] as SpinBox
+
+		if label and spinbox:
+			# Determine if the attack is melee or ranged
+			var attack_id = label.text
+			var attack_data: DAttack = Gamedata.mods.attacks.by_id(attack_id)
+
+			if attack_data and attack_data.get("type"):
+				var attack_type = attack_data.type  # "melee" or "ranged"
+				if attack_type in extracted_attacks:
+					extracted_attacks[attack_type].append({"id": attack_id, "multiplier": spinbox.value})
+
+	return extracted_attacks
