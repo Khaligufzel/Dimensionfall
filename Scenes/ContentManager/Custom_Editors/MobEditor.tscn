@@ -70,10 +70,9 @@ text = "Save"
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 
 [node name="General" type="GridContainer" parent="VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
@@ -289,6 +288,7 @@ tooltip_text = "The cooldown for the dash move in seconds."
 value = 5.0
 
 [node name="Combat" type="GridContainer" parent="VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 columns = 2
 metadata/_tab_index = 1

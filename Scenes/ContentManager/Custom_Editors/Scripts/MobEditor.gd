@@ -85,10 +85,10 @@ func load_mob_data() -> void:
 	_on_dash_check_box_toggled(dash_check_box.is_pressed())
 	
 	# Load 'any_of' and 'all_of' attributes into their respective grids
-	if dmob.attacks.has("any_of"):
-		_load_attacks_into_grid(dmob.attacks["melee"])
-	if dmob.attacks.has("all_of"):
-		_load_attacks_into_grid(dmob.attacks["ranged"])
+	if dmob.attacks.has("melee"):
+		_load_attacks_into_grid(dmob.attacks["melee"], "melee")
+	if dmob.attacks.has("ranged"):
+		_load_attacks_into_grid(dmob.attacks["ranged"], "ranged")
 	
 	# Call the new function to populate and refresh the faction_option_button
 	refresh_faction_option_button()
@@ -250,10 +250,16 @@ func _drop_attack_data(newpos, data) -> void:
 	if not _can_drop_attack_data(newpos, data):
 		return
 
-	# Initialize attack list if necessary
+	# Get attack type from Gamedata
+	var attack_data: DAttack = Gamedata.mods.by_id(data["mod_id"]).attacks.by_id(data["id"])
+	var attack_type: String = attack_data.type if attack_data.get("type") else "melee"  # Default to melee
+
+	# Ensure attack is not duplicated
 	if _is_attack_in_grid(data["id"]):
-		return  # Prevent duplicate attacks
-	_add_attack_to_grid({"id": data["id"], "damage_multiplier": 1.0})
+		return  
+
+	# Add attack with type metadata
+	_add_attack_to_grid({"id": data["id"], "damage_multiplier": 1.0, "type": attack_type})
 
 
 # Function to add a single attack to the grid container
@@ -261,29 +267,40 @@ func _add_attack_to_grid(attack: Dictionary) -> void:
 	var attack_id = attack["id"]
 	var damage_multiplier = attack.get("damage_multiplier", 1.0)
 
-	# Create a label for attack ID
+	# Create a label for the attack ID
 	var attack_label = Label.new()
 	attack_label.text = attack_id
 	attack_label.set_meta("attack_data", attack)  # Store attack metadata in the label
 	attacks_grid_container.add_child(attack_label)
 
-	# Create a spinbox for the damage_multiplier
+	# Create a label for "Damage Multiplier:"
+	var multiplier_label = Label.new()
+	multiplier_label.text = "| Damage Multiplier:"
+	attacks_grid_container.add_child(multiplier_label)
+
+	# Create a spinbox for the damage multiplier
 	var multiplier_spinbox = SpinBox.new()
 	multiplier_spinbox.min_value = 0.1
 	multiplier_spinbox.max_value = 5.0
 	multiplier_spinbox.step = 0.1
 	multiplier_spinbox.value = damage_multiplier
+	multiplier_spinbox.tooltip_text = "Damage multiplier for this attack.\n" + \
+								  "The attack's damage will be the same if you enter a value of 1.0.\n" + \
+								  "With a value of 0.9, it will do 90% of the original damage.\n" + \
+								  "With a value of 1.1, it will do 110% of the original damage.\n" + \
+								  "The higher the value, the more powerful the attack becomes"
 	attacks_grid_container.add_child(multiplier_spinbox)
 
 
 # Function to populate the grid with attack data
-func _load_attacks_into_grid(attacks: Array) -> void:
+func _load_attacks_into_grid(attacks: Array, attack_type: String) -> void:
 	# Clear existing entries
 	for child in attacks_grid_container.get_children():
 		child.queue_free()
 
-	# Add each attack using the helper function
+	# Add each attack using the helper function, passing attack_type
 	for attack in attacks:
+		attack["type"] = attack_type  # Ensure type is stored
 		_add_attack_to_grid(attack)
 
 
@@ -293,21 +310,25 @@ func _get_attacks_from_ui() -> Dictionary:
 	# Retrieve children from the attack grid container
 	var children = attacks_grid_container.get_children()
 
-	for i in range(0, children.size(), 2):  # Each attack entry has a Label and a SpinBox
-		var label = children[i] as Label
-		var spinbox = children[i + 1] as SpinBox
+	# Step by 3: Each attack entry consists of [Label (ID), Label ("Damage Multiplier:"), SpinBox]
+	for i in range(0, children.size(), 3):
+		var attack_label = children[i] as Label
+		var multiplier_spinbox = children[i + 2] as SpinBox  # Skip "Damage Multiplier" label
 
-		if label and spinbox:
-			# Determine if the attack is melee or ranged
-			var attack_id = label.text
-			var attack_data: DAttack = Gamedata.mods.attacks.by_id(attack_id)
+		if attack_label and multiplier_spinbox:
+			# Retrieve metadata from the attack label
+			var attack_data = attack_label.get_meta("attack_data", {})
 
-			if attack_data and attack_data.get("type"):
-				var attack_type = attack_data.type  # "melee" or "ranged"
+			if attack_data.has("type"):
+				var attack_type = attack_data["type"]  # Read type from metadata
 				if attack_type in extracted_attacks:
-					extracted_attacks[attack_type].append({"id": attack_id, "damage_multiplier": spinbox.value})
+					extracted_attacks[attack_type].append({
+						"id": attack_label.text,
+						"damage_multiplier": multiplier_spinbox.value
+					})
 
 	return extracted_attacks
+
 
 # Function to check if an attack ID already exists in the grid
 func _is_attack_in_grid(attack_id: String) -> bool:
