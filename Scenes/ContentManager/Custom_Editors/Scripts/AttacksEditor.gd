@@ -52,6 +52,13 @@ func _ready() -> void:
 
 # This function updates the form based on the DAttack that has been loaded
 func load_attack_data() -> void:
+	# Set the type_option_button selection based on dattack.type
+	if type_option_button:
+		for i in range(type_option_button.item_count):
+			if type_option_button.get_item_text(i) == dattack.type:
+				type_option_button.select(i)
+				break
+
 	if attackImageDisplay != null and dattack.spriteid != "":
 		attackImageDisplay.texture = dattack.sprite
 		PathTextLabel.text = dattack.spriteid
@@ -87,6 +94,10 @@ func _on_close_button_button_up() -> void:
 # the central array for attack data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
+	# Get the selected attack type from type_option_button and save it
+	if type_option_button:
+		dattack.type = type_option_button.get_item_text(type_option_button.selected)
+
 	dattack.spriteid = PathTextLabel.text
 	dattack.name = NameTextEdit.text
 	dattack.description = DescriptionTextEdit.text

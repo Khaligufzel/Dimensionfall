@@ -6,7 +6,7 @@ extends RefCounted
 # This script handles the list of mobs. You can access it trough Gamedata.mods.by_id("Core").mobs
 
 
-var dataPath: String = "./Mods/Core/Mobs/Mobs.json"
+var dataPath: String = "./Mods/Core/Mobs/"
 var filePath: String = "./Mods/Core/Mobs/Mobs.json"
 var spritePath: String = "./Mods/Core/Mobs/"
 var mobdict: Dictionary = {}

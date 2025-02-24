@@ -84,7 +84,10 @@ func load_mob_data() -> void:
 	# Enable or disable dash controls based on checkbox state
 	_on_dash_check_box_toggled(dash_check_box.is_pressed())
 	
-	# Load 'any_of' and 'all_of' attributes into their respective grids
+	# Clear the grid container once before adding attacks
+	for child in attacks_grid_container.get_children():
+		child.queue_free()
+	# Load 'melee' and 'ranged' attacks into the grid
 	if dmob.attacks.has("melee"):
 		_load_attacks_into_grid(dmob.attacks["melee"], "melee")
 	if dmob.attacks.has("ranged"):
@@ -294,10 +297,6 @@ func _add_attack_to_grid(attack: Dictionary) -> void:
 
 # Function to populate the grid with attack data
 func _load_attacks_into_grid(attacks: Array, attack_type: String) -> void:
-	# Clear existing entries
-	for child in attacks_grid_container.get_children():
-		child.queue_free()
-
 	# Add each attack using the helper function, passing attack_type
 	for attack in attacks:
 		attack["type"] = attack_type  # Ensure type is stored

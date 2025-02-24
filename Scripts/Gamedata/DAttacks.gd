@@ -6,28 +6,41 @@ extends RefCounted
 # This script handles the list of attacs. You can access it through Gamedata.mods.by_id("Core").attacks
 
 # Paths for attacks data and sprites
-var dataPath: String = "./Mods/Core/Attacks/Attacks.json"
+var dataPath: String = "./Mods/Core/Attacks/"
+var filePath: String = "./Mods/Core/Attacks/Attacks.json"
 var spritePath: String = "./Mods/Core/Attacks/"
 var attackdict: Dictionary = {}
 var sprites: Dictionary = {}
+var references: Dictionary = {}
 var mod_id: String = "Core"
 
 # Add a mod_id parameter to dynamically initialize paths
 func _init(new_mod_id: String) -> void:
 	mod_id = new_mod_id
 	# Update dataPath and spritePath using the provided mod_id
-	dataPath = "./Mods/" + mod_id + "/Attacks/Attacks.json"
+	dataPath = "./Mods/" + mod_id + "/Attacks/"
+	filePath = "./Mods/" + mod_id + "/Attacks/Attacks.json"
 	spritePath = "./Mods/" + mod_id + "/Attacks/"
 	
 	# Load attacks and sprites
 	load_sprites()
-	load_stats_from_disk()
+	load_attacks_from_disk()
+	load_references()
+
+
+# Load references from references.json
+func load_references() -> void:
+	var path = dataPath + "references.json"
+	if FileAccess.file_exists(path):
+		references = Helper.json_helper.load_json_dictionary_file(path)
+	else:
+		references = {}  # Initialize an empty references dictionary if the file doesn't exist
 
 
 # Load all attacks data from disk into memory
-func load_stats_from_disk() -> void:
-	var statslist: Array = Helper.json_helper.load_json_array_file(dataPath)
-	for myattack in statslist:
+func load_attacks_from_disk() -> void:
+	var attackslist: Array = Helper.json_helper.load_json_array_file(filePath)
+	for myattack in attackslist:
 		var attack: DAttack = DAttack.new(myattack, self)
 		if attack.spriteid:
 			attack.sprite = sprites[attack.spriteid]
@@ -51,7 +64,7 @@ func save_attacks_to_disk() -> void:
 	var save_data: Array = []
 	for attack in attackdict.values():
 		save_data.append(attack.get_data())
-	Helper.json_helper.write_json_file(dataPath, JSON.stringify(save_data, "\t"))
+	Helper.json_helper.write_json_file(filePath, JSON.stringify(save_data, "\t"))
 
 # Returns the dictionary containing all attacks
 func get_all() -> Dictionary:
