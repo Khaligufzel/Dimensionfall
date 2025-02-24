@@ -38,21 +38,21 @@ extends RefCounted
 #		"melee": [
 #			{
 #				"id": "basic_melee",
-#				"multiplier": 1.1
+#				"damage_multiplier": 1.1
 #			},
 #			{
 #				"id": "advanced_melee",
-#				"multiplier": 1.0
+#				"damage_multiplier": 1.0
 #			}
 #		],
 #		"ranged": [
 #			{
 #				"id": "basic_ranged",
-#				"multiplier": 1.0
+#				"damage_multiplier": 1.0
 #			},
 #			{
 #				"id": "advanced_ranged",
-#				"multiplier": 1.0
+#				"damage_multiplier": 1.0
 #			}
 #		]
 #	}

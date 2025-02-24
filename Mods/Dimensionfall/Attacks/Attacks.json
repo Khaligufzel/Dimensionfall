@@ -1,0 +1,78 @@
+[
+	{
+		"cooldown": 1,
+		"description": "A basic melee attack",
+		"id": "melee_basic",
+		"knockback": 0,
+		"name": "Basic melee attack",
+		"range": 1.5,
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				}
+			]
+		},
+		"type": "melee"
+	},
+	{
+		"cooldown": 1,
+		"description": "A basic ranged attack",
+		"id": "ranged_basic",
+		"knockback": 0,
+		"name": "Basic ranged attack",
+		"range": 10,
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				}
+			]
+		},
+		"type": "melee"
+	}
+]

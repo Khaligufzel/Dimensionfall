@@ -20,7 +20,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="AttacksEditor" type="Control" node_paths=PackedStringArray("type_option_button", "attackImageDisplay", "PathTextLabel", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "attackSelector", "stats_range_spinbox", "stats_cooldown_spinbox", "stats_knockback_spinbox", "stats_projectile_speed_label", "stats_projectile_speed_spinbox", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
+[node name="AttacksEditor" type="Control" node_paths=PackedStringArray("type_option_button", "image_label", "attackImageDisplay", "path_label", "PathTextLabel", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "attackSelector", "stats_range_spinbox", "stats_cooldown_spinbox", "stats_knockback_spinbox", "stats_projectile_speed_label", "stats_projectile_speed_spinbox", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,7 +29,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l1ui3")
 type_option_button = NodePath("VBoxContainer/FormGrid/TypeOptionButton")
+image_label = NodePath("VBoxContainer/FormGrid/ImageLabel")
 attackImageDisplay = NodePath("VBoxContainer/FormGrid/AttackImageDisplay")
+path_label = NodePath("VBoxContainer/FormGrid/PathLabel")
 PathTextLabel = NodePath("VBoxContainer/FormGrid/PathTextLabel")
 IDTextLabel = NodePath("VBoxContainer/FormGrid/IDTextLabel")
 NameTextEdit = NodePath("VBoxContainer/FormGrid/NameTextEdit")
