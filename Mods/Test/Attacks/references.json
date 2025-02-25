@@ -1,0 +1,13 @@
+{
+	"generic_melee_attack": {
+		"mobs": [
+			"generic_test_mob",
+			"generic_enemy_mob"
+		]
+	},
+	"generic_ranged_attack": {
+		"mobs": [
+			"generic_ranged_mob"
+		]
+	}
+}

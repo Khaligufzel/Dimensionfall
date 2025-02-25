@@ -1,5 +1,15 @@
 [
 	{
+		"attacks": {
+			"melee": [
+				{
+					"damage_multiplier": 2.5,
+					"id": "generic_melee_attack",
+					"type": "melee"
+				}
+			],
+			"ranged": []
+		},
 		"default_faction": "",
 		"description": "Use this for testing purposes",
 		"faction_id": "generic_test_faction",
@@ -8,25 +18,22 @@
 		"id": "generic_test_mob",
 		"idle_move_speed": 0.5,
 		"loot_group": "",
-		"melee_cooldown": 2,
-		"melee_knockback": 0,
-		"melee_range": 1.5,
 		"move_speed": 1,
 		"name": "Test mob",
 		"sense_range": 50,
 		"sight_range": 200,
-		"sprite": "test_scrapwalker64.png",
-		"targetattributes": {
-			"all_of": [],
-			"any_of": [
-				{
-					"damage": 25,
-					"id": "generic_test_attribute"
-				}
-			]
-		}
+		"sprite": "test_scrapwalker64.png"
 	},
 	{
+		"attacks": {
+			"melee": [
+				{
+					"damage_multiplier": 3,
+					"id": "generic_melee_attack"
+				}
+			],
+			"ranged": []
+		},
 		"default_faction": "",
 		"description": "Use this enemy for testing purposes",
 		"faction_id": "enemy_test_faction",
@@ -35,25 +42,22 @@
 		"id": "generic_enemy_mob",
 		"idle_move_speed": 0.5,
 		"loot_group": "",
-		"melee_cooldown": 2,
-		"melee_knockback": 0,
-		"melee_range": 1.5,
 		"move_speed": 1,
 		"name": "Enemy mob",
 		"sense_range": 50,
 		"sight_range": 200,
-		"sprite": "test_zombie_64_64.png",
-		"targetattributes": {
-			"all_of": [],
-			"any_of": [
-				{
-					"damage": 30,
-					"id": "generic_test_attribute"
-				}
-			]
-		}
+		"sprite": "test_zombie_64_64.png"
 	},
 	{
+		"attacks": {
+			"melee": [],
+			"ranged": [
+				{
+					"damage_multiplier": 2.5,
+					"id": "generic_ranged_attack"
+				}
+			]
+		},
 		"default_faction": "",
 		"description": "Use this for testing ranged combat",
 		"faction_id": "generic_test_faction",
@@ -62,24 +66,10 @@
 		"id": "generic_ranged_mob",
 		"idle_move_speed": 0.5,
 		"loot_group": "",
-		"melee_cooldown": -1,
-		"melee_knockback": -1,
-		"melee_range": -1,
 		"move_speed": 1,
 		"name": "Ranged test mob",
-		"ranged_cooldown": 1,
-		"ranged_range": 5,
 		"sense_range": 50,
 		"sight_range": 200,
-		"sprite": "test_disruptor_drone_48.png",
-		"targetattributes": {
-			"all_of": [],
-			"any_of": [
-				{
-					"damage": 25,
-					"id": "generic_test_attribute"
-				}
-			]
-		}
+		"sprite": "test_disruptor_drone_48.png"
 	}
 ]

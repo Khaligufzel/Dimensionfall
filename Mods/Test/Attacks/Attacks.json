@@ -1,0 +1,40 @@
+[
+	{
+		"cooldown": 1,
+		"description": "A generic melee attack used for testing",
+		"id": "generic_melee_attack",
+		"knockback": 0,
+		"name": "Generic melee attack",
+		"range": 1,
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "generic_test_attribute"
+				}
+			]
+		},
+		"type": "melee"
+	},
+	{
+		"cooldown": 1,
+		"description": "A generic ranged attack used for testing",
+		"id": "generic_ranged_attack",
+		"knockback": 0,
+		"name": "Generic ranged attack",
+		"projectile_speed": 5,
+		"range": 1,
+		"sprite": "test_projectile_bullet.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "generic_test_attribute"
+				}
+			]
+		},
+		"type": "ranged"
+	}
+]

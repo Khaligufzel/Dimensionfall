@@ -14,8 +14,7 @@ var last_rotation: int
 var last_chunk: Vector2
 
 # Stats and attributes
-var melee_range: float = 1.5
-var ranged_range: float = -1.0
+var attacks: Dictionary = {}
 var health: float = 100.0
 var current_health: float
 var move_speed: float = 1.0
@@ -262,8 +261,7 @@ func set_sprite(newSprite: Resource):
 # If it is created from a saved game, it might have lower health for example
 func apply_stats_from_dmob() -> void:
 	set_sprite(rmob.sprite)
-	melee_range = rmob.melee_range
-	ranged_range = rmob.ranged_range
+	attacks = rmob.attacks
 	health = rmob.health
 	current_health = rmob.health
 	move_speed = rmob.move_speed
@@ -318,7 +316,7 @@ func get_data() -> Dictionary:
 		"global_position_y": last_position.y,
 		"global_position_z": last_position.z,
 		"rotation": last_rotation,
-		"melee_range": melee_range,
+		"attacks": attacks,
 		"health": health,
 		"current_health": current_health,
 		"move_speed": move_speed,
