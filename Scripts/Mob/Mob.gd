@@ -347,24 +347,29 @@ func get_faction() -> String:
 func get_current_state() -> State:
 	return state_machine.current_state if state_machine else null
 
+# Returns if the mob's state machine has the specified state
+func has_state(state_name: String = "mobidle") -> bool:
+	return state_machine.states.has(state_name)
+
 func get_bullet_sprite() -> Texture:
 	return get_attack_of_type("ranged").sprite
 
-func get_attack_of_type(type: String = "melee") -> RAttack:
+# Returns the first RAttack of the specified type, if it has any
+func get_attack_of_type(type: String = "melee") -> Dictionary:
 	if not rmob.attacks.has(type) or rmob.attacks.get(type,[]).size() < 1:
-		return null
-	var first_attack: Dictionary = rmob.attacks[type][0]
-	return Runtimedata.attacks.by_id(first_attack.get("id",""))
+		return {}
+	return rmob.attacks[type][0]
 
-
+# Returns the range of the first ranged attack, if it has any
 func get_ranged_range() -> float:
-	var rattack: RAttack = get_attack_of_type("ranged")
+	var rattack: RAttack = Runtimedata.attacks.by_id(get_attack_of_type("ranged").id)
 	if rattack and rattack.get("range"):
 		return rattack.range
 	return 0.0
 
+# Returns the range of the first melee attack in the attack list, if it has any
 func get_melee_range() -> float:
-	var rattack: RAttack = get_attack_of_type("melee")
+	var rattack: RAttack = Runtimedata.attacks.by_id(get_attack_of_type("melee").id)
 	if rattack and rattack.get("range"):
 		return rattack.range
 	return 0.0

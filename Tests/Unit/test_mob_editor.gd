@@ -39,7 +39,6 @@ func test_editor_loads_mob_data():
 	assert_eq(editor_instance.health_numedit.value, 100.0, "Expected health to be loaded")
 
 
-
 func test_faction_selection():
 	# Assuming the faction_option_button is populated from the mod's factions
 	editor_instance.faction_option_button.select(0)
@@ -48,6 +47,7 @@ func test_faction_selection():
 	editor_instance._on_save_button_button_up()
 
 	assert_eq(test_mob.faction_id, selected_faction, "Expected faction_id to match selected faction in option button")
+
 
 func test_editor_loads_attacks():
 	# Set up test data with a melee and ranged attack
@@ -71,6 +71,7 @@ func test_editor_loads_attacks():
 	assert_eq(children[3].text, "fireball", "Expected ranged attack ID to be loaded")
 	assert_eq(children[5].value, 0.8, "Expected ranged attack multiplier to be loaded")
 
+
 func test_editor_saves_attacks():
 	# Simulate attacks being added in the UI
 	editor_instance._add_attack_to_grid({"id": "claw_attack", "damage_multiplier": 1.0, "type": "melee"})
@@ -87,6 +88,7 @@ func test_editor_saves_attacks():
 
 	assert_eq(test_mob.attacks["ranged"][0]["id"], "fireball", "Expected ranged attack ID to be saved")
 	assert_eq(test_mob.attacks["ranged"][0]["damage_multiplier"], 0.8, "Expected ranged attack multiplier to be saved")
+
 
 func test_editor_toggles_dash_ability():
 	# Initially, dash should be disabled
@@ -106,6 +108,7 @@ func test_editor_toggles_dash_ability():
 	assert_eq(test_mob.special_moves["dash"]["duration"], 1.0, "Expected correct dash duration")
 	assert_eq(test_mob.special_moves["dash"]["cooldown"], 5, "Expected correct dash cooldown")
 
+
 func test_editor_saves_mob_attributes():
 	# Modify attributes in UI
 	editor_instance.health_numedit.value = 150
@@ -118,6 +121,7 @@ func test_editor_saves_mob_attributes():
 	assert_eq(test_mob.health, 150, "Expected health to be saved")
 	assert_eq(test_mob.move_speed, 3.5, "Expected move speed to be saved")
 	assert_eq(test_mob.sight_range, 25.0, "Expected sight range to be saved")
+
 
 func test_editor_preserves_attack_metadata():
 	# Simulate attack added to UI

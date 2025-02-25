@@ -19,10 +19,10 @@ func _ready():
 	states["mobterminate"] = mob_terminate
 
 	# Conditionally add melee or ranged attack states based on mob.ranged_range
-	if mob.attacks.has("ranged"):
+	if mob.get_attack_of_type("ranged"):
 		var mob_ranged_attack = create_mob_ranged_attack()
 		states["mobrangedattack"] = mob_ranged_attack
-	elif mob.attacks.has("melee"):
+	elif mob.get_attack_of_type("melee"):
 		var mob_attack = create_mob_attack()
 		states["mobattack"] = mob_attack
 

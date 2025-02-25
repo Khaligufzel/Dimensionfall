@@ -13,7 +13,7 @@ func _ready():
 	# Create and configure AttackCooldown Timer
 	var attack_cooldown = Timer.new()
 	attack_timer = attack_cooldown
-	var rattack: RAttack = mob.attacks["melee"][0]
+	var rattack: RAttack = Runtimedata.attacks.by_id(mob.attacks["melee"][0].id)
 	attack_timer.wait_time = rattack.cooldown  # Set the wait time based on mob's melee_cooldown
 	add_child.call_deferred(attack_cooldown)
 	attack_timer.timeout.connect(_on_attack_cooldown_timeout)
@@ -46,7 +46,7 @@ func Physics_Update(_delta: float):
 
 	if result and result.collider:
 
-		if (result.collider.is_in_group("Players") or result.collider.is_in_group("mobs")) and Vector3(mob.global_position).distance_to(spotted_target.global_position) <= mob.melee_range:
+		if (result.collider.is_in_group("Players") or result.collider.is_in_group("mobs")) and Vector3(mob.global_position).distance_to(spotted_target.global_position) <= mob.get_melee_range():
 
 			if !is_in_attack_mode:
 				is_in_attack_mode = true
@@ -88,13 +88,19 @@ func attack():
 			_apply_attack_to_entity(attribute)
 
 
+# Creates attack data for a melee projectile
+func create_attack_data(spawn_position: Vector3) -> void:
+	# Exmple: {"id": "basic_melee", "damage_multiplier": 1, "type": "melee"}
+	var chosen_attack: Dictionary = mob.get_attack_of_type("melee")
+	if not chosen_attack:
+		chosen_attack =  {}
+	_apply_attack_to_entity(chosen_attack)
+
 # Helper function to send attack data to the entity's get_hit method
-func _apply_attack_to_entity(attribute: Dictionary) -> void:
+func _apply_attack_to_entity(chosen_attack: Dictionary) -> void:
 	if spotted_target and spotted_target.has_method("get_hit"):
 		var attack_data: Dictionary = {
-			"attributeid": attribute["id"],
-			"damage": attribute["damage"],
-			"knockback": mob.rmob.melee_knockback,
+			"attack": chosen_attack,
 			"mobposition": mob.global_position,
 			"hit_chance": 100 # Only used when attacking another mob, not the player
 		}

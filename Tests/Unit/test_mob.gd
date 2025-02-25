@@ -155,6 +155,8 @@ func test_mob_melee_combat():
 		new_distance < initial_distance,
 		"Mobs did not get closer to each other. Initial distance: %s, New distance: %s" % [initial_distance, new_distance]
 	)
+	assert_true(first_mob.has_state("mobattack"),"Mob should have the mobattack state")
+	assert_true(second_mob.has_state("mobattack"),"Mob should have the mobattack state")
 	
 	# Test that the mob transitions into the mob attack state
 	var first_state: State = first_mob.get_current_state()

@@ -87,11 +87,12 @@ func spawn_projectile(spawn_position: Vector3, target_position: Vector3, speed: 
 
 # Creates attack data for a ranged projectile
 func create_attack_data(spawn_position: Vector3) -> Dictionary:
-	var chosen_attack: RAttack = mob.get_attack_of_type("ranged")
+	# Exmple: {"id": "basic_ranged", "damage_multiplier": 1, "type": "ranged"}
+	var chosen_attack: Dictionary = mob.get_attack_of_type("ranged")
 	if not chosen_attack:
 		return {}
 	return {
-		"rattack": chosen_attack,
+		"attack": chosen_attack,
 		"mobposition": spawn_position,
 		"hit_chance": 100
 	}
