@@ -59,7 +59,7 @@ func _init(myparent: RAttacks, newid: String):
 	parent = myparent
 	id = newid
 
-func overwrite_from_dattack(dattack: DStat) -> void:
+func overwrite_from_dattack(dattack: DAttack) -> void:
 	if not id == dattack.id:
 		print_debug("Cannot overwrite from a different id")
 	name = dattack.name
@@ -73,3 +73,10 @@ func overwrite_from_dattack(dattack: DStat) -> void:
 	projectile_speed = dattack.projectile_speed
 	targetattributes = dattack.targetattributes
 	references = dattack.references
+
+func get_attribute_damage() -> int:
+	if not targetattributes.has("any_of"):
+		return 0
+	if targetattributes.any_of.size() < 1:
+		return 0
+	return targetattributes.any_of[0].damage

@@ -10,10 +10,9 @@ var owner_entity: Node3D = null  # Reference to the entity that fired the projec
 # The default value is used for attacks from the player towards an enemy.
 # If the player needs to get hit by the bullet, we will need an attack like this:
 # {
-# 	"attributeid": "torso_health", # The PlayerAttribute that is targeted by this attack
-# 	"damage": 20, # The amount to subtract from the target attribute
-# 	"knockback": 2, # The number of tiles to push the player away
+# 	"rattack": chosen_attack, # The RAttack that is used, which holds damage values
 # 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
+# 	"hit_chance": 100 # The chance to hit the attack. Only used on other mobs
 # }
 var attack: Dictionary = {"damage":damage, "hit_chance":100}
 

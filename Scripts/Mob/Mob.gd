@@ -173,7 +173,11 @@ func update_navigation_agent_map(chunk_position: Vector2):
 # attack: a dictionary with the "damage" and "hit_chance" properties
 func get_hit(attack: Dictionary):
 	# Extract damage and hit_chance from the dictionary
-	var damage = attack.damage
+	var damage: int = 0
+	if attack.has("damage"):
+		damage = attack.damage
+	elif attack.has("rattack"):
+		damage = attack.rattack.get_attribute_damage()
 	var hit_chance = attack.hit_chance
 
 	# Calculate actual hit chance considering mob bonus
@@ -344,4 +348,23 @@ func get_current_state() -> State:
 	return state_machine.current_state if state_machine else null
 
 func get_bullet_sprite() -> Texture:
-	return rmob.projectile_sprite
+	return get_attack_of_type("ranged").sprite
+
+func get_attack_of_type(type: String = "melee") -> RAttack:
+	if not rmob.attacks.has(type) or rmob.attacks.get(type,[]).size() < 1:
+		return null
+	var first_attack: Dictionary = rmob.attacks[type][0]
+	return Runtimedata.attacks.by_id(first_attack.get("id",""))
+
+
+func get_ranged_range() -> float:
+	var rattack: RAttack = get_attack_of_type("ranged")
+	if rattack and rattack.get("range"):
+		return rattack.range
+	return 0.0
+
+func get_melee_range() -> float:
+	var rattack: RAttack = get_attack_of_type("melee")
+	if rattack and rattack.get("range"):
+		return rattack.range
+	return 0.0
