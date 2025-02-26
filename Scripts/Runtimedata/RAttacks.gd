@@ -19,7 +19,7 @@ func _init(mod_list: Array[DMod]) -> void:
 		for dstat_id: String in rattacks.get_all().keys():
 			var dattack: DAttack = rattacks.by_id(dstat_id)
 
-			# Check if the stat exists in attackdict
+			# Check if the attack exists in attackdict
 			var rattack: RAttack
 			if not attackdict.has(dstat_id):
 				# If it doesn't exist, create a new RAttack
@@ -37,28 +37,28 @@ func get_all() -> Dictionary:
 	return attackdict
 
 
-# Adds a new stat with a given ID
+# Adds a new attack with a given ID
 func add_new(newid: String) -> RAttack:
 	var newattack: RAttack = RAttack.new(self, newid)
 	attackdict[newattack.id] = newattack
 	return newattack
 
-# Deletes a stat by its ID and saves changes to disk
-func delete_by_id(statid: String) -> void:
-	attackdict[statid].delete()
-	attackdict.erase(statid)
+# Deletes a attack by its ID and saves changes to disk
+func delete_by_id(attackid: String) -> void:
+	attackdict[attackid].delete()
+	attackdict.erase(attackid)
 
-# Returns a stat by its ID
-func by_id(statid: String) -> RAttack:
-	return attackdict[statid]
+# Returns a attack by its ID
+func by_id(attackid: String) -> RAttack:
+	return attackdict[attackid] if attackid else null
 
-# Checks if a stat exists by its ID
-func has_id(statid: String) -> bool:
-	return attackdict.has(statid)
+# Checks if a attack exists by its ID
+func has_id(attackid: String) -> bool:
+	return attackdict.has(attackid)
 
-# Returns the sprite of the stat
-func sprite_by_id(statid: String) -> Texture:
-	return attackdict[statid].sprite
+# Returns the sprite of the attack
+func sprite_by_id(attackid: String) -> Texture:
+	return attackdict[attackid].sprite
 
 # Returns the sprite by its file name
 func sprite_by_file(spritefile: String) -> Texture:

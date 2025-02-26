@@ -74,22 +74,6 @@ func try_to_attack():
 # }
 func attack():
 	print("Attacking!")
-
-	# Apply damage to a randomly selected attribute from 'any_of'
-	if mob.rmob.targetattributes.has("any_of") and not mob.rmob.targetattributes["any_of"].is_empty():
-		var any_of_attributes: Array = mob.rmob.targetattributes["any_of"]
-		var selected_attribute: Dictionary = any_of_attributes.pick_random()
-		_apply_attack_to_entity(selected_attribute)
-
-	# Apply damage to each attribute in 'all_of'
-	if mob.rmob.targetattributes.has("all_of"):
-		var all_of_attributes: Array = mob.rmob.targetattributes["all_of"]
-		for attribute in all_of_attributes:
-			_apply_attack_to_entity(attribute)
-
-
-# Creates attack data for a melee projectile
-func create_attack_data(spawn_position: Vector3) -> void:
 	# Exmple: {"id": "basic_melee", "damage_multiplier": 1, "type": "melee"}
 	var chosen_attack: Dictionary = mob.get_attack_of_type("melee")
 	if not chosen_attack:

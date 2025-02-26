@@ -161,6 +161,7 @@ func test_mob_melee_combat():
 	# Test that the mob transitions into the mob attack state
 	var first_state: State = first_mob.get_current_state()
 	assert_not_null(first_state, "Mob has no state")
+	assert_is(first_state,MobFollow,"Mob should have MobFollow state")
 	assert_true(await wait_for_signal(first_state.Transistioned, 5), "Mob doesn't transition")
 	first_state = first_mob.get_current_state()
 	assert_is(first_state,MobAttack,"A different state then expected")
@@ -179,7 +180,7 @@ func test_mob_melee_combat():
 	assert_true(await wait_until(mob_taken_damage, 10, 1),"Mob should have taken damage")
 	
 	# Kill second_mob. Alternatively, wait for one to kill the other but that will take time
-	second_mob.get_hit({"damage": 100,"hit_chance":100})
+	second_mob.get_hit({"attack": {"id": "generic_melee_attack", "damage_multiplier": 100, "type": "melee"},"hit_chance":100})
 		
 	# Wait for the second mob to be removed from the tree
 	var second_mob_removed = func():
@@ -189,6 +190,7 @@ func test_mob_melee_combat():
 
 	# Verify that only the first mob remains
 	var remaining_mobs: Array = get_tree().get_nodes_in_group("mobs")
+	assert_eq(remaining_mobs.size(), 1, "Only 1 mob should be remaining.")
 	assert_eq(remaining_mobs[0], first_mob, "The remaining mob should be the first mob.")
 
 	# Verify that the first mob transitions back to MobIdle state
@@ -260,8 +262,8 @@ func test_mob_ranged_vs_melee():
 	assert_true(await wait_until(mob_taken_damage, 10, 1),"Mob should have taken damage")
 	
 	# Kill second_mob. Alternatively, wait for one to kill the other but that will take time
-	second_mob.get_hit({"damage": 100,"hit_chance":100})
-
+	second_mob.get_hit({"attack": {"id": "generic_melee_attack", "damage_multiplier": 100, "type": "melee"},"hit_chance":100})
+		
 	# Wait for the second mob to be removed from the tree
 	var second_mob_removed = func():
 		var mobs_after_death: Array = get_tree().get_nodes_in_group("mobs")
@@ -276,3 +278,87 @@ func test_mob_ranged_vs_melee():
 	var first_mob_idle = func():
 		return first_mob.get_current_state() is MobIdle
 	assert_true(await wait_until(first_mob_idle, 5, 1), "First mob should transition back to MobIdle after the second mob dies.")
+	projectiles_container.free()
+	entity_node.free()
+
+
+# Test if a ranged mob can hit furniture with an attack.
+# - Two mobs spawn onto the map together with a wall of furniture
+# - The first mob immediately starts it's ranged attack
+# - Wait until some furniture takes damage or is destroyed
+func test_mob_ranged_vs_furniture():
+	# Initialize the projectiles container
+	const EntityManager = preload("res://entity_manager.gd")
+	var entity_node: Node3D = EntityManager.new()
+	var projectiles_container = Node3D.new()
+	projectiles_container.name = "Projectiles"
+	entity_node.add_child(projectiles_container)
+	entity_node.projectiles_container = projectiles_container
+	add_child(entity_node)
+	
+	# initialize the chunk
+	test_chunk.chunk_data = {
+		"id": "ranged_vs_furnture_map",
+		"rotation": 0
+	}
+	add_child(test_chunk)
+	await get_tree().process_frame
+	
+	# Wait for `chunk_generated` signal before verifying post-generation state
+	assert_true(await wait_for_signal(test_chunk.chunk_generated, 5), "Chunk should have emitted chunk_generated signal.")
+	
+	# Verify that the mobs are spawned at the correct position and id
+	var mobs: Array = get_tree().get_nodes_in_group("mobs") 
+	assert_eq(mobs.size(),2,"too many or not enough mobs")
+	var first_mob: Mob = mobs[0]
+	assert_eq(first_mob.rmob.id,"generic_ranged_mob","A different mob spawned then expected")
+	assert_eq(first_mob.mobPosition,Vector3(44,1.5,77),"Mob spawned somewhere else")
+	var second_mob: Mob = mobs[1]
+	assert_eq(second_mob.rmob.id,"generic_enemy_mob","A different mob spawned then expected")
+	assert_eq(second_mob.mobPosition, Vector3(49, 1.5, 79), "Mob spawned somewhere else")
+
+	# Test that the mobs are moving and getting closer
+	var initial_distance: float = first_mob.global_position.distance_to(second_mob.global_position)
+	await wait_frames(30)
+	var new_distance: float = first_mob.global_position.distance_to(second_mob.global_position)
+	assert_true(
+		new_distance < initial_distance,
+		"Mobs did not get closer to each other. Initial distance: %s, New distance: %s" % [initial_distance, new_distance]
+	)
+	
+	# Test that the mob transitions into the mob ranged attack state
+	var first_state: State = first_mob.get_current_state()
+	assert_not_null(first_state, "Mob has no state")
+	assert_is(first_state,MobRangedAttack,"A different state then expected")
+	
+	# Test that the second mob transitions into the MobFollow state
+	var second_state: State = second_mob.get_current_state()
+	assert_not_null(second_state, "Second mob has no state")
+	var mob_has_transitioned = func():
+		return second_state is MobFollow
+	assert_true(await wait_until(mob_has_transitioned, 10, 1),"Mob should have transitioned")
+	
+	var furniture_at_y_level: Array[FurnitureStaticSrv] = test_chunk.get_furniture_at_y_level(1)
+	# Need to set the level_generator to some random node because when the furniture
+	# takes damage, it needs to get the tree node from the level_generator
+	Helper.map_manager.level_generator = entity_node
+	
+	# Ensure at least one furniture piece has taken damage
+	var furniture_damaged = func():
+		for furniture in furniture_at_y_level:
+			if furniture.current_health < 100:
+				return true
+		return false
+
+	assert_true(await wait_until(furniture_damaged, 10, 1), "At least one furniture piece should have taken damage.")
+	
+	Helper.map_manager.level_generator = null # Reset the level_generator
+
+	# Kill second_mob. 
+	second_mob.terminate()
+	second_mob.get_hit({"attack": {"id": "generic_melee_attack", "damage_multiplier": 100, "type": "melee"},"hit_chance":100})
+	# Kill first. 
+	first_mob.terminate()
+	first_mob.get_hit({"attack": {"id": "generic_melee_attack", "damage_multiplier": 100, "type": "melee"},"hit_chance":100})
+	projectiles_container.free()
+	entity_node.free()

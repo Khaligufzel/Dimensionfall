@@ -24,7 +24,7 @@
 		"knockback": 0,
 		"name": "Generic ranged attack",
 		"projectile_speed": 5,
-		"range": 1,
+		"range": 10,
 		"sprite": "test_projectile_bullet.png",
 		"targetattributes": {
 			"all_of": [],

@@ -170,15 +170,24 @@ func update_navigation_agent_map(chunk_position: Vector2):
 		last_chunk = Vector2(0.1,0.1)
 
 # When the mob gets hit by an attack
-# attack: a dictionary with the "damage" and "hit_chance" properties
-func get_hit(attack: Dictionary):
+# attack: a dictionary like this:
+# {
+# 	"attack": chosen_attack, # Exmple: {"id": "basic_melee", "damage_multiplier": 1, "type": "melee"}
+# 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
+# 	"hit_chance": 100 # Only used when a mob is targeted
+# }
+func get_hit(attack_data: Dictionary):
+	var attack: Dictionary = attack_data.get("attack",{})
+	var rattack: RAttack = Runtimedata.attacks.by_id(attack.get("id", ""))
+	if not rattack:
+		print_debug("Invalid attack ID:", attack.get("id", ""))
+		return
+	
+	# Get the attack effects with the applied damage multiplier
+	var attack_effects: Dictionary = rattack.get_scaled_attribute_damage(attack.get("damage_multiplier", 1.0))
 	# Extract damage and hit_chance from the dictionary
-	var damage: int = 0
-	if attack.has("damage"):
-		damage = attack.damage
-	elif attack.has("rattack"):
-		damage = attack.rattack.get_attribute_damage()
-	var hit_chance = attack.hit_chance
+	var damage: int = attack_effects.get("damage", 0)
+	var hit_chance = attack_data.hit_chance
 
 	# Calculate actual hit chance considering mob bonus
 	# We may increase or decrease the hit chance based on mob or weapon stats
@@ -352,7 +361,8 @@ func has_state(state_name: String = "mobidle") -> bool:
 	return state_machine.states.has(state_name)
 
 func get_bullet_sprite() -> Texture:
-	return get_attack_of_type("ranged").sprite
+	var myattack: Dictionary = get_attack_of_type("ranged")
+	return Runtimedata.attacks.by_id(myattack.id).sprite
 
 # Returns the first RAttack of the specified type, if it has any
 func get_attack_of_type(type: String = "melee") -> Dictionary:

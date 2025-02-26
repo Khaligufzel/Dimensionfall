@@ -12,9 +12,9 @@ var owner_entity: Node3D = null  # Reference to the entity that fired the projec
 # {
 # 	"rattack": chosen_attack, # The RAttack that is used, which holds damage values
 # 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
-# 	"hit_chance": 100 # The chance to hit the attack. Only used on other mobs
+# 	"hit_chance": 100 # The chance to hit the attack. Only used on other mobs and furniture
 # }
-var attack: Dictionary = {"damage":damage, "hit_chance":100}
+var attack: Dictionary = {"hit_chance":100}
 
 func _ready():
 	# Call a function to destroy the projectile after its lifetime expires

@@ -273,17 +273,43 @@ func _check_for_interaction() -> void:
 # The player gets hit by an attack
 # attack: a dictionary like this:
 # {
-# 	"attributeid": "torso_health", # The PlayerAttribute that is targeted by this attack
-# 	"damage": 20, # The amount to subtract from the target attribute
-# 	"knockback": 2, # The number of tiles to push the player away
+# 	"attack": chosen_attack, # Exmple: {"id": "basic_melee", "damage_multiplier": 1, "type": "melee"}
 # 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
 # }
-func get_hit(attack: Dictionary):
+func get_hit1(attack: Dictionary):
+	var rattack: RAttack = Runtimedata.attacks.by_id(attack.get("id",""))
 	if attack.has("attributeid") and attributes.has(attack["attributeid"]):
 		attributes[attack["attributeid"]].reduce_amount(attack["damage"])
 	
 	if attack.has("knockback") and attack["knockback"] > 0 and attack.has("mobposition"):
 		_perform_knockback(attack["knockback"], attack["mobposition"])
+
+# The player gets hit by an attack
+# attack: a dictionary like this:
+# {
+# 	"attack": chosen_attack, # Exmple: {"id": "basic_melee", "damage_multiplier": 1, "type": "melee"}
+# 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
+# }
+func get_hit(attack: Dictionary):
+	var rattack: RAttack = Runtimedata.attacks.by_id(attack.get("id", ""))
+	if not rattack:
+		print_debug("Invalid attack ID:", attack.get("id", ""))
+		return
+	
+	# Get the attack effects with the applied damage multiplier
+	var attack_effects: Dictionary = rattack.get_scaled_attack_effects(attack.get("damage_multiplier", 1.0))
+	
+	# Apply damage to each affected attribute
+	for attribute in attack_effects["attributes"]:
+		var attribute_id: String = attribute["id"]
+		var damage_value: float = attribute["damage"]
+		
+		if attributes.has(attribute_id):
+			attributes[attribute_id].reduce_amount(damage_value)
+	
+	# Apply knockback if applicable
+	if attack_effects["knockback"] > 0 and attack.has("mobposition"):
+		_perform_knockback(attack_effects["knockback"], attack["mobposition"])
 
 
 func die():

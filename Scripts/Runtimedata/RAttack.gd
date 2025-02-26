@@ -74,9 +74,48 @@ func overwrite_from_dattack(dattack: DAttack) -> void:
 	targetattributes = dattack.targetattributes
 	references = dattack.references
 
-func get_attribute_damage() -> int:
-	if not targetattributes.has("any_of"):
-		return 0
-	if targetattributes.any_of.size() < 1:
-		return 0
-	return targetattributes.any_of[0].damage
+
+# Takes a multiplier and returns the calculated amount of damage for a random attribute
+func get_scaled_attribute_damage(multiplier: float) -> Dictionary:
+	# Ensure 'any_of' attributes exist
+	if not targetattributes.has("any_of") or targetattributes.any_of.is_empty():
+		return {}
+
+	# Pick a random attribute from 'any_of'
+	var selected_attribute = targetattributes.any_of[randi() % targetattributes.any_of.size()]
+
+	# Apply the multiplier to the damage
+	var scaled_damage = selected_attribute.damage * multiplier
+
+	# Return the result as a dictionary
+	return {
+		"id": selected_attribute.id,
+		"damage": scaled_damage
+	}
+
+# Takes a multiplier and returns a list of attributes that are hit by the multiplied damage.
+func get_scaled_all_of_attribute_damage(multiplier: float) -> Array:
+	# Ensure 'all_of' attributes exist
+	if not targetattributes.has("all_of") or targetattributes.all_of.is_empty():
+		return []
+
+	var scaled_attributes = []
+
+	# Loop over each attribute in 'all_of'
+	for attribute in targetattributes.all_of:
+		scaled_attributes.append({
+			"id": attribute.id,
+			"damage": attribute.damage * multiplier
+		})
+
+	return scaled_attributes
+
+# Takes a multipler and returns the amount of damage and knockback
+func get_scaled_attack_effects(multiplier: float) -> Dictionary:
+	var scaled_attributes = get_scaled_attribute_damage(multiplier)
+	scaled_attributes.append_array(get_scaled_all_of_attribute_damage(multiplier))
+
+	return {
+		"attributes": scaled_attributes,
+		"knockback": knockback
+	}

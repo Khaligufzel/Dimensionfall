@@ -2,7 +2,8 @@
 	"generic_enemy_mob": {
 		"maps": [
 			"melee_mob_combat_map",
-			"melee_vs_ranged_mob_map"
+			"melee_vs_ranged_mob_map",
+			"ranged_vs_furnture_map"
 		],
 		"mobfactions": [
 			"generic_test_faction"
@@ -10,7 +11,8 @@
 	},
 	"generic_ranged_mob": {
 		"maps": [
-			"melee_vs_ranged_mob_map"
+			"melee_vs_ranged_mob_map",
+			"ranged_vs_furnture_map"
 		],
 		"mobfactions": [
 			"enemy_test_faction"
