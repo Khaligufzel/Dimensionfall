@@ -77,6 +77,14 @@
 			"basic_zombies"
 		]
 	},
+	"bone_thrower": {
+		"mobfactions": [
+			"security_robots"
+		],
+		"mobgroups": [
+			"basic_zombies"
+		]
+	},
 	"charred_zombie": {
 		"maps": [
 			"urbanroad_cross",
@@ -270,6 +278,14 @@
 			"generichouse_t",
 			"generichouse_corner",
 			"store_electronic_clothing"
+		],
+		"mobgroups": [
+			"basic_zombies"
+		]
+	},
+	"spitter_zombie": {
+		"mobfactions": [
+			"security_robots"
 		],
 		"mobgroups": [
 			"basic_zombies"

@@ -149,7 +149,9 @@
 			"iron_stalker",
 			"scrapwalker",
 			"rust_sentinel",
-			"outpost_guardian"
+			"outpost_guardian",
+			"spitter_zombie",
+			"bone_thrower"
 		]
 	},
 	"police_station_locker": {

@@ -344,3 +344,6 @@ func get_faction() -> String:
 # The return type is `State` or `null` if the state_machine is not initialized.
 func get_current_state() -> State:
 	return state_machine.current_state if state_machine else null
+
+func get_bullet_sprite() -> Texture:
+	return rmob.projectile_sprite

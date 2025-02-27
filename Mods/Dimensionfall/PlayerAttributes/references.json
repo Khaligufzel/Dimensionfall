@@ -53,7 +53,9 @@
 			"rust_sentinel",
 			"outpost_guardian",
 			"iron_stalker",
-			"scavenger_skitter"
+			"scavenger_skitter",
+			"spitter_zombie",
+			"bone_thrower"
 		]
 	},
 	"left_arm_health": {
@@ -76,7 +78,8 @@
 			"rust_sentinel",
 			"outpost_guardian",
 			"iron_stalker",
-			"scavenger_skitter"
+			"scavenger_skitter",
+			"bone_thrower"
 		]
 	},
 	"left_leg_health": {
@@ -99,7 +102,9 @@
 			"rust_sentinel",
 			"outpost_guardian",
 			"iron_stalker",
-			"scavenger_skitter"
+			"scavenger_skitter",
+			"spitter_zombie",
+			"bone_thrower"
 		]
 	},
 	"poison": {
@@ -110,7 +115,8 @@
 			"rotten_flesh_chunk"
 		],
 		"mobs": [
-			"venom_crawler"
+			"venom_crawler",
+			"spitter_zombie"
 		]
 	},
 	"right_arm_health": {
@@ -133,7 +139,9 @@
 			"rust_sentinel",
 			"outpost_guardian",
 			"iron_stalker",
-			"scavenger_skitter"
+			"scavenger_skitter",
+			"spitter_zombie",
+			"bone_thrower"
 		]
 	},
 	"right_leg_health": {
@@ -156,7 +164,9 @@
 			"rust_sentinel",
 			"outpost_guardian",
 			"iron_stalker",
-			"scavenger_skitter"
+			"scavenger_skitter",
+			"spitter_zombie",
+			"bone_thrower"
 		]
 	},
 	"stun": {
@@ -185,7 +195,9 @@
 			"rust_sentinel",
 			"outpost_guardian",
 			"iron_stalker",
-			"scavenger_skitter"
+			"scavenger_skitter",
+			"spitter_zombie",
+			"bone_thrower"
 		]
 	},
 	"water": {
