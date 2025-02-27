@@ -364,7 +364,8 @@ func get_bullet_sprite() -> Texture:
 	var myattack: Dictionary = get_attack_of_type("ranged")
 	return Runtimedata.attacks.by_id(myattack.id).sprite
 
-# Returns the first RAttack of the specified type, if it has any
+# Returns the first attack of the specified type, if it has any
+# Exmple return value: {"id": "basic_melee", "damage_multiplier": 1, "type": "melee"}
 func get_attack_of_type(type: String = "melee") -> Dictionary:
 	if not rmob.attacks.has(type) or rmob.attacks.get(type,[]).size() < 1:
 		return {}

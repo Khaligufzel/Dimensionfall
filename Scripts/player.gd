@@ -276,28 +276,15 @@ func _check_for_interaction() -> void:
 # 	"attack": chosen_attack, # Exmple: {"id": "basic_melee", "damage_multiplier": 1, "type": "melee"}
 # 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
 # }
-func get_hit1(attack: Dictionary):
-	var rattack: RAttack = Runtimedata.attacks.by_id(attack.get("id",""))
-	if attack.has("attributeid") and attributes.has(attack["attributeid"]):
-		attributes[attack["attributeid"]].reduce_amount(attack["damage"])
-	
-	if attack.has("knockback") and attack["knockback"] > 0 and attack.has("mobposition"):
-		_perform_knockback(attack["knockback"], attack["mobposition"])
-
-# The player gets hit by an attack
-# attack: a dictionary like this:
-# {
-# 	"attack": chosen_attack, # Exmple: {"id": "basic_melee", "damage_multiplier": 1, "type": "melee"}
-# 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
-# }
-func get_hit(attack: Dictionary):
+func get_hit(attack_data: Dictionary):
+	var attack: Dictionary = attack_data.get("attack",{})
 	var rattack: RAttack = Runtimedata.attacks.by_id(attack.get("id", ""))
 	if not rattack:
 		print_debug("Invalid attack ID:", attack.get("id", ""))
 		return
 	
 	# Get the attack effects with the applied damage multiplier
-	var attack_effects: Dictionary = rattack.get_scaled_attack_effects(attack.get("damage_multiplier", 1.0))
+	var attack_effects: Dictionary = rattack.get_scaled_attack_effects(attack_data.get("damage_multiplier", 1.0))
 	
 	# Apply damage to each affected attribute
 	for attribute in attack_effects["attributes"]:
@@ -308,8 +295,8 @@ func get_hit(attack: Dictionary):
 			attributes[attribute_id].reduce_amount(damage_value)
 	
 	# Apply knockback if applicable
-	if attack_effects["knockback"] > 0 and attack.has("mobposition"):
-		_perform_knockback(attack_effects["knockback"], attack["mobposition"])
+	if attack_effects["knockback"] > 0 and attack_data.has("mobposition"):
+		_perform_knockback(attack_effects["knockback"], attack_data["mobposition"])
 
 
 func die():

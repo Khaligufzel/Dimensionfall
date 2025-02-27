@@ -65,9 +65,10 @@ func select_targets() -> Array[CharacterBody3D]:
 	var targets: Array[CharacterBody3D] = []
 
 	# Always add the player instance as a target
-	var player_instance: CharacterBody3D = Helper.player
-	if player_instance:
-		targets.append(player_instance)
+	#var player_instance: CharacterBody3D = Helper.player
+	var players = get_tree().get_nodes_in_group("Players") 
+	if players.size() > 0:
+		targets.append(players[0])
 
 	# Get all mobs from the "mobs" group
 	var mobs: Array = get_tree().get_nodes_in_group("mobs")

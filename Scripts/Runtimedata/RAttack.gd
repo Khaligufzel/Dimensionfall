@@ -112,7 +112,7 @@ func get_scaled_all_of_attribute_damage(multiplier: float) -> Array:
 
 # Takes a multipler and returns the amount of damage and knockback
 func get_scaled_attack_effects(multiplier: float) -> Dictionary:
-	var scaled_attributes = get_scaled_attribute_damage(multiplier)
+	var scaled_attributes: Array = [get_scaled_attribute_damage(multiplier)]
 	scaled_attributes.append_array(get_scaled_all_of_attribute_damage(multiplier))
 
 	return {

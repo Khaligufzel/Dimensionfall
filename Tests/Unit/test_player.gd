@@ -32,7 +32,7 @@ func before_each():
 	add_child(mock_level_generator)
 	add_child(player)
 
-	test_chunk.mypos = Vector3(32, 0, 64) # Example position (chunk (1, 2) with 32x32 blocks)
+	test_chunk.mypos = Vector3(0, 0, 0) # Example position (chunk (1, 2) with 32x32 blocks)
 
 
 # Runs after each test.
@@ -158,3 +158,54 @@ func test_player_state_save_load():
 	player.set_state(saved_state)
 	assert_eq(player.current_stamina, 50, "Stamina should be restored from save state.")
 	assert_eq(player.current_nutrition, 70, "Nutrition should be restored from save state.")
+
+
+# Test player state saving and loading
+func test_player_vs_melee_mob():
+	test_chunk.chunk_data = {"id": "basic_mob_test_map","rotation": 0}
+	add_child(test_chunk)
+	await get_tree().process_frame
+	# Test if chunk state is set correctly
+	assert_eq(test_chunk.load_state, Chunk.LoadStates.LOADING, "Chunk did not start in LOADING state.")
+	# Wait for `chunk_generated` signal before verifying post-generation state
+	assert_true(await wait_for_signal(test_chunk.chunk_generated, 5), "Chunk should have emitted chunk_generated signal.")
+	
+	# Start testing the player basics
+	players = get_tree().get_nodes_in_group("Players") 
+	assert_eq(players.size(),1,"too many or not enough players")
+	player.global_position = Vector3(13,1.5,15)
+	
+	var mobs: Array = get_tree().get_nodes_in_group("mobs") 
+	assert_eq(mobs.size(),1,"too many or not enough mobs")
+	var first_mob: Mob = mobs[0]
+	assert_eq(first_mob.rmob.id,"generic_test_mob","A different mob spawned then expected")
+	assert_eq(first_mob.mobPosition,Vector3(15,1.5,15),"Mob spawned somewhere else")
+	
+	# Test that the mob transitions into the mob attack state
+	var first_state: State = first_mob.get_current_state()
+	assert_not_null(first_state, "Mob has no state")
+	assert_is(first_state,MobFollow,"Mob should have MobFollow state")
+
+	# Check that the mob has the required attack and that the player has the relevant attribute
+	var mobattack: Dictionary = first_mob.get_attack_of_type("melee")
+	assert_eq(mobattack.id,"generic_melee_attack","Mob doesn't have the required attack")
+	var playerattribute: PlayerAttribute = player.attributes.get("generic_test_attribute", null)
+	assert_not_null(playerattribute, "Player lacks the required attribute")
+	assert_true(playerattribute.default_mode.is_at_max(), "Player should have max of attribute")
+	
+	# Wait for the mob to change to MobAttack
+	assert_true(await wait_for_signal(first_state.Transistioned, 5), "Mob doesn't transition")
+	first_state = first_mob.get_current_state()
+	var mob_has_transitioned = func():
+		return first_state is MobAttack
+	assert_true(await wait_until(mob_has_transitioned, 10, 1),"Mob should have transitioned")
+	
+	var player_has_taken_damage = func():
+		return not playerattribute.default_mode.is_at_max()
+	assert_true(await wait_until(player_has_taken_damage, 10, 1),"Player should have taken damage")
+	
+	# Kill first_mob. Alternatively, wait for one to kill the other but that will take time
+	first_mob.get_hit({"attack": {"id": "generic_melee_attack", "damage_multiplier": 100, "type": "melee"},"hit_chance":100})
+	
+	await get_tree().process_frame
+	Helper.player = null
