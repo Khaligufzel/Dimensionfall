@@ -106,6 +106,7 @@ func _on_duplicate_button_button_up():
 	to_mod_h_box_container.show()
 	pupup_ID.show()
 
+
 # Called after the user enters an ID into the popup textbox and presses OK
 func _on_ok_button_up():
 	pupup_ID.hide()
@@ -188,7 +189,6 @@ func _create_drag_data(_newpos):
 		"mod_id": mod_id,
 		"contentType": contentType
 	}
-
 
 
 # This function should return true if the dragged data can be dropped here

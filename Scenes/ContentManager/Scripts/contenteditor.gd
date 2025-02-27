@@ -17,6 +17,7 @@ extends Control
 @export var overmapareaEditor: PackedScene = null
 @export var mobgroupsEditor: PackedScene = null
 @export var mobfactionsEditor: PackedScene = null
+@export var attacksEditor: PackedScene = null
 @export var content: VBoxContainer = null
 @export var tabContainer: TabContainer = null
 @export var type_selector_menu_button: MenuButton = null
@@ -75,6 +76,7 @@ func refresh_lists() -> void:
 	load_content_list(DMod.ContentType.OVERMAPAREAS, "Overmap areas")
 	load_content_list(DMod.ContentType.MOBGROUPS, "Mob groups")
 	load_content_list(DMod.ContentType.MOBFACTIONS, "Mob factions")
+	load_content_list(DMod.ContentType.ATTACKS, "Attacks")
 	
 	# Repopulate the type selector menu
 	populate_type_selector_menu_button()
@@ -132,7 +134,8 @@ func _on_content_item_activated(type: DMod.ContentType, itemID: String, list: Co
 		DMod.ContentType.QUESTS: questsEditor,
 		DMod.ContentType.OVERMAPAREAS: overmapareaEditor,
 		DMod.ContentType.MOBGROUPS: mobgroupsEditor,
-		DMod.ContentType.MOBFACTIONS: mobfactionsEditor
+		DMod.ContentType.MOBFACTIONS: mobfactionsEditor,
+		DMod.ContentType.ATTACKS: attacksEditor
 	}
 
 	instantiate_editor(type, itemID, editors[type], list)
@@ -218,6 +221,10 @@ func instantiate_editor(type: DMod.ContentType, itemID: String, newEditor: Packe
 		DMod.ContentType.MOBFACTIONS:
 			newContentEditor.dmobfaction = currentmod.mobfactions.by_id(itemID)
 			newContentEditor.data_changed.connect(list.load_data)
+			
+		DMod.ContentType.ATTACKS:
+			newContentEditor.dattack = currentmod.attacks.by_id(itemID)
+			newContentEditor.data_changed.connect(list.load_data)
 		
 		_:
 			print("Unknown content type:", type)
@@ -236,7 +243,7 @@ func populate_type_selector_menu_button():
 	var headers = [
 		"Maps", "Tactical Maps", "Items", "Terrain Tiles", "Mobs", 
 		"Furniture", "Item Groups", "Player Attributes", "Wearable Slots", 
-		"Stats", "Skills", "Quests", "Overmap areas", "Mob groups", "Mob factions"
+		"Stats", "Skills", "Quests", "Overmap areas", "Mob groups", "Mob factions", "Attacks"
 	]
 	
 	for i in headers.size():

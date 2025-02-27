@@ -110,12 +110,12 @@ func check_for_target_in_range():
 		var distance_to_target = mobCol.global_position.distance_to(spotted_target.global_position)
 
 		if is_valid_target:
-			if mob.ranged_range > 0: # Assume the mob is ranged if it has ranged_range
-				if distance_to_target <= mob.ranged_range:
+			if mob.attacks.has("ranged") and mob.attacks.ranged.size() > 0:
+				if distance_to_target <= mob.get_ranged_range():
 					print("Changing state to mobrangedattack...")
 					Transistioned.emit(self, "mobrangedattack")
 			else:
-				if distance_to_target <= mob.melee_range / 2:
+				if distance_to_target <= mob.get_melee_range() / 2:
 					print("Changing state to mobattack...")
 					Transistioned.emit(self, "mobattack")
 

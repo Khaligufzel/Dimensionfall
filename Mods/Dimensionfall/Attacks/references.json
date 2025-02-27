@@ -1,0 +1,41 @@
+{
+	"melee_basic": {
+		"mobs": [
+			"rust_sentinel",
+			"scavenger_skitter",
+			"basic_zombie_1",
+			"basic_zombie_2",
+			"bloated_zombie",
+			"rushing_zombie",
+			"charred_zombie",
+			"heavy_zombie",
+			"skeleton_zombie",
+			"limping_zombie"
+		]
+	},
+	"melee_knockback": {
+		"mobs": [
+			"iron_stalker"
+		]
+	},
+	"melee_stun": {
+		"mobs": [
+			"disruptor_drone"
+		]
+	},
+	"ranged_basic": {
+		"mobs": [
+			"outpost_guardian"
+		]
+	},
+	"ranged_bone": {
+		"mobs": [
+			"bone_thrower"
+		]
+	},
+	"ranged_spit": {
+		"mobs": [
+			"spitter_zombie"
+		]
+	}
+}

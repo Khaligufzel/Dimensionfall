@@ -1,0 +1,244 @@
+[
+	{
+		"cooldown": 1,
+		"description": "A basic melee attack",
+		"id": "melee_basic",
+		"knockback": 0,
+		"name": "Basic melee attack",
+		"range": 1.5,
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 20,
+					"id": "head_health"
+				},
+				{
+					"damage": 20,
+					"id": "torso_health"
+				},
+				{
+					"damage": 20,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 20,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 20,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 20,
+					"id": "right_leg_health"
+				}
+			]
+		},
+		"type": "melee"
+	},
+	{
+		"cooldown": 1.5,
+		"description": "A basic ranged attack",
+		"id": "ranged_basic",
+		"knockback": 0,
+		"name": "Basic ranged attack",
+		"projectile_speed": 5,
+		"range": 10,
+		"sprite": "projectile_bullet.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 30,
+					"id": "head_health"
+				},
+				{
+					"damage": 30,
+					"id": "torso_health"
+				},
+				{
+					"damage": 30,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 30,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 30,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 30,
+					"id": "right_leg_health"
+				}
+			]
+		},
+		"type": "ranged"
+	},
+	{
+		"cooldown": 2,
+		"description": "A melee knockback attack",
+		"id": "melee_knockback",
+		"knockback": 2,
+		"name": "Melee knockback attack",
+		"range": 1,
+		"targetattributes": {
+			"all_of": [
+				{
+					"damage": -10,
+					"id": "stun"
+				}
+			],
+			"any_of": [
+				{
+					"damage": 40,
+					"id": "head_health"
+				},
+				{
+					"damage": 40,
+					"id": "torso_health"
+				},
+				{
+					"damage": 40,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 40,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 40,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 40,
+					"id": "right_leg_health"
+				}
+			]
+		},
+		"type": "melee"
+	},
+	{
+		"cooldown": 2,
+		"description": "A basic melee stun attack",
+		"id": "melee_stun",
+		"knockback": 0,
+		"name": "Basic melee stun attack",
+		"range": 1.5,
+		"targetattributes": {
+			"all_of": [
+				{
+					"damage": -10,
+					"id": "stun"
+				}
+			],
+			"any_of": []
+		},
+		"type": "melee"
+	},
+	{
+		"cooldown": 1,
+		"description": "A basic melee poison attack",
+		"id": "melee_poison",
+		"knockback": 0,
+		"name": "Basic melee poison attack",
+		"range": 1,
+		"targetattributes": {
+			"all_of": [
+				{
+					"damage": -10,
+					"id": "poison"
+				}
+			],
+			"any_of": []
+		},
+		"type": "melee"
+	},
+	{
+		"cooldown": 2,
+		"description": "A ranged spit attack",
+		"id": "ranged_spit",
+		"knockback": 0,
+		"name": "Ranged spit attack",
+		"projectile_speed": 5,
+		"range": 10,
+		"sprite": "projectile_spit.png",
+		"targetattributes": {
+			"all_of": [
+				{
+					"damage": -10,
+					"id": "poison"
+				}
+			],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				}
+			]
+		},
+		"type": "ranged"
+	},
+	{
+		"cooldown": 2,
+		"description": "Throws a bone at the enemy",
+		"id": "ranged_bone",
+		"knockback": 0,
+		"name": "Ranged bone attack",
+		"projectile_speed": 5,
+		"range": 6,
+		"sprite": "projectile_bone.png",
+		"targetattributes": {
+			"all_of": [],
+			"any_of": [
+				{
+					"damage": 10,
+					"id": "head_health"
+				},
+				{
+					"damage": 10,
+					"id": "torso_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_arm_health"
+				},
+				{
+					"damage": 10,
+					"id": "left_leg_health"
+				},
+				{
+					"damage": 10,
+					"id": "right_leg_health"
+				}
+			]
+		},
+		"type": "ranged"
+	}
+]

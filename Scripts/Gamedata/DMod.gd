@@ -43,6 +43,7 @@ var quests: DQuests
 var overmapareas: DOvermapareas
 var mobgroups: DMobgroups
 var mobfactions: DMobfactions
+var attacks: DAttacks
 
 
 var content_instances: Dictionary
@@ -62,7 +63,8 @@ enum ContentType {
 	QUESTS,
 	OVERMAPAREAS,
 	MOBGROUPS,
-	MOBFACTIONS
+	MOBFACTIONS,
+	ATTACKS
 }
 
 # Constructor to initialize mod properties and associated content types
@@ -95,6 +97,7 @@ func _init(modinfo: Dictionary, myparent: DMods):
 	overmapareas = DOvermapareas.new(id)
 	mobgroups = DMobgroups.new(id)
 	mobfactions = DMobfactions.new(id)
+	attacks = DAttacks.new(id)
 
 	# Initialize content type instances specific to this mod
 	content_instances = {
@@ -112,7 +115,8 @@ func _init(modinfo: Dictionary, myparent: DMods):
 		ContentType.QUESTS: quests,
 		ContentType.OVERMAPAREAS: overmapareas,
 		ContentType.MOBGROUPS: mobgroups,
-		ContentType.MOBFACTIONS: mobfactions
+		ContentType.MOBFACTIONS: mobfactions,
+		ContentType.ATTACKS: attacks
 	}
 
 
@@ -169,6 +173,7 @@ static func get_content_type_string(type: ContentType) -> String:
 		ContentType.OVERMAPAREAS: return "overmapareas"
 		ContentType.MOBGROUPS: return "mobgroups"
 		ContentType.MOBFACTIONS: return "mobfactions"
+		ContentType.ATTACKS: return "attacks"
 		_:
 			print_debug("Unknown ContentType: " + str(type))
 			return ""

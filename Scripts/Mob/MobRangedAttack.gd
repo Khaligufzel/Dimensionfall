@@ -24,7 +24,7 @@ func Physics_Update(_delta: float):
 		Transistioned.emit(self, "mobterminate")
 		return
 
-	var ranged_range: int = mob.ranged_range if mob.ranged_range > -1 else 15 # Default if not set
+	var ranged_range: int = mob.get_ranged_range()
 
 	if spotted_target and is_instance_valid(spotted_target) and mob.global_position.distance_to(spotted_target.global_position) <= ranged_range:
 		# Make the mob look at the target
@@ -87,15 +87,12 @@ func spawn_projectile(spawn_position: Vector3, target_position: Vector3, speed: 
 
 # Creates attack data for a ranged projectile
 func create_attack_data(spawn_position: Vector3) -> Dictionary:
-	var chosen_attribute: Dictionary = {"id": "", "damage": 10}
-	# Select the attribute that this projectile will hit (example: left arm health)
-	if mob.rmob.targetattributes.has("any_of") and not mob.rmob.targetattributes["any_of"].is_empty():
-		chosen_attribute = mob.rmob.targetattributes["any_of"].pick_random()
-
+	# Exmple: {"id": "basic_ranged", "damage_multiplier": 1, "type": "ranged"}
+	var chosen_attack: Dictionary = mob.get_attack_of_type("ranged")
+	if not chosen_attack:
+		return {}
 	return {
-		"attributeid": chosen_attribute["id"],
-		"damage": chosen_attribute["damage"],
-		"knockback": mob.rmob.ranged_knockback if mob.rmob.get("ranged_knockback") else 0,
+		"attack": chosen_attack,
 		"mobposition": spawn_position,
 		"hit_chance": 100
 	}

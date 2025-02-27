@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://drby7yfu8t38e"]
+[gd_scene load_steps=5 format=3 uid="uid://drby7yfu8t38e"]
 
 [ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/MobEditor.gd" id="1_ubw0i"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_woy6i"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_847a0"]
-[ext_resource type="Texture2D" uid="uid://kn2f7jcrfnfm" path="res://Textures/bullet.png" id="3_wf06t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_apoql"]
 content_margin_left = 11.0
@@ -21,7 +20,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "faction_option_button", "DescriptionTextEdit", "mobSelector", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "attack_type_option_button", "melee_h_box_container", "melee_range_numedit", "melee_cooldown_spinbox", "melee_knockback_spinbox", "ranged_h_box_container", "ranged_range_spin_box", "ranged_cooldown_spin_box", "projectile_texture_rect", "any_of_attributes_grid_container", "all_of_attributes_grid_container")]
+[node name="MobEditor" type="Control" node_paths=PackedStringArray("mobImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "faction_option_button", "DescriptionTextEdit", "mobSelector", "health_numedit", "moveSpeed_numedit", "idle_move_speed_numedit", "sightRange_numedit", "senseRange_numedit", "hearingRange_numedit", "ItemGroupTextEdit", "dash_check_box", "dash_speed_multiplier_spin_box", "dash_duration_spin_box", "dash_cooldown_spin_box", "attacks_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,17 +46,7 @@ dash_check_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxCo
 dash_speed_multiplier_spin_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/SpeedMultiplierSpinBox")
 dash_duration_spin_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/DurationSpinBox")
 dash_cooldown_spin_box = NodePath("VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/CooldownSpinBox")
-attack_type_option_button = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/AttackTypeOptionButton")
-melee_h_box_container = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer")
-melee_range_numedit = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer/MeleeRangeSpinbox")
-melee_cooldown_spinbox = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer/MeleeCooldownSpinbox")
-melee_knockback_spinbox = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer/MeleeKnockbackSpinbox")
-ranged_h_box_container = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer")
-ranged_range_spin_box = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer/RangeSpinBox")
-ranged_cooldown_spin_box = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer/CooldownSpinBox")
-projectile_texture_rect = NodePath("VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer/ProjectileTextureRect")
-any_of_attributes_grid_container = NodePath("VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/ScrollContainer/AnyOfAttributesGridContainer")
-all_of_attributes_grid_container = NodePath("VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer/ScrollContainer/AllOfAttributesGridContainer")
+attacks_grid_container = NodePath("VBoxContainer/TabContainer/Combat/AttacksHBoxContainer/AttacksPanelContainer/AttacksVBoxContainer/ScrollContainer/AttackGridContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -306,155 +295,46 @@ metadata/_tab_index = 1
 
 [node name="AttackLabel" type="Label" parent="VBoxContainer/TabContainer/Combat"]
 layout_mode = 2
-text = "Attack"
+text = "Hint"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Combat"]
+[node name="RangeLabel" type="Label" parent="VBoxContainer/TabContainer/Combat"]
 layout_mode = 2
+text = "Drag attacks from the left to give this mob some attacks"
 
-[node name="AttackTypeOptionButton" type="OptionButton" parent="VBoxContainer/TabContainer/Combat/HBoxContainer"]
+[node name="AttacksLabel" type="Label" parent="VBoxContainer/TabContainer/Combat"]
 layout_mode = 2
-tooltip_text = "Select the type of attack.
-Melee: This mob uses melee attack
-Ranged: This mob uses ranged attacks (only bullets for now)"
-selected = 0
-item_count = 2
-popup/item_0/text = "Melee"
-popup/item_1/text = "Ranged"
-popup/item_1/id = 1
+text = "Attacks:"
 
-[node name="MeleeHBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Combat/HBoxContainer"]
-layout_mode = 2
-
-[node name="MeleeRangeLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer"]
-layout_mode = 2
-text = "Range"
-
-[node name="MeleeRangeSpinbox" type="SpinBox" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer"]
-layout_mode = 2
-tooltip_text = "The maximum distance it can reach when attacking in melee"
-step = 0.5
-value = 1.5
-
-[node name="MeleeCooldownLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer"]
-layout_mode = 2
-text = "Cooldown"
-
-[node name="MeleeCooldownSpinbox" type="SpinBox" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer"]
-layout_mode = 2
-tooltip_text = "The cooldown in seconds. During the cooldown, the mob cannot perform another melee attack."
-step = 0.5
-value = 1.5
-
-[node name="MeleeKnockbackLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer"]
-layout_mode = 2
-text = "Knockback"
-
-[node name="MeleeKnockbackSpinbox" type="SpinBox" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/MeleeHBoxContainer"]
-layout_mode = 2
-tooltip_text = "The number of tiles that the  player will be knocked back. If the value is 0, no knockback will be applied."
-step = 0.5
-
-[node name="RangedHBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Combat/HBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="RangeLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
-layout_mode = 2
-text = "Range"
-
-[node name="RangeSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
-layout_mode = 2
-tooltip_text = "The maxium range that the ranged attack can occur at"
-value = 15.0
-
-[node name="CooldownLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
-layout_mode = 2
-text = "Cooldown"
-
-[node name="CooldownSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
-layout_mode = 2
-tooltip_text = "The time between attacks in seconds. 
-A lower value will make the mob attack more quickly
-A higher value will make the mob attack more slowly"
-step = 0.1
-value = 1.5
-
-[node name="SpriteLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
-layout_mode = 2
-text = "Sprite:"
-
-[node name="ProjectileTextureRect" type="TextureRect" parent="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer"]
-custom_minimum_size = Vector2(10, 10)
-layout_mode = 2
-texture = ExtResource("3_wf06t")
-
-[node name="AffectedAttributesLabel" type="Label" parent="VBoxContainer/TabContainer/Combat"]
-layout_mode = 2
-text = "Target attributes"
-
-[node name="AttributesHBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Combat"]
+[node name="AttacksHBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/Combat"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="AnyOfPanelContainer" type="PanelContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer"]
+[node name="AttacksPanelContainer" type="PanelContainer" parent="VBoxContainer/TabContainer/Combat/AttacksHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_apoql")
 
-[node name="AnyOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer"]
+[node name="AttacksVBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Combat/AttacksHBoxContainer/AttacksPanelContainer"]
 layout_mode = 2
 
-[node name="AnyOfLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
-layout_mode = 2
-text = "Any of:"
-
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Combat/AttacksHBoxContainer/AttacksPanelContainer/AttacksVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
 
-[node name="AnyOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AnyOfPanelContainer/AnyOfVBoxContainer/ScrollContainer"]
+[node name="AttackGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Combat/AttacksHBoxContainer/AttacksPanelContainer/AttacksVBoxContainer/ScrollContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-tooltip_text = "Enter the target player attributes that this mob will attack. You 
-can drag body parts to this field to have the mob target them.
-Selecting multiple will have the mob attack one part at a time at random."
-columns = 4
-
-[node name="AllOfPanelContainer" type="PanelContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer"]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_apoql")
-
-[node name="AllOfVBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AllOfPanelContainer"]
-clip_contents = true
-layout_mode = 2
-
-[node name="AllOfLabel" type="Label" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer"]
-layout_mode = 2
-text = "All of:"
-
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-follow_focus = true
-
-[node name="AllOfAttributesGridContainer" type="GridContainer" parent="VBoxContainer/TabContainer/Combat/AttributesHBoxContainer/AllOfPanelContainer/AllOfVBoxContainer/ScrollContainer"]
-clip_contents = true
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-tooltip_text = "Enter the target player attributes that this mob will attack. You 
-can drag body parts to this field to have the mob target them.
-All attributes listed here will be attacked every time."
+tooltip_text = "Drag attacks from the list on the left onto this area.
+The mob will attack using the specified attacks.
+When the target enemy is outside any of the melee attacks' range, it will use a ranged attack if possible.
+When the target enemy is inside any of the melee attacks' range, it will use one of the melee attacks.
+When it is decided whether to use a melee or ranged attack, a random one will be picked."
 columns = 4
 
 [node name="Sprite_selector" parent="." instance=ExtResource("3_847a0")]
@@ -465,5 +345,4 @@ visible = false
 [connection signal="gui_input" from="VBoxContainer/TabContainer/General/MobImageDisplay" to="." method="_on_mob_image_display_gui_input"]
 [connection signal="button_up" from="VBoxContainer/TabContainer/General/LootItemgroupHBoxContainer/ItemGroupClearButton" to="." method="_on_item_group_clear_button_button_up"]
 [connection signal="toggled" from="VBoxContainer/TabContainer/General/SpecialMovesHBoxContainer3/DashCheckBox" to="." method="_on_dash_check_box_toggled"]
-[connection signal="gui_input" from="VBoxContainer/TabContainer/Combat/HBoxContainer/RangedHBoxContainer/ProjectileTextureRect" to="." method="_on_projectile_texture_rect_gui_input"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

@@ -25,20 +25,7 @@ extends Control
 @export var dash_cooldown_spin_box: SpinBox = null
 
 # Combat properties:
-@export var attack_type_option_button: OptionButton = null
-
-@export var melee_h_box_container: HBoxContainer = null
-@export var melee_range_numedit: SpinBox
-@export var melee_cooldown_spinbox: SpinBox = null
-@export var melee_knockback_spinbox: SpinBox = null
-
-@export var ranged_h_box_container: HBoxContainer = null
-@export var ranged_range_spin_box: SpinBox = null
-@export var ranged_cooldown_spin_box: SpinBox = null
-@export var projectile_texture_rect: TextureRect = null
-
-@export var any_of_attributes_grid_container: GridContainer = null
-@export var all_of_attributes_grid_container: GridContainer = null
+@export var attacks_grid_container: GridContainer = null
 
 # Track which TextureRect triggered the mobSelector
 var selected_texture_rect: TextureRect = null
@@ -59,10 +46,7 @@ var dmob: DMob:
 
 # Forward drag-and-drop functionality to the attributesGridContainer
 func _ready() -> void:
-	any_of_attributes_grid_container.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_any_of_attribute_data)
-	all_of_attributes_grid_container.set_drag_forwarding(Callable(), _can_drop_attribute_data, _drop_all_of_attribute_data)
-
-	attack_type_option_button.item_selected.connect(_on_attack_type_option_button_item_selected)
+	attacks_grid_container.set_drag_forwarding(Callable(), _can_drop_attack_data, _drop_attack_data)
 
 
 # This function update the form based on the DMob data that has been loaded
@@ -76,18 +60,6 @@ func load_mob_data() -> void:
 		NameTextEdit.text = dmob.name
 	if DescriptionTextEdit != null:
 		DescriptionTextEdit.text = dmob.description
-	if melee_range_numedit != null:
-		melee_range_numedit.value = dmob.melee_range
-	if melee_cooldown_spinbox != null:
-		melee_cooldown_spinbox.value = dmob.melee_cooldown
-	if melee_knockback_spinbox != null:
-		melee_knockback_spinbox.value = dmob.melee_knockback
-	if ranged_range_spin_box != null:
-		ranged_range_spin_box.value = max(dmob.ranged_range, 0)
-	if ranged_cooldown_spin_box != null:
-		ranged_cooldown_spin_box.value = max(dmob.ranged_cooldown, 0)
-	if projectile_texture_rect != null:
-		projectile_texture_rect.texture = dmob.projectile_sprite if dmob.projectile_sprite else preload("res://Textures/bullet.png")
 	if health_numedit != null:
 		health_numedit.value = dmob.health
 	if moveSpeed_numedit != null:
@@ -112,32 +84,17 @@ func load_mob_data() -> void:
 	# Enable or disable dash controls based on checkbox state
 	_on_dash_check_box_toggled(dash_check_box.is_pressed())
 	
-	# Load 'any_of' and 'all_of' attributes into their respective grids
-	if dmob.targetattributes.has("any_of"):
-		_load_attributes_into_grid(any_of_attributes_grid_container, dmob.targetattributes["any_of"])
-	if dmob.targetattributes.has("all_of"):
-		_load_attributes_into_grid(all_of_attributes_grid_container, dmob.targetattributes["all_of"])
+	# Clear the grid container once before adding attacks
+	for child in attacks_grid_container.get_children():
+		child.queue_free()
+	# Load 'melee' and 'ranged' attacks into the grid
+	if dmob.attacks.has("melee"):
+		_load_attacks_into_grid(dmob.attacks["melee"], "melee")
+	if dmob.attacks.has("ranged"):
+		_load_attacks_into_grid(dmob.attacks["ranged"], "ranged")
 	
 	# Call the new function to populate and refresh the faction_option_button
 	refresh_faction_option_button()
-	update_attack_type_selection() # Set attack type UI state
-
-
-# Updates the attack type selection based on the current mob data
-func update_attack_type_selection() -> String:
-	if attack_type_option_button == null or dmob == null:
-		return ""
-	
-	var selected_attack_type := "Melee"
-	if dmob.get("ranged_range") and dmob.ranged_range > 0:
-		selected_attack_type = "Ranged"
-	
-	for i in range(attack_type_option_button.item_count):
-		if attack_type_option_button.get_item_text(i) == selected_attack_type:
-			attack_type_option_button.select(i)
-			_on_attack_type_option_button_item_selected(i)
-			return attack_type_option_button.get_item_text(i)
-	return ""
 
 
 # The editor is closed, destroy the instance
@@ -171,10 +128,9 @@ func _on_save_button_button_up() -> void:
 	else:
 		dmob.special_moves.erase("dash")
 
-	dmob.targetattributes = _get_attributes_from_ui()
-
 	if faction_option_button != null:
 		dmob.faction_id = faction_option_button.get_item_text(faction_option_button.selected)
+	dmob.attacks = _get_attacks_from_ui()
 
 	dmob.changed(olddata)
 	data_changed.emit()
@@ -183,30 +139,7 @@ func _on_save_button_button_up() -> void:
 
 # Saves melee and ranged properties based on the selected attack type.
 func _save_combat_properties() -> void:
-	var selected_attack_type := attack_type_option_button.get_item_text(attack_type_option_button.selected)
-
-	if selected_attack_type == "Melee":
-		dmob.melee_range = melee_range_numedit.value
-		dmob.melee_cooldown = melee_cooldown_spinbox.value
-		dmob.melee_knockback = melee_knockback_spinbox.value
-
-		dmob.ranged_range = -1
-		dmob.ranged_cooldown = -1
-		dmob.projectile_sprite_id = ""
-		dmob.projectile_sprite = null
-
-	elif selected_attack_type == "Ranged":
-		dmob.ranged_range = ranged_range_spin_box.value
-		dmob.ranged_cooldown = ranged_cooldown_spin_box.value
-
-		dmob.melee_range = -1
-		dmob.melee_cooldown = -1
-		dmob.melee_knockback = -1
-		if projectile_texture_rect.texture:
-			var texture_path: String = projectile_texture_rect.texture.resource_path
-			if not texture_path == "res://Textures/bullet.png":
-				dmob.projectile_sprite_id = projectile_texture_rect.texture.resource_path.get_file()
-				dmob.projectile_sprite = projectile_texture_rect.texture
+	print("saving combat data")
 
 
 # When the mobImageDisplay is clicked, the user will be prompted to select an image from 
@@ -277,139 +210,6 @@ func _on_item_group_clear_button_button_up():
 	ItemGroupTextEdit.clear()
 
 
-# Helper function to load attributes into a specified grid container
-func _load_attributes_into_grid(container: GridContainer, attributes: Array) -> void:
-	# Clear previous entries
-	for child in container.get_children():
-		child.queue_free()
-
-	# Populate the container with attributes
-	for attribute in attributes:
-		_add_attribute_entry_to_grid(container, attribute)
-
-
-# Modified function to add a new attribute entry to a specified grid container
-func _add_attribute_entry_to_grid(container: GridContainer, attribute: Dictionary) -> void:
-	var myattribute: DPlayerAttribute = Gamedata.mods.get_content_by_id(DMod.ContentType.PLAYERATTRIBUTES, attribute.id)
-
-	# Create a TextureRect for the sprite
-	var texture_rect = TextureRect.new()
-	texture_rect.texture = myattribute.sprite
-	texture_rect.custom_minimum_size = Vector2(32, 32)  # Ensure the texture is 32x32
-	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED  # Keep the aspect ratio centered
-	container.add_child(texture_rect)
-
-	# Create a Label for the attribute name
-	var label = Label.new()
-	label.text = myattribute.id
-	container.add_child(label)
-
-	# Create a SpinBox for the damage amount
-	var spinbox = SpinBox.new()
-	spinbox.min_value = -100
-	spinbox.max_value = 100
-	spinbox.value = attribute.get("damage", 0)  # Default to 0 if not provided
-	spinbox.tooltip_text = "The amount of damage this attribute will receive. Use positive \n" + \
-							"number to drain the attribute (i.e. damage), use a negative \n" + \
-							"number to add to the attribute (ex. poison)"
-	container.add_child(spinbox)
-
-	# Create a Button to delete the attribute entry
-	var deleteButton = Button.new()
-	deleteButton.text = "X"
-	deleteButton.pressed.connect(_delete_attribute_entry.bind([texture_rect, label, spinbox, deleteButton]))
-	container.add_child(deleteButton)
-
-
-# Modified function to gather attributes from the UI and structure them as a dictionary
-func _get_attributes_from_ui() -> Dictionary:
-	var target_attributes: Dictionary = {"any_of": [], "all_of": []}
-
-	# Collect attributes from 'any_of' grid container
-	var any_of_children = any_of_attributes_grid_container.get_children()
-	for i in range(1, any_of_children.size(), 4):  # Step by 4 to handle sprite-label-spinbox-deleteButton
-		var label = any_of_children[i] as Label
-		var spinbox = any_of_children[i + 1] as SpinBox
-		if label and spinbox:
-			target_attributes["any_of"].append({"id": label.text, "damage": spinbox.value})
-
-	# Collect attributes from 'all_of' grid container
-	var all_of_children = all_of_attributes_grid_container.get_children()
-	for i in range(1, all_of_children.size(), 4):  # Step by 4 to handle sprite-label-spinbox-deleteButton
-		var label = all_of_children[i] as Label
-		var spinbox = all_of_children[i + 1] as SpinBox
-		if label and spinbox:
-			target_attributes["all_of"].append({"id": label.text, "damage": spinbox.value})
-
-	return target_attributes
-
-
-# Delete an attribute entry from a specified grid container
-func _delete_attribute_entry(elements_to_remove: Array) -> void:
-	var parent_container = elements_to_remove[0].get_parent()  # Get the parent container dynamically
-	if parent_container in [any_of_attributes_grid_container, all_of_attributes_grid_container]:
-		for element in elements_to_remove:
-			parent_container.remove_child(element)
-			element.queue_free()  # Properly free the node to avoid memory leaks
-
-
-# Function to determine if the dragged data can be dropped in the attribute grid container
-# We are expecting a dictionary like this:
-#	{
-#		"id": selected_item_id,
-#		"text": selected_item_text,
-#		"mod_id": mod_id,
-#		"contentType": contentType
-#	}
-func _can_drop_attribute_data(_newpos, data) -> bool:
-	# Check if the data dictionary has the 'id' property
-	if not data or not data.has("id"):
-		return false
-
-	# Fetch attribute by ID from the Gamedata to ensure it exists and is valid
-	if not Gamedata.mods.by_id(data["mod_id"]).playerattributes.has_id(data["id"]):
-		return false
-
-	# Check if the attribute ID already exists in either of the attribute grids
-	for grid in [any_of_attributes_grid_container, all_of_attributes_grid_container]:
-		var children = grid.get_children()
-		for i in range(1, children.size(), 4):  # Step by 3 to handle sprite-label-deleteButton triples
-			var label = children[i] as Label
-			if label and label.text == data["id"]:
-				# Return false if this attribute ID already exists in any of the grids
-				return false
-
-	# If all checks pass, return true
-	return true
-
-
-# Function to handle the data being dropped in the any_of_attributes_grid_container
-func _drop_any_of_attribute_data(newpos, data) -> void:
-	if _can_drop_attribute_data(newpos, data):
-		_handle_attribute_drop(data, any_of_attributes_grid_container)
-
-
-# Function to handle the data being dropped in the all_of_attributes_grid_container
-func _drop_all_of_attribute_data(newpos, data) -> void:
-	if _can_drop_attribute_data(newpos, data):
-		_handle_attribute_drop(data, all_of_attributes_grid_container)
-
-
-# Called when the user has successfully dropped data onto an attribute grid container
-# We have to check the dropped_data for the id property and add it to the appropriate container
-func _handle_attribute_drop(dropped_data, container: GridContainer) -> void:
-	if dropped_data and "id" in dropped_data:
-		var attribute_id = dropped_data["id"]
-		if not Gamedata.mods.by_id(dropped_data["mod_id"]).playerattributes.has_id(attribute_id):
-			print_debug("No attribute data found for ID: " + attribute_id)
-			return
-
-		# Add the attribute entry to the specified container
-		_add_attribute_entry_to_grid(container, {"id": attribute_id})
-	else:
-		print_debug("Dropped data does not contain an 'id' key.")
-
-
 # Toggle the state of dash controls based on dash checkbox status
 func _on_dash_check_box_toggled(pressed: bool) -> void:
 	dash_speed_multiplier_spin_box.editable = pressed
@@ -439,18 +239,99 @@ func refresh_faction_option_button() -> void:
 			faction_option_button.select(i)
 			break
 
-# The user selects an attack type option
-func _on_attack_type_option_button_item_selected(index: int) -> void:
-	var selected_text: String = attack_type_option_button.get_item_text(index)
-	if selected_text == "Ranged":
-		ranged_h_box_container.visible = true
-		melee_h_box_container.visible = false
-	elif selected_text == "Melee":
-		ranged_h_box_container.visible = false
-		melee_h_box_container.visible = true
+
+func _can_drop_attack_data(_newpos, data) -> bool:
+	# Validate that the data has the necessary properties
+	if not data or not data.has("id") or not data.has("mod_id"):
+		return false
+	
+	# Check if the attack exists in Gamedata
+	return Gamedata.mods.by_id(data["mod_id"]).attacks.has_id(data["id"])
 
 
-func _on_projectile_texture_rect_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		selected_texture_rect = projectile_texture_rect
-		mobSelector.show()
+func _drop_attack_data(newpos, data) -> void:
+	if not _can_drop_attack_data(newpos, data):
+		return
+
+	# Get attack type from Gamedata
+	var attack_data: DAttack = Gamedata.mods.by_id(data["mod_id"]).attacks.by_id(data["id"])
+	var attack_type: String = attack_data.type if attack_data.get("type") else "melee"  # Default to melee
+
+	# Ensure attack is not duplicated
+	if _is_attack_in_grid(data["id"]):
+		return  
+
+	# Add attack with type metadata
+	_add_attack_to_grid({"id": data["id"], "damage_multiplier": 1.0, "type": attack_type})
+
+
+# Function to add a single attack to the grid container
+func _add_attack_to_grid(attack: Dictionary) -> void:
+	var attack_id = attack["id"]
+	var damage_multiplier = attack.get("damage_multiplier", 1.0)
+
+	# Create a label for the attack ID
+	var attack_label = Label.new()
+	attack_label.text = attack_id
+	attack_label.set_meta("attack_data", attack)  # Store attack metadata in the label
+	attacks_grid_container.add_child(attack_label)
+
+	# Create a label for "Damage Multiplier:"
+	var multiplier_label = Label.new()
+	multiplier_label.text = "| Damage Multiplier:"
+	attacks_grid_container.add_child(multiplier_label)
+
+	# Create a spinbox for the damage multiplier
+	var multiplier_spinbox = SpinBox.new()
+	multiplier_spinbox.min_value = 0.1
+	multiplier_spinbox.max_value = 5.0
+	multiplier_spinbox.step = 0.1
+	multiplier_spinbox.value = damage_multiplier
+	multiplier_spinbox.tooltip_text = "Damage multiplier for this attack.\n" + \
+								  "The attack's damage will be the same if you enter a value of 1.0.\n" + \
+								  "With a value of 0.9, it will do 90% of the original damage.\n" + \
+								  "With a value of 1.1, it will do 110% of the original damage.\n" + \
+								  "The higher the value, the more powerful the attack becomes"
+	attacks_grid_container.add_child(multiplier_spinbox)
+
+
+# Function to populate the grid with attack data
+func _load_attacks_into_grid(attacks: Array, attack_type: String) -> void:
+	# Add each attack using the helper function, passing attack_type
+	for attack in attacks:
+		attack["type"] = attack_type  # Ensure type is stored
+		_add_attack_to_grid(attack)
+
+
+func _get_attacks_from_ui() -> Dictionary:
+	var extracted_attacks: Dictionary = {"melee": [], "ranged": []}
+
+	# Retrieve children from the attack grid container
+	var children = attacks_grid_container.get_children()
+
+	# Step by 3: Each attack entry consists of [Label (ID), Label ("Damage Multiplier:"), SpinBox]
+	for i in range(0, children.size(), 3):
+		var attack_label = children[i] as Label
+		var multiplier_spinbox = children[i + 2] as SpinBox  # Skip "Damage Multiplier" label
+
+		if attack_label and multiplier_spinbox:
+			# Retrieve metadata from the attack label
+			var attack_data = attack_label.get_meta("attack_data", {})
+
+			if attack_data.has("type"):
+				var attack_type = attack_data["type"]  # Read type from metadata
+				if attack_type in extracted_attacks:
+					extracted_attacks[attack_type].append({
+						"id": attack_label.text,
+						"damage_multiplier": multiplier_spinbox.value
+					})
+
+	return extracted_attacks
+
+
+# Function to check if an attack ID already exists in the grid
+func _is_attack_in_grid(attack_id: String) -> bool:
+	for child in attacks_grid_container.get_children():
+		if child is Label and child.text == attack_id:
+			return true  # The attack is already present
+	return false  # No match found

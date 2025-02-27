@@ -5,8 +5,8 @@
 		"south": "ground",
 		"west": "ground"
 	},
-	"description": "This map is used for testing ranged combat vs melee",
-	"id": "melee_vs_ranged_mob_map",
+	"description": "This map is used for testing ranged combat where a mob will hit the furniture while attempting to hit the enemy mob",
+	"id": "ranged_vs_furnture_map",
 	"levels": [
 		[],
 		[],
@@ -68,6 +68,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -165,6 +169,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -261,6 +269,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -357,6 +369,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -453,6 +469,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -549,6 +569,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -645,6 +669,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -741,6 +769,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -837,6 +869,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -933,6 +969,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -1029,6 +1069,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -1125,6 +1169,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -1221,6 +1269,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -1320,6 +1372,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -1416,6 +1472,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -1512,6 +1572,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -1611,6 +1675,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -1707,6 +1775,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -1803,6 +1875,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -1899,6 +1975,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -1995,6 +2075,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -2091,6 +2175,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -2187,6 +2275,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -2283,6 +2375,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -2379,6 +2475,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -2475,6 +2575,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -2571,6 +2675,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -2667,6 +2775,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -2763,6 +2875,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -2859,6 +2975,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -2955,6 +3075,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{
@@ -3052,6 +3176,10 @@
 				"id": "default_tile"
 			},
 			{
+				"furniture": {
+					"id": "test_glass_window",
+					"itemgroups": []
+				},
 				"id": "default_tile"
 			},
 			{

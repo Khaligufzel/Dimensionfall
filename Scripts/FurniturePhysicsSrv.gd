@@ -286,12 +286,26 @@ func free_resources() -> void:
 func is_new_furniture() -> bool:
 	return not furnitureJSON.has("global_position_x")
 
-# When the furniture gets hit by an attack
-# attack: a dictionary with the "damage" and "hit_chance" properties
-func get_hit(attack: Dictionary):
+
+# When the mob gets hit by an attack
+# attack: a dictionary like this:
+# {
+# 	"attack": chosen_attack, # Exmple: {"id": "basic_melee", "damage_multiplier": 1, "type": "melee"}
+# 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
+# 	"hit_chance": 100 # Only used when a mob is targeted
+# }
+func get_hit(attack_data: Dictionary):
+	var attack: Dictionary = attack_data.get("attack",{})
+	var rattack: RAttack = Runtimedata.attacks.by_id(attack.get("id", ""))
+	if not rattack:
+		print_debug("Invalid attack ID:", attack.get("id", ""))
+		return
+	
+	# Get the attack effects with the applied damage multiplier
+	var attack_effects: Dictionary = rattack.get_scaled_attribute_damage(attack.get("damage_multiplier", 1.0))
 	# Extract damage and hit_chance from the dictionary
-	var damage = attack.damage
-	var hit_chance = attack.hit_chance
+	var damage: int = attack_effects.get("damage", 0)
+	var hit_chance = attack_data.hit_chance
 
 	# Calculate actual hit chance considering moveable furniture bonus
 	var actual_hit_chance = hit_chance + 0.20 # Boost hit chance by 20%

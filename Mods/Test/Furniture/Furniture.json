@@ -1,0 +1,24 @@
+[
+	{
+		"categories": [
+			"Urban"
+		],
+		"description": "It keeps people from passing trough this area. It is very fragile",
+		"destruction": {
+			"group": "generic_test_itemgroup"
+		},
+		"edgesnapping": "None",
+		"id": "test_glass_window",
+		"moveable": false,
+		"name": "Glass window",
+		"sprite": "test_glass_window.png",
+		"support_shape": {
+			"color": "869bcdff",
+			"depth_scale": 100,
+			"height": 0.98,
+			"shape": "Box",
+			"transparent": true,
+			"width_scale": 100
+		}
+	}
+]

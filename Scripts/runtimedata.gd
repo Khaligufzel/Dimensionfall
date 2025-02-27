@@ -17,6 +17,7 @@ var quests: RQuests
 var overmapareas: ROvermapareas
 var mobgroups: RMobgroups
 var mobfactions: RMobfactions
+var attacks: RAttacks
 
 # Dictionary to map content types to Gamedata variables
 var gamedata_map: Dictionary = {}
@@ -26,7 +27,6 @@ func get_data_of_type(type: DMod.ContentType) -> RefCounted:
 	return gamedata_map[type]
 
 
-# Reconstruct function to reset and initialize stats
 # Reconstruct function to reset and initialize stats
 # Optional parameter to specify enabled mods manually. If empty, uses mods in state order.
 func reconstruct(enabled_mods: Array[DMod] = []) -> void:
@@ -49,6 +49,7 @@ func reconstruct(enabled_mods: Array[DMod] = []) -> void:
 	furnitures = RFurnitures.new(enabled_mods)
 	items = RItems.new(enabled_mods)
 	mobfactions = RMobfactions.new(enabled_mods)
+	attacks = RAttacks.new(enabled_mods)
 
 	# Populate the gamedata_map with the instantiated objects
 	gamedata_map = {
@@ -66,7 +67,8 @@ func reconstruct(enabled_mods: Array[DMod] = []) -> void:
 		DMod.ContentType.ITEMGROUPS: itemgroups,
 		DMod.ContentType.FURNITURES: furnitures,
 		DMod.ContentType.ITEMS: items,
-		DMod.ContentType.MOBFACTIONS: mobfactions
+		DMod.ContentType.MOBFACTIONS: mobfactions,
+		DMod.ContentType.ATTACKS: attacks
 	}
 
 

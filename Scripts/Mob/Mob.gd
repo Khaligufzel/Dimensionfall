@@ -14,8 +14,7 @@ var last_rotation: int
 var last_chunk: Vector2
 
 # Stats and attributes
-var melee_range: float = 1.5
-var ranged_range: float = -1.0
+var attacks: Dictionary = {}
 var health: float = 100.0
 var current_health: float
 var move_speed: float = 1.0
@@ -171,11 +170,24 @@ func update_navigation_agent_map(chunk_position: Vector2):
 		last_chunk = Vector2(0.1,0.1)
 
 # When the mob gets hit by an attack
-# attack: a dictionary with the "damage" and "hit_chance" properties
-func get_hit(attack: Dictionary):
+# attack: a dictionary like this:
+# {
+# 	"attack": chosen_attack, # Exmple: {"id": "basic_melee", "damage_multiplier": 1, "type": "melee"}
+# 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
+# 	"hit_chance": 100 # Only used when a mob is targeted
+# }
+func get_hit(attack_data: Dictionary):
+	var attack: Dictionary = attack_data.get("attack",{})
+	var rattack: RAttack = Runtimedata.attacks.by_id(attack.get("id", ""))
+	if not rattack:
+		print_debug("Invalid attack ID:", attack.get("id", ""))
+		return
+	
+	# Get the attack effects with the applied damage multiplier
+	var attack_effects: Dictionary = rattack.get_scaled_attribute_damage(attack.get("damage_multiplier", 1.0))
 	# Extract damage and hit_chance from the dictionary
-	var damage = attack.damage
-	var hit_chance = attack.hit_chance
+	var damage: int = attack_effects.get("damage", 0)
+	var hit_chance = attack_data.hit_chance
 
 	# Calculate actual hit chance considering mob bonus
 	# We may increase or decrease the hit chance based on mob or weapon stats
@@ -262,8 +274,7 @@ func set_sprite(newSprite: Resource):
 # If it is created from a saved game, it might have lower health for example
 func apply_stats_from_dmob() -> void:
 	set_sprite(rmob.sprite)
-	melee_range = rmob.melee_range
-	ranged_range = rmob.ranged_range
+	attacks = rmob.attacks
 	health = rmob.health
 	current_health = rmob.health
 	move_speed = rmob.move_speed
@@ -318,7 +329,7 @@ func get_data() -> Dictionary:
 		"global_position_y": last_position.y,
 		"global_position_z": last_position.z,
 		"rotation": last_rotation,
-		"melee_range": melee_range,
+		"attacks": attacks,
 		"health": health,
 		"current_health": current_health,
 		"move_speed": move_speed,
@@ -345,5 +356,30 @@ func get_faction() -> String:
 func get_current_state() -> State:
 	return state_machine.current_state if state_machine else null
 
+# Returns if the mob's state machine has the specified state
+func has_state(state_name: String = "mobidle") -> bool:
+	return state_machine.states.has(state_name)
+
 func get_bullet_sprite() -> Texture:
-	return rmob.projectile_sprite
+	var myattack: Dictionary = get_attack_of_type("ranged")
+	return Runtimedata.attacks.by_id(myattack.id).sprite
+
+# Returns the first RAttack of the specified type, if it has any
+func get_attack_of_type(type: String = "melee") -> Dictionary:
+	if not rmob.attacks.has(type) or rmob.attacks.get(type,[]).size() < 1:
+		return {}
+	return rmob.attacks[type][0]
+
+# Returns the range of the first ranged attack, if it has any
+func get_ranged_range() -> float:
+	var rattack: RAttack = Runtimedata.attacks.by_id(get_attack_of_type("ranged").id)
+	if rattack and rattack.get("range"):
+		return rattack.range
+	return 0.0
+
+# Returns the range of the first melee attack in the attack list, if it has any
+func get_melee_range() -> float:
+	var rattack: RAttack = Runtimedata.attacks.by_id(get_attack_of_type("melee").id)
+	if rattack and rattack.get("range"):
+		return rattack.range
+	return 0.0
