@@ -2,10 +2,10 @@
 	{
 		"default_mode": {
 			"color": "ee3438ff",
-			"current_amount": 99,
+			"current_amount": 100,
 			"depleting_effect": "none",
 			"depletion_effect": "none",
-			"depletion_rate": 0.02,
+			"depletion_rate": 0,
 			"hide_when_empty": false,
 			"max_amount": 100,
 			"maxed_effect": "none",
