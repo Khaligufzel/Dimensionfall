@@ -42,7 +42,8 @@
 			"makeshift_barricade",
 			"rusted_fridge",
 			"survivor_cot",
-			"chain_link_fence"
+			"chain_link_fence",
+			"ups"
 		],
 		"maps": [
 			"neighborhood_school",

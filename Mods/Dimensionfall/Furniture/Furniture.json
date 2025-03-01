@@ -1033,7 +1033,7 @@
 		],
 		"description": "An uninterruptible power supply (UPS), used to keep vital equipment running during power loss. This device is compact but heavy, with a display that shows its battery status.",
 		"destruction": {
-			"group": "destroyed_furniture_small"
+			"group": "destroyed_furniture_medium"
 		},
 		"edgesnapping": "North",
 		"id": "ups",
