@@ -3,7 +3,8 @@
 		"maps": [
 			"urbanroad",
 			"military_bunker",
-			"survivor_gas_station"
+			"survivor_gas_station",
+			"store_groceries"
 		],
 		"quests": [
 			"quest_holy_crusade_01",

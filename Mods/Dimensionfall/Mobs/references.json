@@ -2,7 +2,6 @@
 	"basic_zombie_1": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
 			"office_building_00",
 			"Generichouse",
 			"subway_station",
@@ -28,7 +27,6 @@
 	"basic_zombie_2": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
 			"office_building_00",
 			"Generichouse",
 			"subway_station",
@@ -54,7 +52,6 @@
 	"bloated_zombie": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
 			"office_building_00",
 			"Generichouse",
 			"subway_station",
@@ -88,7 +85,6 @@
 	"charred_zombie": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
 			"office_building_00",
 			"Generichouse",
 			"subway_station",
@@ -129,7 +125,6 @@
 	"heavy_zombie": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
 			"office_building_00",
 			"Generichouse",
 			"subway_station",
@@ -167,7 +162,6 @@
 	"limping_zombie": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
 			"office_building_00",
 			"Generichouse",
 			"subway_station",
@@ -198,7 +192,6 @@
 	"rushing_zombie": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
 			"office_building_00",
 			"Generichouse",
 			"subway_station",
@@ -260,7 +253,6 @@
 	"skeleton_zombie": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
 			"office_building_00",
 			"Generichouse",
 			"subway_station",
