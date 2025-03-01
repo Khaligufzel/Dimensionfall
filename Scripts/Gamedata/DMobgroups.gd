@@ -130,3 +130,15 @@ func remove_entity_from_selected_mobgroups(mob_id: String, mobgroups: Array):
 func remove_reference(mobgroupid: String):
 	references.erase(mobgroupid)
 	Gamedata.mods.save_references(self)
+
+
+# Get all references for a specific item ID
+# The return value might look like this:
+#{
+#	"maps": [
+#		"grass_field",
+#		"parking_lot"
+#	]
+#}
+func get_references_by_id(mobgroupid: String) -> Dictionary:
+	return references.get(mobgroupid, {})
