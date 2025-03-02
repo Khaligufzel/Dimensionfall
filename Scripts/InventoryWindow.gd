@@ -390,21 +390,23 @@ func transfer_autosplitmerge_list(items: Array, src: Control, dest: Control) -> 
 # Function to handle double-clicking a grid cell in the inventory grid
 func _on_grid_cell_double_clicked(item: InventoryItem):
 	var source_inventory = item.get_inventory()
-	var destination_inventory: InventoryStacked
+	var destination_inventory_control: Control # Item will go here
+	var source_inventory_control: Control # Item comes from here
 
 	# Determine the destination inventory based on the source inventory
-	if source_inventory == inventory:
+	if source_inventory == inventory: # If true, the player double-clicked an item in his inventory
 		# Check if the current proximity inventory is the default set in the ItemManager
-		var proximityinventory: InventoryStacked = proximity_inventory_control.get_inventory()
-		if proximityinventory == ItemManager.proximityInventory:
+		if proximity_inventory_control.get_inventory() == ItemManager.proximityInventory:
 			print_debug("Attempt to transfer to default proximity inventory aborted.")
 			return  # Exit the function early if the condition is met
-		destination_inventory = proximityinventory
+		destination_inventory_control = proximity_inventory_control # Item groes to proximity inventory
+		source_inventory_control = inventory_control # The item comes from player inventory
 		is_showing_tooltip = false
-	else:
-		destination_inventory = inventory
+	else: # The player doubleclicked an item in the proximity inventory control
+		destination_inventory_control = inventory_control # Item goes to player inventory
+		source_inventory_control = proximity_inventory_control
 		is_showing_tooltip = false
 
 	# Attempt to transfer the item
-	if not destination_inventory or not source_inventory.transfer_autosplitmerge(item, destination_inventory):
+	if not destination_inventory_control or not transfer_autosplitmerge_list([item],source_inventory_control,destination_inventory_control):
 		print("Failed to transfer item!")
