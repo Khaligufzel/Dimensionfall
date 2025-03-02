@@ -12,6 +12,7 @@ extends Control
 @export var DescriptionTextEdit: TextEdit = null
 @export var mobgroupSelector: Popup = null
 @export var mob_list: GridContainer = null
+@export var references_editor: Control = null
 
 
 # This signal will be emitted when the user presses the save button
@@ -49,6 +50,8 @@ func load_mobgroup_data() -> void:
 	if DescriptionTextEdit != null:
 		DescriptionTextEdit.text = dmobgroup.description
 	update_mob_list()
+	var myreferences: Dictionary = dmobgroup.parent.get_references_by_id(dmobgroup.id)
+	references_editor.reference_data = myreferences
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes

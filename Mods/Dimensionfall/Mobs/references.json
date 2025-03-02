@@ -2,24 +2,8 @@
 	"basic_zombie_1": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
-			"office_building_00",
-			"Generichouse",
-			"subway_station",
-			"neighborhood_school",
-			"Generichouse_00",
-			"skyscraper",
-			"generichouse_cross",
-			"city_square",
 			"urbanroad_corner",
-			"parking_garage",
-			"two_story_house",
-			"urbanroad_t",
-			"generichouse_end",
-			"police_station",
-			"generichouse_t",
-			"generichouse_corner",
-			"store_electronic_clothing"
+			"urbanroad_t"
 		],
 		"mobgroups": [
 			"basic_zombies"
@@ -28,24 +12,8 @@
 	"basic_zombie_2": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
-			"office_building_00",
-			"Generichouse",
-			"subway_station",
-			"neighborhood_school",
-			"Generichouse_00",
-			"skyscraper",
-			"generichouse_cross",
-			"city_square",
 			"urbanroad_corner",
-			"parking_garage",
-			"two_story_house",
-			"urbanroad_t",
-			"generichouse_end",
-			"police_station",
-			"generichouse_t",
-			"generichouse_corner",
-			"store_electronic_clothing"
+			"urbanroad_t"
 		],
 		"mobgroups": [
 			"basic_zombies"
@@ -54,24 +22,8 @@
 	"bloated_zombie": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
-			"office_building_00",
-			"Generichouse",
-			"subway_station",
-			"neighborhood_school",
-			"Generichouse_00",
-			"skyscraper",
-			"generichouse_cross",
-			"city_square",
 			"urbanroad_corner",
-			"parking_garage",
-			"two_story_house",
-			"urbanroad_t",
-			"generichouse_end",
-			"police_station",
-			"generichouse_t",
-			"generichouse_corner",
-			"store_electronic_clothing"
+			"urbanroad_t"
 		],
 		"mobgroups": [
 			"basic_zombies"
@@ -88,24 +40,8 @@
 	"charred_zombie": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
-			"office_building_00",
-			"Generichouse",
-			"subway_station",
-			"neighborhood_school",
-			"Generichouse_00",
-			"skyscraper",
-			"generichouse_cross",
-			"city_square",
 			"urbanroad_corner",
-			"parking_garage",
-			"two_story_house",
-			"urbanroad_t",
-			"generichouse_end",
-			"police_station",
-			"generichouse_t",
-			"generichouse_corner",
-			"store_electronic_clothing"
+			"urbanroad_t"
 		],
 		"mobgroups": [
 			"basic_zombies"
@@ -129,24 +65,8 @@
 	"heavy_zombie": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
-			"office_building_00",
-			"Generichouse",
-			"subway_station",
-			"neighborhood_school",
-			"Generichouse_00",
-			"skyscraper",
-			"generichouse_cross",
-			"city_square",
 			"urbanroad_corner",
-			"parking_garage",
-			"two_story_house",
-			"urbanroad_t",
-			"generichouse_end",
-			"police_station",
-			"generichouse_t",
-			"generichouse_corner",
-			"store_electronic_clothing"
+			"urbanroad_t"
 		],
 		"mobgroups": [
 			"basic_zombies"
@@ -167,24 +87,8 @@
 	"limping_zombie": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
-			"office_building_00",
-			"Generichouse",
-			"subway_station",
-			"neighborhood_school",
-			"Generichouse_00",
-			"skyscraper",
-			"generichouse_cross",
-			"city_square",
 			"urbanroad_corner",
-			"parking_garage",
-			"two_story_house",
-			"urbanroad_t",
-			"generichouse_end",
-			"police_station",
-			"generichouse_t",
-			"generichouse_corner",
-			"store_electronic_clothing"
+			"urbanroad_t"
 		],
 		"mobgroups": [
 			"basic_zombies"
@@ -198,24 +102,8 @@
 	"rushing_zombie": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
-			"office_building_00",
-			"Generichouse",
-			"subway_station",
-			"neighborhood_school",
-			"Generichouse_00",
-			"skyscraper",
-			"generichouse_cross",
-			"city_square",
 			"urbanroad_corner",
-			"parking_garage",
-			"two_story_house",
-			"urbanroad_t",
-			"generichouse_end",
-			"police_station",
-			"generichouse_t",
-			"generichouse_corner",
-			"store_electronic_clothing"
+			"urbanroad_t"
 		],
 		"mobgroups": [
 			"basic_zombies"
@@ -260,24 +148,8 @@
 	"skeleton_zombie": {
 		"maps": [
 			"urbanroad_cross",
-			"store_groceries",
-			"office_building_00",
-			"Generichouse",
-			"subway_station",
-			"neighborhood_school",
-			"Generichouse_00",
-			"skyscraper",
-			"generichouse_cross",
-			"city_square",
 			"urbanroad_corner",
-			"parking_garage",
-			"two_story_house",
-			"urbanroad_t",
-			"generichouse_end",
-			"police_station",
-			"generichouse_t",
-			"generichouse_corner",
-			"store_electronic_clothing"
+			"urbanroad_t"
 		],
 		"mobgroups": [
 			"basic_zombies"

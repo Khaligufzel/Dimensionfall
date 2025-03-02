@@ -3,7 +3,24 @@
 		"maps": [
 			"urbanroad",
 			"military_bunker",
-			"survivor_gas_station"
+			"survivor_gas_station",
+			"store_groceries",
+			"office_building_00",
+			"Generichouse",
+			"subway_station",
+			"neighborhood_school",
+			"Generichouse_00",
+			"skyscraper",
+			"generichouse_cross",
+			"city_square",
+			"parking_garage",
+			"two_story_house",
+			"generichouse_end",
+			"police_station",
+			"generichouse_t",
+			"generichouse_corner",
+			"abandoned_building",
+			"store_electronic_clothing"
 		],
 		"quests": [
 			"quest_holy_crusade_01",
