@@ -960,7 +960,7 @@
 		],
 		"description": "A set of equipment racks housing transmitters, receivers, power distribution units, and networking devices. Wires and cables hang loosely, some frayed from years of neglect.",
 		"destruction": {
-			"group": "destroyed_furniture_large"
+			"group": "destroyed_furniture_medium"
 		},
 		"edgesnapping": "North",
 		"id": "equipment_rack",
@@ -987,7 +987,7 @@
 		],
 		"description": "Wall-mounted racks holding emergency tools and first-aid kits. The kits are old but still contain useful supplies for survival and quick repairs.",
 		"destruction": {
-			"group": "destroyed_furniture_small"
+			"group": "destroyed_furniture_medium"
 		},
 		"edgesnapping": "North",
 		"id": "first_aid_rack",
@@ -1010,7 +1010,7 @@
 		],
 		"description": "A transformer box, reinforced and weatherproof, located near a tower base. It hums quietly, providing power to nearby structures, though it's clear it has been used heavily over the years.",
 		"destruction": {
-			"group": "destroyed_furniture_large"
+			"group": "destroyed_furniture_medium"
 		},
 		"edgesnapping": "North",
 		"id": "transformer_box",
@@ -1550,7 +1550,7 @@
 		],
 		"description": "A series of blinking lights and switches, once used to monitor the facility.",
 		"destruction": {
-			"group": "destroyed_furniture_large"
+			"group": "destroyed_furniture_medium"
 		},
 		"edgesnapping": "North",
 		"id": "control_panel",
@@ -1573,7 +1573,7 @@
 		],
 		"description": "Rows of depleted batteries, some still holding a charge for crafting. ",
 		"destruction": {
-			"group": "destroyed_furniture_large"
+			"group": "destroyed_furniture_medium"
 		},
 		"edgesnapping": "North",
 		"id": "battery_bank",

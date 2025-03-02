@@ -1,7 +1,6 @@
 extends RigidBody3D
 
 var velocity = Vector3()
-var damage = 10
 var lifetime = 5.0
 var owner_entity: Node3D = null  # Reference to the entity that fired the projectile
 @export var bullet_sprite: Sprite3D = null

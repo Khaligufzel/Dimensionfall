@@ -287,24 +287,36 @@ func is_new_furniture() -> bool:
 	return not furnitureJSON.has("global_position_x")
 
 
-# When the mob gets hit by an attack
-# attack: a dictionary like this:
+# When the furniture gets hit by an attack
+# attack_data: a dictionary like this:
 # {
-# 	"attack": chosen_attack, # Exmple: {"id": "basic_melee", "damage_multiplier": 1, "type": "melee"}
-# 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
-# 	"hit_chance": 100 # Only used when a mob is targeted
+#   "attack": chosen_attack,  # Example: {"id": "basic_melee", "damage_multiplier": 1, "type": "melee"}
+#   "mobposition": Vector3(17, 1, 219),  # The global position of the mob
+#   "hit_chance": 100,  # Only used when a furniture/mob is targeted
+#   "damage": 10.0  # Direct damage amount (optional)
 # }
 func get_hit(attack_data: Dictionary):
-	var attack: Dictionary = attack_data.get("attack",{})
-	var rattack: RAttack = Runtimedata.attacks.by_id(attack.get("id", ""))
-	if not rattack:
+	var attack: Dictionary = attack_data.get("attack", {})
+	var rattack: RAttack = null
+	
+	if attack.has("id"):
+		rattack = Runtimedata.attacks.by_id(attack["id"])
+
+	if not rattack and not attack_data.has("damage"):
 		print_debug("Invalid attack ID:", attack.get("id", ""))
 		return
 	
-	# Get the attack effects with the applied damage multiplier
-	var attack_effects: Dictionary = rattack.get_scaled_attribute_damage(attack.get("damage_multiplier", 1.0))
-	# Extract damage and hit_chance from the dictionary
-	var damage: int = attack_effects.get("damage", 0)
+	# Determine damage based on priority:
+	var damage: float = 0.0
+	if rattack:
+		# 1. Use attack's calculated damage
+		var attack_effects: Dictionary = rattack.get_scaled_attribute_damage(attack.get("damage_multiplier", 1.0))
+		damage = attack_effects.get("damage", 0)
+	elif attack_data.has("damage"):
+		# 2. Use the direct "damage" value if no attack is present
+		damage = attack_data["damage"]
+
+	# Extract hit_chance
 	var hit_chance = attack_data.hit_chance
 
 	# Calculate actual hit chance considering moveable furniture bonus

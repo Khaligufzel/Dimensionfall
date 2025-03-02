@@ -43,7 +43,9 @@
 			"rusted_fridge",
 			"survivor_cot",
 			"chain_link_fence",
-			"ups"
+			"ups",
+			"equipment_rack",
+			"first_aid_rack"
 		],
 		"maps": [
 			"neighborhood_school",

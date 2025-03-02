@@ -171,6 +171,7 @@ func perform_ranged_attack():
 	shoot_audio_player.play()
 	
 	var bullet_instance = bullet_scene.instantiate()
+	bullet_instance.attack = _calculate_ranged_attack_data()
 	# Decrease the y position to ensure proper collision with mobs and furniture
 	var spawn_position = global_transform.origin + Vector3(0.0, -0.1, 0.0)
 	var cursor_position = get_cursor_world_position()
@@ -396,6 +397,11 @@ func _calculate_melee_attack_data() -> Dictionary:
 	var hit_chance = 0.65 + (skill_level / 100.0) * (1.0 - 0.65)  # Scales up to 100% with skill level
 
 	return {"damage": damage, "hit_chance": hit_chance}
+
+# Calculate ranged attack damage and hit chance
+# TODO: Have variation in damage, maybe by gunn or projectile
+func _calculate_ranged_attack_data() -> Dictionary:
+	return {"damage": 10, "hit_chance": 100}
 
 
 # Attempts to hit an entity, ensuring no obstacles are in the way
