@@ -8,7 +8,8 @@ var tracked_quest_id: String = ""
 
 func _ready() -> void:
 	connect_quest_signals()
-	update_quest_ui(Helper.quest_helper.tracked_quest)
+	tracked_quest_id = Helper.quest_helper.tracked_quest
+	update_quest_ui(tracked_quest_id)
 
 # Function to update quest UI based on the current quest and step
 # quest_name: it's actually the id of the quest as known by Runtimedata.quests

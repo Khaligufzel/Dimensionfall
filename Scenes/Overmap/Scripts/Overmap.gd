@@ -9,7 +9,6 @@ extends Control
 @export var overmapTileLabel: Label = null
 
 
-var noise = FastNoiseLite.new()
 var grid_chunks: Dictionary = {} # Stores references to grid containers (visual tile grids)
 var chunk_width: int = 8  # Smaller chunk sizes improve performance
 var chunk_size: int = 8
@@ -17,7 +16,6 @@ var tile_size: int = 32
 var grid_pixel_size: int = chunk_size * tile_size
 var selected_overmap_tile: Control = null
 var chunk_pool: Array = []  # Pool to store unloaded GridChunks
-var text_visible_by_coord: Dictionary = {}  # Tracks text visibility
 var target: Target = null  # Holds the target location as an instance of the Target class
 # Variable to store the current offset in the main script
 var current_offset: Vector2 = Vector2.ZERO  # Holds the current screen offset
@@ -558,33 +556,34 @@ func update_offset_for_all_chunks(new_offset: Vector2):
 #     a new target will be selected.
 func on_target_map_changed(map_ids: Array, target_properties: Dictionary = {}):
 	if map_ids.is_empty():
-		if target:
-			set_coordinate_text(target.coordinate, "")
-		target = null  # Clear the target if no valid map_ids are provided
-		$ArrowLabel.visible = false  # Hide arrow when no target
-	else:
-		# Extract properties from target_properties with defaults
-		var dynamic: bool = target_properties.get("dynamic", false)
+		reset_target()
+		return
 
-		# Find the closest cell for the provided map_ids
-		if target:
-			var at_target: bool = Helper.overmap_manager.is_player_at_position(Vector2(target.coordinate.x, target.coordinate.y))
-			# Handle dynamic targeting: If the player is on the target, find a new target
-			if dynamic and at_target:
-				target = null # reset the target
-		var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_ids(map_ids, target_properties)
+	var dynamic: bool = target_properties.get("dynamic", false)
+	if target:
+		var at_target: bool = Helper.overmap_manager.is_player_at_position(Vector2(target.coordinate.x, target.coordinate.y))
+		if dynamic and at_target:
+			reset_target()
 
-		if closest_cell and target == null:
-			# Set the new target
-			target = Target.new(closest_cell.map_id, Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
-			# Ensure that the coordinates do not change once set
-			find_location_on_overmap(target)
+	var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_ids(map_ids, target_properties)
+	if closest_cell and target == null:
+		target = Target.new(closest_cell.map_id, Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))
+		find_location_on_overmap(target)
 
 
 # Updates a tile based on the coordinate and text
 # mycoordinate: A Vector2 using the global grid coordinate. Coordinates are managed by overmap_manager
 # mytext: The text to set on the tile at the coordinate
 func set_coordinate_text(mycoordinate: Vector2, mytext: String):
-	var tile = get_overmap_tile_at_position(mycoordinate)
+	# Retrieve the tile at the specified coordinate
+	var tile: Control = get_overmap_tile_at_position(mycoordinate)
 	if tile:
 		tile.set_text(mytext)
+
+
+# Resets the target and clears the marker on the old target's tile
+func reset_target():
+	if target:
+		set_coordinate_text(target.coordinate, "")  # Clear the text
+	target = null
+	$ArrowLabel.visible = false  # Hide the arrow
