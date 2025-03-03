@@ -496,10 +496,7 @@ func setup_tool_item_properties(_equippedItem: InventoryItem):
 
 
 func refresh_flashlight_visibility():
-	if get_highest_tool_quality("flashlight") > -1:
-		flashlight_spotlight.visible = true
-	else:
-		flashlight_spotlight.visible = false
+	flashlight_spotlight.visible = get_highest_tool_quality("flashlight") > -1
 
 
 # Configure the melee collision shape based on the weapon's reach
@@ -546,21 +543,15 @@ func get_other_equipped_items() -> Array[EquippedItem]:
 			other_equipped_items.append(item)
 	return other_equipped_items
 
+
 # Returns the level of the specified tool quality for the equipped item.
 # If the tool does not have the quality, returns -1.
 func get_tool_quality(tool_quality: String) -> int:
 	if not equipped_item:
-		print_debug("get_tool_quality: No item equipped.")
 		return -1
-	
-	var tool_properties = equipped_item.get_property("Tool")
-	if not tool_properties:
-		print_debug("get_tool_quality: Equipped item has no Tool properties.")
-		return -1
-	
-	var tool_qualities = tool_properties.get("tool_qualities", {})
-	var quality_level = tool_qualities.get(tool_quality, -1)
-	return quality_level
+	var tool_properties = equipped_item.get_property("Tool") or {}
+	return tool_properties.get("tool_qualities", {}).get(tool_quality, -1)
+
 
 # Returns the highest tool quality level among all equipped items.
 # If no equipped item has the given tool quality, returns -1.
