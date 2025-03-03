@@ -1,21 +1,17 @@
 class_name EquippedItem
 extends Sprite3D
 
-# This script is intended to be used on a node functioning as a held item, which could be a weapon
-# This script will keep track of what is equipped and if it is a weapon
-# If has functions to deal with melee weapons and ranged weapons
-# For ranged weapons it has functions and properties to keep track of ammunition and reloading
-# It has functions to spawn projectiles
 
-# Reference to the node that will hold existing projectiles
-@export var projectiles: Node3D
+## 🔹 EQUIPPED ITEM HANDLER 🔹 ##
+## This script is intended to be used on a node functioning as a held item, which could be a weapon
+## This script handles items held by the player, including weapons & tools.
+## It tracks ammo, firing, melee combat, and tool functionality.
 
-# Variables to set the bullet speed and damage
-@export var bullet_speed: float
 
-# Reference to the scene that will be instantiated for a bullet
-@export var bullet_scene: PackedScene
-
+# --- EXPORTS & REFERENCES ---
+@export var projectiles: Node3D # Reference to the node that will hold existing projectiles
+@export var bullet_speed: float # Variables to set the bullet speed
+@export var bullet_scene: PackedScene # Reference to the scene that will be instantiated for a bullet
 # Will keep a weapon from firing when it's cooldown period has not passed yet
 @export var attack_cooldown_timer: Timer
 @export var slot_idx: int
@@ -24,54 +20,50 @@ extends Sprite3D
 @export var default_hand_position: Vector3
 @export var melee_attack_z_rotation_offset: float
 
-# Reference to the player node
-@export var player: CharacterBody3D
-# Reference to the hud node
-@export var hud: NodePath
+@export var player: CharacterBody3D # Reference to the player node
+@export var hud: NodePath # Reference to the hud node
 
 # Reference to the audio nodes
-@export var shoot_audio_player : AudioStreamPlayer3D
-@export var shoot_audio_randomizer : AudioStreamRandomizer
-@export var reload_audio_player : AudioStreamPlayer3D
+@export var shoot_audio_player: AudioStreamPlayer3D
+@export var shoot_audio_randomizer: AudioStreamRandomizer
+@export var reload_audio_player: AudioStreamPlayer3D
 
-# Define properties for the item. It can be a weapon (melee or ranged) or some other item
-var equipped_item: InventoryItem
 @export var flashlight_spotlight: SpotLight3D = null # The light representing the flashlight
 
 
-# The equipment slot that holds this item
-var equipmentSlot: Control
 
-# Booleans to enforce the reload and cooldown timers
+# --- VARIABLES ---
+var equipped_item: InventoryItem # Can be a weapon (melee or ranged) or some other item
+var equipment_slot: Control # The equipment slot that holds this item
+
 var in_cooldown: bool = false
 var reload_speed: float = 1.0
+var is_using_held_item: bool = false
+var entities_in_melee_range: Array = [] # Used to keep track of entities in melee range
 
-# The current and max ammo
+# --- RECOIL SETTINGS ---
+var default_recoil: float = 0.1
+var recoil_modifier: float = 0.0 # Tracks the current level of recoil applied to the weapon.
+var max_recoil: float = 0.0 # The maximum recoil value, derived from the Ranged.recoil property of the weapon.
+var recoil_increment: float = 0.0 # The amount by which recoil increases per shot, calculated to reach max_recoil after 25% of the max ammo is fired.
+var recoil_decrement: float = 0.0 # The amount by which recoil decreases per frame when the mouse button is not pressed.
+
+# --- FIRING SETTINGS ---
 var default_firing_speed: float = 0.25
 var default_reload_speed: float = 1.0
-
-# Variables for recoil
-var default_recoil: float = 0.1
-# Tracks the current level of recoil applied to the weapon.
-var recoil_modifier: float = 0.0
-# The maximum recoil value, derived from the Ranged.recoil property of the weapon.
-var max_recoil: float = 0.0
-# The amount by which recoil increases per shot, calculated to reach max_recoil after 25% of the max ammo is fired.
-var recoil_increment: float = 0.0
-# The amount by which recoil decreases per frame when the mouse button is not pressed.
-var recoil_decrement: float = 0.0
-
-var is_using_held_item: bool
-
-var entities_in_melee_range = [] # Used to keep track of entities in melee range
 
 	
 func _ready():
 	clear_held_item()
+	_setup_signals()
+
+
+func _setup_signals() -> void:
 	melee_hitbox.body_entered.connect(_on_entered_melee_range)
 	melee_hitbox.body_exited.connect(_on_exited_melee_range)
 	melee_hitbox.body_shape_entered.connect(_on_body_shape_entered_melee_range)
 	melee_hitbox.body_shape_exited.connect(_on_body_shape_exited_melee_range)
+
 
 func get_cursor_world_position() -> Vector3:
 	var camera = get_tree().get_first_node_in_group("Camera")
@@ -445,8 +437,8 @@ func _is_obstacle_between(target_position: Vector3, target_rid: RID) -> bool:
 # slot is a Control node that represents the equipment slot
 func equip_item(equippedItem: InventoryItem, slot: Control):
 	equipped_item = equippedItem
-	equipmentSlot = slot
-	equipmentSlot.equippedItem = self
+	equipment_slot = slot
+	equipment_slot.equippedItem = self
 
 	# Clear any existing configurations
 	clear_melee_collision_shape()
