@@ -33,6 +33,8 @@ var food: Food
 var medical: Medical
 var ammo: Ammo
 var wearable: Wearable
+var tool: Tool
+
 
 # Inner class to handle the Craft property
 class CraftRecipe:
@@ -381,6 +383,19 @@ class Wearable:
 				break  # Exit the loop after removing the attribute
 
 
+# Inner class to handle the Tool property
+class Tool:
+	var tool_qualities: Dictionary  # Example: { "flashlight": 1 }
+
+	# Constructor to initialize tool properties from a dictionary
+	func _init(data: Dictionary):
+		tool_qualities = data.get("tool_qualities", {})
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		return { "tool_qualities": tool_qualities }
+
+
 # Constructor to initialize item properties from a dictionary
 # myparent: The list containing all items for this mod
 func _init(data: Dictionary, parent_container: DItems):
@@ -414,6 +429,7 @@ func _initialize_specialized_properties(data: Dictionary) -> void:
 	medical = _initialize_subclass(data, "Medical", Medical)
 	ammo = _initialize_subclass(data, "Ammo", Ammo)
 	wearable = _initialize_subclass(data, "Wearable", Wearable)
+	tool = _initialize_subclass(data, "Tool", Tool)
 
 
 # Helper to initialize a subclass if data is present
@@ -457,6 +473,9 @@ func get_data() -> Dictionary:
 
 	if ammo:
 		data["Ammo"] = ammo.get_data()
+
+	if tool:
+		data["Tool"] = tool.get_data()
 
 	if wearable:
 		var wearabledata = wearable.get_data()

@@ -12,7 +12,6 @@ extends Sprite3D
 
 # Variables to set the bullet speed and damage
 @export var bullet_speed: float
-@export var bullet_damage: float
 
 # Reference to the scene that will be instantiated for a bullet
 @export var bullet_scene: PackedScene
@@ -39,6 +38,8 @@ extends Sprite3D
 
 # Define properties for the item. It can be a weapon (melee or ranged) or some other item
 var heldItem: InventoryItem
+@export var flash_light: SpotLight3D = null # The light representing the flashlight
+
 
 # The equipment slot that holds this item
 var equipmentSlot: Control
@@ -267,6 +268,7 @@ func clear_held_item():
 		heldItem.properties_changed.disconnect(_on_helditem_properties_changed)
 		heldItem.set_property("is_reloading", false)
 	disable_melee_collision_shape()
+	refresh_flashlight_visibility()
 	visible = false
 	heldItem = null
 	in_cooldown = false
@@ -460,6 +462,10 @@ func equip_item(equippedItem: InventoryItem, slot: Control):
 		# Set properties specific to melee weapons
 		setup_melee_weapon_properties(equippedItem)
 
+	elif equippedItem.get_property("Tool") != null:
+		# Set properties specific to tool items
+		setup_tool_item_properties(equippedItem)
+
 	else:
 		# If the item is neither melee nor ranged, handle as a generic item
 		visible = false
@@ -493,6 +499,19 @@ func setup_melee_weapon_properties(equippedItem: InventoryItem):
 	attack_cooldown_timer.wait_time = cooldown_time
 
 
+# Setup the properties for tool items
+func setup_tool_item_properties(_equippedItem: InventoryItem):
+	refresh_flashlight_visibility()
+	visible = true
+
+
+func refresh_flashlight_visibility():
+	if get_highest_tool_quality("flashlight") > -1:
+		flash_light.visible = true
+	else:
+		flash_light.visible = false
+
+
 # Configure the melee collision shape based on the weapon's reach
 # This creates two triangles on top of each other in front of the player and pointing to the player
 # When an entity enters the boundary of the stacked triangles, it is considered within reach
@@ -522,3 +541,48 @@ func disable_melee_collision_shape():
 func clear_melee_collision_shape():
 	melee_collision_shape.disabled = false  # Ensure it's not disabled when changing weapons
 	melee_collision_shape.shape = null  # Clear the previous shape to reset its configuration
+
+
+# Returns all EquippedItems of the player excluding the one with the given slot_idx
+func get_other_equipped_items() -> Array[EquippedItem]:
+	if not player:
+		print_debug("get_other_equipped_items: No player reference found.")
+		return []
+
+	# Filter out the equipped items that do not match the given slot index
+	var other_equipped_items: Array[EquippedItem] = []
+	for equipped_item in player.held_item_slots:
+		if equipped_item.slot_idx != slot_idx:
+			other_equipped_items.append(equipped_item)
+	return other_equipped_items
+
+# Returns the level of the specified tool quality for the equipped item.
+# If the tool does not have the quality, returns -1.
+func get_tool_quality(tool_quality: String) -> int:
+	if not heldItem:
+		print_debug("get_tool_quality: No item equipped.")
+		return -1
+	
+	var tool_properties = heldItem.get_property("Tool")
+	if not tool_properties:
+		print_debug("get_tool_quality: Equipped item has no Tool properties.")
+		return -1
+	
+	var tool_qualities = tool_properties.get("tool_qualities", {})
+	var quality_level = tool_qualities.get(tool_quality, -1)
+	return quality_level
+
+# Returns the highest tool quality level among all equipped items.
+# If no equipped item has the given tool quality, returns -1.
+func get_highest_tool_quality(tool_quality: String) -> int:
+	if not player:
+		print_debug("get_highest_tool_quality: No player reference found.")
+		return -1
+	var highest_quality: int = -1
+
+	# Loop over all equipped items and check tool quality
+	for equipped_item in player.held_item_slots:
+		var quality_level = equipped_item.get_tool_quality(tool_quality)
+		if quality_level > highest_quality:
+			highest_quality = quality_level
+	return highest_quality

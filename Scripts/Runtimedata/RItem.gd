@@ -192,6 +192,19 @@ class Wearable:
 	func get_data() -> Dictionary:
 		return { "slot": slot, "player_attributes": player_attributes }
 
+
+# Inner class to handle the Tool property
+class Tool:
+	var tool_qualities: Dictionary  # Example: { "flashlight": 1 }
+
+	# Constructor to initialize tool properties from a dictionary
+	func _init(data: Dictionary):
+		tool_qualities = data.get("tool_qualities", {})
+
+	# Get data function to return a dictionary with all properties
+	func get_data() -> Dictionary:
+		return { "tool_qualities": tool_qualities }
+
 # Properties of the RItem class
 var id: String
 var name: String
@@ -211,6 +224,7 @@ var food: Food
 var medical: Medical
 var ammo: Ammo
 var wearable: Wearable
+var tool: Tool
 var referenced_items: Array[String]
 var parent: RItems
 
@@ -249,6 +263,7 @@ func overwrite_from_ditem(ditem: DItem) -> void:
 	medical = Medical.new(ditem.medical.get_data()) if ditem.medical else null
 	ammo = Ammo.new(ditem.ammo.get_data()) if ditem.ammo else null
 	wearable = Wearable.new(ditem.wearable.get_data()) if ditem.wearable else null
+	tool = Tool.new(ditem.tool.get_data()) if ditem.tool else null
 
 # Get data function
 func get_data() -> Dictionary:
@@ -279,6 +294,8 @@ func get_data() -> Dictionary:
 		data["Ammo"] = ammo.get_data()
 	if wearable:
 		data["Wearable"] = wearable.get_data()
+	if tool:
+		data["Tool"] = tool.get_data()
 	return data
 
 

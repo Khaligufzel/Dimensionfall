@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dmpomdwta1pgq"]
+[gd_scene load_steps=14 format=3 uid="uid://dmpomdwta1pgq"]
 
 [ext_resource type="Script" path="res://Scripts/ItemEditor.gd" id="1_ef3j7"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_ghd7c"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://duoxs7mpo6x3t" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemMeleeEditor.tscn" id="9_ucd7w"]
 [ext_resource type="PackedScene" uid="uid://cba63mf23i3ky" path="res://Scenes/ContentManager/Custom_Editors/ReferencesEditor.tscn" id="10_m8qfw"]
 [ext_resource type="PackedScene" uid="uid://dio1cpt7em6r2" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemMedicalEditor.tscn" id="11_il5yl"]
+[ext_resource type="PackedScene" uid="uid://onkmwt1te3be" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemToolEditor.tscn" id="12_378eu"]
 
 [node name="ItemEditor" type="Control" node_paths=PackedStringArray("tab_container", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "VolumeNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "types_container", "TwoHandedCheckBox", "references_editor")]
 layout_mode = 3
@@ -234,6 +235,9 @@ layout_mode = 2
 tooltip_text = "If this is checked, the item functions as food and the food properties tab will be visible. Otherwise, this item will not function as food and the food properties tab will not be visible"
 text = "Food"
 
+[node name="Tool" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
+layout_mode = 2
+
 [node name="Ranged" parent="VBoxContainer/TabContainer" instance=ExtResource("3_qqmud")]
 visible = false
 layout_mode = 2
@@ -279,6 +283,11 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 9
 
+[node name="Tool" parent="VBoxContainer/TabContainer" instance=ExtResource("12_378eu")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 10
+
 [node name="Sprite_selector" parent="." instance=ExtResource("3_qb68r")]
 visible = false
 
@@ -295,4 +304,5 @@ visible = false
 [connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/DisassembleCheck" to="." method="_on_type_check_button_up"]
 [connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/WearableCheck" to="." method="_on_type_check_button_up"]
 [connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/Food" to="." method="_on_type_check_button_up"]
+[connection signal="button_up" from="VBoxContainer/TabContainer/Basic/TypesContainer/Tool" to="." method="_on_type_check_button_up"]
 [connection signal="sprite_selected_ok" from="Sprite_selector" to="." method="_on_sprite_selector_sprite_selected_ok"]

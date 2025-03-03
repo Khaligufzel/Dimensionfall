@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://onkmwt1te3be"]
+
+[ext_resource type="Script" path="res://Scripts/ItemToolEditor.gd" id="1_kjfxi"]
+
+[node name="ItemToolEditor" type="Control" node_paths=PackedStringArray("flashlight_number")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kjfxi")
+flashlight_number = NodePath("Tool/FlashlightNumber")
+
+[node name="Tool" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="HintLabel" type="Label" parent="Tool"]
+layout_mode = 2
+text = "Hint"
+
+[node name="HintLabelText" type="Label" parent="Tool"]
+layout_mode = 2
+text = "Assign a number to each tool quality, which represents how good this item will work in that capacity"
+
+[node name="FlashlightLabel" type="Label" parent="Tool"]
+layout_mode = 2
+text = "Flashlight"
+
+[node name="FlashlightNumber" type="SpinBox" parent="Tool"]
+layout_mode = 2
+tooltip_text = "The amount of ammunition this magazine has when it is spawned. You can use this to create magazines that have been somewhat spent."
+value = 20.0

@@ -21,6 +21,7 @@ var current_nutrition
 var pain
 var current_pain = 0
 
+# Slots that the player can equip items into, i.e. left hand and right hand
 var held_item_slots : Array[EquippedItem]
 var stats = {}
 var skills = {}
