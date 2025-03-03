@@ -258,10 +258,10 @@ func clear_held_item():
 		equipped_item.properties_changed.disconnect(_on_helditem_properties_changed)
 		equipped_item.set_property("is_reloading", false)
 	disable_melee_collision_shape()
-	refresh_flashlight_visibility()
 	visible = false
 	equipped_item = null
 	in_cooldown = false
+	refresh_flashlight_visibility()
 	Helper.signal_broker.player_ammo_changed.emit(-1, -1, slot_idx)  # Emit signal to indicate no weapon is equipped
 
 func _on_left_attack_cooldown_timeout():
@@ -549,7 +549,7 @@ func get_other_equipped_items() -> Array[EquippedItem]:
 func get_tool_quality(tool_quality: String) -> int:
 	if not equipped_item:
 		return -1
-	var tool_properties = equipped_item.get_property("Tool") or {}
+	var tool_properties = equipped_item.get_property("Tool", {})
 	return tool_properties.get("tool_qualities", {}).get(tool_quality, -1)
 
 

@@ -926,6 +926,12 @@
 				"max": 4,
 				"min": 4,
 				"probability": 100
+			},
+			{
+				"id": "flashlight_basic",
+				"max": 1,
+				"min": 1,
+				"probability": 100
 			}
 		],
 		"mode": "Collection",

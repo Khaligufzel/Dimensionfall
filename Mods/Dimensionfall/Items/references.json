@@ -301,7 +301,8 @@
 			"cabinet_general",
 			"electronics_store_small",
 			"electronics_store_mixed",
-			"police_station_locker"
+			"police_station_locker",
+			"test_items"
 		],
 		"quests": [
 			"quest_holy_crusade_01"
