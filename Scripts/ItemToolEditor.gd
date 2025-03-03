@@ -17,13 +17,8 @@ var ditem: DItem = null:
 
 
 func save_properties() -> void:
-	# Ensure tool_qualities exists
-	if not ditem.tool:
-		print_debug("ditem.tool is null, cannot save tool qualities.")
-		return
-
 	# Save the flashlight number into tool_qualities as {"flashlight": value}
-	ditem.tool.tool_qualities["flashlight"] = int(flashlight_number.value)
+	ditem.tool = DItem.Tool.new({"tool_qualities": {"flashlight": int(flashlight_number.value)}})
 
 
 func load_properties() -> void:

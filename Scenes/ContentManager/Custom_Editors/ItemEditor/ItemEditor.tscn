@@ -237,6 +237,7 @@ text = "Food"
 
 [node name="Tool" type="CheckBox" parent="VBoxContainer/TabContainer/Basic/TypesContainer"]
 layout_mode = 2
+text = "Tool"
 
 [node name="Ranged" parent="VBoxContainer/TabContainer" instance=ExtResource("3_qqmud")]
 visible = false
@@ -278,12 +279,12 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 8
 
-[node name="References" parent="VBoxContainer/TabContainer" instance=ExtResource("10_m8qfw")]
+[node name="Tool" parent="VBoxContainer/TabContainer" instance=ExtResource("12_378eu")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 9
 
-[node name="Tool" parent="VBoxContainer/TabContainer" instance=ExtResource("12_378eu")]
+[node name="References" parent="VBoxContainer/TabContainer" instance=ExtResource("10_m8qfw")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 10
