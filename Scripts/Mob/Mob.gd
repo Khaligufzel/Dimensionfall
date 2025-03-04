@@ -387,13 +387,13 @@ func get_attack_of_type(type: String = "melee") -> Dictionary:
 # Returns the range of the first ranged attack, if it has any
 func get_ranged_range() -> float:
 	var rattack: RAttack = Runtimedata.attacks.by_id(get_attack_of_type("ranged").id)
-	if rattack and rattack.get("range"):
-		return rattack.range
+	if rattack and rattack.get("myrange"):
+		return rattack.myrange
 	return 0.0
 
 # Returns the range of the first melee attack in the attack list, if it has any
 func get_melee_range() -> float:
 	var rattack: RAttack = Runtimedata.attacks.by_id(get_attack_of_type("melee").id)
-	if rattack and rattack.get("range"):
-		return rattack.range
+	if rattack and rattack.get("myrange"):
+		return rattack.myrange
 	return 0.0

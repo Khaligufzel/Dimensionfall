@@ -9,7 +9,7 @@ extends RefCounted
 #		"id": "melee_basic",
 #		"name": "Basic melee attack",
 #		"type": "melee", // can be "melee" or "ranged"
-#		"range": 10,
+#		"myrange": 10,
 #		"cooldown": 1,
 #		"knockback": 2,
 #		"projectile_speed": 20, // Only applies to the "ranged" type
@@ -45,7 +45,7 @@ var description: String
 var spriteid: String
 var sprite: Texture
 var type: String # Can be "melee" or "ranged"
-var range: float # The attack will start when the enemy is within this range
+var myrange: float # The attack will start when the enemy is within this range
 var cooldown: float # The time between attacks
 var knockback: float # The amount of tiles that the enemy is pushed back
 var projectile_speed: float  # Only relevant for ranged attacks
@@ -67,7 +67,7 @@ func overwrite_from_dattack(dattack: DAttack) -> void:
 	spriteid = dattack.spriteid
 	sprite = dattack.sprite
 	type = dattack.type
-	range = dattack.range
+	myrange = dattack.range
 	cooldown = dattack.cooldown
 	knockback = dattack.knockback
 	projectile_speed = dattack.projectile_speed
@@ -112,9 +112,12 @@ func get_scaled_all_of_attribute_damage(multiplier: float) -> Array:
 
 # Takes a multipler and returns the amount of damage and knockback
 func get_scaled_attack_effects(multiplier: float) -> Dictionary:
-	var scaled_attributes: Array = [get_scaled_attribute_damage(multiplier)]
-	scaled_attributes.append_array(get_scaled_all_of_attribute_damage(multiplier))
+	var any_of: Dictionary = get_scaled_attribute_damage(multiplier)
+	var scaled_attributes: Array = []
+	if not any_of.is_empty():
+		scaled_attributes.append(any_of)
 
+	scaled_attributes.append_array(get_scaled_all_of_attribute_damage(multiplier))
 	return {
 		"attributes": scaled_attributes,
 		"knockback": knockback
