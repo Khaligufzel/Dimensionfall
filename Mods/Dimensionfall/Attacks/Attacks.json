@@ -5,7 +5,7 @@
 		"id": "melee_basic",
 		"knockback": 0,
 		"name": "Basic melee attack",
-		"range": 1.5,
+		"range": 1,
 		"targetattributes": {
 			"all_of": [],
 			"any_of": [
@@ -202,7 +202,7 @@
 		"type": "ranged"
 	},
 	{
-		"cooldown": 2,
+		"cooldown": 3,
 		"description": "Throws a bone at the enemy",
 		"id": "ranged_bone",
 		"knockback": 0,
