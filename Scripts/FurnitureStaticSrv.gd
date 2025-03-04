@@ -928,6 +928,12 @@ func create_cylinder_shape():
 func set_collision_layers_and_masks():
 	# Set collision layer to layers 3 (static obstacles layer) and 7 (containers layer)
 	var collision_layer = (1 << 2) | (1 << 6)  # Layer 3 is 1 << 2, Layer 7 is 1 << 6
+	if rfurniture.support_shape.transparent:
+		# HACK Put the furniture on the moveable obstacles layer if the furniture is transparent
+		# The reason for this is that mobs should exclude transparent furniture from 
+		# consideration when locating a new target (i.e. they can see trough the furniture)
+		# TODO: Create another layer for transparent furnture
+		collision_layer = (1 << 3) | (1 << 6)  # Layer 4 is 1 << 3, Layer 7 is 1 << 6
 
 	# Set collision mask to include layers 1, 2, 3, 4, 5, and 6
 	var collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5)

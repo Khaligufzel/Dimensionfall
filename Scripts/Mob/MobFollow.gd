@@ -92,20 +92,25 @@ func orient_toward_target():
 
 # Performs raycasting to check if the targeted entity is within sight and melee range
 func check_for_target_in_range():
-	if !spotted_target:
+	if not spotted_target:
 		return
 	
 	var space_state = get_world_3d().direct_space_state
-	# TODO Change playerCol to group of players
 	var query = PhysicsRayQueryParameters3D.create(
 		mobCol.global_position,
 		spotted_target.global_position,
-		3,  # Layer mask for layer 1 and layer 2
+		(1 << 0) | (1 << 1) | (1 << 2), # Layer mask for layers 1 (player), 2 (mobs), and 3 (walls)
 		[self] # Exclude self
 	)
 	var result = space_state.intersect_ray(query)
 
 	if result and result.collider:
+		# If the ray hits a wall first, the mob cannot see the player
+		if result.collider.collision_layer == 1 << 2:  # Check if the collider is on layer 3
+			spotted_target = null  # Reset target if the wall blocks vision
+			return
+
+		# If the ray hits a valid target before hitting a wall, continue checking attack range
 		var is_valid_target = result.collider.is_in_group("Players") or result.collider.is_in_group("mobs")
 		var distance_to_target = mobCol.global_position.distance_to(spotted_target.global_position)
 
