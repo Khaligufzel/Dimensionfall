@@ -253,6 +253,7 @@ func _ready():
 	Helper.position_coord = Vector2(0, 0)
 	update_chunks()
 	connect_signals()
+	Helper.quest_helper.update_tracked_quest_target()
 
 
 # Connect necessary signals
@@ -560,11 +561,21 @@ func on_target_map_changed(map_ids: Array, target_properties: Dictionary = {}):
 		return
 
 	var dynamic: bool = target_properties.get("dynamic", false)
+
+	# 🔹 Ensure target exists and validate its map_id
 	if target:
 		var at_target: bool = Helper.overmap_manager.is_player_at_position(Vector2(target.coordinate.x, target.coordinate.y))
+
+		# ✅ If dynamic and the player is at the target, reset it
 		if dynamic and at_target:
 			reset_target()
+			return
 
+		# ✅ If target.map_id is NOT in map_ids, reset the target and then continue
+		if not target.map_id in map_ids:
+			reset_target()
+
+	# 🔹 Find the closest valid target
 	var closest_cell = Helper.overmap_manager.find_closest_map_cell_with_ids(map_ids, target_properties)
 	if closest_cell and target == null:
 		target = Target.new(closest_cell.map_id, Vector2(closest_cell.coordinate_x, closest_cell.coordinate_y))

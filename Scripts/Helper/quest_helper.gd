@@ -94,7 +94,8 @@ func _on_game_started():
 # Function for handling game loaded signal
 func _on_game_loaded():
 	connect_inventory_signals()
-	pass
+	var current_step = QuestManager.get_current_step(tracked_quest) # Get the quest's current step
+	check_and_emit_target_map(current_step) # Puts the quest marker on the overmap
 
 # Function for handling game ended signal
 func _on_game_ended():
@@ -520,3 +521,12 @@ func process_active_quests():
 				QuestManager.progress_quest(quest.quest_name)
 			else:
 				print_debug("Failed to spawn item on map for quest step in quest: " + quest.quest_name)
+
+# Retrieves the current step of the tracked quest and updates the target map.
+func update_tracked_quest_target() -> void:
+	if tracked_quest.is_empty():
+		return  # No quest is being tracked, so nothing to update.
+
+	var current_step = QuestManager.get_current_step(tracked_quest)  # Get the quest's current step
+	if current_step:
+		check_and_emit_target_map(current_step)  # Puts the quest marker on the overmap
