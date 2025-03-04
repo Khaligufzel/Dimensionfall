@@ -1,78 +1,69 @@
 class_name EquippedItem
 extends Sprite3D
 
-# This script is intended to be used on a node functioning as a held item, which could be a weapon
-# This script will keep track of what is equipped and if it is a weapon
-# If has functions to deal with melee weapons and ranged weapons
-# For ranged weapons it has functions and properties to keep track of ammunition and reloading
-# It has functions to spawn projectiles
 
-# Reference to the node that will hold existing projectiles
-@export var projectiles: Node3D
+## 🔹 EQUIPPED ITEM HANDLER 🔹 ##
+## This script is intended to be used on a node functioning as a held item, which could be a weapon
+## This script handles items held by the player, including weapons & tools.
+## It tracks ammo, firing, melee combat, and tool functionality.
 
-# Variables to set the bullet speed and damage
-@export var bullet_speed: float
-@export var bullet_damage: float
 
-# Reference to the scene that will be instantiated for a bullet
-@export var bullet_scene: PackedScene
-
+# --- EXPORTS & REFERENCES ---
+@export var projectiles: Node3D # Reference to the node that will hold existing projectiles
+@export var bullet_speed: float # Variables to set the bullet speed
+@export var bullet_scene: PackedScene # Reference to the scene that will be instantiated for a bullet
 # Will keep a weapon from firing when it's cooldown period has not passed yet
 @export var attack_cooldown_timer: Timer
 @export var slot_idx: int
-@export var melee_attack_area: Area3D
+@export var melee_hitbox: Area3D
 @export var melee_collision_shape: CollisionShape3D
 @export var default_hand_position: Vector3
 @export var melee_attack_z_rotation_offset: float
 
-# Reference to the player node
-@export var player: CharacterBody3D
-# The visual representation of the player that will actually rotate over the y axis
-@export var playerSprite: Sprite3D 
-# Reference to the hud node
-@export var hud: NodePath
+@export var player: CharacterBody3D # Reference to the player node
+@export var hud: NodePath # Reference to the hud node
 
 # Reference to the audio nodes
-@export var shoot_audio_player : AudioStreamPlayer3D
-@export var shoot_audio_randomizer : AudioStreamRandomizer
-@export var reload_audio_player : AudioStreamPlayer3D
+@export var shoot_audio_player: AudioStreamPlayer3D
+@export var shoot_audio_randomizer: AudioStreamRandomizer
+@export var reload_audio_player: AudioStreamPlayer3D
 
-# Define properties for the item. It can be a weapon (melee or ranged) or some other item
-var heldItem: InventoryItem
+@export var flashlight_spotlight: SpotLight3D = null # The light representing the flashlight
 
-# The equipment slot that holds this item
-var equipmentSlot: Control
 
-# Booleans to enforce the reload and cooldown timers
+
+# --- VARIABLES ---
+var equipped_item: InventoryItem # Can be a weapon (melee or ranged) or some other item
+var equipment_slot: Control # The equipment slot that holds this item
+
 var in_cooldown: bool = false
 var reload_speed: float = 1.0
+var is_using_held_item: bool = false
+var entities_in_melee_range: Array = [] # Used to keep track of entities in melee range
 
-# The current and max ammo
+# --- RECOIL SETTINGS ---
+var default_recoil: float = 0.1
+var recoil_modifier: float = 0.0 # Tracks the current level of recoil applied to the weapon.
+var max_recoil: float = 0.0 # The maximum recoil value, derived from the Ranged.recoil property of the weapon.
+var recoil_increment: float = 0.0 # The amount by which recoil increases per shot, calculated to reach max_recoil after 25% of the max ammo is fired.
+var recoil_decrement: float = 0.0 # The amount by which recoil decreases per frame when the mouse button is not pressed.
+
+# --- FIRING SETTINGS ---
 var default_firing_speed: float = 0.25
 var default_reload_speed: float = 1.0
-
-# Variables for recoil
-var default_recoil: float = 0.1
-# Tracks the current level of recoil applied to the weapon.
-var recoil_modifier: float = 0.0
-# The maximum recoil value, derived from the Ranged.recoil property of the weapon.
-var max_recoil: float = 0.0
-# The amount by which recoil increases per shot, calculated to reach max_recoil after 25% of the max ammo is fired.
-var recoil_increment: float = 0.0
-# The amount by which recoil decreases per frame when the mouse button is not pressed.
-var recoil_decrement: float = 0.0
-
-var is_using_held_item: bool
-
-var entities_in_melee_range = [] # Used to keep track of entities in melee range
 
 	
 func _ready():
 	clear_held_item()
-	melee_attack_area.body_entered.connect(_on_entered_melee_range)
-	melee_attack_area.body_exited.connect(_on_exited_melee_range)
-	melee_attack_area.body_shape_entered.connect(_on_body_shape_entered_melee_range)
-	melee_attack_area.body_shape_exited.connect(_on_body_shape_exited_melee_range)
+	_setup_signals()
+
+
+func _setup_signals() -> void:
+	melee_hitbox.body_entered.connect(_on_entered_melee_range)
+	melee_hitbox.body_exited.connect(_on_exited_melee_range)
+	melee_hitbox.body_shape_entered.connect(_on_body_shape_entered_melee_range)
+	melee_hitbox.body_shape_exited.connect(_on_body_shape_exited_melee_range)
+
 
 func get_cursor_world_position() -> Vector3:
 	var camera = get_tree().get_first_node_in_group("Camera")
@@ -96,16 +87,16 @@ func get_cursor_world_position() -> Vector3:
 
 # Helper function to check if the weapon can fire
 func can_fire_weapon() -> bool:
-	if not heldItem:
+	if not equipped_item:
 		return false
-	if heldItem.get_property("Melee") != null:  # Assuming melee weapons have a 'Melee' property
-		return General.is_mouse_outside_HUD and not General.is_action_in_progress and heldItem and not in_cooldown
-	return General.is_mouse_outside_HUD and not General.is_action_in_progress and General.is_allowed_to_shoot and heldItem and not in_cooldown and (get_current_ammo() > 0 or not requires_ammo())
+	if equipped_item.get_property("Melee") != null:  # Assuming melee weapons have a 'Melee' property
+		return General.is_mouse_outside_HUD and not General.is_action_in_progress and equipped_item and not in_cooldown
+	return General.is_mouse_outside_HUD and not General.is_action_in_progress and General.is_allowed_to_shoot and equipped_item and not in_cooldown and (get_current_ammo() > 0 or not requires_ammo())
 
 
 # Function to check if the weapon requires ammo (for ranged weapons)
 func requires_ammo() -> bool:
-	return not heldItem.get_property("Ranged") == null
+	return not equipped_item.get_property("Ranged") == null
 
 
 # Function to handle firing logic for a weapon.
@@ -113,7 +104,7 @@ func fire_weapon():
 	if not can_fire_weapon():
 		return  # Return if no weapon is equipped or no ammo.
 
-	if heldItem.get_property("Melee") != null:
+	if equipped_item.get_property("Melee") != null:
 		perform_melee_attack()
 	else:
 		perform_ranged_attack()
@@ -122,14 +113,14 @@ func fire_weapon():
 
 
 func add_weapon_xp_on_use():
-	if heldItem.get_property("Melee") != null:
-		var melee_properties = heldItem.get_property("Melee")
+	if equipped_item.get_property("Melee") != null:
+		var melee_properties = equipped_item.get_property("Melee")
 		var used_skill = melee_properties.get("used_skill", {})
 		var skill_id = used_skill.get("skill_id", "")
 		var xp_gain = used_skill.get("xp", 0)
 		player.add_skill_xp(skill_id, xp_gain)
-	elif heldItem.get_property("Ranged") != null:
-		var rangedproperties = heldItem.get_property("Ranged")
+	elif equipped_item.get_property("Ranged") != null:
+		var rangedproperties = equipped_item.get_property("Ranged")
 		if rangedproperties.has("used_skill"):
 			var used_skill = rangedproperties.used_skill
 			player.add_skill_xp(used_skill.skill_id, used_skill.xp)
@@ -137,7 +128,7 @@ func add_weapon_xp_on_use():
 
 # Return the accuracy based on skill level
 func calculate_accuracy() -> float:
-	var rangedproperties = heldItem.get_property("Ranged")
+	var rangedproperties = equipped_item.get_property("Ranged")
 	var skillid = Helper.json_helper.get_nested_data(rangedproperties, "used_skill.skill_id")
 	var skill_level = player.get_skill_level(skillid)
 	# Minimum accuracy is 25%, maximum is 100% at level 30
@@ -187,7 +178,7 @@ func perform_ranged_attack():
 
 
 func _subtract_ammo(amount: int):
-	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
+	var magazine: InventoryItem = ItemManager.get_magazine(equipped_item)
 	if magazine:
 		# We duplicate() because Gloot might return the original Magazine array from the protoset
 		var magazineProperties = magazine.get_property("Magazine").duplicate()
@@ -199,7 +190,7 @@ func _subtract_ammo(amount: int):
 
 
 func get_current_ammo() -> int:
-	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
+	var magazine: InventoryItem = ItemManager.get_magazine(equipped_item)
 	if magazine:
 		var magazineProperties = magazine.get_property("Magazine")
 		if magazineProperties and magazineProperties.has("current_ammo"):
@@ -211,7 +202,7 @@ func get_current_ammo() -> int:
 
 
 func get_max_ammo() -> int:
-	var magazine: InventoryItem = ItemManager.get_magazine(heldItem)
+	var magazine: InventoryItem = ItemManager.get_magazine(equipped_item)
 	if magazine:
 		var magazineProperties = magazine.get_property("Magazine")
 		return int(magazineProperties["max_ammo"])
@@ -220,14 +211,14 @@ func get_max_ammo() -> int:
 
 # When the user wants to reload the item
 func reload_weapon():
-	if heldItem.get_property("Melee") != null:
+	if equipped_item.get_property("Melee") != null:
 		return  # No action needed for melee weapons
-	if heldItem and not heldItem.get_property("Ranged") == null and not General.is_action_in_progress and not ItemManager.find_compatible_magazine(heldItem) == null:
-		var magazine = ItemManager.get_magazine(heldItem)
+	if equipped_item and not equipped_item.get_property("Ranged") == null and not General.is_action_in_progress and not ItemManager.find_compatible_magazine(equipped_item) == null:
+		var magazine = ItemManager.get_magazine(equipped_item)
 		if not magazine:
-			ItemManager.start_reload(heldItem, reload_speed)
+			ItemManager.start_reload(equipped_item, reload_speed)
 		elif get_current_ammo() < get_max_ammo():
-			ItemManager.start_reload(heldItem, reload_speed)
+			ItemManager.start_reload(equipped_item, reload_speed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -236,7 +227,7 @@ func _process(delta):
 		reload_audio_player.play()  # Play reload sound for left-hand weapon.
 		
 	# Decrease recoil when the mouse button is not pressed
-	if heldItem and heldItem.get_property("Ranged") != null:
+	if equipped_item and equipped_item.get_property("Ranged") != null:
 		if not is_using_held_item:
 			recoil_modifier = max(recoil_modifier - recoil_decrement * delta, 0.0)
 			
@@ -252,8 +243,8 @@ func on_magazine_removed():
 
 # When a magazine is inserted
 func on_magazine_inserted():
-	if heldItem:
-		var rangedProperties = heldItem.get_property("Ranged")
+	if equipped_item:
+		var rangedProperties = equipped_item.get_property("Ranged")
 		# Update recoil properties
 		max_recoil = float(rangedProperties.get("recoil", default_recoil))
 		recoil_increment = max_recoil / (get_max_ammo() * 0.25)
@@ -263,13 +254,14 @@ func on_magazine_inserted():
 		
 # Function to clear weapon properties for a specified hand
 func clear_held_item():
-	if heldItem and heldItem.properties_changed.is_connected(_on_helditem_properties_changed):
-		heldItem.properties_changed.disconnect(_on_helditem_properties_changed)
-		heldItem.set_property("is_reloading", false)
+	if equipped_item and equipped_item.properties_changed.is_connected(_on_helditem_properties_changed):
+		equipped_item.properties_changed.disconnect(_on_helditem_properties_changed)
+		equipped_item.set_property("is_reloading", false)
 	disable_melee_collision_shape()
 	visible = false
-	heldItem = null
+	equipped_item = null
 	in_cooldown = false
+	refresh_flashlight_visibility()
 	Helper.signal_broker.player_ammo_changed.emit(-1, -1, slot_idx)  # Emit signal to indicate no weapon is equipped
 
 func _on_left_attack_cooldown_timeout():
@@ -288,29 +280,29 @@ func _on_hud_item_was_equipped(_slot_idx: int, equippedItem: InventoryItem, slot
 # Function to check if the weapon can be reloaded
 func can_weapon_reload() -> bool:
 	# Check if the weapon is a ranged weapon
-	if heldItem and heldItem.get_property("Ranged"):
+	if equipped_item and equipped_item.get_property("Ranged"):
 		# Check if neither mouse button is pressed
 		if not is_using_held_item:
 			# Check if the weapon is not currently reloading and if a compatible magazine is available in the inventory
-			if not is_weapon_reloading() and not ItemManager.find_compatible_magazine(heldItem) == null:
+			if not is_weapon_reloading() and not ItemManager.find_compatible_magazine(equipped_item) == null:
 				# Additional checks can be added here if needed
 				return true
 	return false
 
 # When the properties of the held item change
 func _on_helditem_properties_changed():
-	if heldItem and heldItem.get_property("Ranged"):
-		if heldItem.get_property("current_magazine") == null:
+	if equipped_item and equipped_item.get_property("Ranged"):
+		if equipped_item.get_property("current_magazine") == null:
 			on_magazine_removed()
 		else:
 			on_magazine_inserted()
 
 func is_weapon_reloading() -> bool:
-	if heldItem and heldItem.get_property("Ranged"):
-		if heldItem.get_property("is_reloading") == null:
+	if equipped_item and equipped_item.get_property("Ranged"):
+		if equipped_item.get_property("is_reloading") == null:
 			return false
 		else:
-			return bool(heldItem.get_property("is_reloading"))
+			return bool(equipped_item.get_property("is_reloading"))
 	return false
 
 # Something has entered melee range
@@ -359,7 +351,7 @@ func reset_attack_position(original_position, original_rotation_degrees):
 
 # Function to perform a melee attack
 func perform_melee_attack():
-	if not heldItem or heldItem.get_property("Melee") == null:
+	if not equipped_item or equipped_item.get_property("Melee") == null:
 		print_debug("Error: No melee weapon equipped.")
 		return
 
@@ -390,7 +382,7 @@ func _start_attack_cooldown() -> void:
 
 # Calculate melee attack damage and hit chance
 func _calculate_melee_attack_data() -> Dictionary:
-	var melee_properties = heldItem.get_property("Melee")
+	var melee_properties = equipped_item.get_property("Melee")
 	var damage = melee_properties.get("damage", 0)
 	var skill_id = melee_properties.get("used_skill", {}).get("skill_id", "")
 	var skill_level = player.get_skill_level(skill_id)
@@ -444,9 +436,9 @@ func _is_obstacle_between(target_position: Vector3, target_rid: RID) -> bool:
 # equippedItem is an InventoryItem
 # slot is a Control node that represents the equipment slot
 func equip_item(equippedItem: InventoryItem, slot: Control):
-	heldItem = equippedItem
-	equipmentSlot = slot
-	equipmentSlot.equippedItem = self
+	equipped_item = equippedItem
+	equipment_slot = slot
+	equipment_slot.equippedItem = self
 
 	# Clear any existing configurations
 	clear_melee_collision_shape()
@@ -459,6 +451,10 @@ func equip_item(equippedItem: InventoryItem, slot: Control):
 	elif equippedItem.get_property("Melee") != null:
 		# Set properties specific to melee weapons
 		setup_melee_weapon_properties(equippedItem)
+
+	elif equippedItem.get_property("Tool") != null:
+		# Set properties specific to tool items
+		setup_tool_item_properties(equippedItem)
 
 	else:
 		# If the item is neither melee nor ranged, handle as a generic item
@@ -473,7 +469,7 @@ func setup_ranged_weapon_properties(equippedItem: InventoryItem):
 	reload_speed = float(ranged_properties.get("reload_speed", default_reload_speed))
 	visible = true
 	Helper.signal_broker.player_ammo_changed.emit(0, 0, slot_idx)  # Signal to update ammo display for ranged weapons
-	heldItem.properties_changed.connect(_on_helditem_properties_changed)
+	equipped_item.properties_changed.connect(_on_helditem_properties_changed)
 
 # Setup the properties for melee weapons
 func setup_melee_weapon_properties(equippedItem: InventoryItem):
@@ -491,6 +487,16 @@ func setup_melee_weapon_properties(equippedItem: InventoryItem):
 	var skill_level = player.get_skill_level(melee_skill_id)
 	var cooldown_time = 1.5 - (skill_level / 100.0) * (1.5 - 0.5)
 	attack_cooldown_timer.wait_time = cooldown_time
+
+
+# Setup the properties for tool items
+func setup_tool_item_properties(_equippedItem: InventoryItem):
+	refresh_flashlight_visibility()
+	visible = true
+
+
+func refresh_flashlight_visibility():
+	flashlight_spotlight.visible = get_highest_tool_quality("flashlight") > -1
 
 
 # Configure the melee collision shape based on the weapon's reach
@@ -522,3 +528,42 @@ func disable_melee_collision_shape():
 func clear_melee_collision_shape():
 	melee_collision_shape.disabled = false  # Ensure it's not disabled when changing weapons
 	melee_collision_shape.shape = null  # Clear the previous shape to reset its configuration
+
+
+# Returns all EquippedItems of the player excluding the one with the given slot_idx
+func get_other_equipped_items() -> Array[EquippedItem]:
+	if not player:
+		print_debug("get_other_equipped_items: No player reference found.")
+		return []
+
+	# Filter out the equipped items that do not match the given slot index
+	var other_equipped_items: Array[EquippedItem] = []
+	for item in player.held_item_slots:
+		if item.slot_idx != slot_idx:
+			other_equipped_items.append(item)
+	return other_equipped_items
+
+
+# Returns the level of the specified tool quality for the equipped item.
+# If the tool does not have the quality, returns -1.
+func get_tool_quality(tool_quality: String) -> int:
+	if not equipped_item:
+		return -1
+	var tool_properties = equipped_item.get_property("Tool", {})
+	return tool_properties.get("tool_qualities", {}).get(tool_quality, -1)
+
+
+# Returns the highest tool quality level among all equipped items.
+# If no equipped item has the given tool quality, returns -1.
+func get_highest_tool_quality(tool_quality: String) -> int:
+	if not player:
+		print_debug("get_highest_tool_quality: No player reference found.")
+		return -1
+	var highest_quality: int = -1
+
+	# Loop over all equipped items and check tool quality
+	for item in player.held_item_slots:
+		var quality_level = item.get_tool_quality(tool_quality)
+		if quality_level > highest_quality:
+			highest_quality = quality_level
+	return highest_quality

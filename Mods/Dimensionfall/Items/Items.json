@@ -455,6 +455,11 @@
 		"weight": 1
 	},
 	{
+		"Tool": {
+			"tool_qualities": {
+				"flashlight": 1
+			}
+		},
 		"description": "A basic battery powered flashlight. It will shine a beam of light when it is turned on",
 		"id": "flashlight_basic",
 		"image": "./Mods/Dimensionfall/Items/flashlight_32.png",
