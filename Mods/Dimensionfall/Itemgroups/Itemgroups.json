@@ -111,19 +111,19 @@
 				"id": "bullet_9mm",
 				"max": 20,
 				"min": 10,
-				"probability": 10
+				"probability": 5
 			},
 			{
 				"id": "pistol_magazine",
 				"max": 1,
 				"min": 1,
-				"probability": 15
+				"probability": 3
 			},
 			{
 				"id": "pistol_9mm",
 				"max": 1,
 				"min": 1,
-				"probability": 10
+				"probability": 2
 			},
 			{
 				"id": "bottle_plastic_water",
