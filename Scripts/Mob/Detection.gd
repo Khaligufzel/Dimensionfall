@@ -105,7 +105,7 @@ func get_visible_targets(potential_targets: Array[CharacterBody3D]) -> Array[Cha
 		var query = PhysicsRayQueryParameters3D.create(
 			global_position,  # Ray start point (mob's position)
 			target.global_position,  # Ray end point (target's position)
-			3,  # Layer mask for layer 1 and layer 2
+			(1 << 0) | (1 << 1) | (1 << 2), # Layer mask for layers 1 (player), 2 (mobs), and 3 (walls)
 			[self]  # Exclude the mob itself from the query
 		)
 
