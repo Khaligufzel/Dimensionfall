@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bxyvtsslfr7kt"]
 
-[ext_resource type="Script" path="res://Scripts/CraftingMenu.gd" id="1_10pgr"]
+[ext_resource type="Script" uid="uid://cjhh68hs6pu2a" path="res://Scripts/CraftingMenu.gd" id="1_10pgr"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="4_xw3mg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_myv0w"]

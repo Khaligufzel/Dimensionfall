@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c2uiumyeepree"]
 
-[ext_resource type="Script" path="res://Scripts/ItemAmmoEditor.gd" id="1_5v06u"]
+[ext_resource type="Script" uid="uid://coyt00mcucd8n" path="res://Scripts/ItemAmmoEditor.gd" id="1_5v06u"]
 
 [node name="ItemAmmoEditor" type="Control" node_paths=PackedStringArray("DamageNumberBox")]
 layout_mode = 3

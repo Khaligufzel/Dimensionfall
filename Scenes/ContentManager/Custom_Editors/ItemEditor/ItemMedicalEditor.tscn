@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dio1cpt7em6r2"]
 
-[ext_resource type="Script" path="res://Scripts/ItemMedicalEditor.gd" id="1_q4o68"]
+[ext_resource type="Script" uid="uid://crmwp14nqqvkg" path="res://Scripts/ItemMedicalEditor.gd" id="1_q4o68"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04nfc"]
 content_margin_left = 11.0

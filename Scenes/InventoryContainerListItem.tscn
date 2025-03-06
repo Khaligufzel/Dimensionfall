@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://crck2fhgayxhn"]
 
-[ext_resource type="Script" path="res://Scripts/InventoryContainerListItem.gd" id="1_76xnu"]
-[ext_resource type="Texture2D" uid="uid://ttmfel3ylg0w" path="res://Mods/Core/Tiles/arcstones1.png" id="2_qnss5"]
+[ext_resource type="Script" uid="uid://dwhut5nt5egt6" path="res://Scripts/InventoryContainerListItem.gd" id="1_76xnu"]
+[ext_resource type="Texture2D" uid="uid://ttmfel3ylg0w" path="res://Mods/Dimensionfall/Tiles/arcstones1.png" id="2_qnss5"]
 
 [node name="ContainerListItem" type="Control"]
 custom_minimum_size = Vector2(64, 64)

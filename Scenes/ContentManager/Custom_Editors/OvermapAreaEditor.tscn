@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b3ggaal1e2obk"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/OvermapAreaEditor.gd" id="1_g1n4r"]
+[ext_resource type="Script" uid="uid://cmvm0aqcd72q" path="res://Scenes/ContentManager/Custom_Editors/Scripts/OvermapAreaEditor.gd" id="1_g1n4r"]
 [ext_resource type="PackedScene" uid="uid://2kp6gjwaextr" path="res://Scenes/ContentManager/Custom_Widgets/Overmap_Area_Region_editor.tscn" id="2_jtxai"]
 [ext_resource type="PackedScene" uid="uid://neuhnehifngf" path="res://Scenes/ContentManager/Custom_Widgets/overmap_area_visualization.tscn" id="3_y3jo3"]
 

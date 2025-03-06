@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dsqp7i3pp7u8j"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/OtherTools/Scripts/overmap_grid_visualization.gd" id="1_3cky7"]
+[ext_resource type="Script" uid="uid://dsyhi4kyri5p4" path="res://Scenes/ContentManager/OtherTools/Scripts/overmap_grid_visualization.gd" id="1_3cky7"]
 [ext_resource type="PackedScene" uid="uid://budsoodfdkaea" path="res://Scenes/Overmap/OvermapTile.tscn" id="2_f2pt0"]
 
 [node name="OvermapGridVisualization" type="Control" node_paths=PackedStringArray("visual_grid")]

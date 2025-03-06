@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://ctoj10vx1twmh"]
 
-[ext_resource type="Script" path="res://WorldGeneratorTesting/WorldGeneratorTest.gd" id="1_m3noy"]
-[ext_resource type="Script" path="res://WorldGeneratorTesting/SimpleCameraMove.gd" id="2_wy1xt"]
+[ext_resource type="Script" uid="uid://daakday3f6xe5" path="res://WorldGeneratorTesting/WorldGeneratorTest.gd" id="1_m3noy"]
+[ext_resource type="Script" uid="uid://i82nvg4blyu3" path="res://WorldGeneratorTesting/SimpleCameraMove.gd" id="2_wy1xt"]
 
 [sub_resource type="Gradient" id="Gradient_b10ix"]
 colors = PackedColorArray(0, 0.744571, 3.85046e-07, 1, 0, 0.204668, 0, 1)

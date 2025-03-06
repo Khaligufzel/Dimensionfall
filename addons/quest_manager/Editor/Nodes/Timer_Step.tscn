@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cjrkm3t758l2"]
 
-[ext_resource type="Script" path="res://addons/quest_manager/Editor/Nodes/Timer_Step.gd" id="1_7ncg0"]
+[ext_resource type="Script" uid="uid://dld56n31my5ve" path="res://addons/quest_manager/Editor/Nodes/Timer_Step.gd" id="1_7ncg0"]
 
 [node name="3dfb001295" type="GraphNode"]
 custom_minimum_size = Vector2(150, 150)

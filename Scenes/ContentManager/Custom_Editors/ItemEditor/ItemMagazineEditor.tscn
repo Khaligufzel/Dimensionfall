@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://27f4k2pq2odn"]
 
-[ext_resource type="Script" path="res://Scripts/ItemMagazineEditor.gd" id="1_cgvqr"]
+[ext_resource type="Script" uid="uid://6c1lyc6bwknh" path="res://Scripts/ItemMagazineEditor.gd" id="1_cgvqr"]
 
 [node name="ItemMagazineEditor" type="Control" node_paths=PackedStringArray("UsedAmmoTextEdit", "MaxAmmoNumberBox", "CurrentAmmoNumberBox")]
 layout_mode = 3

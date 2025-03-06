@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://vfj2if40vf10"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/TerrainTileEditor.gd" id="1_wp6ou"]
+[ext_resource type="Script" uid="uid://d4hv3js8nws3s" path="res://Scenes/ContentManager/Custom_Editors/Scripts/TerrainTileEditor.gd" id="1_wp6ou"]
 [ext_resource type="PackedScene" uid="uid://b8i6wfk3fngy4" path="res://Scenes/ContentManager/Custom_Widgets/Editable_Item_List.tscn" id="2_erosr"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_x7b0a"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="5_5ngda"]

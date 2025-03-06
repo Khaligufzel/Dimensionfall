@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bdxun5nw54paa"]
 
-[ext_resource type="Script" path="res://addons/quest_manager/Editor/right_mouse_menu.gd" id="1_tpqfi"]
+[ext_resource type="Script" uid="uid://d38hq1ubhqa3j" path="res://addons/quest_manager/Editor/right_mouse_menu.gd" id="1_tpqfi"]
 
 [node name="right_mouse_list" type="PopupMenu"]
 position = Vector2i(125, 0)

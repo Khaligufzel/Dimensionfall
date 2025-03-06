@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b07i30w3ey3aa"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/PlayerAttributeEditor.gd" id="1_720us"]
+[ext_resource type="Script" uid="uid://cujecfoy2c4d6" path="res://Scenes/ContentManager/Custom_Editors/Scripts/PlayerAttributeEditor.gd" id="1_720us"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_72bbp"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_pwtky"]
 

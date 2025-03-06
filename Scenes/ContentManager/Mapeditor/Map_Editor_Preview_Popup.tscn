@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bmkopblan4t1x"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Map_Editor_Preview_Popup.gd" id="1_jt8s5"]
+[ext_resource type="Script" uid="uid://dqd6wnjmtjdkt" path="res://Scenes/ContentManager/Mapeditor/Scripts/Map_Editor_Preview_Popup.gd" id="1_jt8s5"]
 [ext_resource type="PackedScene" uid="uid://3x0kjiu7lqg7" path="res://Scenes/ContentManager/Mapeditor/mapeditortile.tscn" id="2_1bnrv"]
 
 [node name="Map_Preview" type="Popup" node_paths=PackedStringArray("generate_button", "map_preview_grid", "level_spin_box", "window_size_h_slider", "window_size_label")]

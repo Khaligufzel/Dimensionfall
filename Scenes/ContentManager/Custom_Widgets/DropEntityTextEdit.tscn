@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dmlbg7nolncnh"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/DropEntityTextEdit.gd" id="1_i3125"]
+[ext_resource type="Script" uid="uid://bpcvnfc83wue1" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/DropEntityTextEdit.gd" id="1_i3125"]
 
 [node name="DropEntityTextEdit" type="HBoxContainer" node_paths=PackedStringArray("mytextedit", "button")]
 custom_minimum_size = Vector2(0, 30)

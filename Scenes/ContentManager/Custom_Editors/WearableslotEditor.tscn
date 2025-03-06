@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://767oi7u7wkm5"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/WearableslotEditor.gd" id="1_j4ii6"]
+[ext_resource type="Script" uid="uid://dc06vvn4v8xrv" path="res://Scenes/ContentManager/Custom_Editors/Scripts/WearableslotEditor.gd" id="1_j4ii6"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_8f3xi"]
 [ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="3_14upu"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_qjob6"]

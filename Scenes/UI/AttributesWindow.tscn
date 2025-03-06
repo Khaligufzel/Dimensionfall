@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b6ooia1084wfx"]
 
-[ext_resource type="Script" path="res://Scripts/AttributesWindow.gd" id="1_5jj4r"]
+[ext_resource type="Script" uid="uid://doypkgyplt3nm" path="res://Scripts/AttributesWindow.gd" id="1_5jj4r"]
 
 [node name="AttributesWindow" type="PanelContainer" node_paths=PackedStringArray("attributeContainer")]
 size_flags_horizontal = 3

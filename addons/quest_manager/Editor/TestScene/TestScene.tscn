@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://3iqa1wur00ir"]
 
-[ext_resource type="Script" path="res://addons/quest_manager/Editor/TestScene/PlayerQuests.gd" id="2_6skof"]
-[ext_resource type="Script" path="res://addons/quest_manager/Editor/TestScene/AvailableQuests.gd" id="2_h4po8"]
+[ext_resource type="Script" uid="uid://d1ekvctvb0o6k" path="res://addons/quest_manager/Editor/TestScene/PlayerQuests.gd" id="2_6skof"]
+[ext_resource type="Script" uid="uid://bkhnx65d01xxq" path="res://addons/quest_manager/Editor/TestScene/AvailableQuests.gd" id="2_h4po8"]
 
 [node name="Test_Scene" type="Control"]
 layout_mode = 3

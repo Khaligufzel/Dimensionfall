@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://onkmwt1te3be"]
 
-[ext_resource type="Script" path="res://Scripts/ItemToolEditor.gd" id="1_kjfxi"]
+[ext_resource type="Script" uid="uid://cccj76pej81e" path="res://Scripts/ItemToolEditor.gd" id="1_kjfxi"]
 
 [node name="ItemToolEditor" type="Control" node_paths=PackedStringArray("flashlight_number")]
 layout_mode = 3

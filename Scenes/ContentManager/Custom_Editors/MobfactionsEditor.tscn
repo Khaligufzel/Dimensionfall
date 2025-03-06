@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d3xxrpq0ijw30"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/mobfactions_editor.gd" id="1_kooul"]
+[ext_resource type="Script" uid="uid://cyxh1btlnjvr" path="res://Scenes/ContentManager/Custom_Editors/mobfactions_editor.gd" id="1_kooul"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_une6i"]
 content_margin_left = 8.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cccnrdolr1bfo"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/tilebrush.gd" id="1_x2ml4"]
-[ext_resource type="Texture2D" uid="uid://d0ec7u2d3yqqp" path="res://Mods/Core/Tiles/asphalt_middle_horizontal.png" id="2_0qm6c"]
+[ext_resource type="Script" uid="uid://c8ytrmn5jsh8a" path="res://Scenes/ContentManager/Mapeditor/Scripts/tilebrush.gd" id="1_x2ml4"]
+[ext_resource type="Texture2D" uid="uid://d0ec7u2d3yqqp" path="res://Mods/Dimensionfall/Tiles/asphalt_middle_horizontal.png" id="2_0qm6c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_art0c"]
 

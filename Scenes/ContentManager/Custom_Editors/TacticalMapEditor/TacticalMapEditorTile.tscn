@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://f6kl6bo0wsmk"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/TacticalMapEditorTile.gd" id="1_jobrn"]
+[ext_resource type="Script" uid="uid://fjm2fpkrh558" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/TacticalMapEditorTile.gd" id="1_jobrn"]
 [ext_resource type="Texture2D" uid="uid://c31w0wuk8qabw" path="res://Defaults/Sprites/2.png" id="2_gashh"]
 
 [node name="TacticalMapEditorTile" type="Control"]

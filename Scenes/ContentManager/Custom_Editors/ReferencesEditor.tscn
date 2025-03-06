@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cba63mf23i3ky"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/Scripts/ReferencesEditor.gd" id="1_cpbgb"]
+[ext_resource type="Script" uid="uid://bprmuex6gjcd7" path="res://Scenes/ContentManager/Custom_Editors/Scripts/ReferencesEditor.gd" id="1_cpbgb"]
 
 [node name="ReferencesEditor" type="Control" node_paths=PackedStringArray("references_grid")]
 layout_mode = 3

@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://dmpomdwta1pgq"]
 
-[ext_resource type="Script" path="res://Scripts/ItemEditor.gd" id="1_ef3j7"]
+[ext_resource type="Script" uid="uid://qdfglx1itjc1" path="res://Scripts/ItemEditor.gd" id="1_ef3j7"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_ghd7c"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="3_qb68r"]
 [ext_resource type="PackedScene" uid="uid://cbke1yb3m7dra" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemRangedEditor.tscn" id="3_qqmud"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://doyjc25kl7104"]
 
-[ext_resource type="Script" path="res://Scripts/bullet_line.gd" id="1_g78py"]
+[ext_resource type="Script" uid="uid://bxsg8vfbe4v7u" path="res://Scripts/bullet_line.gd" id="1_g78py"]
 
 [node name="Line2D" type="Line2D"]
 z_index = 1

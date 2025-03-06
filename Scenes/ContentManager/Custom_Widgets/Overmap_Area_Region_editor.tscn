@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://2kp6gjwaextr"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/overmap_area_region_editor.gd" id="1_5ajug"]
+[ext_resource type="Script" uid="uid://d4eh6eqo28g7w" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/overmap_area_region_editor.gd" id="1_5ajug"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_foquf"]
 bg_color = Color(0.484662, 0.657242, 0.419408, 1)

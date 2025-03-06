@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cbke1yb3m7dra"]
 
-[ext_resource type="Script" path="res://Scripts/ItemRangedEditor.gd" id="1_my1v7"]
+[ext_resource type="Script" uid="uid://cibcfcysyj15" path="res://Scripts/ItemRangedEditor.gd" id="1_my1v7"]
 [ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="2_crphu"]
 
 [node name="ItemRangedEditor" type="Control" node_paths=PackedStringArray("UsedAmmoTextEdit", "UsedMagazineContainer", "RangeNumberBox", "SpreadNumberBox", "SwayNumberBox", "RecoilNumberBox", "UsedSkillTextEdit", "skill_xp_spin_box", "ReloadSpeedNumberBox", "FiringSpeedNumberBox")]

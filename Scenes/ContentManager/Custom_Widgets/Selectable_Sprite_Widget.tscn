@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://vc1hpsum7b2u"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/Selectable_Sprite_Widget.gd" id="1_ix6u3"]
+[ext_resource type="Script" uid="uid://b56ppabsby20e" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/Selectable_Sprite_Widget.gd" id="1_ix6u3"]
 [ext_resource type="Texture2D" uid="uid://ttmfel3ylg0w" path="res://Mods/Dimensionfall/Tiles/arcstones1.png" id="2_5qjrc"]
 
 [node name="SelectableSprite" type="Control"]
