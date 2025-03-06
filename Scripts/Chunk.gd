@@ -967,7 +967,7 @@ func create_colliders() -> void:
 
 			block_counter += 1
 			if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
-				OS.delay_msec(100) # Adjust delay time as needed
+				OS.delay_msec(1) # Adjust delay time as needed
 
 	# Create colliders for cubes using the modified copy of block_positions
 	create_cube_colliders(block_positions_copy, total_blocks, delay_every_n_blocks)
@@ -1019,7 +1019,7 @@ func create_cube_colliders(block_positions_copy: Dictionary, total_blocks: int, 
 		
 		block_counter += 1
 		if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
-			OS.delay_msec(100) # Adjust delay time as needed
+			OS.delay_msec(1) # Adjust delay time as needed
 
 
 # Creates a combined collider for cubes and puts it at the right place

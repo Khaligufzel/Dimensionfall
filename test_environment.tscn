@@ -1,49 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://by4k08jqt2qal"]
+[gd_scene load_steps=5 format=3 uid="uid://by4k08jqt2qal"]
 
 [ext_resource type="Script" uid="uid://djfx5kt38vuvf" path="res://Scripts/Chunk.gd" id="1_hp7uo"]
 [ext_resource type="Script" uid="uid://gqicvgvnb73e" path="res://test_environment.gd" id="1_vhsh0"]
-[ext_resource type="Script" uid="uid://bbgacjm6n4tha" path="res://Scripts/player.gd" id="2_djsnx"]
-[ext_resource type="Script" uid="uid://ccvllvfjxi0e3" path="res://Scripts/Camera.gd" id="3_m8tfq"]
-[ext_resource type="PackedScene" uid="uid://bwlxjl00td75p" path="res://spot_light_3d.tscn" id="4_4b0kv"]
-[ext_resource type="PackedScene" uid="uid://r0oar0ocyo6v" path="res://spot_light_3d_2.tscn" id="5_7f1m0"]
-[ext_resource type="Texture2D" uid="uid://d33h00t0fl7x" path="res://Defaults/Player/VestDude01.png" id="6_bmb7i"]
-[ext_resource type="Texture2D" uid="uid://piolgplta87y" path="res://Defaults/Player/weapon_left.png" id="7_lus3f"]
-[ext_resource type="Script" uid="uid://ftajm2qq4vwa" path="res://Scripts/EquippedItem.gd" id="8_uyqga"]
-[ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://Defaults/Projectiles/DefaultBullet.tscn" id="9_3ns7a"]
-[ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="10_naftw"]
-[ext_resource type="Texture2D" uid="uid://delyq5g2t13cx" path="res://Defaults/Player/weapon_right.png" id="11_30vkt"]
-[ext_resource type="PackedScene" uid="uid://c6txt3py4smbb" path="res://front_light.tscn" id="12_few2t"]
-[ext_resource type="Script" uid="uid://dc5ubakpqyumw" path="res://Scripts/PlayerShooting.gd" id="13_mey1o"]
-[ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="14_qra48"]
-[ext_resource type="Script" uid="uid://d2x7bgurtvhx4" path="res://Scripts/ItemDetector.gd" id="15_vfagn"]
-[ext_resource type="Script" uid="uid://bpfarfnqfaxdq" path="res://Scripts/Components/ComponentInteract.gd" id="16_2adj1"]
+[ext_resource type="PackedScene" uid="uid://bn5i23p2yi5uj" path="res://Scenes/player.tscn" id="3_uc33h"]
 [ext_resource type="Script" uid="uid://bvjofw3g5oyxg" path="res://LevelManager.gd" id="17_akyhy"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oq8au"]
-albedo_color = Color(0, 1, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_63elu"]
-size = Vector3(0.3, 1, 0.55)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0rk2n"]
-points = PackedVector3Array(0.15, 0.15, 0.275, -0.15, 0.15, 0.275, 0.15, -0.5, 0.275, 0.15, 0.15, -0.275, -0.15, 0.15, -0.275, -0.15, -0.5, 0.275, 0.15, -0.5, -0.275, -0.15, -0.5, -0.275)
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mjfg7"]
-playback_mode = 1
-random_pitch = 1.2
-streams_count = 1
-stream_0/stream = ExtResource("10_naftw")
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ikrwj"]
-playback_mode = 1
-random_pitch = 1.2
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qtql3"]
-points = PackedVector3Array(0, 0, 0.325, -1, -1, 0.325, -1, 1, 0.325, 0, 0, -0.325, -1, -1, -0.325, -1, 1, -0.325)
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_yag6m"]
-height = 1.0
-radius = 1.5
 
 [node name="TestEnvironment" type="Node3D" node_paths=PackedStringArray("canvas_layer", "chunk")]
 script = ExtResource("1_vhsh0")
@@ -54,139 +14,7 @@ chunk = NodePath("Chunk")
 script = ExtResource("1_hp7uo")
 level_manager = NodePath("../LevelManager")
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("sprite", "collision_detector") groups=["Players"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)
-collision_mask = 22
-floor_constant_speed = true
-floor_max_angle = 0.872665
-script = ExtResource("2_djsnx")
-sprite = NodePath("Sprite3D2")
-collision_detector = NodePath("Sprite3D2/CollisionDetector")
-testing = true
-
-[node name="Camera3D" type="Camera3D" parent="Player" groups=["Camera"]]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 19, 0)
-current = true
-size = 50.0
-script = ExtResource("3_m8tfq")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
-visible = false
-material_override = SubResource("StandardMaterial3D_oq8au")
-mesh = SubResource("BoxMesh_63elu")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100794, 0)
-shape = SubResource("ConvexPolygonShape3D_0rk2n")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17078, 0)
-visible = false
-shadow_enabled = true
-omni_range = 18.071
-omni_attenuation = 0.0371628
-
-[node name="SpotLight3D" parent="Player" instance=ExtResource("4_4b0kv")]
-
-[node name="SpotLight3D2" parent="Player" instance=ExtResource("5_7f1m0")]
-
-[node name="Sprite3D2" type="Sprite3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
-pixel_size = 0.003
-render_priority = 15
-texture = ExtResource("6_bmb7i")
-
-[node name="EquippedRight" type="Sprite3D" parent="Player/Sprite3D2" node_paths=PackedStringArray("attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.190849, -0.123334, 0)
-pixel_size = 0.002
-render_priority = 15
-texture = ExtResource("7_lus3f")
-script = ExtResource("8_uyqga")
-bullet_speed = 25.0
-bullet_damage = 25.0
-bullet_scene = ExtResource("9_3ns7a")
-attack_cooldown_timer = NodePath("../../Shooting/Right_attack_cooldown")
-melee_attack_area = NodePath("../MeleeRange")
-melee_collision_shape = NodePath("../MeleeRange/MeleeCollisionShape3D")
-player = NodePath("../..")
-playerSprite = NodePath("..")
-hud = NodePath("../../../../../HUD")
-shoot_audio_player = NodePath("../../Shooting/ShootAudio")
-shoot_audio_randomizer = SubResource("AudioStreamRandomizer_mjfg7")
-reload_audio_player = NodePath("../../Shooting/ReloadAudio")
-
-[node name="EquippedLeft" type="Sprite3D" parent="Player/Sprite3D2" node_paths=PackedStringArray("attack_cooldown_timer", "melee_attack_area", "melee_collision_shape", "player", "playerSprite", "shoot_audio_player", "reload_audio_player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.194626, 0.116675, 0)
-pixel_size = 0.002
-render_priority = 15
-texture = ExtResource("11_30vkt")
-script = ExtResource("8_uyqga")
-bullet_speed = 25.0
-bullet_damage = 25.0
-bullet_scene = ExtResource("9_3ns7a")
-attack_cooldown_timer = NodePath("../../Shooting/Left_attack_cooldown")
-melee_attack_area = NodePath("../MeleeRange")
-melee_collision_shape = NodePath("../MeleeRange/MeleeCollisionShape3D")
-player = NodePath("../..")
-playerSprite = NodePath("..")
-hud = NodePath("../../../../../HUD")
-equipped_left = true
-shoot_audio_player = NodePath("../../Shooting/ShootAudio")
-shoot_audio_randomizer = SubResource("AudioStreamRandomizer_ikrwj")
-reload_audio_player = NodePath("../../Shooting/ReloadAudio")
-
-[node name="MeleeRange" type="Area3D" parent="Player/Sprite3D2"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.277026)
-collision_mask = 14
-
-[node name="MeleeCollisionShape3D" type="CollisionShape3D" parent="Player/Sprite3D2/MeleeRange"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
-shape = SubResource("ConvexPolygonShape3D_qtql3")
-
-[node name="CollisionDetector" type="Area3D" parent="Player/Sprite3D2"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.00202602)
-collision_mask = 8
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Sprite3D2/CollisionDetector"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.179206, 0)
-shape = SubResource("ConvexPolygonShape3D_0rk2n")
-
-[node name="FrontLight" parent="Player/Sprite3D2" instance=ExtResource("12_few2t")]
-
-[node name="Shooting" type="Node3D" parent="Player" node_paths=PackedStringArray("left_hand_item", "right_hand_item")]
-script = ExtResource("13_mey1o")
-left_hand_item = NodePath("../Sprite3D2/EquippedLeft")
-right_hand_item = NodePath("../Sprite3D2/EquippedRight")
-player = NodePath("..")
-hud = NodePath("../../../../HUD")
-
-[node name="Left_attack_cooldown" type="Timer" parent="Player/Shooting"]
-one_shot = true
-
-[node name="Right_attack_cooldown" type="Timer" parent="Player/Shooting"]
-one_shot = true
-
-[node name="ShootAudio" type="AudioStreamPlayer3D" parent="Player/Shooting"]
-stream = ExtResource("10_naftw")
-bus = &"Sounds"
-
-[node name="ReloadAudio" type="AudioStreamPlayer3D" parent="Player/Shooting"]
-stream = ExtResource("14_qra48")
-bus = &"Sounds"
-
-[node name="ItemDetector" type="Area3D" parent="Player" node_paths=PackedStringArray("playernode")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1205, 0)
-collision_layer = 64
-collision_mask = 64
-script = ExtResource("15_vfagn")
-playernode = NodePath("..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/ItemDetector"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.792087, 0)
-shape = SubResource("CylinderShape3D_yag6m")
-
-[node name="ComponentInteract" type="Node3D" parent="Player"]
-script = ExtResource("16_2adj1")
+[node name="Player" parent="." instance=ExtResource("3_uc33h")]
 
 [node name="LevelManager" type="Node3D" parent="."]
 script = ExtResource("17_akyhy")
@@ -225,11 +53,5 @@ text = "Resume"
 layout_mode = 2
 text = "Return to content editor"
 
-[connection signal="timeout" from="Player/Shooting/Left_attack_cooldown" to="Player/Sprite3D2/EquippedLeft" method="_on_left_attack_cooldown_timeout"]
-[connection signal="timeout" from="Player/Shooting/Right_attack_cooldown" to="Player/Sprite3D2/EquippedRight" method="_on_right_attack_cooldown_timeout"]
-[connection signal="area_entered" from="Player/ItemDetector" to="Player/ItemDetector" method="_on_area_entered"]
-[connection signal="area_exited" from="Player/ItemDetector" to="Player/ItemDetector" method="_on_area_exited"]
-[connection signal="body_shape_entered" from="Player/ItemDetector" to="Player/ItemDetector" method="_on_body_shape_entered"]
-[connection signal="body_shape_exited" from="Player/ItemDetector" to="Player/ItemDetector" method="_on_body_shape_exited"]
 [connection signal="button_up" from="CanvasLayer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_button_up"]
 [connection signal="button_up" from="CanvasLayer/VBoxContainer/ReturnButton" to="." method="_on_return_button_button_up"]
