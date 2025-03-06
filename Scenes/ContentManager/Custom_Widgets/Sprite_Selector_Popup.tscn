@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1h1rpwt8f807"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/Sprite_Selector_Popup.gd" id="1_rag8d"]
+[ext_resource type="Script" uid="uid://c17677pnxy4qk" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/Sprite_Selector_Popup.gd" id="1_rag8d"]
 [ext_resource type="PackedScene" uid="uid://vc1hpsum7b2u" path="res://Scenes/ContentManager/Custom_Widgets/Selectable_Sprite_Widget.tscn" id="2_wjnk7"]
 [ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="3_nkgi6"]
 

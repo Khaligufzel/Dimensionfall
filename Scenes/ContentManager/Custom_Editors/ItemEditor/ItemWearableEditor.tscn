@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://65bjwo1b3je2"]
 
-[ext_resource type="Script" path="res://Scripts/ItemWearableEditor.gd" id="1_o5i08"]
+[ext_resource type="Script" uid="uid://7rnt3osmxmtb" path="res://Scripts/ItemWearableEditor.gd" id="1_o5i08"]
 [ext_resource type="PackedScene" uid="uid://dmlbg7nolncnh" path="res://Scenes/ContentManager/Custom_Widgets/DropEntityTextEdit.tscn" id="2_7340g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3shf"]

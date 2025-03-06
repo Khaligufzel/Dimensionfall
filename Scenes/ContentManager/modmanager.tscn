@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://70o5qt3qyqdp"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/modmanager.gd" id="1_gah13"]
+[ext_resource type="Script" uid="uid://dh4fwdtpwv0pu" path="res://Scenes/ContentManager/Scripts/modmanager.gd" id="1_gah13"]
 
 [node name="modmanager" type="Control"]
 layout_mode = 3

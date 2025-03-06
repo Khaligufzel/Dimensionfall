@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://clpbtb0qfrk5j"]
 
-[ext_resource type="Script" path="res://Scripts/BuildingMenu.gd" id="1_wcwjs"]
+[ext_resource type="Script" uid="uid://dnuxrj5p1710a" path="res://Scripts/BuildingMenu.gd" id="1_wcwjs"]
 
 [node name="BuildingMenu" type="GridContainer" node_paths=PackedStringArray("construction_option_button")]
 offset_right = 186.0

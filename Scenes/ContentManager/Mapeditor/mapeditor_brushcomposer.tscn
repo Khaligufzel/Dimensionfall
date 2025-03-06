@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://c80hblyn3jedv"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor_brushcomposer.gd" id="1_bl6cv"]
+[ext_resource type="Script" uid="uid://c22ftew886ng7" path="res://Scenes/ContentManager/Mapeditor/Scripts/mapeditor_brushcomposer.gd" id="1_bl6cv"]
 [ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="1_ump07"]
 [ext_resource type="PackedScene" uid="uid://cccnrdolr1bfo" path="res://Scenes/ContentManager/Mapeditor/tilebrush.tscn" id="2_epuda"]
 [ext_resource type="Texture2D" uid="uid://dixj0spya5p0y" path="res://Images/Icons/IconRotateRight.png" id="3_nbxmi"]

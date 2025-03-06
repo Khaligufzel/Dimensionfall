@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d2jn8nd57qmfk"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/othertools.gd" id="1_wv57c"]
+[ext_resource type="Script" uid="uid://bskslkig471xq" path="res://Scenes/ContentManager/Scripts/othertools.gd" id="1_wv57c"]
 
 [node name="othertools" type="Control"]
 layout_mode = 3

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b7fyuisy3oxx7"]
 
-[ext_resource type="Script" path="res://Scripts/FurnitureConstructionWindow.gd" id="1_xxpn6"]
+[ext_resource type="Script" uid="uid://debpgc5k2djol" path="res://Scripts/FurnitureConstructionWindow.gd" id="1_xxpn6"]
 [ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="2_qtkw5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu1vc"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bgnxsnv6ltej8"]
 
-[ext_resource type="Script" path="res://Scripts/CtrlInventoryStackedListItem.gd" id="1_1qim3"]
+[ext_resource type="Script" uid="uid://cv352ib3a60ox" path="res://Scripts/CtrlInventoryStackedListItem.gd" id="1_1qim3"]
 
 [node name="CtrlInventoryStackedListItem" type="Control" node_paths=PackedStringArray("myBackgroundRect", "myLabel", "myIcon")]
 custom_minimum_size = Vector2(50, 24)

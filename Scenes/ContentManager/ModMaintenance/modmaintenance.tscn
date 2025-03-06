@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://6d7nhwfk088o"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/modmaintenance.gd" id="1_qyerb"]
+[ext_resource type="Script" uid="uid://bf15kstvun3ts" path="res://Scenes/ContentManager/Scripts/modmaintenance.gd" id="1_qyerb"]
 [ext_resource type="PackedScene" uid="uid://ba7nwjvy7m2t5" path="res://Scenes/ContentManager/ModMaintenance/exportdata.tscn" id="2_o3o7x"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_avegi"]
