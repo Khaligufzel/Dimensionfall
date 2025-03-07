@@ -24,7 +24,7 @@ var spawner: FurnitureStaticSpawner # The spawner that spawned this furniture
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh # A mesh below the sprite for 3d effect
 var sprite_texture: Texture2D  # Variable to store the sprite texture
-var sprite_material: ShaderMaterial # Material to display the furniture sprite
+var sprite_material: StandardMaterial3D # Material to display the furniture sprite
 var quad_mesh: PlaneMesh # Shows the sprite of the furniture
 
 # Variables to manage door functionality
@@ -887,7 +887,7 @@ func create_sprite_instance():
 	quad_mesh.size = furniture_transform.get_sizeV2()
 
 	# Get the shader material from Runtimedata.furnitures
-	sprite_material = Runtimedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
+	sprite_material = Runtimedata.furnitures.get_standard_material_by_id(furnitureJSON.id)
 
 	quad_mesh.material = sprite_material
 
@@ -1458,3 +1458,21 @@ func add_item_to_inventory(item_id: String, quantity: int) -> bool:
 func get_y_position(is_snapped: bool = false) -> float:
 	var y_pos = furniture_transform.posy
 	return round(y_pos) if is_snapped else y_pos
+
+# Hides all visual elements of the furniture (mesh, sprite, container sprite)
+func hide_visuals():
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, false)
+	if quad_instance:
+		RenderingServer.instance_set_visible(quad_instance, false)
+	if container and container.sprite_instance:
+		RenderingServer.instance_set_visible(container.sprite_instance, false)
+
+# Shows all visual elements of the furniture (mesh, sprite, container sprite)
+func show_visuals():
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, true)
+	if quad_instance:
+		RenderingServer.instance_set_visible(quad_instance, true)
+	if container and container.sprite_instance:
+		RenderingServer.instance_set_visible(container.sprite_instance, true)

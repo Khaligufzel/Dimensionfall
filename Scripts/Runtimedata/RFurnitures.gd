@@ -10,6 +10,7 @@ var furnituredict: Dictionary = {}  # Holds runtime furniture instances
 var sprites: Dictionary = {}  # Holds furniture sprites
 var shader_materials: Dictionary = {}  # Cache for shader materials by furniture ID
 var shape_materials: Dictionary = {}  # Cache for shape materials by furniture ID
+var standard_materials: Dictionary = {}  # Cache for standard materials by furniture ID
 var under_construction_material: ShaderMaterial
 
 # Constructor
@@ -155,4 +156,25 @@ func create_under_construction_material() -> ShaderMaterial:
 	material.set_shader_parameter("object_color", Color(0.5, 0.7, 1.0))  # Light blue tint to indicate construction
 	material.set_shader_parameter("alpha", 0.7)  # Semi-transparent to distinguish under-construction state
 	
+	return material
+
+
+# New function to get or create a StandardMaterial3D for a furniture ID
+func get_standard_material_by_id(furniture_id: String) -> StandardMaterial3D:
+	if standard_materials.has(furniture_id):  # Reuse the dictionary for storing StandardMaterial3D
+		return standard_materials[furniture_id]
+	else:
+		var material: StandardMaterial3D = create_standard_material(furniture_id)
+		standard_materials[furniture_id] = material
+		return material
+
+# Helper function to create a StandardMaterial3D for a furniture ID
+func create_standard_material(furniture_id: String) -> StandardMaterial3D:
+	var rfurniture: RFurniture = by_id(furniture_id)
+	var albedo_texture: Texture = rfurniture.sprite
+	
+	var material: StandardMaterial3D = StandardMaterial3D.new()
+	material.albedo_texture = albedo_texture  # Set the furniture sprite
+	material.flags_transparent = true
+
 	return material
