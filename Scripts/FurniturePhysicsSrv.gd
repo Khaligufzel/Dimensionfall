@@ -223,7 +223,7 @@ func create_visual_instance() -> void:
 	sprite_mesh.size = sprite_size
 
 	# Get the ShaderMaterial from Runtimedata.furnitures
-	sprite_material = Runtimedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
+	sprite_material = Runtimedata.furnitures.get_standard_material_by_id(furnitureJSON.id)
 
 	sprite_mesh.material = sprite_material
 
@@ -544,3 +544,20 @@ func get_data() -> Dictionary:
 		newfurniturejson["Function"]["container"] = containerobject
 
 	return newfurniturejson
+
+
+# Returns the y position of the furniture.
+# If 'snapped' is true, it returns the y position snapped to the nearest integer.
+func get_y_position(is_snapped: bool = false) -> float:
+	var y_pos = furniture_transform.posy
+	return round(y_pos) if is_snapped else y_pos
+
+# ✅ Function to hide all visual elements
+func hide_visuals() -> void:
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, false)
+
+# ✅ Function to show all visual elements
+func show_visuals() -> void:
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, true)

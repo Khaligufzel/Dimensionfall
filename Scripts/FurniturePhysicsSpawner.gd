@@ -32,6 +32,7 @@ func _ready():
 	Helper.signal_broker.bullet_hit.connect(_on_bullet_hit)
 	Helper.signal_broker.melee_attacked_rid.connect(_on_melee_attacked_rid)
 	Helper.signal_broker.furniture_changed_chunk.connect(_on_chunk_changed)
+	Helper.signal_broker.player_current_y_level.connect(_on_player_y_level_updated)
 
 
 # Function to spawn a FurniturePhysicsSrv at a given position with given furniture data
@@ -87,6 +88,9 @@ func _on_furniture_about_to_be_destroyed(furniture: FurniturePhysicsSrv) -> void
 
 # Function to remove all furniture instances
 func remove_all_furniture() -> void:
+	# Disconnect from signal to stop tracking Y level changes
+	if Helper.signal_broker.player_current_y_level.is_connected(_on_player_y_level_updated):
+		Helper.signal_broker.player_current_y_level.disconnect(_on_player_y_level_updated)
 	for furniture in collider_to_furniture.values():
 		remove_furniture(furniture)
 
@@ -206,3 +210,16 @@ func _on_chunk_changed(furniture: FurniturePhysicsSrv, new_chunk_pos: Vector2) -
 	elif calculated_chunk_pos != chunk.mypos and not collider_to_furniture.has(collider):
 		# Do nothing, everything is as expected
 		print("Furniture is not in the current chunk and not in the dictionary. No action needed.")
+
+
+# ✅ Handles player Y level update and updates furniture visibility
+func _on_player_y_level_updated(_old_y_level: float, new_y_level: float):
+	for furniture in collider_to_furniture.values():
+		if is_instance_valid(furniture):
+			var furniture_y = furniture.get_y_position(true)  # Get snapped Y level
+
+			# Hide furniture above player, show furniture below
+			if furniture_y > new_y_level:
+				furniture.hide_visuals()
+			else:
+				furniture.show_visuals()
