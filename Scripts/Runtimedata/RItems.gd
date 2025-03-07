@@ -9,6 +9,7 @@ extends RefCounted
 var itemdict: Dictionary = {}  # Holds runtime item instances
 var sprites: Dictionary = {}  # Holds item sprites
 var shader_materials: Dictionary = {}  # Cache for shader materials by item ID
+var standard_materials: Dictionary = {} # store StandardMaterial3D instances
 
 # Constructor
 func _init(mod_list: Array[DMod]) -> void:
@@ -115,6 +116,11 @@ func _on_game_ended():
 	# Clear the dictionary
 	shader_materials.clear()
 
+	# Clear standard materials
+	for material in standard_materials.values():
+		material.free()
+	standard_materials.clear()
+
 
 # This will update the given resource file with the provided json data
 # It is intended to save item data from json to the res://ItemProtosets.tres file
@@ -167,3 +173,24 @@ func get_hand_craftable_items() -> Array[RItem]:
 					break  # Exit the loop as we only need one matching recipe
 
 	return hand_craftable_items
+
+# ✅ New function to get or create a StandardMaterial3D for a specific item ID
+func get_standard_material_by_id(item_id: String) -> StandardMaterial3D:
+	# Check if the material already exists
+	if standard_materials.has(item_id):
+		return standard_materials[item_id]
+	else:
+		# Create a new StandardMaterial3D
+		var albedo_texture: Texture = sprite_by_id(item_id)
+		var standard_material: StandardMaterial3D = create_item_standard_material(albedo_texture)
+		# Store it in the dictionary
+		standard_materials[item_id] = standard_material
+		return standard_material
+
+# ✅ Helper function to create a StandardMaterial3D for the item
+func create_item_standard_material(albedo_texture: Texture) -> StandardMaterial3D:
+	var material = StandardMaterial3D.new()
+	material.albedo_texture = albedo_texture
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	return material

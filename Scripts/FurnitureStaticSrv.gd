@@ -126,7 +126,7 @@ class FurnitureContainer:
 	var itemgroup: String # The ID of an itemgroup that it creates loot from
 	var sprite_mesh: PlaneMesh
 	var sprite_instance: RID # RID to the quadmesh that displays the containersprite
-	var material: ShaderMaterial
+	var material: StandardMaterial3D
 	var furniture_transform: FurnitureTransform
 	var parent_furniture: FurnitureStaticSrv
 	var world3d: World3D
@@ -186,7 +186,7 @@ class FurnitureContainer:
 		var item_id = random_item.prototype_id
 		
 		# Get the ShaderMaterial for the item
-		material = Runtimedata.items.get_shader_material_by_id(item_id)
+		material = Runtimedata.items.get_standard_material_by_id(item_id)
 		sprite_mesh.material = material  # Update the mesh material
 
 	# Takes an item_id and quantity and adds it to the inventory
