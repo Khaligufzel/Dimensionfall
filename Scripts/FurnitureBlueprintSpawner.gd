@@ -28,6 +28,7 @@ func _ready():
 	Helper.signal_broker.player_interacted.connect(_on_player_interacted)
 	Helper.signal_broker.body_entered_item_detector.connect(_on_body_entered_item_detector)
 	Helper.signal_broker.body_exited_item_detector.connect(_on_body_exited_item_detector)
+	Helper.signal_broker.player_current_y_level.connect(_on_player_y_level_updated)
 
 
 # Function to spawn a FurnitureBlueprintSrv at a given position with given furniture data
@@ -81,6 +82,9 @@ func _on_furniture_about_to_be_destroyed(furniture: FurnitureBlueprintSrv):
 
 # Function to remove all furniture instances
 func remove_all_furniture():
+	# Disconnect from signal to stop tracking Y level changes
+	if Helper.signal_broker.player_current_y_level.is_connected(_on_player_y_level_updated):
+		Helper.signal_broker.player_current_y_level.disconnect(_on_player_y_level_updated)
 	for furniture in collider_to_furniture.values():
 		remove_furniture(furniture)
 
@@ -138,3 +142,16 @@ func _on_body_exited_item_detector(body_rid: RID) -> void:
 		# because that's what the signal will send
 		var furniturenode: Node3D = collider_to_furniture[body_rid]
 		Helper.signal_broker.container_exited_proximity.emit(furniturenode)
+
+
+# ✅ Handles player Y level update and updates furniture visibility
+func _on_player_y_level_updated(_old_y_level: float, new_y_level: float):
+	for furniture in collider_to_furniture.values():
+		if is_instance_valid(furniture):
+			var furniture_y = furniture.get_y_position(true)  # Get snapped Y level
+
+			# Hide furniture above player, show furniture below
+			if furniture_y > new_y_level:
+				furniture.hide_visuals()
+			else:
+				furniture.show_visuals()

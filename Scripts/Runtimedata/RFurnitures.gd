@@ -11,7 +11,7 @@ var sprites: Dictionary = {}  # Holds furniture sprites
 var shader_materials: Dictionary = {}  # Cache for shader materials by furniture ID
 var shape_materials: Dictionary = {}  # Cache for shape materials by furniture ID
 var standard_materials: Dictionary = {}  # Cache for standard materials by furniture ID
-var under_construction_material: ShaderMaterial
+var under_construction_material: StandardMaterial3D
 
 # Constructor
 func _init(mod_list: Array[DMod]) -> void:
@@ -144,19 +144,24 @@ func get_constructable_furnitures() -> Array[RFurniture]:
 	return constructable_furnitures
 
 
-# Helper function to create a ShaderMaterial for furniture under construction
-func create_under_construction_material() -> ShaderMaterial:
-	# Create a new ShaderMaterial
-	var material: ShaderMaterial = ShaderMaterial.new()
+# ✅ Helper function to create a StandardMaterial3D for furniture under construction
+func create_under_construction_material() -> StandardMaterial3D:
+	# Create a new StandardMaterial3D
+	var material: StandardMaterial3D = StandardMaterial3D.new()
 	
-	# Assign the hide_above_player_shader
-	material.shader = Gamedata.hide_above_player_shader
+	# Set base color to light blue tint to indicate construction
+	material.albedo_color = Color(0.5, 0.7, 1.0) 
 	
-	# Set shader parameters
-	material.set_shader_parameter("object_color", Color(0.5, 0.7, 1.0))  # Light blue tint to indicate construction
-	material.set_shader_parameter("alpha", 0.7)  # Semi-transparent to distinguish under-construction state
+	# Set transparency (use alpha blending mode)
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	material.albedo_color.a = 0.7
+	
+	# Optionally adjust other material properties for better visual distinction
+	material.flags_unshaded = true
+	material.flags_use_point_size = false
 	
 	return material
+
 
 
 # New function to get or create a StandardMaterial3D for a furniture ID

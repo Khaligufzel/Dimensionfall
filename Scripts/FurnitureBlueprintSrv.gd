@@ -23,7 +23,7 @@ var spawner: FurnitureBlueprintSpawner
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh # A mesh below the sprite for 3d effect
 var sprite_texture: Texture2D  # Variable to store the sprite texture
-var sprite_material: ShaderMaterial # Material to display the furniture sprite
+var sprite_material: StandardMaterial3D # Material to display the furniture sprite
 var quad_mesh: PlaneMesh # Shows the sprite of the furniture
 
 
@@ -279,7 +279,7 @@ func create_sprite_instance():
 	quad_mesh.size = furniture_transform.get_sizeV2()
 
 	# Get the shader material from Runtimedata.furnitures
-	sprite_material = Runtimedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
+	sprite_material = Runtimedata.furnitures.get_standard_material_by_id(furnitureJSON.id)
 
 	quad_mesh.material = sprite_material
 
@@ -555,7 +555,7 @@ func _adjust_visuals_for_default_mode():
 		support_mesh.material = Runtimedata.furnitures.get_shape_material_by_id(rfurniture.id)
 
 	if sprite_material:
-		sprite_material = Runtimedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
+		sprite_material = Runtimedata.furnitures.get_standard_material_by_id(furnitureJSON.id)
 		quad_mesh.material = sprite_material
 
 
@@ -622,3 +622,22 @@ func remove_construction_items() -> bool:
 			return false  # If any item cannot be removed, return false
 
 	return true  # All required items were successfully removed
+
+
+# ✅ Function to hide the furniture visuals
+func hide_visuals():
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, false)
+	if quad_instance:
+		RenderingServer.instance_set_visible(quad_instance, false)
+	if container and container.sprite_instance:
+		RenderingServer.instance_set_visible(container.sprite_instance, false)
+
+# ✅ Function to show the furniture visuals
+func show_visuals():
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, true)
+	if quad_instance:
+		RenderingServer.instance_set_visible(quad_instance, true)
+	if container and container.sprite_instance:
+		RenderingServer.instance_set_visible(container.sprite_instance, true)
