@@ -8,7 +8,6 @@ extends RefCounted
 # Properties for runtime furniture data and sprites
 var furnituredict: Dictionary = {}  # Holds runtime furniture instances
 var sprites: Dictionary = {}  # Holds furniture sprites
-var shader_materials: Dictionary = {}  # Cache for shader materials by furniture ID
 var shape_materials: Dictionary = {}  # Cache for shape materials by furniture ID
 var standard_materials: Dictionary = {}  # Cache for standard materials by furniture ID
 var under_construction_material: StandardMaterial3D
@@ -72,27 +71,6 @@ func load_sprites(sprite_path: String) -> void:
 		# Add the texture to the dictionary
 		sprites[png_file] = texture
 
-# New function to get or create a ShaderMaterial for a furniture ID
-func get_shader_material_by_id(furniture_id: String) -> ShaderMaterial:
-	if shader_materials.has(furniture_id):
-		return shader_materials[furniture_id]
-	else:
-		# Create a new ShaderMaterial
-		var shader_material: ShaderMaterial = create_furniture_shader_material(furniture_id)
-		shader_materials[furniture_id] = shader_material
-		return shader_material
-
-# Helper function to create a ShaderMaterial for the furniture
-func create_furniture_shader_material(furniture_id: String) -> ShaderMaterial:
-	var rfurniture: RFurniture = by_id(furniture_id)
-	var albedo_texture: Texture = rfurniture.sprite
-	var shader_material = ShaderMaterial.new()
-	shader_material.shader = Gamedata.hide_above_player_shader  # Use the shared shader
-
-	# Assign the texture to the material
-	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
-
-	return shader_material
 
 # New function to get or create a visual instance material for a furniture ID
 func get_shape_material_by_id(furniture_id: String) -> ShaderMaterial:
@@ -124,8 +102,8 @@ func create_shape_material(furniture_id: String) -> ShaderMaterial:
 
 # Handle the game ended signal to clear shader materials
 func _on_game_ended():
-	shader_materials.clear()
 	shape_materials.clear()
+	standard_materials.clear()
 
 
 func is_moveable(id: String) -> bool:
