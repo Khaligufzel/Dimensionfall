@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bn5i23p2yi5uj"]
+[gd_scene load_steps=26 format=3 uid="uid://bn5i23p2yi5uj"]
 
 [ext_resource type="Script" uid="uid://bbgacjm6n4tha" path="res://Scripts/player.gd" id="1_8wv3l"]
 [ext_resource type="Script" uid="uid://ccvllvfjxi0e3" path="res://Scripts/Camera.gd" id="2_g83x8"]
@@ -18,14 +18,14 @@
 [ext_resource type="Script" uid="uid://d2x7bgurtvhx4" path="res://Scripts/ItemDetector.gd" id="16_gq4uc"]
 [ext_resource type="Script" uid="uid://bpfarfnqfaxdq" path="res://Scripts/Components/ComponentInteract.gd" id="17_23lma"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qqcod"]
+size = Vector3(0.29, 0.65, 0.555)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gsdb"]
 albedo_color = Color(0, 1, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_mc21b"]
 size = Vector3(0.3, 1, 0.55)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_drnhn"]
-points = PackedVector3Array(0.15, 0.15, 0.275, -0.15, 0.15, 0.275, 0.15, -0.5, 0.275, 0.15, 0.15, -0.275, -0.15, 0.15, -0.275, -0.15, -0.5, 0.275, 0.15, -0.5, -0.275, -0.15, -0.5, -0.275)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n8kat"]
 playback_mode = 1
@@ -41,6 +41,9 @@ stream_0/stream = ExtResource("9_hmpqe")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ra623"]
 points = PackedVector3Array(0, 0, 0.325, -1, -1, 0.325, -1, 1, 0.325, 0, 0, -0.325, -1, -1, -0.325, -1, 1, -0.325)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_drnhn"]
+points = PackedVector3Array(0.15, 0.15, 0.275, -0.15, 0.15, 0.275, 0.15, -0.5, 0.275, 0.15, 0.15, -0.275, -0.15, 0.15, -0.275, -0.15, -0.5, 0.275, 0.15, -0.5, -0.275, -0.15, -0.5, -0.275)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_caadj"]
 height = 1.0
@@ -62,14 +65,14 @@ current = true
 size = 50.0
 script = ExtResource("2_g83x8")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.275, 0)
+shape = SubResource("BoxShape3D_qqcod")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false
 material_override = SubResource("StandardMaterial3D_7gsdb")
 mesh = SubResource("BoxMesh_mc21b")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100794, 0)
-shape = SubResource("ConvexPolygonShape3D_drnhn")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17078, 0)
