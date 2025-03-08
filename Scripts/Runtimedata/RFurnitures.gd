@@ -72,33 +72,38 @@ func load_sprites(sprite_path: String) -> void:
 		sprites[png_file] = texture
 
 
-# New function to get or create a visual instance material for a furniture ID
-func get_shape_material_by_id(furniture_id: String) -> ShaderMaterial:
+# ✅ Updated function to return StandardMaterial3D instead of ShaderMaterial
+func get_shape_material_by_id(furniture_id: String) -> StandardMaterial3D:
 	if shape_materials.has(furniture_id):
 		return shape_materials[furniture_id]
 	else:
-		var material: ShaderMaterial = create_shape_material(furniture_id)
+		var material: StandardMaterial3D = create_shape_material(furniture_id)
 		shape_materials[furniture_id] = material
 		return material
 
-# Helper function to create a ShaderMaterial for the support shape
-func create_shape_material(furniture_id: String) -> ShaderMaterial:
+# ✅ Updated helper function to create a StandardMaterial3D for the support shape
+func create_shape_material(furniture_id: String) -> StandardMaterial3D:
 	var rfurniture: RFurniture = by_id(furniture_id)
 	if rfurniture.moveable:  # Only static furniture has a support shape
 		return null
+	
 	var color = Color.html(rfurniture.support_shape.color)
-	var material: ShaderMaterial = ShaderMaterial.new()
+	var material: StandardMaterial3D = StandardMaterial3D.new()
 
 	if rfurniture.support_shape.transparent:
-		material.shader = Gamedata.hide_above_player_shader
-		material.set_shader_parameter("object_color", color)
-		material.set_shader_parameter("alpha", 0.5)
+		material.albedo_color = color
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		material.albedo_color.a = 0.5
 	else:
-		material.shader = Gamedata.hide_above_player_shadow
-		material.set_shader_parameter("object_color", color)
-		material.set_shader_parameter("alpha", 1.0)
+		material.albedo_color = color
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		material.albedo_color.a = 1.0
+
+	# Optionally adjust shading and other visual properties
+	#material.flags_unshaded = true
 
 	return material
+
 
 # Handle the game ended signal to clear shader materials
 func _on_game_ended():

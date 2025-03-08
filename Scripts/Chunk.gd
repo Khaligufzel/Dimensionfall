@@ -338,7 +338,7 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 
 # Function to free all chunk-related instances
 func free_chunk_resources():
-	free_furniture_instances()
+	unload_furniture_instances()
 	free_mob_instances(get_tree().get_nodes_in_group("mobs"))
 	free_item_instances(get_tree().get_nodes_in_group("mapitems"))
 	chunk_mesh_body.queue_free()
@@ -346,9 +346,9 @@ func free_chunk_resources():
 
 
 # Function to free the furniture instances
-func free_furniture_instances():
-	furniture_static_spawner.remove_all_furniture()
-	furniture_physics_spawner.remove_all_furniture()
+func unload_furniture_instances():
+	furniture_static_spawner.unload()
+	furniture_physics_spawner.unload()
 
 
 # Function to free the mob instances

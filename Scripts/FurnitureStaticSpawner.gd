@@ -12,7 +12,7 @@ var chunk: Chunk
 var furniture_json_list: Array = []:
 	set(value):
 		furniture_json_list = value
-		Helper.task_manager.create_task(_spawn_all_furniture)
+		await Helper.task_manager.create_task(_spawn_all_furniture)
 
 
 # Initialize with reference to the chunk
@@ -26,7 +26,6 @@ func _ready():
 	Helper.signal_broker.body_exited_item_detector.connect(_on_body_exited_item_detector)
 	Helper.signal_broker.bullet_hit.connect(_on_bullet_hit)
 	Helper.signal_broker.melee_attacked_rid.connect(_on_melee_attacked_rid)
-	Helper.signal_broker.player_current_y_level.connect(_on_player_y_level_updated)
 
 
 # Function to spawn a FurnitureStaticSrv at a given position with given furniture data
@@ -79,10 +78,7 @@ func _on_furniture_about_to_be_destroyed(furniture: FurnitureStaticSrv):
 	
 
 # Function to remove all furniture instances
-func remove_all_furniture():
-	# Disconnect from signal to stop tracking Y level changes
-	if Helper.signal_broker.player_current_y_level.is_connected(_on_player_y_level_updated):
-		Helper.signal_broker.player_current_y_level.disconnect(_on_player_y_level_updated)
+func unload():
 	for furniture in collider_to_furniture.values():
 		remove_furniture(furniture)
 
@@ -149,7 +145,6 @@ func _on_body_exited_item_detector(body_rid: RID) -> void:
 # A bullet has hit something. We check if one of the furnitures was hit and pass the attack
 func _on_bullet_hit(body_rid: RID, attack: Dictionary):
 	if collider_to_furniture.has(body_rid):
-		print_debug("a furniture was hit by a bullet")
 		var furniturenode: FurnitureStaticSrv = collider_to_furniture[body_rid]
 		if furniturenode.has_method("get_hit"):
 			furniturenode.get_hit(attack)
@@ -158,7 +153,6 @@ func _on_bullet_hit(body_rid: RID, attack: Dictionary):
 # A bullet has hit something. We check if one of the furnitures was hit and pass the attack
 func _on_melee_attacked_rid(body_rid: RID, attack: Dictionary):
 	if collider_to_furniture.has(body_rid):
-		print_debug("a furniture was attacked with melee")
 		var furniturenode: FurnitureStaticSrv = collider_to_furniture[body_rid]
 		if furniturenode.has_method("get_hit"):
 			furniturenode.get_hit(attack)
@@ -178,16 +172,3 @@ func get_furniture_at_y_level(target_y_level: float) -> Array[FurnitureStaticSrv
 				matching_furniture.append(furniture)
 
 	return matching_furniture  # Return the list of furniture at the specified y level
-
-
-# ✅ Handles player Y level update and updates furniture visibility
-func _on_player_y_level_updated(_old_y_level: float, new_y_level: float):
-	for furniture in collider_to_furniture.values():
-		if is_instance_valid(furniture):
-			var furniture_y = furniture.get_y_position(true)  # Get snapped Y level
-
-			# Hide furniture above player, show furniture below
-			if furniture_y > new_y_level:
-				furniture.hide_visuals()
-			else:
-				furniture.show_visuals()
