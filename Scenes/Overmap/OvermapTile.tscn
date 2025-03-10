@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://budsoodfdkaea"]
 
-[ext_resource type="Script" path="res://Scenes/Overmap/Scripts/OvermapTile.gd" id="1_kxuyw"]
+[ext_resource type="Script" uid="uid://xga27d8712pk" path="res://Scenes/Overmap/Scripts/OvermapTile.gd" id="1_kxuyw"]
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_e5d56"]
 
 [node name="OvermapTile" type="Control"]

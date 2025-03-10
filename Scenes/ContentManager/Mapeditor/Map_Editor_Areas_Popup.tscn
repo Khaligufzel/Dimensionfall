@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://mnwn367pi4op"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/Map_Editor_Areas_Popup.gd" id="1_2pewo"]
+[ext_resource type="Script" uid="uid://d1kbys16nasy7" path="res://Scenes/ContentManager/Mapeditor/Scripts/Map_Editor_Areas_Popup.gd" id="1_2pewo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3usm"]
 

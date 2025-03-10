@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bhqlst5h43xwm"]
 
-[ext_resource type="Script" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
+[ext_resource type="Script" uid="uid://iasqrgnlface" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_sue5h"]
 
 [node name="SceneSelector" type="Control" node_paths=PackedStringArray("load_game_list")]

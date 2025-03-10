@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bisxe8aexlshr"]
 
-[ext_resource type="Script" path="res://day_night.gd" id="1_iw4nk"]
+[ext_resource type="Script" uid="uid://dbn88kjwdedtb" path="res://day_night.gd" id="1_iw4nk"]
 
 [sub_resource type="Animation" id="Animation_g822v"]
 length = 0.001
@@ -35,8 +35,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m3ech"]
 _data = {
-"RESET": SubResource("Animation_g822v"),
-"daynight": SubResource("Animation_72a8g")
+&"RESET": SubResource("Animation_g822v"),
+&"daynight": SubResource("Animation_72a8g")
 }
 
 [node name="day_night" type="CanvasModulate"]

@@ -1,13 +1,13 @@
 [gd_scene load_steps=18 format=3 uid="uid://dddjfurdx4wcs"]
 
-[ext_resource type="Script" path="res://Scripts/Documentation.gd" id="1_bo6h8"]
-[ext_resource type="Script" path="res://addons/markdownlabel/markdownlabel.gd" id="2_satcq"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="3_63ons"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="4_iqloi"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="5_fmd7x"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_gbqcg"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_3sw1n"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_lyqw1"]
+[ext_resource type="Script" uid="uid://kfod5yvuxyvw" path="res://Scripts/Documentation.gd" id="1_bo6h8"]
+[ext_resource type="Script" uid="uid://boepqvbyswpox" path="res://addons/markdownlabel/markdownlabel.gd" id="2_satcq"]
+[ext_resource type="Script" uid="uid://4qxpkfh6yh34" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="3_63ons"]
+[ext_resource type="Script" uid="uid://dab7r5qa1xei4" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="4_iqloi"]
+[ext_resource type="Script" uid="uid://dnbj76tpqvnee" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="5_fmd7x"]
+[ext_resource type="Script" uid="uid://by5mcwwm381c4" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_gbqcg"]
+[ext_resource type="Script" uid="uid://cumy4x5non1l0" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_3sw1n"]
+[ext_resource type="Script" uid="uid://xqlqnlupdwdc" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_lyqw1"]
 
 [sub_resource type="Gradient" id="Gradient_my8oh"]
 colors = PackedColorArray(0.651769, 0.651769, 0.651769, 1, 1, 1, 1, 1)

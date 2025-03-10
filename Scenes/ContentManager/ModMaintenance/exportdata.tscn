@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ba7nwjvy7m2t5"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/ModMaintenance/Scripts/exportdata.gd" id="1_rq3k5"]
+[ext_resource type="Script" uid="uid://dbbmfm5dsuj2x" path="res://Scenes/ContentManager/ModMaintenance/Scripts/exportdata.gd" id="1_rq3k5"]
 
 [node name="Exportdata" type="Control" node_paths=PackedStringArray("output_text_edit", "type_option_button")]
 layout_mode = 3

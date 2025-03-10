@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bswccbbg6ijep"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Mapeditor/Scripts/ZoomSlider.gd" id="1_xvved"]
+[ext_resource type="Script" uid="uid://cgp7ejiayo57s" path="res://Scenes/ContentManager/Mapeditor/Scripts/ZoomSlider.gd" id="1_xvved"]
 
 [node name="ZoomsliderControl" type="Control"]
 layout_mode = 3

@@ -75,7 +75,7 @@ func _ready():
 	Helper.save_helper.load_quest_state()
 	collision_detector.body_shape_entered.connect(_on_body_entered)
 	collision_detector.body_shape_exited.connect(_on_body_exited)
-	if not testing:
+	if not testing and Helper.test_map_name == "":
 		Helper.signal_broker.player_spawned.emit(self)
 
 

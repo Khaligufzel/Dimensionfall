@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b8i6wfk3fngy4"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/Editable_Item_List.gd" id="1_nx0sy"]
+[ext_resource type="Script" uid="uid://bq0kntcjom58u" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/Editable_Item_List.gd" id="1_nx0sy"]
 
 [node name="Editable_Item_List" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton", "pupup_window", "popup_textedit")]
 layout_mode = 3

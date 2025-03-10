@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://be62h2ytgw2kb"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/Scrolling_Flow_Container.gd" id="1_4knl7"]
+[ext_resource type="Script" uid="uid://cdn2kicmcq57i" path="res://Scenes/ContentManager/Custom_Widgets/Scripts/Scrolling_Flow_Container.gd" id="1_4knl7"]
 
 [node name="Scrolling_Flow_Container" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton")]
 custom_minimum_size = Vector2(200, 35)
