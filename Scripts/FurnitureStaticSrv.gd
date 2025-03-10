@@ -20,7 +20,7 @@ var mesh_instance: RID  # Variable to store the mesh instance RID
 var quad_instance: RID # RID to the quadmesh that displays the sprite
 var myworld3d: World3D
 var spawner: FurnitureStaticSpawner # The spawner that spawned this furniture
-var is_hidden: bool = false
+var is_hidden: bool = false # If true, all visual elements are invisible
 
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh # A mesh below the sprite for 3d effect

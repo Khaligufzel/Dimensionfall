@@ -12,7 +12,7 @@ var chunk: Chunk
 var furniture_json_list: Array = []:
 	set(value):
 		furniture_json_list = value
-		await Helper.task_manager.create_task(_spawn_all_furniture)
+		await Helper.task_manager.create_task(_spawn_all_furniture).completed
 
 
 # Initialize with reference to the chunk

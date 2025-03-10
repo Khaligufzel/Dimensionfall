@@ -1071,7 +1071,6 @@ func _create_slope_collider(block_sub_position: Vector3, block_rotation: int) ->
 	return collider
 
 
-
 # Rotates a 3D vertex around the Y-axis
 func rotate_vertex_y(vertex: Vector3, degrees: float) -> Vector3:
 	var rad = deg_to_rad(degrees)
