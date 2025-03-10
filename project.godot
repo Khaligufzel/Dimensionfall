@@ -183,6 +183,7 @@ quest_menu={
 3d_physics/layer_5="enemyprojectiles"
 3d_physics/layer_6="friendlyprojectiles"
 3d_physics/layer_7="containers"
+3d_physics/layer_8="transparentstaticobstacles"
 2d_physics/layer_20="Items"
 
 [shader_globals]

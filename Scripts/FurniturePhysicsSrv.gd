@@ -556,13 +556,15 @@ func get_y_position(is_snapped: bool = false) -> float:
 
 # ✅ Function to hide all visual elements
 func hide_visuals() -> void:
-	if mesh_instance:
+	if not mesh_instance == null:
 		RenderingServer.instance_set_visible(mesh_instance, false)
+	is_hidden = true
 
 # ✅ Function to show all visual elements
 func show_visuals() -> void:
-	if mesh_instance:
+	if not mesh_instance == null:
 		RenderingServer.instance_set_visible(mesh_instance, true)
+	is_hidden = false
 
 
 # ✅ Handles player Y level update and updates furniture visibility
