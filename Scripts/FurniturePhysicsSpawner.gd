@@ -86,7 +86,7 @@ func _on_furniture_about_to_be_destroyed(furniture: FurniturePhysicsSrv) -> void
 
 
 # Function to remove all furniture instances
-func remove_all_furniture() -> void:
+func unload() -> void:
 	for furniture in collider_to_furniture.values():
 		remove_furniture(furniture)
 

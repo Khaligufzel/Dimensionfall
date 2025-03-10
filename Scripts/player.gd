@@ -58,6 +58,10 @@ var knockback_distance_remaining: float = 0.0
 # Variables for furniture pushing
 var pushing_furniture = false
 var furniture_body: RID
+# Store the last known player Y level for comparison
+var last_y_level: float = 0.0
+# ✅ Timer to check player Y level every 0.1 seconds
+var y_level_timer: Timer
 #var progress_bar_timer_max_time : float
 
 #var is_progress_bar_well_progressing_i_guess = false
@@ -75,6 +79,14 @@ func _ready():
 	Helper.save_helper.load_quest_state()
 	collision_detector.body_shape_entered.connect(_on_body_entered)
 	collision_detector.body_shape_exited.connect(_on_body_exited)
+	
+	# ✅ Set up the timer to check Y level frequently
+	y_level_timer = Timer.new()
+	y_level_timer.wait_time = 0.1
+	y_level_timer.autostart = true
+	y_level_timer.timeout.connect(_update_player_y_level)
+	add_child(y_level_timer)
+
 	if not testing and Helper.test_map_name == "":
 		Helper.signal_broker.player_spawned.emit(self)
 
@@ -659,3 +671,11 @@ func add_stun(amount: float) -> void:
 func get_y_position(is_snapped: bool = false) -> float:
 	var y_pos = global_transform.origin.y
 	return round(y_pos) if is_snapped else y_pos
+
+
+# ✅ New function: Emit player Y level signal every 0.1 seconds
+func _update_player_y_level():
+	var current_y_level = global_position.y
+	# Always emit the signal, even if Y level hasn't changed
+	Helper.signal_broker.player_current_y_level.emit(last_y_level, current_y_level)
+	last_y_level = current_y_level # Update last known Y level

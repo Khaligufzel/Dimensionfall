@@ -23,6 +23,7 @@ var original_material_color: Color = Color(1, 1, 1)  # Store the original materi
 # Variables to manage the container if this furniture is a container
 var inventory: InventoryStacked  # Holds the inventory for the container
 var itemgroup: String  # The ID of an itemgroup that it creates loot from
+var is_hidden: bool = false # If true, all visual elements are invisible
 
 
 signal about_to_be_destroyed(me: FurniturePhysicsSrv)
@@ -131,6 +132,7 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 func connect_signals():
 	furniture_transform.chunk_changed.connect(_on_chunk_changed)
+	Helper.signal_broker.player_current_y_level.connect.call_deferred(_on_player_y_level_updated)
 
 
 # Signal to emit when chunk position updates
@@ -223,7 +225,7 @@ func create_visual_instance() -> void:
 	sprite_mesh.size = sprite_size
 
 	# Get the ShaderMaterial from Runtimedata.furnitures
-	sprite_material = Runtimedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
+	sprite_material = Runtimedata.furnitures.get_standard_material_by_id(furnitureJSON.id)
 
 	sprite_mesh.material = sprite_material
 
@@ -544,3 +546,33 @@ func get_data() -> Dictionary:
 		newfurniturejson["Function"]["container"] = containerobject
 
 	return newfurniturejson
+
+
+# Returns the y position of the furniture.
+# If 'snapped' is true, it returns the y position snapped to the nearest integer.
+func get_y_position(is_snapped: bool = false) -> float:
+	var y_pos = furniture_transform.posy
+	return round(y_pos) if is_snapped else y_pos
+
+# ✅ Function to hide all visual elements
+func hide_visuals() -> void:
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, false)
+
+# ✅ Function to show all visual elements
+func show_visuals() -> void:
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, true)
+
+
+# ✅ Handles player Y level update and updates furniture visibility
+func _on_player_y_level_updated(_old_y_level: float, new_y_level: float):
+	var furniture_y = get_y_position(true)  # Get snapped Y level
+
+	# Hide furniture above player, show furniture below
+	if furniture_y > new_y_level:
+		if not is_hidden:
+			hide_visuals()
+	else:
+		if is_hidden:
+			show_visuals()

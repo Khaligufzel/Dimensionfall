@@ -12,7 +12,7 @@ var chunk: Chunk
 var furniture_json_list: Array = []:
 	set(value):
 		furniture_json_list = value
-		Helper.task_manager.create_task(_spawn_all_furniture)
+		await Helper.task_manager.create_task(_spawn_all_furniture).completed
 
 
 # Initialize with reference to the chunk
@@ -78,7 +78,7 @@ func _on_furniture_about_to_be_destroyed(furniture: FurnitureStaticSrv):
 	
 
 # Function to remove all furniture instances
-func remove_all_furniture():
+func unload():
 	for furniture in collider_to_furniture.values():
 		remove_furniture(furniture)
 
@@ -145,7 +145,6 @@ func _on_body_exited_item_detector(body_rid: RID) -> void:
 # A bullet has hit something. We check if one of the furnitures was hit and pass the attack
 func _on_bullet_hit(body_rid: RID, attack: Dictionary):
 	if collider_to_furniture.has(body_rid):
-		print_debug("a furniture was hit by a bullet")
 		var furniturenode: FurnitureStaticSrv = collider_to_furniture[body_rid]
 		if furniturenode.has_method("get_hit"):
 			furniturenode.get_hit(attack)
@@ -154,7 +153,6 @@ func _on_bullet_hit(body_rid: RID, attack: Dictionary):
 # A bullet has hit something. We check if one of the furnitures was hit and pass the attack
 func _on_melee_attacked_rid(body_rid: RID, attack: Dictionary):
 	if collider_to_furniture.has(body_rid):
-		print_debug("a furniture was attacked with melee")
 		var furniturenode: FurnitureStaticSrv = collider_to_furniture[body_rid]
 		if furniturenode.has_method("get_hit"):
 			furniturenode.get_hit(attack)

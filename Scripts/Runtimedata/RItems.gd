@@ -8,7 +8,7 @@ extends RefCounted
 # Runtime data for items and their sprites
 var itemdict: Dictionary = {}  # Holds runtime item instances
 var sprites: Dictionary = {}  # Holds item sprites
-var shader_materials: Dictionary = {}  # Cache for shader materials by item ID
+var standard_materials: Dictionary = {} # store StandardMaterial3D instances
 
 # Constructor
 func _init(mod_list: Array[DMod]) -> void:
@@ -80,40 +80,13 @@ func get_items_by_type(item_type: String) -> Array[RItem]:
 	return filtered_items
 
 
-# New function to get or create a ShaderMaterial for a item ID
-func get_shader_material_by_id(item_id: String) -> ShaderMaterial:
-	# Check if the material already exists
-	if shader_materials.has(item_id):
-		return shader_materials[item_id]
-	else:
-		# Create a new ShaderMaterial
-		var albedo_texture: Texture = sprite_by_id(item_id)
-		var shader_material: ShaderMaterial = create_item_shader_material(albedo_texture)
-		# Store it in the dictionary
-		shader_materials[item_id] = shader_material
-		return shader_material
-
-
-# Helper function to create a ShaderMaterial for the item
-func create_item_shader_material(albedo_texture: Texture) -> ShaderMaterial:
-	# Create a new ShaderMaterial
-	var shader_material = ShaderMaterial.new()
-	shader_material.shader = Gamedata.hide_above_player_shader  # Use the shared shader
-
-	# Assign the texture to the material
-	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
-
-	return shader_material
-
-
 # Handle the game ended signal. We need to clear the shader materials because they
 # need to be re-created on game start since some of them may have changed in between.
 func _on_game_ended():
-	# Loop through all shader materials and free them
-	for material in shader_materials.values():
+	# Clear standard materials
+	for material in standard_materials.values():
 		material.free()
-	# Clear the dictionary
-	shader_materials.clear()
+	standard_materials.clear()
 
 
 # This will update the given resource file with the provided json data
@@ -167,3 +140,23 @@ func get_hand_craftable_items() -> Array[RItem]:
 					break  # Exit the loop as we only need one matching recipe
 
 	return hand_craftable_items
+
+# ✅ New function to get or create a StandardMaterial3D for a specific item ID
+func get_standard_material_by_id(item_id: String) -> StandardMaterial3D:
+	# Check if the material already exists
+	if standard_materials.has(item_id):
+		return standard_materials[item_id]
+	else:
+		# Create a new StandardMaterial3D
+		var albedo_texture: Texture = sprite_by_id(item_id)
+		var standard_material: StandardMaterial3D = create_item_standard_material(albedo_texture)
+		# Store it in the dictionary
+		standard_materials[item_id] = standard_material
+		return standard_material
+
+# ✅ Helper function to create a StandardMaterial3D for the item
+func create_item_standard_material(albedo_texture: Texture) -> StandardMaterial3D:
+	var material = StandardMaterial3D.new()
+	material.albedo_texture = albedo_texture
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	return material
