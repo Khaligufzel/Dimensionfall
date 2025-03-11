@@ -16,7 +16,7 @@ extends Node3D
 
 # Reference to the level manager. Some nodes that could be moved to other chunks 
 # should be parented to this (like moveable furniture and mobs)
-@export var level_manager : Node3D
+var level_manager : Node3D
 var level_generator : Node3D
 var furniture_static_spawner: FurnitureStaticSpawner
 var furniture_physics_spawner: FurniturePhysicsSpawner
@@ -967,7 +967,7 @@ func create_colliders() -> void:
 
 			block_counter += 1
 			if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
-				OS.delay_msec(1) # Adjust delay time as needed
+				OS.delay_msec(10) # Adjust delay time as needed
 
 	# Create colliders for cubes using the modified copy of block_positions
 	create_cube_colliders(block_positions_copy, total_blocks, delay_every_n_blocks)
