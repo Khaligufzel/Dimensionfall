@@ -673,9 +673,10 @@ func get_y_position(is_snapped: bool = false) -> float:
 	return round(y_pos) if is_snapped else y_pos
 
 
-# ✅ New function: Emit player Y level signal every 0.1 seconds
+# ✅ Emit signal only if the Y level has changed
 func _update_player_y_level():
 	var current_y_level = global_position.y
-	# Always emit the signal, even if Y level hasn't changed
-	Helper.signal_broker.player_current_y_level.emit(last_y_level, current_y_level)
-	last_y_level = current_y_level # Update last known Y level
+	# Only emit the signal if the Y level has changed
+	if current_y_level != last_y_level:
+		Helper.signal_broker.player_current_y_level.emit(last_y_level, current_y_level)
+		last_y_level = current_y_level # Update last known Y level

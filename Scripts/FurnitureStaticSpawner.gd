@@ -43,6 +43,7 @@ func spawn_furniture(furniture_data: Dictionary) -> void:
 		new_furniture = FurnitureStaticSrv.new(myposition, furniture_data, world3d)
 	new_furniture.about_to_be_destroyed.connect(_on_furniture_about_to_be_destroyed)
 	new_furniture.spawner = self
+	new_furniture.refresh_visibility(0) # Initial update for visibility
 	# Add the collider to the dictionary
 	collider_to_furniture[new_furniture.collider] = new_furniture
 
