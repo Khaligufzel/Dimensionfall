@@ -51,7 +51,7 @@ radius = 1.5
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sprite", "collision_detector", "camera_3d") groups=["Players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)
-collision_mask = 22
+collision_mask = 150
 floor_constant_speed = true
 floor_max_angle = 0.872665
 script = ExtResource("1_8wv3l")

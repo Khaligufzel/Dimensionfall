@@ -640,6 +640,7 @@ func hide_visuals():
 		RenderingServer.instance_set_visible(quad_instance, false)
 	if container and container.sprite_instance:
 		RenderingServer.instance_set_visible(container.sprite_instance, false)
+	is_hidden = true
 
 # ✅ Function to show the furniture visuals
 func show_visuals():
@@ -649,6 +650,7 @@ func show_visuals():
 		RenderingServer.instance_set_visible(quad_instance, true)
 	if container and container.sprite_instance:
 		RenderingServer.instance_set_visible(container.sprite_instance, true)
+	is_hidden = false
 
 
 # ✅ Handles player Y level update and updates furniture visibility

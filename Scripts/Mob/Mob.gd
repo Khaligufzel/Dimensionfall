@@ -67,7 +67,7 @@ func setup_basic_properties():
 # Set collision layers and masks
 func setup_collision_layers_and_masks():
 	collision_layer = 1 << 1  # Layer 2 is 1 << 1 (bit shift by 1)
-	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 4)
+	collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 4) | (1 << 7)
 	# Explanation:
 	# - 1 << 0: Layer 1 (player layer)
 	# - 1 << 1: Layer 2 (enemy layer)
@@ -75,6 +75,7 @@ func setup_collision_layers_and_masks():
 	# - 1 << 4: Layer 5 (enemy projectiles layer)
 	# INFO: Do NOT add layer 6 to collision mask or the mob will be pushed by the projectile
 	# - 1 << 5: Layer 6 (friendly projectiles layer)
+	# - 1 << 7: Layer 8 (transparent static obstacles layer)
 
 
 # Create and configure NavigationAgent3D
