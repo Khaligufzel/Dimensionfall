@@ -1,7 +1,7 @@
 class_name Mob
 extends CharacterBody3D
 
-@onready var target_manager: Node3D = get_node("/root/CataX/TacticalMap/TargetManager")
+var target_manager: Node3D = null
 var mobPosition: Vector3 # The position it will move to when it is created
 var mobRotation: int # The rotation it will rotate to when it is created
 var mobJSON: Dictionary # The json that defines this mob
@@ -137,6 +137,7 @@ func _ready():
 	position = mobPosition
 	last_position = mobPosition
 	meshInstance.position.y = -0.2
+	target_manager = get_tree().get_first_node_in_group("target_manager")
 	current_chunk = get_chunk_from_position(global_transform.origin)
 	update_navigation_agent_map(current_chunk)
 	Helper.signal_broker.mob_spawned.emit(self)

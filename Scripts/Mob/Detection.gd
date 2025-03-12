@@ -130,6 +130,7 @@ func find_closest_target(potential_targets: Array[CharacterBody3D]) -> Character
 # Combines target selection, visibility checks, and finding the closest target
 func pick_target() -> CharacterBody3D:
 	if not mob.target_manager:
+		mob.target_manager = get_tree().get_first_node_in_group("target_manager")
 		return
 	# Step 1: Get the list of potential targets
 	var potential_targets: Array = mob.target_manager.get_mobs_by_faction(mob.get_faction())

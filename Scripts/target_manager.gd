@@ -22,6 +22,7 @@ func _ready():
 	# Connect to the mob_spawned signal
 	Helper.signal_broker.mob_spawned.connect(_on_mob_spawned)
 	Helper.signal_broker.mob_killed.connect(_on_mob_killed)
+	add_to_group("target_manager")
 
 
 # Returns an array of CharacterBody3D instances for a given faction ID
