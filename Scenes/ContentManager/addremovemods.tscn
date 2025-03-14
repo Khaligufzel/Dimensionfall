@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dfj0pswk2qi6"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Scripts/addremovemods.gd" id="1_87j7f"]
+[ext_resource type="Script" uid="uid://bco2mox5nup5n" path="res://Scenes/ContentManager/Scripts/addremovemods.gd" id="1_87j7f"]
 [ext_resource type="PackedScene" uid="uid://b8i6wfk3fngy4" path="res://Scenes/ContentManager/Custom_Widgets/Editable_Item_List.tscn" id="2_r6poh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_30opl"]

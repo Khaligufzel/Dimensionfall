@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dkgxjm5uka6l7"]
 
-[ext_resource type="Script" path="res://addons/quest_manager/Examples/ExampleOne/Player.gd" id="1_e3ya5"]
+[ext_resource type="Script" uid="uid://dx7mwh0xhcji" path="res://addons/quest_manager/Examples/ExampleOne/Player.gd" id="1_e3ya5"]
 [ext_resource type="PackedScene" path="res://addons/quest_manager/Examples/ExampleOne/Projectile.tscn" id="2_8g4sx"]
 [ext_resource type="Texture2D" uid="uid://ux6u0ocdyfmb" path="res://addons/quest_manager/assets/SpriteSheet.png" id="2_qskpn"]
 

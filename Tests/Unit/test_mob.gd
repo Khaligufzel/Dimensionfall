@@ -8,6 +8,7 @@ extends GutTest
 var test_chunk: Chunk
 var mock_level_manager: Node3D
 var mock_level_generator: Node3D
+var mock_target_manager: Node3D
 
 # Runs before all tests.
 func before_all():
@@ -20,7 +21,10 @@ func before_each():
 	test_chunk = Chunk.new()
 	mock_level_manager = Node3D.new()
 	mock_level_generator = Node3D.new()
-
+	const TargetManager = preload("res://Scripts/target_manager.gd")
+	mock_target_manager = TargetManager.new()
+	
+	add_child(mock_target_manager)
 	test_chunk.level_manager = mock_level_manager
 	test_chunk.level_generator = mock_level_generator
 	add_child(mock_level_manager)

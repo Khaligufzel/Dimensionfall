@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://mu6nbyuq02o5"]
 
-[ext_resource type="Script" path="res://Scripts/container.gd" id="1_4celg"]
-[ext_resource type="Script" path="res://addons/gloot/core/inventory_stacked.gd" id="2_3htey"]
+[ext_resource type="Script" uid="uid://csbi3rb1hoarg" path="res://Scripts/container.gd" id="1_4celg"]
+[ext_resource type="Script" uid="uid://8joxnsk04b3g" path="res://addons/gloot/core/inventory_stacked.gd" id="2_3htey"]
 [ext_resource type="Texture2D" uid="uid://cy56wx4qynp3m" path="res://Textures/enemy.png" id="2_pvjek"]
-[ext_resource type="Resource" uid="uid://cllbo1owveorj" path="res://ItemProtosets.tres" id="4_ehn4b"]
+[ext_resource type="Resource" uid="uid://cgkq7vfjq07jm" path="res://ItemProtosets.tres" id="4_ehn4b"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0pnwx"]
 radius = 0.2

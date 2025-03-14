@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bb341bh2pdb6u"]
 
-[ext_resource type="Script" path="res://addons/gloot/editor/item_editor/prototype_id_editor.gd" id="1_a8scy"]
+[ext_resource type="Script" uid="uid://t47uu1kcxiy" path="res://addons/gloot/editor/item_editor/prototype_id_editor.gd" id="1_a8scy"]
 [ext_resource type="PackedScene" uid="uid://dj577duf8yjeb" path="res://addons/gloot/editor/common/choice_filter.tscn" id="1_prwl8"]
 
 [node name="PrototypeIdEditor" type="Window"]

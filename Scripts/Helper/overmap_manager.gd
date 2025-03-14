@@ -577,7 +577,6 @@ func create_new_grid_with_default_values() -> OvermapGrid:
 	return new_grid
 
 
-
 # Function to get a grid from it's meta position
 # Coordinates 0,0 returns the OvermapGrid at 0,0.
 # Coordinates 1,0 returns the OvermapGrid at 1,0.

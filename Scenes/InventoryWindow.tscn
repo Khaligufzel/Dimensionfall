@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://e0ebcv1n8jnq"]
 
-[ext_resource type="Script" path="res://Scripts/InventoryWindow.gd" id="1_7kqbx"]
+[ext_resource type="Script" uid="uid://cvbq11ov0bqw1" path="res://Scripts/InventoryWindow.gd" id="1_7kqbx"]
 [ext_resource type="PackedScene" uid="uid://crck2fhgayxhn" path="res://Scenes/InventoryContainerListItem.tscn" id="2_xfgb3"]
 [ext_resource type="PackedScene" uid="uid://khk40t8u7x5b" path="res://Scenes/UI/WearableSlot.tscn" id="3_1udct"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="6_xpf2l"]

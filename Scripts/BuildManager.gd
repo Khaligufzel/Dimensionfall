@@ -126,7 +126,7 @@ func update_construction_ghost():
 		var rfurniture: RFurniture = Runtimedata.furnitures.by_id(construction_choice)
 		if rfurniture:
 			# Retrieve the sprite material and set it to the construction ghost
-			var furniture_sprite_material = Runtimedata.furnitures.get_shader_material_by_id(construction_choice)
+			var furniture_sprite_material: StandardMaterial3D = Runtimedata.furnitures.get_standard_material_by_id(construction_choice)
 			construction_ghost.set_material(furniture_sprite_material)
 			construction_ghost.set_mesh_size(calculate_furniture_size(rfurniture))
 			if not rfurniture.edgesnapping == "None":

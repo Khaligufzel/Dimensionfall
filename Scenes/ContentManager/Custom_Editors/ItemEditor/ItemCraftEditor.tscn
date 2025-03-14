@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7jwy5hpj2vyt"]
 
-[ext_resource type="Script" path="res://Scripts/ItemCraftEditor.gd" id="1_6wvrt"]
+[ext_resource type="Script" uid="uid://b4xhaqlgcskvg" path="res://Scripts/ItemCraftEditor.gd" id="1_6wvrt"]
 [ext_resource type="PackedScene" uid="uid://dsax7il2yggw8" path="res://Scenes/ContentManager/Custom_Widgets/DropEnabledTextEdit.tscn" id="2_bjy2a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvald"]

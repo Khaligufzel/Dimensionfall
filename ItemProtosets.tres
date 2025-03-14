@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://cgkq7vfjq07jm"]
+[gd_resource type="Resource" script_class="ItemProtoset" load_steps=2 format=3 uid="uid://bfvkrjemom6hg"]
 
-[ext_resource type="Script" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
+[ext_resource type="Script" uid="uid://blcdlb80ku0ox" path="res://addons/gloot/core/item_protoset.gd" id="1_o35lu"]
 
 [resource]
 script = ExtResource("1_o35lu")
@@ -13,8 +13,8 @@ json_data = "[
 		\"name\": \"Plank 2x4\",
 		\"sprite\": \"plank.png\",
 		\"stack_size\": 1,
-		\"volume\": 300,
-		\"weight\": 2
+		\"volume\": 300.0,
+		\"weight\": 2.0
 	},
 	{
 		\"description\": \"Some metal bits and pieces. Useful for something, right?\",
@@ -24,7 +24,7 @@ json_data = "[
 		\"name\": \"Steel scrap\",
 		\"sprite\": \"steel_scrap.png\",
 		\"stack_size\": 2,
-		\"volume\": 15,
+		\"volume\": 15.0,
 		\"weight\": 0.25
 	},
 	{
@@ -51,21 +51,21 @@ json_data = "[
 				},
 				\"required_resources\": [
 					{
-						\"amount\": 1,
+						\"amount\": 1.0,
 						\"id\": \"steel_scrap\"
 					},
 					{
-						\"amount\": 10,
+						\"amount\": 10.0,
 						\"id\": \"bullet_9mm\"
 					}
 				],
 				\"skill_progression\": {
 					\"id\": \"fabrication\",
-					\"xp\": 10
+					\"xp\": 10.0
 				},
 				\"skill_requirement\": {
 					\"id\": \"fabrication\",
-					\"level\": 1
+					\"level\": 1.0
 				}
 			}
 		],
@@ -81,7 +81,7 @@ json_data = "[
 		\"name\": \"Pistol magazine\",
 		\"sprite\": \"pistol_magazine.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.25
 	},
 	{
@@ -96,7 +96,7 @@ json_data = "[
 			\"used_magazine\": \"pistol_magazine\",
 			\"used_skill\": {
 				\"skill_id\": \"handguns\",
-				\"xp\": 1
+				\"xp\": 1.0
 			}
 		},
 		\"description\": \"A standard issue pistol that uses 9mm ammunition\",
@@ -106,8 +106,8 @@ json_data = "[
 		\"name\": \"Pistol 9mm\",
 		\"sprite\": \"pistol_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 150,
-		\"weight\": 2
+		\"volume\": 150.0,
+		\"weight\": 2.0
 	},
 	{
 		\"Ranged\": {
@@ -121,7 +121,7 @@ json_data = "[
 			\"used_magazine\": \"pistol_magazine\",
 			\"used_skill\": {
 				\"skill_id\": \"rifle\",
-				\"xp\": 1
+				\"xp\": 1.0
 			}
 		},
 		\"description\": \"A standard issue rifle that uses 9mm ammunition\",
@@ -131,8 +131,8 @@ json_data = "[
 		\"name\": \"M4a1 rifle\",
 		\"sprite\": \"rifle_64_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 300,
-		\"weight\": 4
+		\"volume\": 300.0,
+		\"weight\": 4.0
 	},
 	{
 		\"Ranged\": {
@@ -146,7 +146,7 @@ json_data = "[
 			\"used_magazine\": \"chugunov_mpap_magazine\",
 			\"used_skill\": {
 				\"skill_id\": \"smg\",
-				\"xp\": 1
+				\"xp\": 1.0
 			}
 		},
 		\"description\": \"Chugun in Russian is for cast steel, MPAP is \\\"Multi Purpose Automatic Pistol\\\"\",
@@ -156,8 +156,8 @@ json_data = "[
 		\"name\": \"Chugunov MPAP\",
 		\"sprite\": \"chugunov_mpap_32_28.png\",
 		\"stack_size\": 1,
-		\"volume\": 150,
-		\"weight\": 3
+		\"volume\": 150.0,
+		\"weight\": 3.0
 	},
 	{
 		\"Magazine\": {
@@ -172,7 +172,7 @@ json_data = "[
 		\"name\": \"Chuganov MPAP magazine\",
 		\"sprite\": \"chugunov_mpap_magazine_16_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.25
 	},
 	{
@@ -183,14 +183,14 @@ json_data = "[
 		\"name\": \"Empty plastic bottle\",
 		\"sprite\": \"bottle_empty_32.png\",
 		\"stack_size\": 2,
-		\"volume\": 15,
+		\"volume\": 15.0,
 		\"weight\": 0.1
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 20,
+					\"amount\": 20.0,
 					\"id\": \"water\"
 				}
 			]
@@ -202,14 +202,14 @@ json_data = "[
 		\"name\": \"Plastic bottle with water\",
 		\"sprite\": \"bottle_water_32.png\",
 		\"stack_size\": 2,
-		\"volume\": 15,
+		\"volume\": 15.0,
 		\"weight\": 0.25
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 25,
+					\"amount\": 25.0,
 					\"id\": \"food\"
 				}
 			]
@@ -221,7 +221,7 @@ json_data = "[
 		\"name\": \"Canned food\\t\",
 		\"sprite\": \"canned_food_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 30,
+		\"volume\": 30.0,
 		\"weight\": 0.25
 	},
 	{
@@ -230,7 +230,7 @@ json_data = "[
 			\"reach\": 1,
 			\"used_skill\": {
 				\"skill_id\": \"cutting\",
-				\"xp\": 10
+				\"xp\": 10.0
 			}
 		},
 		\"description\": \"A sharp blade with a handle for excellent control\",
@@ -240,8 +240,8 @@ json_data = "[
 		\"name\": \"Machete\",
 		\"sprite\": \"machete_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
-		\"weight\": 4
+		\"volume\": 100.0,
+		\"weight\": 4.0
 	},
 	{
 		\"description\": \"Anyone is able to craft this simple arrow\",
@@ -251,7 +251,7 @@ json_data = "[
 		\"name\": \"Basic wooden arrow\",
 		\"sprite\": \"arrow_basic_32.png\",
 		\"stack_size\": 5,
-		\"volume\": 1,
+		\"volume\": 1.0,
 		\"weight\": 0.1
 	},
 	{
@@ -262,8 +262,8 @@ json_data = "[
 		\"name\": \"Hammer\",
 		\"sprite\": \"hammer_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
-		\"weight\": 2
+		\"volume\": 50.0,
+		\"weight\": 2.0
 	},
 	{
 		\"Craft\": [
@@ -275,11 +275,11 @@ json_data = "[
 				},
 				\"required_resources\": [
 					{
-						\"amount\": 1,
+						\"amount\": 1.0,
 						\"id\": \"steel_scrap\"
 					},
 					{
-						\"amount\": 1,
+						\"amount\": 1.0,
 						\"id\": \"bottle_plastic_empty\"
 					}
 				]
@@ -292,35 +292,35 @@ json_data = "[
 		\"name\": \"Screwdriver\",
 		\"sprite\": \"screwdriver_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 20,
+		\"volume\": 20.0,
 		\"weight\": 0.5
 	},
 	{
 		\"Medical\": {
-			\"amount\": 25,
+			\"amount\": 25.0,
 			\"attributes\": [
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"head_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"torso_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"left_arm_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"right_arm_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"left_leg_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"right_leg_health\"
 				}
 			],
@@ -333,35 +333,35 @@ json_data = "[
 		\"name\": \"Bandage\",
 		\"sprite\": \"bandage_32.png\",
 		\"stack_size\": 3,
-		\"volume\": 1,
+		\"volume\": 1.0,
 		\"weight\": 0.1
 	},
 	{
 		\"Medical\": {
-			\"amount\": 10,
+			\"amount\": 10.0,
 			\"attributes\": [
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"head_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"torso_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"left_arm_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"right_arm_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"left_leg_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"right_leg_health\"
 				}
 			],
@@ -374,7 +374,7 @@ json_data = "[
 		\"name\": \"Bottle of antibiotics\",
 		\"sprite\": \"antibiotics_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.1
 	},
 	{
@@ -389,8 +389,8 @@ json_data = "[
 		\"name\": \"Jacket\",
 		\"sprite\": \"jacket_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
-		\"weight\": 1
+		\"volume\": 100.0,
+		\"weight\": 1.0
 	},
 	{
 		\"Wearable\": {
@@ -404,8 +404,8 @@ json_data = "[
 		\"name\": \"Boots\",
 		\"sprite\": \"boots_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
-		\"weight\": 1
+		\"volume\": 100.0,
+		\"weight\": 1.0
 	},
 	{
 		\"description\": \"A large container that holds gasoline\",
@@ -415,8 +415,8 @@ json_data = "[
 		\"name\": \"Jerrycan of gasoline\",
 		\"sprite\": \"jerrycan_gas_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 400,
-		\"weight\": 10
+		\"volume\": 400.0,
+		\"weight\": 10.0
 	},
 	{
 		\"description\": \"It's a can that contains oil. It has a spout that allows you to pour it out.\",
@@ -426,8 +426,8 @@ json_data = "[
 		\"name\": \"Can of oil\",
 		\"sprite\": \"can_oil_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
-		\"weight\": 2
+		\"volume\": 100.0,
+		\"weight\": 2.0
 	},
 	{
 		\"description\": \"A small radio that can be powered by batteries or an electical cord.\",
@@ -437,13 +437,13 @@ json_data = "[
 		\"name\": \"Handheld radio\",
 		\"sprite\": \"battery_powered_radio_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
-		\"weight\": 1
+		\"volume\": 100.0,
+		\"weight\": 1.0
 	},
 	{
 		\"Tool\": {
 			\"tool_qualities\": {
-				\"flashlight\": 1
+				\"flashlight\": 1.0
 			}
 		},
 		\"description\": \"A basic battery powered flashlight. It will shine a beam of light when it is turned on\",
@@ -453,14 +453,14 @@ json_data = "[
 		\"name\": \"Flashlight\",
 		\"sprite\": \"flashlight_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
+		\"volume\": 100.0,
 		\"weight\": 0.5
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 35,
+					\"amount\": 35.0,
 					\"id\": \"water\"
 				}
 			]
@@ -472,7 +472,7 @@ json_data = "[
 		\"name\": \"Can of beer\",
 		\"sprite\": \"can_beer_32.png\",
 		\"stack_size\": 2,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.5
 	},
 	{
@@ -487,8 +487,8 @@ json_data = "[
 		\"name\": \"Gas mask\",
 		\"sprite\": \"gasmask_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 80,
-		\"weight\": 1
+		\"volume\": 80.0,
+		\"weight\": 1.0
 	},
 	{
 		\"Wearable\": {
@@ -502,8 +502,8 @@ json_data = "[
 		\"name\": \"Ballistic vest\",
 		\"sprite\": \"vest_ballistic_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 150,
-		\"weight\": 4
+		\"volume\": 150.0,
+		\"weight\": 4.0
 	},
 	{
 		\"description\": \"A device that shows your orientation relative to the earth's poles\",
@@ -513,7 +513,7 @@ json_data = "[
 		\"name\": \"Compass\",
 		\"sprite\": \"compass_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 6,
+		\"volume\": 6.0,
 		\"weight\": 0.1
 	},
 	{
@@ -535,8 +535,8 @@ json_data = "[
 		\"name\": \"Solar panel\",
 		\"sprite\": \"solar_panel_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 500,
-		\"weight\": 10
+		\"volume\": 500.0,
+		\"weight\": 10.0
 	},
 	{
 		\"description\": \"A large piece of paper that visualizes the area around you\",
@@ -546,7 +546,7 @@ json_data = "[
 		\"name\": \"Paper map\",
 		\"sprite\": \"map_paper_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.1
 	},
 	{
@@ -557,8 +557,8 @@ json_data = "[
 		\"name\": \"Tarp\",
 		\"sprite\": \"tarp_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 150,
-		\"weight\": 3
+		\"volume\": 150.0,
+		\"weight\": 3.0
 	},
 	{
 		\"description\": \"A piece of fabric and some strings. You can deploy it to get some shelter from the weather. It is currently folded to save space.\",
@@ -568,8 +568,8 @@ json_data = "[
 		\"name\": \"Tent\",
 		\"sprite\": \"tent_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 600,
-		\"weight\": 9
+		\"volume\": 600.0,
+		\"weight\": 9.0
 	},
 	{
 		\"description\": \"A small book explaining the very basics of survival\",
@@ -579,7 +579,7 @@ json_data = "[
 		\"name\": \"Basic survival guide\",
 		\"sprite\": \"survival_guide_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.1
 	},
 	{
@@ -590,35 +590,35 @@ json_data = "[
 		\"name\": \"Novel\",
 		\"sprite\": \"book_novel_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.4
 	},
 	{
 		\"Medical\": {
-			\"amount\": 10,
+			\"amount\": 10.0,
 			\"attributes\": [
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"head_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"torso_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"left_arm_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"right_arm_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"left_leg_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"right_leg_health\"
 				}
 			],
@@ -631,7 +631,7 @@ json_data = "[
 		\"name\": \"Bottle of disinfectant\",
 		\"sprite\": \"bottle_disinfectant_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.1
 	},
 	{
@@ -642,8 +642,8 @@ json_data = "[
 		\"name\": \"Two way radio\",
 		\"sprite\": \"radio_two_way_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
-		\"weight\": 1
+		\"volume\": 50.0,
+		\"weight\": 1.0
 	},
 	{
 		\"description\": \"A small device that provides a spark that can be used to light a fire. No power or fuel required.\",
@@ -653,7 +653,7 @@ json_data = "[
 		\"name\": \"Firestarter\",
 		\"sprite\": \"firestarter_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.2
 	},
 	{
@@ -664,7 +664,7 @@ json_data = "[
 		\"name\": \"Small fishing kit\",
 		\"sprite\": \"kit_fishing_small_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.4
 	},
 	{
@@ -675,7 +675,7 @@ json_data = "[
 		\"name\": \"Kitchen Knife\",
 		\"sprite\": \"kitchen_knife_64_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
+		\"volume\": 100.0,
 		\"weight\": 0.4
 	},
 	{
@@ -686,8 +686,8 @@ json_data = "[
 		\"name\": \"Portable Stove\",
 		\"sprite\": \"portable_stove_64_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 200,
-		\"weight\": 3
+		\"volume\": 200.0,
+		\"weight\": 3.0
 	},
 	{
 		\"description\": \"A durable cooking pot, essential for boiling water and preparing meals.\",
@@ -697,8 +697,8 @@ json_data = "[
 		\"name\": \"Cooking Pot\",
 		\"sprite\": \"cooking_pot_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 350,
-		\"weight\": 3
+		\"volume\": 350.0,
+		\"weight\": 3.0
 	},
 	{
 		\"description\": \"A small tool crucial for opening canned food, an essential for survival.\",
@@ -708,7 +708,7 @@ json_data = "[
 		\"name\": \"Can opener\",
 		\"sprite\": \"can_opener_64_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 60,
+		\"volume\": 60.0,
 		\"weight\": 0.2
 	},
 	{
@@ -722,17 +722,17 @@ json_data = "[
 				},
 				\"required_resources\": [
 					{
-						\"amount\": 1,
+						\"amount\": 1.0,
 						\"id\": \"plank_2x4\"
 					}
 				],
 				\"skill_progression\": {
 					\"id\": \"fabrication\",
-					\"xp\": 10
+					\"xp\": 10.0
 				},
 				\"skill_requirement\": {
 					\"id\": \"fabrication\",
-					\"level\": 1
+					\"level\": 1.0
 				}
 			}
 		],
@@ -743,8 +743,8 @@ json_data = "[
 		\"name\": \"Cutting Board\",
 		\"sprite\": \"cutting_board_64_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 200,
-		\"weight\": 1
+		\"volume\": 200.0,
+		\"weight\": 1.0
 	},
 	{
 		\"description\": \"A large bowl used for mixing ingredients, indispensable for any cooking or baking tasks.\",
@@ -754,7 +754,7 @@ json_data = "[
 		\"name\": \"Mixing Bowl\",
 		\"sprite\": \"mixing_bowl_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 250,
+		\"volume\": 250.0,
 		\"weight\": 0.5
 	},
 	{
@@ -765,8 +765,8 @@ json_data = "[
 		\"name\": \"Tea Kettle\",
 		\"sprite\": \"tea_kettle_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 200,
-		\"weight\": 1
+		\"volume\": 200.0,
+		\"weight\": 1.0
 	},
 	{
 		\"description\": \"A small rack containing various spices to enhance the flavor of food.\",
@@ -776,8 +776,8 @@ json_data = "[
 		\"name\": \"Spice Rack\",
 		\"sprite\": \"spice_rack_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 150,
-		\"weight\": 1
+		\"volume\": 150.0,
+		\"weight\": 1.0
 	},
 	{
 		\"description\": \"A measuring cup, essential for precisely measuring ingredients for recipes.\",
@@ -787,7 +787,7 @@ json_data = "[
 		\"name\": \"Measuring Cup\",
 		\"sprite\": \"measuring_cup_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
+		\"volume\": 100.0,
 		\"weight\": 0.3
 	},
 	{
@@ -800,17 +800,17 @@ json_data = "[
 				},
 				\"required_resources\": [
 					{
-						\"amount\": 1,
+						\"amount\": 1.0,
 						\"id\": \"plank_2x4\"
 					}
 				],
 				\"skill_progression\": {
 					\"id\": \"fabrication\",
-					\"xp\": 15
+					\"xp\": 15.0
 				},
 				\"skill_requirement\": {
 					\"id\": \"fabrication\",
-					\"level\": 2
+					\"level\": 2.0
 				}
 			}
 		],
@@ -821,7 +821,7 @@ json_data = "[
 		\"name\": \"Rolling Pin\",
 		\"sprite\": \"rolling_pin_64_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 150,
+		\"volume\": 150.0,
 		\"weight\": 0.5
 	},
 	{
@@ -832,8 +832,8 @@ json_data = "[
 		\"name\": \"Frying Pan\",
 		\"sprite\": \"frying_pan_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 200,
-		\"weight\": 2
+		\"volume\": 200.0,
+		\"weight\": 2.0
 	},
 	{
 		\"description\": \"A metal colander, ideal for draining pasta or washing vegetables.\",
@@ -843,7 +843,7 @@ json_data = "[
 		\"name\": \"Colander\",
 		\"sprite\": \"steel_colander_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 200,
+		\"volume\": 200.0,
 		\"weight\": 0.7
 	},
 	{
@@ -854,7 +854,7 @@ json_data = "[
 		\"name\": \"Peeler\",
 		\"sprite\": \"peeler_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.1
 	},
 	{
@@ -865,7 +865,7 @@ json_data = "[
 		\"name\": \"Grater\",
 		\"sprite\": \"grater_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.3
 	},
 	{
@@ -876,7 +876,7 @@ json_data = "[
 		\"name\": \"Toaster\",
 		\"sprite\": \"toaster_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 300,
+		\"volume\": 300.0,
 		\"weight\": 1.5
 	},
 	{
@@ -887,8 +887,8 @@ json_data = "[
 		\"name\": \"Blender\",
 		\"sprite\": \"blender_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 300,
-		\"weight\": 2
+		\"volume\": 300.0,
+		\"weight\": 2.0
 	},
 	{
 		\"description\": \"A coffee maker, essential for brewing the perfect cup of coffee to start your day.\",
@@ -898,7 +898,7 @@ json_data = "[
 		\"name\": \"Coffee Maker\",
 		\"sprite\": \"coffeemaker_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 300,
+		\"volume\": 300.0,
 		\"weight\": 2.5
 	},
 	{
@@ -909,8 +909,8 @@ json_data = "[
 		\"name\": \"Microwave Oven\",
 		\"sprite\": \"microwave_oven_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 400,
-		\"weight\": 12
+		\"volume\": 400.0,
+		\"weight\": 12.0
 	},
 	{
 		\"description\": \"A dish rack, useful for organizing and drying dishes after washing.\",
@@ -920,8 +920,8 @@ json_data = "[
 		\"name\": \"Dish Rack\",
 		\"sprite\": \"dish_rack_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 400,
-		\"weight\": 1
+		\"volume\": 400.0,
+		\"weight\": 1.0
 	},
 	{
 		\"description\": \"A pressure cooker, ideal for fast cooking and preserving nutrients in food.\",
@@ -931,8 +931,8 @@ json_data = "[
 		\"name\": \"Pressure Cooker\",
 		\"sprite\": \"pressure_cooker_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 400,
-		\"weight\": 5
+		\"volume\": 400.0,
+		\"weight\": 5.0
 	},
 	{
 		\"description\": \"A bread maker, perfect for effortlessly baking fresh bread at home.\",
@@ -942,8 +942,8 @@ json_data = "[
 		\"name\": \"Bread Maker\",
 		\"sprite\": \"bread_maker_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 300,
-		\"weight\": 5
+		\"volume\": 300.0,
+		\"weight\": 5.0
 	},
 	{
 		\"description\": \"Small but crucial for holding together wooden structures and crafting. Often found in the remnants of furniture and buildings.\",
@@ -953,7 +953,7 @@ json_data = "[
 		\"name\": \"Nails\",
 		\"sprite\": \"nails_32.png\",
 		\"stack_size\": 10,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.1
 	},
 	{
@@ -964,8 +964,8 @@ json_data = "[
 		\"name\": \"Log\",
 		\"sprite\": \"log_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 500,
-		\"weight\": 10
+		\"volume\": 500.0,
+		\"weight\": 10.0
 	},
 	{
 		\"description\": \"Versatile fasteners used in both wooden and metal constructions. Can be scavenged from disassembled furniture and machinery.\",
@@ -975,7 +975,7 @@ json_data = "[
 		\"name\": \"Screw\",
 		\"sprite\": \"screw_32.png\",
 		\"stack_size\": 10,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.1
 	},
 	{
@@ -986,8 +986,8 @@ json_data = "[
 		\"name\": \"Branch\",
 		\"sprite\": \"branches_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
-		\"weight\": 2
+		\"volume\": 50.0,
+		\"weight\": 2.0
 	},
 	{
 		\"description\": \"Can be used for camouflage, crafting bedding, or as a basic source of compost.\",
@@ -997,7 +997,7 @@ json_data = "[
 		\"name\": \"Leaf\",
 		\"sprite\": \"leaves_32.png\",
 		\"stack_size\": 5,
-		\"volume\": 1,
+		\"volume\": 1.0,
 		\"weight\": 0.01
 	},
 	{
@@ -1008,8 +1008,8 @@ json_data = "[
 		\"name\": \"Pine Branch\",
 		\"sprite\": \"pine_branch_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
-		\"weight\": 2
+		\"volume\": 50.0,
+		\"weight\": 2.0
 	},
 	{
 		\"description\": \"Natural material that can be molded when wet and hardens when dried, useful for creating pottery, bricks, and reinforcing structures.\",
@@ -1019,8 +1019,8 @@ json_data = "[
 		\"name\": \"Clay\",
 		\"sprite\": \"clay_32.png\",
 		\"stack_size\": 5,
-		\"volume\": 20,
-		\"weight\": 1
+		\"volume\": 20.0,
+		\"weight\": 1.0
 	},
 	{
 		\"description\": \"Basic resource for growing plants and creating makeshift gardens for food production.\",
@@ -1030,8 +1030,8 @@ json_data = "[
 		\"name\": \"Soil\",
 		\"sprite\": \"soil_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 200,
-		\"weight\": 5
+		\"volume\": 200.0,
+		\"weight\": 5.0
 	},
 	{
 		\"description\": \"Metal parts that allow doors and cabinets to open and close. Can be used in various mechanical constructions.\",
@@ -1041,7 +1041,7 @@ json_data = "[
 		\"name\": \"Hinge\",
 		\"sprite\": \"hinge_32.png\",
 		\"stack_size\": 5,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.2
 	},
 	{
@@ -1052,7 +1052,7 @@ json_data = "[
 		\"name\": \"Plant Remnants\",
 		\"sprite\": \"plant_remnants_32.png\",
 		\"stack_size\": 5,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.1
 	},
 	{
@@ -1063,7 +1063,7 @@ json_data = "[
 		\"name\": \"Electrical Components\",
 		\"sprite\": \"electrical_components_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 20,
+		\"volume\": 20.0,
 		\"weight\": 0.5
 	},
 	{
@@ -1074,7 +1074,7 @@ json_data = "[
 		\"name\": \"Plastic Parts\",
 		\"sprite\": \"plastic_parts_32.png\",
 		\"stack_size\": 10,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.3
 	},
 	{
@@ -1085,8 +1085,8 @@ json_data = "[
 		\"name\": \"Ceramic Fragments\",
 		\"sprite\": \"ceramic_fragments_32.png\",
 		\"stack_size\": 5,
-		\"volume\": 15,
-		\"weight\": 1
+		\"volume\": 15.0,
+		\"weight\": 1.0
 	},
 	{
 		\"description\": \"General metal components used in various crafting and construction recipes.\",
@@ -1096,7 +1096,7 @@ json_data = "[
 		\"name\": \"Metal Parts\",
 		\"sprite\": \"metal_parts_32.png\",
 		\"stack_size\": 10,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.5
 	},
 	{
@@ -1107,14 +1107,14 @@ json_data = "[
 		\"name\": \"Jar of Parsley\",
 		\"sprite\": \"jar_parsley_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 60,
+		\"volume\": 60.0,
 		\"weight\": 0.5
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1126,18 +1126,18 @@ json_data = "[
 		\"name\": \"Tofu\",
 		\"sprite\": \"tofu_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 30,
+		\"volume\": 30.0,
 		\"weight\": 0.5
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 15,
+					\"amount\": 15.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 1,
+					\"amount\": 1.0,
 					\"id\": \"water\"
 				}
 			]
@@ -1149,18 +1149,18 @@ json_data = "[
 		\"name\": \"Bottle of Yogurt\",
 		\"sprite\": \"bottle_yogurt_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
+		\"volume\": 100.0,
 		\"weight\": 0.3
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 3,
+					\"amount\": 3.0,
 					\"id\": \"water\"
 				}
 			]
@@ -1172,18 +1172,18 @@ json_data = "[
 		\"name\": \"Jar of Pickles\",
 		\"sprite\": \"jar_pickles_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
-		\"weight\": 1
+		\"volume\": 50.0,
+		\"weight\": 1.0
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 15,
+					\"amount\": 15.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 5,
+					\"amount\": 5.0,
 					\"id\": \"water\"
 				}
 			]
@@ -1195,35 +1195,35 @@ json_data = "[
 		\"name\": \"Condensed Milk\",
 		\"sprite\": \"condensed_milk_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 60,
+		\"volume\": 60.0,
 		\"weight\": 0.8
 	},
 	{
 		\"Medical\": {
-			\"amount\": 10,
+			\"amount\": 10.0,
 			\"attributes\": [
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"head_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"torso_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"left_arm_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"right_arm_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"left_leg_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"right_leg_health\"
 				}
 			],
@@ -1236,35 +1236,35 @@ json_data = "[
 		\"name\": \"Insulin\",
 		\"sprite\": \"insulin_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.1
 	},
 	{
 		\"Medical\": {
-			\"amount\": 10,
+			\"amount\": 10.0,
 			\"attributes\": [
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"head_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"torso_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"left_arm_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"right_arm_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"left_leg_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"right_leg_health\"
 				}
 			],
@@ -1277,14 +1277,14 @@ json_data = "[
 		\"name\": \"EpiPen\",
 		\"sprite\": \"epipen_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.1
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1296,14 +1296,14 @@ json_data = "[
 		\"name\": \"Bag of Bacon\",
 		\"sprite\": \"bag_bacon_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 30,
+		\"volume\": 30.0,
 		\"weight\": 0.5
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"water\"
 				}
 			]
@@ -1315,14 +1315,14 @@ json_data = "[
 		\"name\": \"Wine Bottle\",
 		\"sprite\": \"wine_bottle_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 90,
+		\"volume\": 90.0,
 		\"weight\": 1.5
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1334,7 +1334,7 @@ json_data = "[
 		\"name\": \"Bread\",
 		\"sprite\": \"bread_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 90,
+		\"volume\": 90.0,
 		\"weight\": 0.5
 	},
 	{
@@ -1345,14 +1345,14 @@ json_data = "[
 		\"name\": \"Syringe\",
 		\"sprite\": \"syringe_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.05
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1364,14 +1364,14 @@ json_data = "[
 		\"name\": \"Slice of Pizza\",
 		\"sprite\": \"slice_of_pizza_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.3
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1383,18 +1383,18 @@ json_data = "[
 		\"name\": \"Vacuum Sealed Fish\",
 		\"sprite\": \"vacuum_sealed_fish_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.8
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 3,
+					\"amount\": 3.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 3,
+					\"amount\": 3.0,
 					\"id\": \"water\"
 				}
 			]
@@ -1406,18 +1406,18 @@ json_data = "[
 		\"name\": \"Tomato\",
 		\"sprite\": \"tomato_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.2
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 3,
+					\"amount\": 3.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 6,
+					\"amount\": 6.0,
 					\"id\": \"water\"
 				}
 			]
@@ -1429,7 +1429,7 @@ json_data = "[
 		\"name\": \"Lettuce\",
 		\"sprite\": \"lettuce_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 90,
+		\"volume\": 90.0,
 		\"weight\": 0.3
 	},
 	{
@@ -1440,14 +1440,14 @@ json_data = "[
 		\"name\": \"Protein Powder\",
 		\"sprite\": \"protein_powder_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
-		\"weight\": 1
+		\"volume\": 50.0,
+		\"weight\": 1.0
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1459,14 +1459,14 @@ json_data = "[
 		\"name\": \"Chocolate\",
 		\"sprite\": \"chocolate_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 25,
+		\"volume\": 25.0,
 		\"weight\": 0.2
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1478,7 +1478,7 @@ json_data = "[
 		\"name\": \"Jar of Olives\",
 		\"sprite\": \"jar_olives_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 40,
+		\"volume\": 40.0,
 		\"weight\": 0.5
 	},
 	{
@@ -1489,14 +1489,14 @@ json_data = "[
 		\"name\": \"Jar of Basil\",
 		\"sprite\": \"jar_basil_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 25,
+		\"volume\": 25.0,
 		\"weight\": 0.5
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 5,
+					\"amount\": 5.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1508,14 +1508,14 @@ json_data = "[
 		\"name\": \"Jar of Mustard\",
 		\"sprite\": \"jar_mustard_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 25,
+		\"volume\": 25.0,
 		\"weight\": 0.3
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 5,
+					\"amount\": 5.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1527,14 +1527,14 @@ json_data = "[
 		\"name\": \"Bottle of Ketchup\",
 		\"sprite\": \"bottle_ketchup_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 60,
+		\"volume\": 60.0,
 		\"weight\": 0.3
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 5,
+					\"amount\": 5.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1546,35 +1546,35 @@ json_data = "[
 		\"name\": \"Stale Bread\",
 		\"sprite\": \"stale_bread_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 90,
+		\"volume\": 90.0,
 		\"weight\": 0.5
 	},
 	{
 		\"Medical\": {
-			\"amount\": 10,
+			\"amount\": 10.0,
 			\"attributes\": [
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"head_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"torso_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"left_arm_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"right_arm_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"left_leg_health\"
 				},
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"right_leg_health\"
 				}
 			],
@@ -1587,18 +1587,18 @@ json_data = "[
 		\"name\": \"Painkiller\",
 		\"sprite\": \"painkiller_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.1
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 2,
+					\"amount\": 2.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 6,
+					\"amount\": 6.0,
 					\"id\": \"water\"
 				}
 			]
@@ -1610,18 +1610,18 @@ json_data = "[
 		\"name\": \"Orange\",
 		\"sprite\": \"orange_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.2
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 3,
+					\"amount\": 3.0,
 					\"id\": \"water\"
 				}
 			]
@@ -1633,14 +1633,14 @@ json_data = "[
 		\"name\": \"Apple\",
 		\"sprite\": \"apple_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.2
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1652,14 +1652,14 @@ json_data = "[
 		\"name\": \"Potato\",
 		\"sprite\": \"potato_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 15,
+		\"volume\": 15.0,
 		\"weight\": 0.3
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 9,
+					\"amount\": 9.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1671,18 +1671,18 @@ json_data = "[
 		\"name\": \"Carrot\",
 		\"sprite\": \"carrot_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.2
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 12,
+					\"amount\": 12.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 6,
+					\"amount\": 6.0,
 					\"id\": \"water\"
 				}
 			]
@@ -1694,14 +1694,14 @@ json_data = "[
 		\"name\": \"Eggs\",
 		\"sprite\": \"eggs_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.6
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 20,
+					\"amount\": 20.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1713,14 +1713,14 @@ json_data = "[
 		\"name\": \"Butter\",
 		\"sprite\": \"butter_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 20,
+		\"volume\": 20.0,
 		\"weight\": 0.4
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 12,
+					\"amount\": 12.0,
 					\"id\": \"water\"
 				}
 			]
@@ -1732,14 +1732,14 @@ json_data = "[
 		\"name\": \"Energy Drink\",
 		\"sprite\": \"can_energydrink_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.3
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 15,
+					\"amount\": 15.0,
 					\"id\": \"water\"
 				}
 			]
@@ -1751,14 +1751,14 @@ json_data = "[
 		\"name\": \"Soda\",
 		\"sprite\": \"can_soda_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.3
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"food\"
 				}
 			]
@@ -1770,7 +1770,7 @@ json_data = "[
 		\"name\": \"Cheese\",
 		\"sprite\": \"cheese_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 40,
+		\"volume\": 40.0,
 		\"weight\": 0.5
 	},
 	{
@@ -1785,7 +1785,7 @@ json_data = "[
 		\"name\": \"T-shirt\",
 		\"sprite\": \"t_shirt_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 90,
+		\"volume\": 90.0,
 		\"weight\": 0.5
 	},
 	{
@@ -1793,7 +1793,7 @@ json_data = "[
 			\"player_attributes\": [
 				{
 					\"id\": \"inventory_space\",
-					\"value\": 100
+					\"value\": 100.0
 				}
 			],
 			\"slot\": \"legs\"
@@ -1805,8 +1805,8 @@ json_data = "[
 		\"name\": \"Jeans\",
 		\"sprite\": \"jeans_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
-		\"weight\": 1
+		\"volume\": 100.0,
+		\"weight\": 1.0
 	},
 	{
 		\"description\": \"A basic silver spoon, used for eating or stirring.\",
@@ -1816,7 +1816,7 @@ json_data = "[
 		\"name\": \"Silver Spoon\",
 		\"sprite\": \"spoon_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.1
 	},
 	{
@@ -1827,7 +1827,7 @@ json_data = "[
 		\"name\": \"Silver Fork\",
 		\"sprite\": \"fork_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.1
 	},
 	{
@@ -1838,7 +1838,7 @@ json_data = "[
 		\"name\": \"Butter Knife\",
 		\"sprite\": \"butter_knife_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.1
 	},
 	{
@@ -1849,7 +1849,7 @@ json_data = "[
 		\"name\": \"Hand Whisk\",
 		\"sprite\": \"hand_wisk_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 80,
+		\"volume\": 80.0,
 		\"weight\": 0.2
 	},
 	{
@@ -1860,7 +1860,7 @@ json_data = "[
 		\"name\": \"Soup Ladle\",
 		\"sprite\": \"soup_ladle_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
+		\"volume\": 100.0,
 		\"weight\": 0.3
 	},
 	{
@@ -1871,7 +1871,7 @@ json_data = "[
 		\"name\": \"Kitchen Tongs\",
 		\"sprite\": \"kitchen_tongs_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 60,
+		\"volume\": 60.0,
 		\"weight\": 0.3
 	},
 	{
@@ -1886,7 +1886,7 @@ json_data = "[
 		\"name\": \"Baseball Cap\",
 		\"sprite\": \"baseball_cap_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.2
 	},
 	{
@@ -1901,8 +1901,8 @@ json_data = "[
 		\"name\": \"Sweater\",
 		\"sprite\": \"sweater_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 150,
-		\"weight\": 1
+		\"volume\": 150.0,
+		\"weight\": 1.0
 	},
 	{
 		\"Wearable\": {
@@ -1916,8 +1916,8 @@ json_data = "[
 		\"name\": \"Scarf\",
 		\"sprite\": \"scarf_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 90,
-		\"weight\": 1
+		\"volume\": 90.0,
+		\"weight\": 1.0
 	},
 	{
 		\"Wearable\": {
@@ -1931,8 +1931,8 @@ json_data = "[
 		\"name\": \"Leather Gloves\",
 		\"sprite\": \"leather_gloves_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 60,
-		\"weight\": 1
+		\"volume\": 60.0,
+		\"weight\": 1.0
 	},
 	{
 		\"Wearable\": {
@@ -1946,7 +1946,7 @@ json_data = "[
 		\"name\": \"Shorts\",
 		\"sprite\": \"shorts_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 60,
+		\"volume\": 60.0,
 		\"weight\": 0.4
 	},
 	{
@@ -1961,7 +1961,7 @@ json_data = "[
 		\"name\": \"Strainer Sieve\",
 		\"sprite\": \"strainer_sieve_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
+		\"volume\": 100.0,
 		\"weight\": 0.3
 	},
 	{
@@ -1976,7 +1976,7 @@ json_data = "[
 		\"name\": \"Socks\",
 		\"sprite\": \"socks_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.3
 	},
 	{
@@ -1998,7 +1998,7 @@ json_data = "[
 		\"name\": \"Cheese Grater\",
 		\"sprite\": \"cheese_grater_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 150,
+		\"volume\": 150.0,
 		\"weight\": 0.3
 	},
 	{
@@ -2009,7 +2009,7 @@ json_data = "[
 		\"name\": \"Pizza Cutter\",
 		\"sprite\": \"pizza_cutter_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 30,
+		\"volume\": 30.0,
 		\"weight\": 0.2
 	},
 	{
@@ -2020,7 +2020,7 @@ json_data = "[
 		\"name\": \"Basting Brush\",
 		\"sprite\": \"basting_brush_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 60,
+		\"volume\": 60.0,
 		\"weight\": 0.1
 	},
 	{
@@ -2031,7 +2031,7 @@ json_data = "[
 		\"name\": \"Apple Corer\",
 		\"sprite\": \"apple_corer_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 30,
+		\"volume\": 30.0,
 		\"weight\": 0.1
 	},
 	{
@@ -2042,7 +2042,7 @@ json_data = "[
 		\"name\": \"Garlic Press\",
 		\"sprite\": \"garlic_press_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 80,
+		\"volume\": 80.0,
 		\"weight\": 0.3
 	},
 	{
@@ -2053,7 +2053,7 @@ json_data = "[
 		\"name\": \"Silver Knife\",
 		\"sprite\": \"silver_knife_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.1
 	},
 	{
@@ -2064,7 +2064,7 @@ json_data = "[
 		\"name\": \"Measuring Spoon Set\",
 		\"sprite\": \"measuring_spoon_set_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 90,
+		\"volume\": 90.0,
 		\"weight\": 0.3
 	},
 	{
@@ -2075,7 +2075,7 @@ json_data = "[
 		\"name\": \"Small Stick\",
 		\"sprite\": \"stick_small_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 40,
+		\"volume\": 40.0,
 		\"weight\": 0.5
 	},
 	{
@@ -2086,8 +2086,8 @@ json_data = "[
 		\"name\": \"Large Rock\",
 		\"sprite\": \"rock_large_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 150,
-		\"weight\": 10
+		\"volume\": 150.0,
+		\"weight\": 10.0
 	},
 	{
 		\"description\": \"A collection of wild herbs, useful for medicinal purposes or adding flavor to food.\",
@@ -2097,18 +2097,18 @@ json_data = "[
 		\"name\": \"Wild Herbs\",
 		\"sprite\": \"wild_herbs_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.1
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 6,
+					\"amount\": 6.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 2,
+					\"amount\": 2.0,
 					\"id\": \"water\"
 				}
 			]
@@ -2120,14 +2120,14 @@ json_data = "[
 		\"name\": \"Wild Berries\",
 		\"sprite\": \"berries_wild_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.05
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 4,
+					\"amount\": 4.0,
 					\"id\": \"food\"
 				}
 			]
@@ -2139,7 +2139,7 @@ json_data = "[
 		\"name\": \"Forest Mushrooms\",
 		\"sprite\": \"mushroom_forest_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.05
 	},
 	{
@@ -2150,18 +2150,18 @@ json_data = "[
 		\"name\": \"Pinecone\",
 		\"sprite\": \"pinecone_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 40,
+		\"volume\": 40.0,
 		\"weight\": 0.05
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 5,
+					\"amount\": 5.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 2,
+					\"amount\": 2.0,
 					\"id\": \"water\"
 				}
 			]
@@ -2173,7 +2173,7 @@ json_data = "[
 		\"name\": \"Bird Egg\",
 		\"sprite\": \"egg_bird_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 15,
+		\"volume\": 15.0,
 		\"weight\": 0.1
 	},
 	{
@@ -2184,7 +2184,7 @@ json_data = "[
 		\"name\": \"Wild Flower\",
 		\"sprite\": \"flower_wild_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 60,
+		\"volume\": 60.0,
 		\"weight\": 0.1
 	},
 	{
@@ -2195,7 +2195,7 @@ json_data = "[
 		\"name\": \"Acorn\",
 		\"sprite\": \"acorn_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.02
 	},
 	{
@@ -2206,7 +2206,7 @@ json_data = "[
 		\"name\": \"Pebble\",
 		\"sprite\": \"pebble_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.2
 	},
 	{
@@ -2217,8 +2217,8 @@ json_data = "[
 		\"name\": \"Quartz Crystal\",
 		\"sprite\": \"quartz_crystal_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 90,
-		\"weight\": 2
+		\"volume\": 90.0,
+		\"weight\": 2.0
 	},
 	{
 		\"description\": \"A small pile of gravel, useful for construction or as a crafting material.\",
@@ -2228,7 +2228,7 @@ json_data = "[
 		\"name\": \"Gravel\",
 		\"sprite\": \"gravel_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.2
 	},
 	{
@@ -2239,8 +2239,8 @@ json_data = "[
 		\"name\": \"Medium Rock\",
 		\"sprite\": \"rock_medium_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
-		\"weight\": 2
+		\"volume\": 50.0,
+		\"weight\": 2.0
 	},
 	{
 		\"description\": \"A small rock, handy for crafting or as a basic tool component.\",
@@ -2250,7 +2250,7 @@ json_data = "[
 		\"name\": \"Small Rock\",
 		\"sprite\": \"rock_small_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.2
 	},
 	{
@@ -2259,7 +2259,7 @@ json_data = "[
 			\"reach\": 1,
 			\"used_skill\": {
 				\"skill_id\": \"bashing\",
-				\"xp\": 10
+				\"xp\": 10.0
 			}
 		},
 		\"description\": \"A simple stick, useful for crafting, kindling, or as a basic weapon.\",
@@ -2269,8 +2269,8 @@ json_data = "[
 		\"name\": \"Stick\",
 		\"sprite\": \"stick_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 100,
-		\"weight\": 1
+		\"volume\": 100.0,
+		\"weight\": 1.0
 	},
 	{
 		\"Melee\": {
@@ -2278,7 +2278,7 @@ json_data = "[
 			\"reach\": 2,
 			\"used_skill\": {
 				\"skill_id\": \"bashing\",
-				\"xp\": 10
+				\"xp\": 10.0
 			}
 		},
 		\"description\": \"A long stick, versatile for crafting, building structures, or as a makeshift weapon.\",
@@ -2288,8 +2288,8 @@ json_data = "[
 		\"name\": \"Long Stick\",
 		\"sprite\": \"stick_long_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 200,
-		\"weight\": 5
+		\"volume\": 200.0,
+		\"weight\": 5.0
 	},
 	{
 		\"description\": \"A stone with a sharp edge, useful for cutting or crafting tools.\",
@@ -2299,7 +2299,7 @@ json_data = "[
 		\"name\": \"Sharp Stone\",
 		\"sprite\": \"rock_sharp_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 50,
+		\"volume\": 50.0,
 		\"weight\": 0.8
 	},
 	{
@@ -2312,17 +2312,17 @@ json_data = "[
 				},
 				\"required_resources\": [
 					{
-						\"amount\": 1,
+						\"amount\": 1.0,
 						\"id\": \"long_stick\"
 					},
 					{
-						\"amount\": 1,
+						\"amount\": 1.0,
 						\"id\": \"sharp_stone\"
 					}
 				],
 				\"skill_progression\": {
 					\"id\": \"fabrication\",
-					\"xp\": 25
+					\"xp\": 25.0
 				}
 			}
 		],
@@ -2331,7 +2331,7 @@ json_data = "[
 			\"reach\": 2,
 			\"used_skill\": {
 				\"skill_id\": \"cutting\",
-				\"xp\": 10
+				\"xp\": 10.0
 			}
 		},
 		\"description\": \"A long stick with a sharpened stone tip, ideal for hunting or defense.\",
@@ -2341,15 +2341,15 @@ json_data = "[
 		\"name\": \"Stone Spear\",
 		\"sprite\": \"spear_stone_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 200,
-		\"weight\": 4
+		\"volume\": 200.0,
+		\"weight\": 4.0
 	},
 	{
 		\"Wearable\": {
 			\"player_attributes\": [
 				{
 					\"id\": \"inventory_space\",
-					\"value\": 200
+					\"value\": 200.0
 				}
 			],
 			\"slot\": \"back\"
@@ -2361,7 +2361,7 @@ json_data = "[
 		\"name\": \"Waist Bag\",
 		\"sprite\": \"waistbag_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 30,
+		\"volume\": 30.0,
 		\"weight\": 0.3
 	},
 	{
@@ -2369,7 +2369,7 @@ json_data = "[
 			\"player_attributes\": [
 				{
 					\"id\": \"inventory_space\",
-					\"value\": 400
+					\"value\": 400.0
 				}
 			],
 			\"slot\": \"back\"
@@ -2381,7 +2381,7 @@ json_data = "[
 		\"name\": \"Mail Bag\",
 		\"sprite\": \"mailbag_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 80,
+		\"volume\": 80.0,
 		\"weight\": 0.7
 	},
 	{
@@ -2389,7 +2389,7 @@ json_data = "[
 			\"player_attributes\": [
 				{
 					\"id\": \"inventory_space\",
-					\"value\": 1000
+					\"value\": 1000.0
 				}
 			],
 			\"slot\": \"back\"
@@ -2401,7 +2401,7 @@ json_data = "[
 		\"name\": \"Backpack\",
 		\"sprite\": \"backpack_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 120,
+		\"volume\": 120.0,
 		\"weight\": 1.2
 	},
 	{
@@ -2412,8 +2412,8 @@ json_data = "[
 		\"name\": \"Brick\",
 		\"sprite\": \"brick_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 60,
-		\"weight\": 2
+		\"volume\": 60.0,
+		\"weight\": 2.0
 	},
 	{
 		\"description\": \"A brick with visible cracks and wear, still usable but not as durable.\",
@@ -2423,7 +2423,7 @@ json_data = "[
 		\"name\": \"Damaged Brick\",
 		\"sprite\": \"brick_damaged_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 60,
+		\"volume\": 60.0,
 		\"weight\": 1.8
 	},
 	{
@@ -2434,8 +2434,8 @@ json_data = "[
 		\"name\": \"Damaged Concrete Slab\",
 		\"sprite\": \"concrete_slab_damaged_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 400,
-		\"weight\": 20
+		\"volume\": 400.0,
+		\"weight\": 20.0
 	},
 	{
 		\"description\": \"Sharp pieces of broken glass, dangerous but potentially useful in crafting.\",
@@ -2445,7 +2445,7 @@ json_data = "[
 		\"name\": \"Glass Shards\",
 		\"sprite\": \"glass_shards_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.05
 	},
 	{
@@ -2456,15 +2456,15 @@ json_data = "[
 		\"name\": \"Rusted Metal Sheets\",
 		\"sprite\": \"rusted_metal_sheets_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 150,
-		\"weight\": 5
+		\"volume\": 150.0,
+		\"weight\": 5.0
 	},
 	{
 		\"Medical\": {
-			\"amount\": -50,
+			\"amount\": -50.0,
 			\"attributes\": [
 				{
-					\"amount\": 0,
+					\"amount\": 0.0,
 					\"id\": \"poison\"
 				}
 			],
@@ -2477,7 +2477,7 @@ json_data = "[
 		\"name\": \"Bottle of antidote\",
 		\"sprite\": \"antidote_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.1
 	},
 	{
@@ -2488,8 +2488,8 @@ json_data = "[
 		\"name\": \"Damaged transmitter\",
 		\"sprite\": \"transmitter_broken_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 80,
-		\"weight\": 1
+		\"volume\": 80.0,
+		\"weight\": 1.0
 	},
 	{
 		\"description\": \"A functional circuit board, scavenged from a robotic enemy or scrap pile. Essential for repairing electronics.\",
@@ -2499,7 +2499,7 @@ json_data = "[
 		\"name\": \"Circuit Board\",
 		\"sprite\": \"cirquit_board_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 20,
+		\"volume\": 20.0,
 		\"weight\": 0.5
 	},
 	{
@@ -2512,29 +2512,29 @@ json_data = "[
 				},
 				\"required_resources\": [
 					{
-						\"amount\": 1,
+						\"amount\": 1.0,
 						\"id\": \"damaged_transmitter\"
 					},
 					{
-						\"amount\": 2,
+						\"amount\": 2.0,
 						\"id\": \"electrical_components\"
 					},
 					{
-						\"amount\": 2,
+						\"amount\": 2.0,
 						\"id\": \"plastic_parts\"
 					},
 					{
-						\"amount\": 1,
+						\"amount\": 1.0,
 						\"id\": \"circuit_board\"
 					}
 				],
 				\"skill_progression\": {
 					\"id\": \"electronics\",
-					\"xp\": 25
+					\"xp\": 25.0
 				},
 				\"skill_requirement\": {
 					\"id\": \"electronics\",
-					\"level\": 1
+					\"level\": 1.0
 				}
 			}
 		],
@@ -2545,8 +2545,8 @@ json_data = "[
 		\"name\": \"Transmitter\",
 		\"sprite\": \"transmitter_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 80,
-		\"weight\": 1
+		\"volume\": 80.0,
+		\"weight\": 1.0
 	},
 	{
 		\"description\": \"A metallic key that grants access to the control panel of the radio tower.\",
@@ -2556,7 +2556,7 @@ json_data = "[
 		\"name\": \"Radio tower key\",
 		\"sprite\": \"metallic_key_32.png\",
 		\"stack_size\": 2,
-		\"volume\": 15,
+		\"volume\": 15.0,
 		\"weight\": 0.25
 	},
 	{
@@ -2567,7 +2567,7 @@ json_data = "[
 		\"name\": \"Wallet\",
 		\"sprite\": \"wallet_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 15,
+		\"volume\": 15.0,
 		\"weight\": 0.1
 	},
 	{
@@ -2582,22 +2582,22 @@ json_data = "[
 		\"name\": \"Wallet\",
 		\"sprite\": \"watch_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 15,
+		\"volume\": 15.0,
 		\"weight\": 0.1
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 2,
+					\"amount\": 2.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 2,
+					\"amount\": 2.0,
 					\"id\": \"water\"
 				},
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"poison\"
 				}
 			]
@@ -2609,7 +2609,7 @@ json_data = "[
 		\"name\": \"Chunk of Rotten Flesh\",
 		\"sprite\": \"rotten_flesh_chunk_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 15,
+		\"volume\": 15.0,
 		\"weight\": 0.25
 	},
 	{
@@ -2620,22 +2620,22 @@ json_data = "[
 		\"name\": \"Zombie Bone\",
 		\"sprite\": \"zombie_bone_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 15,
+		\"volume\": 15.0,
 		\"weight\": 0.1
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 1,
+					\"amount\": 1.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 1,
+					\"amount\": 1.0,
 					\"id\": \"water\"
 				},
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"poison\"
 				}
 			]
@@ -2647,22 +2647,22 @@ json_data = "[
 		\"name\": \"Zombie Eye\",
 		\"sprite\": \"zombie_eye_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 5,
+		\"volume\": 5.0,
 		\"weight\": 0.05
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 3,
+					\"amount\": 3.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 3,
+					\"amount\": 3.0,
 					\"id\": \"water\"
 				},
 				{
-					\"amount\": 10,
+					\"amount\": 10.0,
 					\"id\": \"poison\"
 				}
 			]
@@ -2674,7 +2674,7 @@ json_data = "[
 		\"name\": \"Decayed Organ\",
 		\"sprite\": \"zombie_organ_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 25,
+		\"volume\": 25.0,
 		\"weight\": 0.25
 	},
 	{
@@ -2685,7 +2685,7 @@ json_data = "[
 		\"name\": \"Kindling Bundle\",
 		\"sprite\": \"kindling_bundle_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 30,
+		\"volume\": 30.0,
 		\"weight\": 0.3
 	},
 	{
@@ -2696,7 +2696,7 @@ json_data = "[
 		\"name\": \"Charcoal Chunk\",
 		\"sprite\": \"charcoal_chunk_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.5
 	},
 	{
@@ -2707,18 +2707,18 @@ json_data = "[
 		\"name\": \"Wood Bundle\",
 		\"sprite\": \"branches_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 150,
-		\"weight\": 10
+		\"volume\": 150.0,
+		\"weight\": 10.0
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 3,
+					\"amount\": 3.0,
 					\"id\": \"food\"
 				},
 				{
-					\"amount\": 4,
+					\"amount\": 4.0,
 					\"id\": \"water\"
 				}
 			]
@@ -2730,14 +2730,14 @@ json_data = "[
 		\"name\": \"Kiwi\",
 		\"sprite\": \"kiwi_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 8,
+		\"volume\": 8.0,
 		\"weight\": 0.2
 	},
 	{
 		\"Food\": {
 			\"attributes\": [
 				{
-					\"amount\": 15,
+					\"amount\": 15.0,
 					\"id\": \"food\"
 				}
 			]
@@ -2749,7 +2749,7 @@ json_data = "[
 		\"name\": \"Uncooked Meat\",
 		\"sprite\": \"uncooked_meat_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 20,
+		\"volume\": 20.0,
 		\"weight\": 0.5
 	},
 	{
@@ -2760,7 +2760,7 @@ json_data = "[
 		\"name\": \"Pack of cigarettes\",
 		\"sprite\": \"sigarrette_pack_32.png\",
 		\"stack_size\": 1,
-		\"volume\": 10,
+		\"volume\": 10.0,
 		\"weight\": 0.1
 	}
 ]"

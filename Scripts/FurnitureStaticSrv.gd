@@ -20,11 +20,12 @@ var mesh_instance: RID  # Variable to store the mesh instance RID
 var quad_instance: RID # RID to the quadmesh that displays the sprite
 var myworld3d: World3D
 var spawner: FurnitureStaticSpawner # The spawner that spawned this furniture
+var is_hidden: bool = false # If true, all visual elements are invisible
 
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh # A mesh below the sprite for 3d effect
 var sprite_texture: Texture2D  # Variable to store the sprite texture
-var sprite_material: ShaderMaterial # Material to display the furniture sprite
+var sprite_material: StandardMaterial3D # Material to display the furniture sprite
 var quad_mesh: PlaneMesh # Shows the sprite of the furniture
 
 # Variables to manage door functionality
@@ -126,7 +127,7 @@ class FurnitureContainer:
 	var itemgroup: String # The ID of an itemgroup that it creates loot from
 	var sprite_mesh: PlaneMesh
 	var sprite_instance: RID # RID to the quadmesh that displays the containersprite
-	var material: ShaderMaterial
+	var material: StandardMaterial3D
 	var furniture_transform: FurnitureTransform
 	var parent_furniture: FurnitureStaticSrv
 	var world3d: World3D
@@ -186,7 +187,7 @@ class FurnitureContainer:
 		var item_id = random_item.prototype_id
 		
 		# Get the ShaderMaterial for the item
-		material = Runtimedata.items.get_shader_material_by_id(item_id)
+		material = Runtimedata.items.get_standard_material_by_id(item_id)
 		sprite_mesh.material = material  # Update the mesh material
 
 	# Takes an item_id and quantity and adds it to the inventory
@@ -790,6 +791,7 @@ func _init(furniturepos: Vector3, new_furniture_json: Dictionary, world3d: World
 	if rfurniture.consumption:
 		consumption = Consumption.new(self)
 	Helper.time_helper.minute_passed.connect.call_deferred(on_minute_passed)
+	Helper.signal_broker.player_current_y_level.connect.call_deferred(_on_player_y_level_updated)
 
 
 # If this furniture is a container, it will add a container node to the furniture.
@@ -860,7 +862,7 @@ func create_box_shape():
 # Function to create a visual instance with a mesh to represent the shape
 # Apply the hide_above_player_shader to the MeshInstance
 func create_visual_instance(shape_type: String):
-	var material: ShaderMaterial = Runtimedata.furnitures.get_shape_material_by_id(rfurniture.id)
+	var material: StandardMaterial3D = Runtimedata.furnitures.get_shape_material_by_id(rfurniture.id)
 
 	if shape_type == "Box":
 		support_mesh = BoxMesh.new()
@@ -887,15 +889,11 @@ func create_sprite_instance():
 	quad_mesh.size = furniture_transform.get_sizeV2()
 
 	# Get the shader material from Runtimedata.furnitures
-	sprite_material = Runtimedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
-
+	sprite_material = Runtimedata.furnitures.get_standard_material_by_id(furnitureJSON.id)
 	quad_mesh.material = sprite_material
 
 	# Create the quad instance
-	quad_instance = RenderingServer.instance_create()
-	RenderingServer.instance_set_base(quad_instance, quad_mesh)
-	RenderingServer.instance_set_scenario(quad_instance, myworld3d.scenario)
-
+	quad_instance = RenderingServer.instance_create2(quad_mesh,myworld3d.scenario)
 	# Set the transform for the quad instance slightly above the box mesh
 	RenderingServer.instance_set_transform(quad_instance, furniture_transform.get_sprite_transform())
 
@@ -929,11 +927,8 @@ func set_collision_layers_and_masks():
 	# Set collision layer to layers 3 (static obstacles layer) and 7 (containers layer)
 	var collision_layer = (1 << 2) | (1 << 6)  # Layer 3 is 1 << 2, Layer 7 is 1 << 6
 	if rfurniture.support_shape.transparent:
-		# HACK Put the furniture on the moveable obstacles layer if the furniture is transparent
-		# The reason for this is that mobs should exclude transparent furniture from 
-		# consideration when locating a new target (i.e. they can see trough the furniture)
-		# TODO: Create another layer for transparent furnture
-		collision_layer = (1 << 3) | (1 << 6)  # Layer 4 is 1 << 3, Layer 7 is 1 << 6
+		# Put transparent furniture on it's own layer
+		collision_layer = (1 << 6) | (1 << 7)  # Layer 7 is 1 << 6, Layer 8 is 1 << 7
 
 	# Set collision mask to include layers 1, 2, 3, 4, 5, and 6
 	var collision_mask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3) | (1 << 4) | (1 << 5)
@@ -1235,6 +1230,9 @@ func _die(do_add_corpse: bool = true):
 	if is_container():
 		Helper.signal_broker.container_exited_proximity.emit(self)
 	Helper.time_helper.minute_passed.disconnect(on_minute_passed)
+	# Disconnect from signal to stop tracking Y level changes
+	if Helper.signal_broker.player_current_y_level.is_connected(_on_player_y_level_updated):
+		Helper.signal_broker.player_current_y_level.disconnect(_on_player_y_level_updated)
 	free_resources()  # Free resources
 	queue_free()  # Remove the node from the scene tree
 
@@ -1458,3 +1456,40 @@ func add_item_to_inventory(item_id: String, quantity: int) -> bool:
 func get_y_position(is_snapped: bool = false) -> float:
 	var y_pos = furniture_transform.posy
 	return round(y_pos) if is_snapped else y_pos
+
+# Hides all visual elements of the furniture (mesh, sprite, container sprite)
+func hide_visuals():
+	if not mesh_instance == null:
+		RenderingServer.instance_set_visible(mesh_instance, false)
+	if not quad_instance == null:
+		RenderingServer.instance_set_visible(quad_instance, false)
+	if not container == null and not container.sprite_instance == null:
+		RenderingServer.instance_set_visible(container.sprite_instance, false)
+	is_hidden = true
+
+# Shows all visual elements of the furniture (mesh, sprite, container sprite)
+func show_visuals():
+	if not mesh_instance == null:
+		RenderingServer.instance_set_visible(mesh_instance, true)
+	if not quad_instance == null:
+		RenderingServer.instance_set_visible(quad_instance, true)
+	if not container == null and not container.sprite_instance == null:
+		RenderingServer.instance_set_visible(container.sprite_instance, true)
+	is_hidden = false
+
+
+# ✅ Handles player Y level update and updates furniture visibility
+func _on_player_y_level_updated(_old_y_level: float, new_y_level: float):
+	refresh_visibility(new_y_level)
+
+
+func refresh_visibility(new_y_level: float):
+	var furniture_y = get_y_position(true)  # Get snapped Y level
+
+	# Hide furniture above player, show furniture below
+	if furniture_y > new_y_level:
+		if not is_hidden:
+			hide_visuals()
+	else:
+		if is_hidden:
+			show_visuals()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://drjw0yaxf8x1p"]
 
-[ext_resource type="Script" path="res://Scripts/QuestTrackerUI.gd" id="1_q4byu"]
+[ext_resource type="Script" uid="uid://b1nedrxm6ay1y" path="res://Scripts/QuestTrackerUI.gd" id="1_q4byu"]
 
 [node name="QuestTracker" type="VBoxContainer"]
 anchors_preset = 1

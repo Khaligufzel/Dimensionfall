@@ -16,7 +16,7 @@ extends Node3D
 
 # Reference to the level manager. Some nodes that could be moved to other chunks 
 # should be parented to this (like moveable furniture and mobs)
-@export var level_manager : Node3D
+var level_manager : Node3D
 var level_generator : Node3D
 var furniture_static_spawner: FurnitureStaticSpawner
 var furniture_physics_spawner: FurniturePhysicsSpawner
@@ -223,10 +223,10 @@ func add_block_mobs():
 		# Pass the position and the mob json to the newmob and have it construct itself
 		var newMob: CharacterBody3D = Mob.new(mypos+mobdata.pos, mobdata.json)
 		level_manager.add_child.call_deferred(newMob)
-	# If you want to test a mob, you can use this to spawn it at 0,2,0
+	# If you want to test a mob, you can use this to spawn it at the Vector3 location
 	# Comment it out again when you're done testing
 	#if mypos == Vector3(0,0,0):
-		#var tempmob: CharacterBody3D = Mob.new(Vector3(15,1,15), {"id":"disruptor_drone"})
+		#var tempmob: CharacterBody3D = Mob.new(Vector3(15,1,15), {"id":"bone_thrower"})
 		#level_manager.add_child.call_deferred(tempmob)
 
 # When a map is loaded for the first time we spawn the furniture on the block
@@ -338,7 +338,7 @@ func add_furnitures_to_map(furnitureDataArray: Array):
 
 # Function to free all chunk-related instances
 func free_chunk_resources():
-	free_furniture_instances()
+	unload_furniture_instances()
 	free_mob_instances(get_tree().get_nodes_in_group("mobs"))
 	free_item_instances(get_tree().get_nodes_in_group("mapitems"))
 	chunk_mesh_body.queue_free()
@@ -346,9 +346,9 @@ func free_chunk_resources():
 
 
 # Function to free the furniture instances
-func free_furniture_instances():
-	furniture_static_spawner.remove_all_furniture()
-	furniture_physics_spawner.remove_all_furniture()
+func unload_furniture_instances():
+	furniture_static_spawner.unload()
+	furniture_physics_spawner.unload()
 
 
 # Function to free the mob instances
@@ -967,7 +967,7 @@ func create_colliders() -> void:
 
 			block_counter += 1
 			if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
-				OS.delay_msec(100) # Adjust delay time as needed
+				OS.delay_msec(10) # Adjust delay time as needed
 
 	# Create colliders for cubes using the modified copy of block_positions
 	create_cube_colliders(block_positions_copy, total_blocks, delay_every_n_blocks)
@@ -1019,7 +1019,7 @@ func create_cube_colliders(block_positions_copy: Dictionary, total_blocks: int, 
 		
 		block_counter += 1
 		if block_counter % delay_every_n_blocks == 0 and block_counter < total_blocks:
-			OS.delay_msec(100) # Adjust delay time as needed
+			OS.delay_msec(1) # Adjust delay time as needed
 
 
 # Creates a combined collider for cubes and puts it at the right place
@@ -1069,7 +1069,6 @@ func _create_slope_collider(block_sub_position: Vector3, block_rotation: int) ->
 	# Combine rotation and translation in the transform
 	collider.set_transform.call_deferred(rotation_transform.translated(block_sub_position))
 	return collider
-
 
 
 # Rotates a 3D vertex around the Y-axis

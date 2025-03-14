@@ -19,11 +19,12 @@ var mesh_instance: RID  # Variable to store the mesh instance RID
 var quad_instance: RID # RID to the quadmesh that displays the sprite
 var myworld3d: World3D
 var spawner: FurnitureBlueprintSpawner
+var is_hidden: bool = false # If true, all visual elements are invisible
 
 # We have to keep a reference or it will be auto deleted
 var support_mesh: PrimitiveMesh # A mesh below the sprite for 3d effect
 var sprite_texture: Texture2D  # Variable to store the sprite texture
-var sprite_material: ShaderMaterial # Material to display the furniture sprite
+var sprite_material: StandardMaterial3D # Material to display the furniture sprite
 var quad_mesh: PlaneMesh # Shows the sprite of the furniture
 
 
@@ -213,6 +214,7 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 	# Apply the mode-specific logic. Only constructed furniture will be BLUEPRINT
 	set_mode()
+	Helper.signal_broker.player_current_y_level.connect.call_deferred(_on_player_y_level_updated)
 
 
 # If this furniture is a container, it will add a container node to the furniture.
@@ -252,7 +254,7 @@ func create_box_shape():
 # Function to create a visual instance with a mesh to represent the shape
 # Apply the hide_above_player_shader to the MeshInstance
 func create_visual_instance(shape_type: String):
-	var material: ShaderMaterial = Runtimedata.furnitures.get_shape_material_by_id(rfurniture.id)
+	var material: StandardMaterial3D = Runtimedata.furnitures.get_shape_material_by_id(rfurniture.id)
 
 	if shape_type == "Box":
 		support_mesh = BoxMesh.new()
@@ -279,7 +281,7 @@ func create_sprite_instance():
 	quad_mesh.size = furniture_transform.get_sizeV2()
 
 	# Get the shader material from Runtimedata.furnitures
-	sprite_material = Runtimedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
+	sprite_material = Runtimedata.furnitures.get_standard_material_by_id(furnitureJSON.id)
 
 	quad_mesh.material = sprite_material
 
@@ -555,7 +557,7 @@ func _adjust_visuals_for_default_mode():
 		support_mesh.material = Runtimedata.furnitures.get_shape_material_by_id(rfurniture.id)
 
 	if sprite_material:
-		sprite_material = Runtimedata.furnitures.get_shader_material_by_id(furnitureJSON.id)
+		sprite_material = Runtimedata.furnitures.get_standard_material_by_id(furnitureJSON.id)
 		quad_mesh.material = sprite_material
 
 
@@ -622,3 +624,43 @@ func remove_construction_items() -> bool:
 			return false  # If any item cannot be removed, return false
 
 	return true  # All required items were successfully removed
+
+
+# Returns the y position of the furniture.
+# If 'snapped' is true, it returns the y position snapped to the nearest integer.
+func get_y_position(is_snapped: bool = false) -> float:
+	var y_pos = furniture_transform.posy
+	return round(y_pos) if is_snapped else y_pos
+
+# ✅ Function to hide the furniture visuals
+func hide_visuals():
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, false)
+	if quad_instance:
+		RenderingServer.instance_set_visible(quad_instance, false)
+	if container and container.sprite_instance:
+		RenderingServer.instance_set_visible(container.sprite_instance, false)
+	is_hidden = true
+
+# ✅ Function to show the furniture visuals
+func show_visuals():
+	if mesh_instance:
+		RenderingServer.instance_set_visible(mesh_instance, true)
+	if quad_instance:
+		RenderingServer.instance_set_visible(quad_instance, true)
+	if container and container.sprite_instance:
+		RenderingServer.instance_set_visible(container.sprite_instance, true)
+	is_hidden = false
+
+
+# ✅ Handles player Y level update and updates furniture visibility
+func _on_player_y_level_updated(_old_y_level: float, new_y_level: float):
+	var furniture_y = get_y_position(true)  # Get snapped Y level
+
+	# Hide furniture above player, show furniture below
+	if furniture_y > new_y_level:
+		if not is_hidden:
+			hide_visuals()
+	else:
+		if is_hidden:
+			show_visuals()

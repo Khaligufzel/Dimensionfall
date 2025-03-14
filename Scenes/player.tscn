@@ -1,31 +1,31 @@
-[gd_scene load_steps=25 format=3 uid="uid://bn5i23p2yi5uj"]
+[gd_scene load_steps=26 format=3 uid="uid://bn5i23p2yi5uj"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_8wv3l"]
-[ext_resource type="Script" path="res://Scripts/Camera.gd" id="2_g83x8"]
+[ext_resource type="Script" uid="uid://bbgacjm6n4tha" path="res://Scripts/player.gd" id="1_8wv3l"]
+[ext_resource type="Script" uid="uid://ccvllvfjxi0e3" path="res://Scripts/Camera.gd" id="2_g83x8"]
 [ext_resource type="PackedScene" uid="uid://bwlxjl00td75p" path="res://spot_light_3d.tscn" id="3_1cs2j"]
 [ext_resource type="PackedScene" uid="uid://r0oar0ocyo6v" path="res://spot_light_3d_2.tscn" id="4_s4cit"]
 [ext_resource type="Texture2D" uid="uid://d33h00t0fl7x" path="res://Defaults/Player/VestDude01.png" id="5_uy1e8"]
 [ext_resource type="Texture2D" uid="uid://piolgplta87y" path="res://Defaults/Player/weapon_left.png" id="6_gljie"]
-[ext_resource type="Script" path="res://Scripts/EquippedItem.gd" id="7_u8an4"]
+[ext_resource type="Script" uid="uid://ftajm2qq4vwa" path="res://Scripts/EquippedItem.gd" id="7_u8an4"]
 [ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://Defaults/Projectiles/DefaultBullet.tscn" id="8_un7wc"]
 [ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="9_hmpqe"]
 [ext_resource type="Texture2D" uid="uid://delyq5g2t13cx" path="res://Defaults/Player/weapon_right.png" id="10_j5u52"]
 [ext_resource type="PackedScene" uid="uid://c6txt3py4smbb" path="res://front_light.tscn" id="11_b146k"]
-[ext_resource type="Script" path="res://front_light.gd" id="12_5v7lk"]
-[ext_resource type="PackedScene" path="res://day_night.tscn" id="13_4vnbq"]
-[ext_resource type="Script" path="res://Scripts/PlayerShooting.gd" id="14_h4gah"]
+[ext_resource type="Script" uid="uid://epc7d3df1bqp" path="res://front_light.gd" id="12_5v7lk"]
+[ext_resource type="PackedScene" uid="uid://bisxe8aexlshr" path="res://day_night.tscn" id="13_4vnbq"]
+[ext_resource type="Script" uid="uid://dc5ubakpqyumw" path="res://Scripts/PlayerShooting.gd" id="14_h4gah"]
 [ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="15_paufw"]
-[ext_resource type="Script" path="res://Scripts/ItemDetector.gd" id="16_gq4uc"]
-[ext_resource type="Script" path="res://Scripts/Components/ComponentInteract.gd" id="17_23lma"]
+[ext_resource type="Script" uid="uid://d2x7bgurtvhx4" path="res://Scripts/ItemDetector.gd" id="16_gq4uc"]
+[ext_resource type="Script" uid="uid://bpfarfnqfaxdq" path="res://Scripts/Components/ComponentInteract.gd" id="17_23lma"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qqcod"]
+size = Vector3(0.29, 0.65, 0.555)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7gsdb"]
 albedo_color = Color(0, 1, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_mc21b"]
 size = Vector3(0.3, 1, 0.55)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_drnhn"]
-points = PackedVector3Array(0.15, 0.15, 0.275, -0.15, 0.15, 0.275, 0.15, -0.5, 0.275, 0.15, 0.15, -0.275, -0.15, 0.15, -0.275, -0.15, -0.5, 0.275, 0.15, -0.5, -0.275, -0.15, -0.5, -0.275)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n8kat"]
 playback_mode = 1
@@ -42,13 +42,16 @@ stream_0/stream = ExtResource("9_hmpqe")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ra623"]
 points = PackedVector3Array(0, 0, 0.325, -1, -1, 0.325, -1, 1, 0.325, 0, 0, -0.325, -1, -1, -0.325, -1, 1, -0.325)
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_drnhn"]
+points = PackedVector3Array(0.15, 0.15, 0.275, -0.15, 0.15, 0.275, 0.15, -0.5, 0.275, 0.15, 0.15, -0.275, -0.15, 0.15, -0.275, -0.15, -0.5, 0.275, 0.15, -0.5, -0.275, -0.15, -0.5, -0.275)
+
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_caadj"]
 height = 1.0
 radius = 1.5
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("sprite", "collision_detector", "camera_3d") groups=["Players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)
-collision_mask = 22
+collision_mask = 150
 floor_constant_speed = true
 floor_max_angle = 0.872665
 script = ExtResource("1_8wv3l")
@@ -62,14 +65,14 @@ current = true
 size = 50.0
 script = ExtResource("2_g83x8")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.275, 0)
+shape = SubResource("BoxShape3D_qqcod")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false
 material_override = SubResource("StandardMaterial3D_7gsdb")
 mesh = SubResource("BoxMesh_mc21b")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.100794, 0)
-shape = SubResource("ConvexPolygonShape3D_drnhn")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17078, 0)

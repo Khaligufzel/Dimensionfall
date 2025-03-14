@@ -162,6 +162,12 @@ func test_player_state_save_load():
 
 # Test player state saving and loading
 func test_player_vs_melee_mob():
+	# Target manager is required for the mob to start targeting
+	const TargetManager = preload("res://Scripts/target_manager.gd")
+	var mock_target_manager = TargetManager.new()
+	mock_target_manager.name = "TargetManager"
+	add_child(mock_target_manager)
+	
 	test_chunk.chunk_data = {"id": "basic_mob_test_map","rotation": 0}
 	add_child(test_chunk)
 	await get_tree().process_frame

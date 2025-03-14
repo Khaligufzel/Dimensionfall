@@ -18,7 +18,7 @@
 		"id": "generic_test_mob",
 		"idle_move_speed": 0.5,
 		"loot_group": "",
-		"move_speed": 1,
+		"move_speed": 1.0,
 		"name": "Test mob",
 		"sense_range": 50,
 		"sight_range": 200,
@@ -28,7 +28,7 @@
 		"attacks": {
 			"melee": [
 				{
-					"damage_multiplier": 3,
+					"damage_multiplier": 3.0,
 					"id": "generic_melee_attack"
 				}
 			],
@@ -42,7 +42,7 @@
 		"id": "generic_enemy_mob",
 		"idle_move_speed": 0.5,
 		"loot_group": "",
-		"move_speed": 1,
+		"move_speed": 1.0,
 		"name": "Enemy mob",
 		"sense_range": 50,
 		"sight_range": 200,
@@ -66,7 +66,7 @@
 		"id": "generic_ranged_mob",
 		"idle_move_speed": 0.5,
 		"loot_group": "",
-		"move_speed": 1,
+		"move_speed": 1.0,
 		"name": "Ranged test mob",
 		"sense_range": 50,
 		"sight_range": 200,

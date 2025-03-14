@@ -12,7 +12,7 @@ config_version=5
 
 config/name="CataX"
 run/main_scene="res://scene_selector.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
@@ -183,6 +183,7 @@ quest_menu={
 3d_physics/layer_5="enemyprojectiles"
 3d_physics/layer_6="friendlyprojectiles"
 3d_physics/layer_7="containers"
+3d_physics/layer_8="transparentstaticobstacles"
 2d_physics/layer_20="Items"
 
 [shader_globals]

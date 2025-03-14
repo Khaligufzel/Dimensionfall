@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b50xhj4218wjd"]
 
-[ext_resource type="Script" path="res://Scripts/QuestWindow.gd" id="1_3nwqm"]
+[ext_resource type="Script" uid="uid://cmy8t1yask7cr" path="res://Scripts/QuestWindow.gd" id="1_3nwqm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu1vc"]
 

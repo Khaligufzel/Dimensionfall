@@ -1,14 +1,14 @@
 [gd_scene load_steps=16 format=3 uid="uid://0r8ni3u0dosg"]
 
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/TacticalMapEditor.gd" id="1_bfw3n"]
+[ext_resource type="Script" uid="uid://dshtni7hsc7ue" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/TacticalMapEditor.gd" id="1_bfw3n"]
 [ext_resource type="Texture2D" uid="uid://b6m2bbbpmsyik" path="res://Images/Icons/IconRotateRightDark.png" id="2_qcvqe"]
 [ext_resource type="Texture2D" uid="uid://5fsf8rh6w0pb" path="res://Images/Icons/IconRectangleChecked.png" id="3_u7g7j"]
 [ext_resource type="Texture2D" uid="uid://cxhp6hye2ufp2" path="res://Images/Icons/IconRectangleUnchecked.png" id="4_no6mb"]
 [ext_resource type="Texture2D" uid="uid://7pbgyyv6lna1" path="res://Images/Icons/IconEraserChecked.png" id="5_142rt"]
 [ext_resource type="Texture2D" uid="uid://hik7bkdfc51t" path="res://Images/Icons/IconEraserUnchecked.png" id="6_w0gff"]
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/TileGrid.gd" id="7_ji7x2"]
+[ext_resource type="Script" uid="uid://dajapyivo4hpp" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/TileGrid.gd" id="7_ji7x2"]
 [ext_resource type="PackedScene" uid="uid://f6kl6bo0wsmk" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/TacticalMapEditorTile.tscn" id="8_pt28t"]
-[ext_resource type="Script" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/EntitiesContainer.gd" id="9_u8o0i"]
+[ext_resource type="Script" uid="uid://nrddl8j0topp" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/Scripts/EntitiesContainer.gd" id="9_u8o0i"]
 [ext_resource type="PackedScene" uid="uid://be62h2ytgw2kb" path="res://Scenes/ContentManager/Custom_Widgets/Scrolling_Flow_Container.tscn" id="10_lnsqy"]
 [ext_resource type="PackedScene" uid="uid://c28vw5hmwvmlf" path="res://Scenes/ContentManager/Custom_Editors/TacticalMapEditor/TacticalMapEditorTileBrush.tscn" id="11_bh5ke"]
 

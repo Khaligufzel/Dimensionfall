@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://kf2d2vvgh7l0"]
 
-[ext_resource type="Script" path="res://Scripts/bullet.gd" id="1_tleh8"]
+[ext_resource type="Script" uid="uid://cep4m0mmqx7r3" path="res://Scripts/bullet.gd" id="1_tleh8"]
 [ext_resource type="Texture2D" uid="uid://kn2f7jcrfnfm" path="res://Textures/bullet.png" id="2_a3c22"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8jjgy"]
@@ -8,7 +8,7 @@ radius = 0.2
 
 [node name="BulletProjectile" type="RigidBody3D" node_paths=PackedStringArray("bullet_sprite")]
 collision_layer = 32
-collision_mask = 30
+collision_mask = 158
 mass = 0.01
 gravity_scale = 0.001
 contact_monitor = true
@@ -26,7 +26,7 @@ shape = SubResource("SphereShape3D_8jjgy")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0
-collision_mask = 12
+collision_mask = 140
 
 [node name="BulletCollisionShape2" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, 0, 0)
