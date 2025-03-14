@@ -1480,6 +1480,10 @@ func show_visuals():
 
 # ✅ Handles player Y level update and updates furniture visibility
 func _on_player_y_level_updated(_old_y_level: float, new_y_level: float):
+	refresh_visibility(new_y_level)
+
+
+func refresh_visibility(new_y_level: float):
 	var furniture_y = get_y_position(true)  # Get snapped Y level
 
 	# Hide furniture above player, show furniture below

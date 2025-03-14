@@ -53,3 +53,11 @@ func has_id(mobfactionid: String) -> bool:
 # Returns the sprite of the mob faction by its ID
 func sprite_by_id(mobfactionid: String) -> Texture:
 	return mobfactiondict[mobfactionid].sprite
+
+# Returns an array of all mobfaction IDs in the mobfactiondict
+func get_all_mobfaction_ids() -> Array[String]:
+	return mobfactiondict.keys()
+
+# Returns an array of all mobfactions in the mobfactiondict
+func get_all_mobfactions() -> Array:
+	return mobfactiondict.values()

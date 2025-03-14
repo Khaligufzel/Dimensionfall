@@ -1,6 +1,7 @@
 class_name Mob
 extends CharacterBody3D
 
+var target_manager: Node3D = null
 var mobPosition: Vector3 # The position it will move to when it is created
 var mobRotation: int # The rotation it will rotate to when it is created
 var mobJSON: Dictionary # The json that defines this mob
@@ -25,7 +26,7 @@ var sight_range: float = 200.0
 var sense_range: float = 50.0
 var hearing_range: float = 1000.0
 var dash: Dictionary = {} # to enable dash move. something like {"speed_multiplier":2,"cooldown":5,"duration":0.5}
-var hates_mobs: Array = [] # An array of strings containing the mob id's it hates
+var hates_mobs: Dictionary = {} # A dictionary of strings containing the mob id's it hates
 
 # States and flags
 var is_blinking: bool = false # flag to prevent multiple blink actions
@@ -136,8 +137,11 @@ func _ready():
 	position = mobPosition
 	last_position = mobPosition
 	meshInstance.position.y = -0.2
+	target_manager = get_tree().get_first_node_in_group("target_manager")
 	current_chunk = get_chunk_from_position(global_transform.origin)
 	update_navigation_agent_map(current_chunk)
+	Helper.signal_broker.mob_spawned.emit(self)
+
 
 
 func _physics_process(_delta):

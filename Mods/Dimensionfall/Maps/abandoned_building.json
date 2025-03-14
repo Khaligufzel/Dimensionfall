@@ -3,7 +3,7 @@
 		{
 			"entities": [
 				{
-					"count": 20,
+					"count": 2.0,
 					"id": "basic_zombies",
 					"type": "mobgroup"
 				}
@@ -11,10 +11,10 @@
 			"id": "mobs",
 			"pick_one": false,
 			"rotate_random": true,
-			"spawn_chance": 100,
+			"spawn_chance": 100.0,
 			"tiles": [
 				{
-					"count": 2000,
+					"count": 2000.0,
 					"id": "null"
 				}
 			]
@@ -47,203 +47,203 @@
 		[
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
 				"id": "grass_medium_dirt_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "grass_medium_dirt_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "grass_medium_dirt_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "grass_medium_dirt_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "grass_medium_dirt_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "grass_medium_dirt_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00"
@@ -253,56 +253,56 @@
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "grass_medium_dirt_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
@@ -344,7 +344,7 @@
 					"itemgroups": []
 				},
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
@@ -352,7 +352,7 @@
 					"itemgroups": []
 				},
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
@@ -360,7 +360,7 @@
 					"itemgroups": []
 				},
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
@@ -394,11 +394,11 @@
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02"
@@ -409,11 +409,11 @@
 					"itemgroups": []
 				},
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
@@ -421,11 +421,11 @@
 					"itemgroups": []
 				},
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
@@ -454,41 +454,41 @@
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 90
+					"rotation": 90.0
 				},
 				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 270
+					"rotation": 270.0
 				},
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
@@ -498,33 +498,33 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"debris_rock"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
@@ -537,22 +537,22 @@
 				"itemgroups": [
 					"debris_urban"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
@@ -562,19 +562,19 @@
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
@@ -584,50 +584,50 @@
 				"itemgroups": [
 					"debris_urban"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 270
+					"rotation": 270.0
 				},
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02"
@@ -637,58 +637,58 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_01"
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00"
@@ -698,7 +698,7 @@
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
@@ -708,32 +708,32 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 90
+					"rotation": 90.0
 				},
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
@@ -743,140 +743,140 @@
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 270
+					"rotation": 270.0
 				},
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_01"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 90
+					"rotation": 90.0
 				},
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00"
@@ -885,10 +885,10 @@
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 270
+					"rotation": 270.0
 				},
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
@@ -898,11 +898,11 @@
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02"
@@ -912,7 +912,7 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02"
@@ -925,47 +925,47 @@
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02"
@@ -978,72 +978,72 @@
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "grass_medium_dirt_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
@@ -1059,41 +1059,41 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
@@ -1103,104 +1103,104 @@
 				"itemgroups": [
 					"debris_rock"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 270
+					"rotation": 270.0
 				},
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
 				"itemgroups": [
 					"debris_rock"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01"
@@ -1210,42 +1210,42 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
@@ -1254,51 +1254,51 @@
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 90
+					"rotation": 90.0
 				},
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "grass_medium_dirt_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 270
+					"rotation": 270.0
 				},
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
@@ -1314,15 +1314,15 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
@@ -1335,38 +1335,38 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
@@ -1379,57 +1379,57 @@
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 90
+					"rotation": 90.0
 				},
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 270
+					"rotation": 270.0
 				},
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
@@ -1439,175 +1439,175 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"debris_urban"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_debris_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
 					"id": "destroyed_fence",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "grass_medium_dirt_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01"
@@ -1620,23 +1620,23 @@
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01"
@@ -1646,113 +1646,113 @@
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "grass_medium_dirt_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00"
@@ -1761,27 +1761,27 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00"
@@ -1790,7 +1790,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00"
@@ -1799,27 +1799,27 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00"
@@ -1828,7 +1828,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00"
@@ -1837,37 +1837,37 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00"
@@ -1876,7 +1876,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00"
@@ -1885,167 +1885,167 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2054,7 +2054,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2063,7 +2063,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2072,7 +2072,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2081,7 +2081,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2090,7 +2090,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2099,7 +2099,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2108,7 +2108,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2117,7 +2117,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2126,7 +2126,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2135,7 +2135,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2144,7 +2144,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2153,7 +2153,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2162,7 +2162,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2171,7 +2171,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2180,7 +2180,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2189,7 +2189,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2198,7 +2198,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2207,7 +2207,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2216,7 +2216,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2225,7 +2225,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2234,7 +2234,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2243,7 +2243,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2252,7 +2252,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2261,7 +2261,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2270,7 +2270,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2279,7 +2279,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2288,7 +2288,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2297,7 +2297,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2306,7 +2306,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2315,7 +2315,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2324,7 +2324,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2333,7 +2333,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2342,7 +2342,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2351,7 +2351,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2360,7 +2360,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2369,7 +2369,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2378,7 +2378,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2387,7 +2387,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2396,7 +2396,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2405,7 +2405,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2414,7 +2414,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2423,7 +2423,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2432,7 +2432,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2441,7 +2441,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2450,7 +2450,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2459,7 +2459,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2468,7 +2468,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2477,7 +2477,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2486,7 +2486,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2495,7 +2495,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2504,7 +2504,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2513,7 +2513,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2522,7 +2522,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2531,7 +2531,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2540,7 +2540,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2549,7 +2549,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2558,7 +2558,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2567,7 +2567,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2576,7 +2576,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2585,7 +2585,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2594,7 +2594,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2603,7 +2603,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2612,7 +2612,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -2621,327 +2621,327 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -2950,7 +2950,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -2959,7 +2959,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -2968,7 +2968,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -2977,7 +2977,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -2986,7 +2986,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -2995,7 +2995,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3004,7 +3004,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3013,7 +3013,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3022,7 +3022,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3031,7 +3031,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3040,7 +3040,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3049,7 +3049,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3058,7 +3058,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3067,7 +3067,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3076,7 +3076,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3085,7 +3085,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3094,7 +3094,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3103,7 +3103,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3112,7 +3112,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3121,7 +3121,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3130,7 +3130,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3139,7 +3139,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3148,7 +3148,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3157,7 +3157,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3166,7 +3166,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3175,7 +3175,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3184,7 +3184,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3193,7 +3193,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3202,7 +3202,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3211,7 +3211,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3220,7 +3220,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_horizontal_top"
@@ -3229,7 +3229,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3238,7 +3238,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3247,7 +3247,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3256,7 +3256,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3265,7 +3265,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3274,7 +3274,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3283,7 +3283,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3292,7 +3292,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3301,7 +3301,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3310,7 +3310,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3319,7 +3319,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3328,7 +3328,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3337,7 +3337,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3346,7 +3346,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3355,7 +3355,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3364,7 +3364,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3373,7 +3373,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3382,7 +3382,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3391,7 +3391,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3400,7 +3400,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3409,7 +3409,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3418,7 +3418,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3427,7 +3427,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3436,7 +3436,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3445,7 +3445,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3454,7 +3454,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3463,7 +3463,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3472,7 +3472,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3481,7 +3481,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3490,7 +3490,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3499,7 +3499,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3508,7 +3508,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3517,7 +3517,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3526,7 +3526,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3535,7 +3535,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3544,7 +3544,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3553,7 +3553,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3562,7 +3562,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3571,7 +3571,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3580,7 +3580,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3589,7 +3589,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3598,7 +3598,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3607,7 +3607,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3616,7 +3616,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3625,7 +3625,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3634,7 +3634,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3643,7 +3643,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3652,7 +3652,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3661,7 +3661,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3670,7 +3670,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3679,7 +3679,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3688,7 +3688,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3697,7 +3697,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3706,7 +3706,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3715,7 +3715,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3724,7 +3724,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3733,7 +3733,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3742,7 +3742,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3751,7 +3751,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3760,7 +3760,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3769,7 +3769,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3778,7 +3778,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3787,7 +3787,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3796,7 +3796,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "road_asphalt_basic"
@@ -3805,67 +3805,67 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00"
@@ -3874,47 +3874,47 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00"
@@ -3923,7 +3923,7 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_00"
@@ -3932,199 +3932,199 @@
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "sidewalk_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"areas": [
 					{
 						"id": "mobs",
-						"rotation": 0
+						"rotation": 0.0
 					}
 				],
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "grass_medium_dirt_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02"
@@ -4134,26 +4134,26 @@
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01"
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02"
@@ -4163,19 +4163,19 @@
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_01"
@@ -4185,88 +4185,88 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_02"
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02"
@@ -4280,69 +4280,69 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00"
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
@@ -4353,23 +4353,23 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
@@ -4379,7 +4379,7 @@
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02",
@@ -4387,11 +4387,11 @@
 					"debris_rock",
 					"debris_urban"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
@@ -4399,42 +4399,42 @@
 					"debris_rock",
 					"debris_urban"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00"
@@ -4445,83 +4445,83 @@
 					"debris_rock",
 					"debris_urban"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
 					"id": "damaged_shelves",
 					"itemgroups": [],
-					"rotation": 90
+					"rotation": 90.0
 				},
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
@@ -4529,15 +4529,15 @@
 					"debris_rock",
 					"debris_urban"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
@@ -4551,27 +4551,27 @@
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01"
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_00"
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_debris_01"
 			},
@@ -4579,10 +4579,10 @@
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02"
@@ -4592,7 +4592,7 @@
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
@@ -4600,15 +4600,15 @@
 					"debris_rock",
 					"debris_urban"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_01"
@@ -4618,7 +4618,7 @@
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00"
@@ -4631,18 +4631,18 @@
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02"
@@ -4652,37 +4652,37 @@
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02"
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01"
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
@@ -4695,27 +4695,27 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_debris_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01"
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
@@ -4726,11 +4726,11 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02"
@@ -4740,58 +4740,58 @@
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_01"
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01"
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "grass_medium_dirt_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
@@ -4801,29 +4801,29 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
@@ -4837,79 +4837,79 @@
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "grass_medium_dirt_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00"
@@ -4922,22 +4922,22 @@
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
@@ -4947,7 +4947,7 @@
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
@@ -4955,11 +4955,11 @@
 					"debris_rock",
 					"debris_urban"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
@@ -4967,48 +4967,48 @@
 					"debris_rock",
 					"debris_urban"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
@@ -5016,36 +5016,36 @@
 					"debris_rock",
 					"debris_urban"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01"
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "grass_medium_dirt_02"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00"
@@ -5059,22 +5059,22 @@
 					"debris_rock",
 					"debris_urban"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01"
@@ -5084,7 +5084,7 @@
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00"
@@ -5094,42 +5094,42 @@
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
@@ -5137,45 +5137,45 @@
 					"debris_rock",
 					"debris_urban"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
@@ -5186,38 +5186,38 @@
 					"debris_rock",
 					"debris_urban"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "tattered_couch",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "damaged_shelves",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_debris_00"
 			},
@@ -5225,26 +5225,26 @@
 				"furniture": {
 					"id": "damaged_shelves",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
 					"id": "damaged_shelves",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01"
@@ -5254,36 +5254,36 @@
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
 					"id": "damaged_shelves",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
@@ -5293,141 +5293,141 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "grass_medium_dirt_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_02"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
@@ -5437,105 +5437,105 @@
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02"
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00"
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01"
@@ -5545,23 +5545,23 @@
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "grass_medium_dirt_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00"
@@ -5574,26 +5574,26 @@
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "grass_medium_dirt_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01"
@@ -5603,81 +5603,81 @@
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "grass_medium_dirt_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "grass_medium_dirt_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "grass_medium_dirt_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
 				"id": "grass_medium_dirt_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "grass_medium_dirt_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "dirt_light_01"
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "grass_medium_dirt_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "dirt_light_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "dirt_light_02",
-				"rotation": 180
+				"rotation": 180.0
 			}
 		],
 		[
@@ -7618,23 +7618,23 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -7644,30 +7644,30 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
@@ -7692,18 +7692,18 @@
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_00"
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -7719,7 +7719,7 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -7801,7 +7801,7 @@
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -7817,7 +7817,7 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -7899,7 +7899,7 @@
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -7915,7 +7915,7 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -7997,7 +7997,7 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -8031,7 +8031,7 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -8047,7 +8047,7 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -8069,7 +8069,7 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -8085,7 +8085,7 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -8194,7 +8194,7 @@
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -8210,7 +8210,7 @@
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -8292,7 +8292,7 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -8308,7 +8308,7 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -8387,11 +8387,11 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -8407,7 +8407,7 @@
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -8483,14 +8483,14 @@
 			},
 			{
 				"id": "wood_stairs",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -8506,7 +8506,7 @@
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -8516,55 +8516,55 @@
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_00"
 			},
 			{
 				"id": "concrete__cracked_debris_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_debris_01"
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -8589,18 +8589,18 @@
 			},
 			{
 				"id": "concrete__cracked_debris_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_debris_01"
 			},
 			{
 				"id": "concrete__cracked_debris_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -10730,37 +10730,37 @@
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
 				"itemgroups": [
 					"debris_rock"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
@@ -10770,26 +10770,26 @@
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
@@ -10799,7 +10799,7 @@
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00"
@@ -10809,34 +10809,34 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_02"
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -10852,7 +10852,7 @@
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
@@ -10865,47 +10865,47 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02"
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01"
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
@@ -10920,63 +10920,63 @@
 					"itemgroups": []
 				},
 				"id": "concrete__cracked_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_00"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
-					"rotation": 90
+					"rotation": 90.0
 				},
 				"id": "concrete__cracked_01",
-				"rotation": 270
-			},
-			{
-				"furniture": {
-					"id": "chair_wood",
-					"itemgroups": []
-				},
-				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": []
 				},
+				"id": "concrete__cracked_02",
+				"rotation": 180.0
+			},
+			{
+				"furniture": {
+					"id": "chair_wood",
+					"itemgroups": []
+				},
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_02"
 			},
@@ -10984,23 +10984,23 @@
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -11016,11 +11016,11 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -11039,7 +11039,7 @@
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -11049,22 +11049,22 @@
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_02"
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -11077,27 +11077,27 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete_00"
 			},
@@ -11105,32 +11105,32 @@
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
-					"rotation": 270
+					"rotation": 270.0
 				},
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
-					"rotation": 90
+					"rotation": 90.0
 				},
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_02",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete_00"
 			},
@@ -11151,7 +11151,7 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_02"
@@ -11170,11 +11170,11 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -11192,7 +11192,7 @@
 				"furniture": {
 					"id": "crate_wood",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete_00"
 			},
@@ -11201,7 +11201,7 @@
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_01",
@@ -11232,23 +11232,23 @@
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
 					"id": "chair_wood",
 					"itemgroups": [],
-					"rotation": 270
+					"rotation": 270.0
 				},
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
@@ -11256,20 +11256,20 @@
 					"itemgroups": []
 				},
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "table_round_wood",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -11285,11 +11285,11 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
@@ -11308,38 +11308,38 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -11352,43 +11352,43 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
@@ -11416,7 +11416,7 @@
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
@@ -11425,13 +11425,13 @@
 				"furniture": {
 					"id": "crate_wood",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -11443,14 +11443,14 @@
 				"furniture": {
 					"id": "crate_wood",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -11463,7 +11463,7 @@
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
@@ -11476,22 +11476,22 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_00"
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01"
@@ -11510,11 +11510,11 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01"
@@ -11536,7 +11536,7 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
@@ -11549,18 +11549,18 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
@@ -11597,14 +11597,14 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
@@ -11617,22 +11617,22 @@
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -11657,75 +11657,75 @@
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_01"
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_00"
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_01",
 				"itemgroups": [
 					"debris_rock"
 				],
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -11735,22 +11735,22 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "wood_stairs"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -11766,7 +11766,7 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -11776,33 +11776,33 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"furniture": {
 					"id": "damaged_shelves",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"furniture": {
 					"id": "damaged_shelves",
 					"itemgroups": [],
-					"rotation": 180
+					"rotation": 180.0
 				},
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01",
@@ -11815,59 +11815,59 @@
 				"itemgroups": [
 					"destroyed_furniture_medium"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_02"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02"
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02"
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -11898,112 +11898,112 @@
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_00",
 				"itemgroups": [
 					"debris_rock"
 				],
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01"
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -14133,84 +14133,84 @@
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -14220,18 +14220,18 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -14247,119 +14247,7 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-				"id": "concrete__cracked_00",
-				"rotation": 180
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
-			},
-			{
-
+				"rotation": 90.0
 			},
 			{
 
@@ -14441,7 +14329,119 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 180
+				"rotation": 180.0
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+
+			},
+			{
+				"id": "concrete__cracked_00",
+				"rotation": 180.0
 			},
 			{
 
@@ -14523,7 +14523,7 @@
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -14620,7 +14620,7 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -14717,7 +14717,7 @@
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 
@@ -14733,7 +14733,7 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -14911,7 +14911,7 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -14927,7 +14927,7 @@
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -15009,7 +15009,7 @@
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 
@@ -15025,15 +15025,15 @@
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 
@@ -15067,14 +15067,14 @@
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete__cracked_00"
 			},
 			{
 				"id": "concrete__cracked_01",
-				"rotation": 180
+				"rotation": 180.0
 			},
 			{
 				"id": "concrete_00"
@@ -15084,11 +15084,11 @@
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_00"
@@ -15098,19 +15098,19 @@
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 270
+				"rotation": 270.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete_00",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 				"id": "concrete__cracked_02",
-				"rotation": 90
+				"rotation": 90.0
 			},
 			{
 

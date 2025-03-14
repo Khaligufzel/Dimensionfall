@@ -138,6 +138,9 @@ signal player_spawned(player: Player) # When the player has spawned in-game
 # When a mob was killed
 @warning_ignore("unused_signal")
 signal mob_killed(mobinstance: Mob)
+# When a mob was spawned
+@warning_ignore("unused_signal")
+signal mob_spawned(mobinstance: Mob)
 
 # The player has interacted with some furniture. We pass the position of the 
 # interaction (which is where the interact ray-cast hit the object) and the 

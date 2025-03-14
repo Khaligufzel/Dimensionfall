@@ -20,6 +20,7 @@ var container: ContainerItem = null
 var is_animating_hit: bool = false
 var current_health: float = 10.0
 var original_material_color: Color = Color(1, 1, 1)  # Store the original material color
+var spawner: FurniturePhysicsSpawner # The spawner that spawned this furniture
 # Variables to manage the container if this furniture is a container
 var inventory: InventoryStacked  # Holds the inventory for the container
 var itemgroup: String  # The ID of an itemgroup that it creates loot from
@@ -569,6 +570,10 @@ func show_visuals() -> void:
 
 # ✅ Handles player Y level update and updates furniture visibility
 func _on_player_y_level_updated(_old_y_level: float, new_y_level: float):
+	refresh_visibility(new_y_level)
+
+
+func refresh_visibility(new_y_level: float):
 	var furniture_y = get_y_position(true)  # Get snapped Y level
 
 	# Hide furniture above player, show furniture below
