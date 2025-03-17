@@ -232,7 +232,7 @@ func show_miss_indicator():
 	miss_label.font_size = 64
 	get_tree().get_root().add_child(miss_label)
 	miss_label.position = position
-	miss_label.position.y += 2
+	miss_label.position.y += 0
 	miss_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	miss_label.render_priority = 10
 

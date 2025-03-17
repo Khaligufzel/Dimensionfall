@@ -791,7 +791,6 @@ func _init(furniturepos: Vector3, new_furniture_json: Dictionary, world3d: World
 	if rfurniture.consumption:
 		consumption = Consumption.new(self)
 	Helper.time_helper.minute_passed.connect.call_deferred(on_minute_passed)
-	Helper.signal_broker.player_current_y_level.connect.call_deferred(_on_player_y_level_updated)
 
 
 # If this furniture is a container, it will add a container node to the furniture.
@@ -1230,9 +1229,6 @@ func _die(do_add_corpse: bool = true):
 	if is_container():
 		Helper.signal_broker.container_exited_proximity.emit(self)
 	Helper.time_helper.minute_passed.disconnect(on_minute_passed)
-	# Disconnect from signal to stop tracking Y level changes
-	if Helper.signal_broker.player_current_y_level.is_connected(_on_player_y_level_updated):
-		Helper.signal_broker.player_current_y_level.disconnect(_on_player_y_level_updated)
 	free_resources()  # Free resources
 	queue_free()  # Remove the node from the scene tree
 
@@ -1244,7 +1240,7 @@ func show_indicator(text: String, color: Color):
 	label.modulate = color
 	label.font_size = 64
 	Helper.map_manager.level_generator.get_tree().get_root().add_child(label)
-	label.position = furniture_transform.get_position() + Vector3(0, 2, 0)  # Slightly above the furniture
+	label.position = furniture_transform.get_position() + Vector3(0, 0.5, 0)  # Slightly above the furniture
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 
 	# Animate the indicator to disappear quickly
@@ -1476,11 +1472,6 @@ func show_visuals():
 	if not container == null and not container.sprite_instance == null:
 		RenderingServer.instance_set_visible(container.sprite_instance, true)
 	is_hidden = false
-
-
-# ✅ Handles player Y level update and updates furniture visibility
-func _on_player_y_level_updated(_old_y_level: float, new_y_level: float):
-	refresh_visibility(new_y_level)
 
 
 func refresh_visibility(new_y_level: float):

@@ -133,7 +133,6 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 func connect_signals():
 	furniture_transform.chunk_changed.connect(_on_chunk_changed)
-	Helper.signal_broker.player_current_y_level.connect.call_deferred(_on_player_y_level_updated)
 
 
 # Signal to emit when chunk position updates
@@ -566,11 +565,6 @@ func show_visuals() -> void:
 	if not mesh_instance == null:
 		RenderingServer.instance_set_visible(mesh_instance, true)
 	is_hidden = false
-
-
-# ✅ Handles player Y level update and updates furniture visibility
-func _on_player_y_level_updated(_old_y_level: float, new_y_level: float):
-	refresh_visibility(new_y_level)
 
 
 func refresh_visibility(new_y_level: float):

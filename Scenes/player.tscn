@@ -59,11 +59,13 @@ sprite = NodePath("Sprite3D2")
 collision_detector = NodePath("Sprite3D2/CollisionDetector")
 camera_3d = NodePath("Camera3D")
 
-[node name="Camera3D" type="Camera3D" parent="." groups=["Camera"]]
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player") groups=["Camera"]]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 19, 0)
 current = true
 size = 50.0
+near = 18.58
 script = ExtResource("2_g83x8")
+player = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.275, 0)
@@ -82,8 +84,10 @@ omni_range = 18.071
 omni_attenuation = 0.0371628
 
 [node name="SpotLight3D" parent="." instance=ExtResource("3_1cs2j")]
+shadow_enabled = false
 
 [node name="SpotLight3D2" parent="." instance=ExtResource("4_s4cit")]
+shadow_enabled = false
 
 [node name="Sprite3D2" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
@@ -151,6 +155,7 @@ shape = SubResource("ConvexPolygonShape3D_drnhn")
 
 [node name="FrontLight" parent="Sprite3D2" instance=ExtResource("11_b146k")]
 unique_name_in_owner = true
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.274, 0, -0.309)
 script = ExtResource("12_5v7lk")
 
 [node name="day_night" parent="Sprite3D2/FrontLight" instance=ExtResource("13_4vnbq")]
