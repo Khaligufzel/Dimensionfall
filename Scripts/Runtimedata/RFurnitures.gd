@@ -96,12 +96,6 @@ func create_shape_material(furniture_id: String) -> StandardMaterial3D:
 		material.albedo_color.a = 0.5
 	else:
 		material.albedo_color = color
-		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-		material.albedo_color.a = 1.0
-
-	# Optionally adjust shading and other visual properties
-	#material.flags_unshaded = true
-
 	return material
 
 
