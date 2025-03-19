@@ -133,6 +133,7 @@ func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D
 
 func connect_signals():
 	furniture_transform.chunk_changed.connect(_on_chunk_changed)
+	spawner.chunk.chunk_generated.connect(_on_chunk_generated)
 
 
 # Signal to emit when chunk position updates
@@ -165,9 +166,6 @@ func setup_physics_properties() -> void:
 
 	# Set collision layers and masks
 	set_collision_layers_and_masks()
-
-	# Set the force integration callback to update the visual position
-	PhysicsServer3D.body_set_force_integration_callback(collider, _moved)
 
 
 # Handle movement logic when the furniture changes position and rotation
@@ -577,3 +575,10 @@ func refresh_visibility(new_y_level: float):
 	else:
 		if is_hidden:
 			show_visuals()
+
+
+# When the chunk that this furniture spawns on is completely done generating
+# Waiting for this will buy some time before starting more expensive calculations
+func _on_chunk_generated():
+	# Set the force integration callback to update the visual position
+	PhysicsServer3D.body_set_force_integration_callback(collider, _moved)

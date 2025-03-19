@@ -7,12 +7,14 @@ var collider_to_furniture: Dictionary = {}
 # Reference to the World3D and Chunk
 var world3d: World3D
 var chunk: Chunk
+signal furniture_has_spawned(myspawner: FurnitureStaticSpawner) # When the spawning of furniture is completed
 
 # Array that contains the JSON data for furniture to be spawned
 var furniture_json_list: Array = []:
 	set(value):
 		furniture_json_list = value
 		await Helper.task_manager.create_task(_spawn_all_furniture).completed
+		furniture_has_spawned.emit(self)
 
 
 # Initialize with reference to the chunk
