@@ -156,6 +156,7 @@ shape = SubResource("ConvexPolygonShape3D_drnhn")
 [node name="FrontLight" parent="Sprite3D2" instance=ExtResource("11_b146k")]
 unique_name_in_owner = true
 transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.274, 0, -0.309)
+shadow_reverse_cull_face = true
 script = ExtResource("12_5v7lk")
 
 [node name="day_night" parent="Sprite3D2/FrontLight" instance=ExtResource("13_4vnbq")]
