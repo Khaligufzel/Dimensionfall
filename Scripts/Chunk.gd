@@ -21,6 +21,9 @@ var level_generator : Node3D
 var furniture_static_spawner: FurnitureStaticSpawner
 var furniture_physics_spawner: FurniturePhysicsSpawner
 var furniture_blueprint_spawner: FurnitureBlueprintSpawner
+# ✅ Track when all furniture spawners are done
+var static_furniture_ready: bool = false
+var physics_furniture_ready: bool = false
 
 # Constants
 const MAX_LEVELS = 21
@@ -66,6 +69,7 @@ signal chunk_generated() # When the chunk is completely done generating
 func _ready():
 	start_loading()
 	chunk_unloaded.connect(_finish_unload)
+	
 	source_geometry_data = NavigationMeshSourceGeometryData3D.new()
 	setup_navigation()
 	# The Helper keeps track of which navigationmap belongs to which chunk. When a navigationagent
@@ -77,6 +81,9 @@ func _ready():
 	furniture_static_spawner = FurnitureStaticSpawner.new(self)
 	furniture_blueprint_spawner = FurnitureBlueprintSpawner.new(self)
 	furniture_physics_spawner = FurniturePhysicsSpawner.new(self)
+	# ✅ Connect to furniture spawn signals (spawner sends itself as parameter)
+	furniture_static_spawner.furniture_has_spawned.connect(_on_furniture_spawned)
+	furniture_physics_spawner.furniture_has_spawned.connect(_on_furniture_spawned)
 	add_child(furniture_blueprint_spawner)
 	add_child(furniture_static_spawner)
 	add_child(furniture_physics_spawner)
@@ -108,15 +115,12 @@ func initialize_chunk_data():
 		await Helper.task_manager.create_task(generate_new_chunk.bind(mapsegmentData)).completed
 		# Run the main spawn function on the main thread and let the furniturespawner
 		# handle offloading the work onto a thread.
-		add_furnitures_to_new_block()
-		#generate_new_chunk(mapsegmentData)
-		chunk_generated.emit()
+		add_furnitures_to_new_block() # Last action, but chunk is ready when _on_furniture_spawned is called
 	else: # This chunk is created from previously saved data
 		await Helper.task_manager.create_task(generate_saved_chunk)
 		# Run the main spawn function on the main thread and let the furniturespawner
 		# handle offloading the work onto a thread.
-		add_furnitures_to_map(chunk_data.furniture)
-		chunk_generated.emit()
+		add_furnitures_to_map(chunk_data.furniture) # Last action, chunk ready when _on_furniture_spawned is called
 
 
 func generate_new_chunk(mapsegmentData: Dictionary):
@@ -1538,3 +1542,16 @@ func get_block_at(level_index: int, block_position: Vector2i) -> Dictionary:
 	else:
 		print_debug("Block at %s on level %d is empty or has no 'id'." % [block_position, level_index])
 		return {}
+
+
+# Respond to the completion of the task that spawns the furniture
+func _on_furniture_spawned(spawner: Node3D):
+	if spawner is FurnitureStaticSpawner:
+		static_furniture_ready = true
+	elif spawner is FurniturePhysicsSpawner:
+		physics_furniture_ready = true
+	
+	# ✅ Emit signal only when all spawners have finished
+	if static_furniture_ready and physics_furniture_ready:
+		print_debug("All furniture spawned — emitting chunk_generated")
+		chunk_generated.emit()
