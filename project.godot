@@ -66,10 +66,6 @@ folder_colors={
 "res://addons/": "gray"
 }
 
-[gui]
-
-theme/custom_font="uid://b3y8igkb1bvs3"
-
 [input]
 
 up={

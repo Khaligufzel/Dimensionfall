@@ -64,13 +64,11 @@ layout_mode = 2
 
 [node name="BackButton" type="Button" parent="HSplitContainer/ContentLists"]
 layout_mode = 2
-theme = ExtResource("19_pn5oe")
 text = "Back to menu"
 
 [node name="SelectMods" type="OptionButton" parent="HSplitContainer/ContentLists"]
 layout_mode = 2
 tooltip_text = "Select the mod you want edit"
-theme = ExtResource("19_pn5oe")
 alignment = 1
 selected = 0
 item_count = 3

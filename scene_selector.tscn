@@ -51,6 +51,7 @@ offset_top = 378.0
 offset_right = 863.0
 offset_bottom = 457.0
 theme = ExtResource("2_e5wxh")
+alignment = 1
 
 [node name="HelpButton" type="Button" parent="."]
 layout_mode = 0
