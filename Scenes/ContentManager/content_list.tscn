@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhh0v7x4fjsgi"]
+[gd_scene load_steps=3 format=3 uid="uid://bhh0v7x4fjsgi"]
 
 [ext_resource type="Script" uid="uid://cvk2fqxhgn7qa" path="res://Scenes/ContentManager/Scripts/content_list.gd" id="1_ly1kh"]
+[ext_resource type="Theme" uid="uid://bid4jnko6k7hg" path="res://button_gui.tres" id="2_aaikl"]
 
 [node name="ContentList" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton", "pupup_ID", "popup_textedit", "to_mod_h_box_container", "mod_option_button")]
 custom_minimum_size = Vector2(200, 30)
@@ -35,6 +36,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Click to collapse"
+theme = ExtResource("2_aaikl")
 text = "Items"
 
 [node name="AddButton" type="Button" parent="Content/HBoxContainer"]
@@ -42,6 +44,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.15
 tooltip_text = "Add item"
+theme = ExtResource("2_aaikl")
 theme_override_font_sizes/font_size = 16
 text = "+"
 
@@ -50,6 +53,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.15
 tooltip_text = "Duplicate item"
+theme = ExtResource("2_aaikl")
 theme_override_font_sizes/font_size = 16
 text = "D"
 
@@ -58,6 +62,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.15
 tooltip_text = "Delete item"
+theme = ExtResource("2_aaikl")
 theme_override_font_sizes/font_size = 16
 text = "-"
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://buahqv18qlohm"]
+[gd_scene load_steps=3 format=3 uid="uid://buahqv18qlohm"]
 
 [ext_resource type="Script" uid="uid://blwljn0eop0uu" path="res://Scenes/ContentManager/Scripts/contentmanager.gd" id="1_lt3y0"]
+[ext_resource type="Theme" uid="uid://bid4jnko6k7hg" path="res://button_gui.tres" id="2_dg0ev"]
 
 [node name="contentmanager" type="Control"]
 layout_mode = 3
@@ -27,21 +28,25 @@ grow_vertical = 2
 
 [node name="ModManagerButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_dg0ev")
 theme_override_font_sizes/font_size = 36
 text = "Mod manager"
 
 [node name="ContentEditorButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_dg0ev")
 theme_override_font_sizes/font_size = 36
 text = "Content editor"
 
 [node name="OtherToolsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_dg0ev")
 theme_override_font_sizes/font_size = 36
 text = "Other Tools"
 
 [node name="BackButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_dg0ev")
 theme_override_font_sizes/font_size = 36
 text = "Back"
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://70o5qt3qyqdp"]
+[gd_scene load_steps=3 format=3 uid="uid://70o5qt3qyqdp"]
 
 [ext_resource type="Script" uid="uid://dh4fwdtpwv0pu" path="res://Scenes/ContentManager/Scripts/modmanager.gd" id="1_gah13"]
+[ext_resource type="Theme" uid="uid://bid4jnko6k7hg" path="res://button_gui.tres" id="2_5bs02"]
 
 [node name="modmanager" type="Control"]
 layout_mode = 3
@@ -27,16 +28,19 @@ grow_vertical = 2
 
 [node name="AddRemoveModsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_5bs02")
 theme_override_font_sizes/font_size = 36
 text = "Add/remove mods"
 
 [node name="ModMaintenanceButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_5bs02")
 theme_override_font_sizes/font_size = 36
 text = "Mod maintenance"
 
 [node name="BackButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_5bs02")
 theme_override_font_sizes/font_size = 36
 text = "Back"
 

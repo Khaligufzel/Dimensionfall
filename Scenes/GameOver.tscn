@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ckuh2s0nvwg0x"]
+[gd_scene load_steps=3 format=3 uid="uid://ckuh2s0nvwg0x"]
 
 [ext_resource type="Script" uid="uid://csdc7qcr2jbg6" path="res://Scripts/GameOver.gd" id="1_77h6a"]
+[ext_resource type="Theme" uid="uid://bid4jnko6k7hg" path="res://button_gui.tres" id="2_k52d1"]
 
 [node name="GameOver" type="Control"]
 layout_mode = 3
@@ -41,6 +42,7 @@ text = "Game over"
 
 [node name="ReturnButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_k52d1")
 text = "Return to main menu"
 
 [connection signal="button_up" from="VBoxContainer/ReturnButton" to="." method="_on_return_button_button_up"]
