@@ -367,5 +367,3 @@ func _on_show_ids_toggled(button_pressed):
 			node.show_id(button_pressed)
 	#workaround to redraw connections
 	graph.scroll_offset.x += 0.01
-
-

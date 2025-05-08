@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj0j534tmgwro"]
+
+[ext_resource type="Script" uid="uid://dsyq4b70urfhm" path="res://sound_fx.gd" id="1_fk7ak"]
+[ext_resource type="AudioStream" uid="uid://d1f6esnnnu4ye" path="res://Desolate.ogg" id="2_x8jpk"]
+
+[node name="SoundFx" type="Node"]
+script = ExtResource("1_fk7ak")
+
+[node name="MainMenu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_x8jpk")
+autoplay = true
+parameters/looping = false

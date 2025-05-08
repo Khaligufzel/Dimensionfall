@@ -4,6 +4,8 @@ var saved_game_folders : Array
 @onready var load_game_button = $LoadGameButton
 @export var load_game_list : OptionButton 
 func _ready():
+	#Starts the main menu music once the scene is loaded
+	SoundFx.main_menu_music()
 	# Populate the load_game_list with saved game folders
 	populate_load_game_list()
 	Gamedata.mods.write_default_mods_state()
@@ -18,6 +20,8 @@ func _on_load_game_button_pressed():
 		# If there is a saved game, it will not load the provided map
 		# but rather the one that was saved in the game that was loaded
 		Helper.initiate_game()
+		#Pauses the main menu music before loading the game
+		SoundFx.main_menu_music_stopped()
 
 
 # When the play demo button is pressed
@@ -31,6 +35,8 @@ func _on_play_demo_pressed():
 	Helper.save_helper.create_new_save()
 	Helper.signal_broker.game_started.emit()
 	Helper.initiate_game()
+	#Pauses the main menu music before loading the game
+	SoundFx.main_menu_music_stopped()
 
 
 func _on_help_button_pressed():

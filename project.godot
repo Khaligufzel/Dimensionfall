@@ -27,6 +27,7 @@ General="*res://Scripts/general.gd"
 CraftingRecipesManager="*res://Scripts/crafting_recipes_manager.gd"
 QuestManager="*res://addons/quest_manager/QuestManager.gd"
 Runtimedata="*res://Scripts/runtimedata.gd"
+SoundFx="*res://Sounds/SoundFX.tscn"
 
 [display]
 

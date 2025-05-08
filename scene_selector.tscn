@@ -3,13 +3,7 @@
 [ext_resource type="Script" uid="uid://iasqrgnlface" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_sue5h"]
 [ext_resource type="Theme" uid="uid://bid4jnko6k7hg" path="res://button_gui.tres" id="2_e5wxh"]
-
-[sub_resource type="FontFile" id="FontFile_e5wxh"]
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
+[ext_resource type="Texture2D" uid="uid://b4r1tow7vs8n5" path="res://thumb-1920-83970.jpg" id="4_e3ki8"]
 
 [node name="SceneSelector" type="Control" node_paths=PackedStringArray("load_game_list")]
 layout_mode = 3
@@ -24,9 +18,13 @@ load_game_list = NodePath("LoadGameList")
 
 [node name="PlayDemo" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 355.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -176.0
+offset_top = 180.0
+offset_right = 212.0
+offset_bottom = 259.0
 grow_horizontal = 2
 theme = ExtResource("2_e5wxh")
 theme_override_fonts/font = ExtResource("1_sue5h")
@@ -35,9 +33,10 @@ text = "Play demo"
 
 [node name="LoadGameButton" type="Button" parent="."]
 layout_mode = 1
-offset_top = 378.0
-offset_right = 453.0
-offset_bottom = 457.0
+offset_left = 400.0
+offset_top = 280.0
+offset_right = 788.0
+offset_bottom = 359.0
 theme = ExtResource("2_e5wxh")
 theme_override_fonts/font = ExtResource("1_sue5h")
 theme_override_font_sizes/font_size = 25
@@ -46,29 +45,29 @@ text = "Load game ---->>>"
 
 [node name="LoadGameList" type="OptionButton" parent="."]
 layout_mode = 1
-offset_left = 477.0
-offset_top = 378.0
-offset_right = 863.0
-offset_bottom = 457.0
+offset_left = 801.0
+offset_top = 280.0
+offset_right = 1101.0
+offset_bottom = 359.0
 theme = ExtResource("2_e5wxh")
 alignment = 1
 
 [node name="HelpButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 1.0
-offset_top = 474.0
-offset_right = 449.0
-offset_bottom = 553.0
+offset_left = 400.0
+offset_top = 480.0
+offset_right = 788.0
+offset_bottom = 559.0
 theme = ExtResource("2_e5wxh")
 theme_override_font_sizes/font_size = 25
 text = "Help"
 
 [node name="ContentManagerButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 477.0
-offset_top = 474.0
-offset_right = 865.0
-offset_bottom = 553.0
+offset_left = 400.0
+offset_top = 380.0
+offset_right = 788.0
+offset_bottom = 459.0
 theme = ExtResource("2_e5wxh")
 theme_override_font_sizes/font_size = 25
 text = "Content Manager"
@@ -83,11 +82,16 @@ scale = Vector2(0.9, 0.9)
 text = "w,s,a,d: Movement. tab: inventory. m: overmap. e: Interact (open doors) r: reload. Left mouse button: Fire left weapon. Right mouse button: fire right weapon
 b: Build menu. c: Craft menu. v: Character menu. j: Quest menu"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_fonts/normal_font = SubResource("FontFile_e5wxh")
+offset_left = -65.0
+offset_top = -261.0
+offset_right = 1615.0
+offset_bottom = 789.0
+mouse_filter = 2
+texture = ExtResource("4_e3ki8")
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="PlayDemo" to="." method="_on_play_demo_pressed"]
 [connection signal="pressed" from="LoadGameButton" to="." method="_on_load_game_button_pressed"]

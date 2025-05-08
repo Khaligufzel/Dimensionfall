@@ -25,6 +25,8 @@ var selectedMod: String = "Core"
 
 # This function will load the contents of the data into the contentListInstance
 func _ready():
+	#Pauses main menu music as soon as the scene is loaded
+	SoundFx.main_menu_music_paused()
 	# Load the saved selected mod or default to "Core"
 	selectedMod = load_selected_mod()
 
@@ -107,6 +109,7 @@ func load_content_list(type: DMod.ContentType, strHeader: String):
 
 
 func _on_back_button_button_up():
+	SoundFx.main_menu_music_resumed()
 	get_tree().change_scene_to_file("res://Scenes/ContentManager/contentmanager.tscn")
 
 
