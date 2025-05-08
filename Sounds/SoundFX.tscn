@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bj0j534tmgwro"]
 
 [ext_resource type="Script" uid="uid://dsyq4b70urfhm" path="res://sound_fx.gd" id="1_fk7ak"]
-[ext_resource type="AudioStream" uid="uid://d1f6esnnnu4ye" path="res://Desolate.ogg" id="2_x8jpk"]
+[ext_resource type="AudioStream" uid="uid://bg20fphj4kyjb" path="res://Sounds/Music/Desolate.ogg" id="2_x8jpk"]
 
 [node name="SoundFx" type="Node"]
 script = ExtResource("1_fk7ak")
