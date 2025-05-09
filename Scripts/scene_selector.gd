@@ -19,7 +19,7 @@ func _on_load_game_button_pressed():
 		# but rather the one that was saved in the game that was loaded
 		Helper.initiate_game()
 		#Pauses the main menu music before loading the game
-		Music.main_menu_music_stopped()
+		Music.main_menu_music_stop()
 
 
 # When the play demo button is pressed
@@ -34,7 +34,7 @@ func _on_play_demo_pressed():
 	Helper.signal_broker.game_started.emit()
 	Helper.initiate_game()
 	#Pauses the main menu music before loading the game
-	Music.main_menu_music_stopped()
+	Music.main_menu_music_stop()
 
 
 func _on_help_button_pressed():

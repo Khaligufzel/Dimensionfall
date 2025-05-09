@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvx5k3rwqcllu"]
+[gd_scene load_steps=4 format=3 uid="uid://bvx5k3rwqcllu"]
 
 [ext_resource type="Script" uid="uid://ddvn75j6gpbjq" path="res://Sounds/Music/music.gd" id="1_hfrm7"]
 [ext_resource type="AudioStream" uid="uid://d1f6esnnnu4ye" path="res://Sounds/Music/Desolate.ogg" id="2_x8jpk"]
+[ext_resource type="AudioStream" uid="uid://cqbscrnqkcg5d" path="res://Sounds/Music/Lonelyhood.ogg" id="3_kvrp4"]
 
 [node name="Music" type="Node"]
 script = ExtResource("1_hfrm7")
@@ -11,3 +12,7 @@ stream = ExtResource("2_x8jpk")
 autoplay = true
 bus = &"Music"
 parameters/looping = false
+
+[node name="GameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_kvrp4")
+bus = &"Music"
