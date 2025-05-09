@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/Desolate.ogg-85c59934e9858c636c01edb002ed94c5
 [params]
 
 loop=false
-loop_offset=0
-bpm=0
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4
