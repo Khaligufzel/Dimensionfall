@@ -78,6 +78,7 @@ size_flags_horizontal = 3
 size = Vector2i(123, 116)
 item_count = 5
 item_0/text = "Equip (left)"
+item_0/id = 0
 item_1/text = "Equip (right)"
 item_1/id = 1
 item_2/text = "Reload"

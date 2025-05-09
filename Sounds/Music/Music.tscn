@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvx5k3rwqcllu"]
+
+[ext_resource type="Script" uid="uid://ddvn75j6gpbjq" path="res://Sounds/Music/music.gd" id="1_hfrm7"]
+[ext_resource type="AudioStream" uid="uid://d1f6esnnnu4ye" path="res://Sounds/Music/Desolate.ogg" id="2_x8jpk"]
+
+[node name="Music" type="Node"]
+script = ExtResource("1_hfrm7")
+
+[node name="MainMenu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_x8jpk")
+autoplay = true
+bus = &"Music"
+parameters/looping = false

@@ -8,13 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://piolgplta87y" path="res://Defaults/Player/weapon_left.png" id="6_gljie"]
 [ext_resource type="Script" uid="uid://ftajm2qq4vwa" path="res://Scripts/EquippedItem.gd" id="7_u8an4"]
 [ext_resource type="PackedScene" uid="uid://kf2d2vvgh7l0" path="res://Defaults/Projectiles/DefaultBullet.tscn" id="8_un7wc"]
-[ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/Weapons/Shooting/pistol_shot.wav" id="9_hmpqe"]
+[ext_resource type="AudioStream" uid="uid://gdwwxc0yvg5g" path="res://Sounds/SFX/Weapons/Shooting/pistol_shot.wav" id="9_hmpqe"]
 [ext_resource type="Texture2D" uid="uid://delyq5g2t13cx" path="res://Defaults/Player/weapon_right.png" id="10_j5u52"]
 [ext_resource type="PackedScene" uid="uid://c6txt3py4smbb" path="res://front_light.tscn" id="11_b146k"]
 [ext_resource type="Script" uid="uid://epc7d3df1bqp" path="res://front_light.gd" id="12_5v7lk"]
 [ext_resource type="PackedScene" uid="uid://bisxe8aexlshr" path="res://day_night.tscn" id="13_4vnbq"]
 [ext_resource type="Script" uid="uid://dc5ubakpqyumw" path="res://Scripts/PlayerShooting.gd" id="14_h4gah"]
-[ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="15_paufw"]
+[ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/SFX/Weapons/Reloading/pistol_reload_sound.mp3" id="15_paufw"]
 [ext_resource type="Script" uid="uid://d2x7bgurtvhx4" path="res://Scripts/ItemDetector.gd" id="16_gq4uc"]
 [ext_resource type="Script" uid="uid://bpfarfnqfaxdq" path="res://Scripts/Components/ComponentInteract.gd" id="17_23lma"]
 
@@ -185,11 +185,11 @@ one_shot = true
 
 [node name="ShootAudio" type="AudioStreamPlayer3D" parent="Shooting"]
 stream = ExtResource("9_hmpqe")
-bus = &"Sounds"
+bus = &"SFX"
 
 [node name="ReloadAudio" type="AudioStreamPlayer3D" parent="Shooting"]
 stream = ExtResource("15_paufw")
-bus = &"Sounds"
+bus = &"SFX"
 
 [node name="ItemDetector" type="Area3D" parent="." node_paths=PackedStringArray("playernode")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1205, 0)

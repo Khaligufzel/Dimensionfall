@@ -12,4 +12,3 @@ func _on_area_entered(area):
 		QuestManager.progress_quest(QuestManager.active_quest,"Ships")
 		area.queue_free()
 	queue_free()
-
