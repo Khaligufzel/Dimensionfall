@@ -69,6 +69,7 @@ func _on_resume_button_pressed():
 # Called when the return button is pressed.
 func _on_return_button_pressed():
 	_return_to_main_menu()
+	Music.gameplay_music_stop()
 	Music.main_menu_music_play()
 
 

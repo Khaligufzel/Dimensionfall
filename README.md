@@ -92,3 +92,12 @@ Official Discord:
 - Sprites: Some sprites were created with https://github.com/RodZill4/material-maker
 - Inventory: This game uses https://github.com/peter-kish/gloot to implement the inventory
 - Text display: Some UI uses https://github.com/daenvil/MarkdownLabel for text display
+- Music:
+	Main menu music: Desolate - https://opengameart.org/users/matthew-pablo
+	Game over music: Lonelyhood - https://opengameart.org/users/yd
+	Gameplay music:
+	Dark Fallout - https://opengameart.org/users/remaxim
+	Please, answer me my friend - https://opengameart.org/users/alexandr-zhelanov
+	Ambience Pack 1 -- Sci Fi Horror - https://opengameart.org/users/joth
+	Pressure - https://opengameart.org/users/yd
+	

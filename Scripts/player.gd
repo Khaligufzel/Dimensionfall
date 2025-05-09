@@ -316,6 +316,7 @@ func die():
 	if is_alive:
 		print("Player died")
 		is_alive = false
+		Music.gameplay_music_stop()
 		Music.game_over_music_play()
 		$"../../../HUD".get_node("GameOver").show()
 		
