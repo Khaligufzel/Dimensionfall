@@ -10,3 +10,4 @@ func _on_return_button_button_up():
 		is_button_pressed = true
 		Helper.signal_broker.game_terminated.emit()
 		Helper.exit_game()
+		Music.main_menu_music()
