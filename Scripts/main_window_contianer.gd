@@ -13,13 +13,14 @@ extends Control
 
 # Packed scene for the body content (e.g. inventory, crafting, etc.)
 @export var body_scene: PackedScene = null
+var body_scene_instance: Control = null
 
 func _ready():
 	header_label.text = header_text
 
 	if body_scene:
-		var instance = body_scene.instantiate()
-		body_panel_container.add_child(instance)
+		body_scene_instance = body_scene.instantiate()
+		body_panel_container.add_child(body_scene_instance)
 
 	# Connect close button to hide the window
 	if close_button:
@@ -31,5 +32,6 @@ func _on_close_button_pressed():
 
 func _input(event):
 	# Check if we need to hide based on what input action the child window uses
-	if body_scene.input_action != "" and event.is_action_pressed(body_scene.input_action):
+	var myinputaction: String = body_scene_instance.input_action
+	if myinputaction != "" and event.is_action_pressed(myinputaction):
 		visible = not visible

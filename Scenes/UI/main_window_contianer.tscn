@@ -46,7 +46,7 @@ theme_override_constants/separation = 0
 [node name="HeaderPanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.1
+size_flags_stretch_ratio = 0.05
 theme_override_styles/panel = SubResource("StyleBoxFlat_ce2wn")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HeaderPanelContainer"]
@@ -64,11 +64,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.05
 tooltip_text = "Close this window"
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 24
 text = "X"
 
 [node name="BodyPanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.9
+size_flags_stretch_ratio = 0.95
 theme_override_styles/panel = SubResource("StyleBoxFlat_n8xrd")
