@@ -16,3 +16,8 @@ parameters/looping = false
 [node name="GameOver" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_kvrp4")
 bus = &"Music"
+
+[node name="GameplayMusic" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[connection signal="finished" from="GameplayMusic" to="." method="_on_gameplay_music_finished"]
