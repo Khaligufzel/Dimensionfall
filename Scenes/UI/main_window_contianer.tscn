@@ -21,7 +21,7 @@ border_color = Color(0, 0, 0, 1)
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[node name="MainWindowContianer" type="Control" node_paths=PackedStringArray("header_panel_container", "body_panel_container", "header_label")]
+[node name="MainWindowContianer" type="Control" node_paths=PackedStringArray("header_panel_container", "body_panel_container", "header_label", "close_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,8 +30,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_igoaq")
 header_panel_container = NodePath("VBoxContainer/HeaderPanelContainer")
-body_panel_container = NodePath("")
+body_panel_container = NodePath("VBoxContainer/BodyPanelContainer")
 header_label = NodePath("VBoxContainer/HeaderPanelContainer/HBoxContainer/HeaderLabel")
+close_button = NodePath("VBoxContainer/HeaderPanelContainer/HBoxContainer/CloseButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
