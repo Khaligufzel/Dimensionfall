@@ -100,4 +100,6 @@ Official Discord:
 	Please, answer me my friend - https://opengameart.org/users/alexandr-zhelanov
 	Ambience Pack 1 -- Sci Fi Horror - https://opengameart.org/users/joth
 	Pressure - https://opengameart.org/users/yd
-	
+	Ambience:
+	Nature Sounds Pack - https://opengameart.org/users/antoinemax (Lisence: CC-BY 4.0)
+	Cricket sounds - https://opengameart.org/users/syncopika
