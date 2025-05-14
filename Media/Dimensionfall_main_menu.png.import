@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bue4v38jsraai"
-path="res://.godot/imported/Catax_main_menu.png-18d9cfb7dc352f451c8d02fcbf514650.ctex"
+uid="uid://cxkil61bktahp"
+path="res://.godot/imported/Dimensionfall_main_menu.png-e5bc5fe85bb93ba2f8138d3df963cbab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Media/Catax_main_menu.png"
-dest_files=["res://.godot/imported/Catax_main_menu.png-18d9cfb7dc352f451c8d02fcbf514650.ctex"]
+source_file="res://Media/Dimensionfall_main_menu.png"
+dest_files=["res://.godot/imported/Dimensionfall_main_menu.png-e5bc5fe85bb93ba2f8138d3df963cbab.ctex"]
 
 [params]
 
