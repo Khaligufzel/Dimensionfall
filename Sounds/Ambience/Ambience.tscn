@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca4noicqrkimg"]
+
+[ext_resource type="Script" uid="uid://bomq536rqufli" path="res://Sounds/Ambience/ambience.gd" id="1_i2a5p"]
+
+[node name="Ambience" type="Node"]
+script = ExtResource("1_i2a5p")
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+bus = &"Ambience"
+
+[connection signal="finished" from="Ambience" to="." method="_on_ambience_finished"]

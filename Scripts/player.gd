@@ -194,6 +194,7 @@ func _physics_process(delta):
 			var initial_stamina = current_stamina
 			var input_dir = Input.get_vector("left", "right", "up", "down")
 			var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+			#Sfx.play_sfx(Sfx.SFX.WALKING_GRASS)
 
 			# Athletics skill level
 			var athletics_level = get_skill_level("athletics")
@@ -317,9 +318,8 @@ func die():
 		print("Player died")
 		is_alive = false
 		Music.gameplay_music_stop()
-		Music.game_over_music_play()
+		Music.play_theme(Music.THEMES.GAME_OVER)
 		$"../../../HUD".get_node("GameOver").show()
-		
 
 
 func play_footstep_audio():
