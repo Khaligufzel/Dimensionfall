@@ -1,25 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://d14xi877dp3i2"]
 
 [ext_resource type="Script" uid="uid://c23gj6x0n654v" path="res://Scripts/main_window_contianer.gd" id="1_igoaq"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ce2wn"]
-bg_color = Color(0.269681, 0.335707, 0.589105, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n8xrd"]
-bg_color = Color(0.50126, 0.527304, 0.570358, 1)
-border_width_left = 4
-border_width_top = 2
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0, 0, 0, 1)
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[ext_resource type="StyleBox" uid="uid://b4t06f0mrl43a" path="res://Scenes/UI/StyleBoxFlat_WindowHeader.tres" id="2_n8xrd"]
+[ext_resource type="StyleBox" uid="uid://dekwnaow0islj" path="res://Scenes/UI/StyleBoxFlat_WindowBody.tres" id="3_arwx6"]
 
 [node name="MainWindowContianer" type="Control" node_paths=PackedStringArray("header_panel_container", "body_panel_container", "header_label", "close_button")]
 layout_mode = 3
@@ -47,7 +30,7 @@ theme_override_constants/separation = 0
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.05
-theme_override_styles/panel = SubResource("StyleBoxFlat_ce2wn")
+theme_override_styles/panel = ExtResource("2_n8xrd")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HeaderPanelContainer"]
 layout_mode = 2
@@ -71,4 +54,4 @@ text = "X"
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.95
-theme_override_styles/panel = SubResource("StyleBoxFlat_n8xrd")
+theme_override_styles/panel = ExtResource("3_arwx6")

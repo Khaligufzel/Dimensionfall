@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://sewnt37ji4s1"]
+[gd_scene load_steps=9 format=3 uid="uid://sewnt37ji4s1"]
 
 [ext_resource type="Script" uid="uid://baeby5unkl4x5" path="res://Scripts/FurnitureWindow.gd" id="1_iww5n"]
 [ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="2_rwvfx"]
+[ext_resource type="StyleBox" uid="uid://b4t06f0mrl43a" path="res://Scenes/UI/StyleBoxFlat_WindowHeader.tres" id="2_ym333"]
+[ext_resource type="StyleBox" uid="uid://dekwnaow0islj" path="res://Scenes/UI/StyleBoxFlat_WindowBody.tres" id="3_awi04"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu1vc"]
 
@@ -22,178 +24,202 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iww5n")
-furniture_container_view = NodePath("PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/FurnitureContainerView")
-inventory_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/InventoryLabel")
-furniture_name_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/FurnitureNameLabel")
-crafting_queue_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2/CraftingQueueContainer")
-crafting_recipe_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CraftingRecipeContainer")
-crafting_v_box_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer")
-craft_status_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2/CraftStatusLabel")
-craft_status_timer = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2/CraftStatusTimer")
-transform_into_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/TransformIntoButton")
-fuel_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/FuelLabel")
-recipe_panel_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer")
-item_name_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/ItemNameLabel")
-item_description_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/ItemDescriptionLabel")
-item_craft_time_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/ItemCraftTimeLabel")
-ingredients_grid_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/IngredientsVBoxContainer/IngredientsGridContainer")
-add_to_queue_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/AddToQueueButton")
+furniture_container_view = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/FurnitureContainerView")
+inventory_label = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/HBoxContainer2/InventoryLabel")
+furniture_name_label = NodePath("VBoxContainer/HeaderPanelContainer/HBoxContainer/FurnitureNameLabel")
+crafting_queue_container = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2/CraftingQueueContainer")
+crafting_recipe_container = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CraftingRecipeContainer")
+crafting_v_box_container = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer")
+craft_status_label = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2/CraftStatusLabel")
+craft_status_timer = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2/CraftStatusTimer")
+transform_into_button = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/HBoxContainer2/TransformIntoButton")
+fuel_label = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/HBoxContainer2/FuelLabel")
+recipe_panel_container = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer")
+item_name_label = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/ItemNameLabel")
+item_description_label = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/ItemDescriptionLabel")
+item_craft_time_label = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/ItemCraftTimeLabel")
+ingredients_grid_container = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/IngredientsVBoxContainer/IngredientsGridContainer")
+add_to_queue_button = NodePath("VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer/AddToQueueButton")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bu1vc")
+theme_override_constants/separation = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="HeaderPanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
+theme_override_styles/panel = ExtResource("2_ym333")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HeaderPanelContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="FurnitureNameLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="FurnitureNameLabel" type="Label" parent="VBoxContainer/HeaderPanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 24
 text = "FurnitureName"
+horizontal_alignment = 1
 
-[node name="FuelLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="CloseButton" type="Button" parent="VBoxContainer/HeaderPanelContainer/HBoxContainer"]
 layout_mode = 2
-text = "Fuel: 0"
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+tooltip_text = "Close this window"
+theme_override_font_sizes/font_size = 24
+text = "X"
 
-[node name="TransformIntoButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="BodyPanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
-text = "transform_into"
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.95
+theme_override_styles/panel = ExtResource("3_awi04")
 
-[node name="CloseMenuButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/BodyPanelContainer"]
 layout_mode = 2
-tooltip_text = "Close menu"
-text = "   X   "
+theme_override_styles/panel = SubResource("StyleBoxFlat_bu1vc")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="InventoryVBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="InventoryVBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="InventoryLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer"]
 layout_mode = 2
+
+[node name="InventoryLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
 text = "Inventory"
 
-[node name="FurnitureContainerView" parent="PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer" instance=ExtResource("2_rwvfx")]
+[node name="FuelLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Fuel: 0"
+
+[node name="TransformIntoButton" type="Button" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "transform_into"
+
+[node name="FurnitureContainerView" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer" instance=ExtResource("2_rwvfx")]
 layout_mode = 2
 
-[node name="CraftingVBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CraftingVBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer"]
 layout_mode = 2
 
-[node name="CraftingLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2"]
+[node name="CraftingLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Crafting"
 
-[node name="CraftStatusTimer" type="Timer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2"]
+[node name="CraftStatusTimer" type="Timer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2"]
 
-[node name="CraftStatusLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2"]
+[node name="CraftStatusLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Time remaining:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_c4fsb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="RecipesLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="RecipesLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Available recipes:"
 horizontal_alignment = 1
 
-[node name="CraftingRecipeContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="CraftingRecipeContainer" type="GridContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
 
-[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_4qpvm")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2"]
+[node name="Label" type="Label" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Current queue"
 horizontal_alignment = 1
 
-[node name="CraftingQueueContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2"]
+[node name="CraftingQueueContainer" type="GridContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 3
 
-[node name="RecipePanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer"]
+[node name="RecipePanelContainer" type="PanelContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_tl3co")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer"]
 layout_mode = 2
 
-[node name="ItemInfoVBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer"]
+[node name="ItemInfoVBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AddToQueueButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
+[node name="AddToQueueButton" type="Button" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
 layout_mode = 2
 text = "Add to queue"
 
-[node name="ItemNameLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
+[node name="ItemNameLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "ItemName"
 
-[node name="ItemDescriptionLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
+[node name="ItemDescriptionLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
 custom_minimum_size = Vector2(100, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "ItemDescription"
 autowrap_mode = 3
 
-[node name="ItemCraftTimeLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
+[node name="ItemCraftTimeLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/ItemInfoVBoxContainer"]
 layout_mode = 2
 text = "ItemCraftTime"
 
-[node name="IngredientsVBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer"]
+[node name="IngredientsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="IngredientsLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/IngredientsVBoxContainer"]
+[node name="IngredientsLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/IngredientsVBoxContainer"]
 layout_mode = 2
 text = "Ingredients:"
 
-[node name="IngredientsGridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/IngredientsVBoxContainer"]
+[node name="IngredientsGridContainer" type="GridContainer" parent="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/CraftingVBoxContainer/RecipePanelContainer/HBoxContainer/IngredientsVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 4
 
-[connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer2/TransformIntoButton" to="." method="_on_transform_into_button_button_up"]
-[connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer2/CloseMenuButton" to="." method="_on_close_menu_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HeaderPanelContainer/HBoxContainer/CloseButton" to="." method="_on_close_menu_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/BodyPanelContainer/PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/HBoxContainer2/TransformIntoButton" to="." method="_on_transform_into_button_button_up"]
