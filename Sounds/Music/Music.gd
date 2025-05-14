@@ -9,20 +9,20 @@ func main_menu_music_resume():
 	$"MainMenu".stream_paused = false
 func main_menu_music_stop():
 	$"MainMenu".stop()
-#Game over
-func game_over_music_play():
-	$"GameOver".play()
-func game_over_music_stop():
-	$"GameOver".stop()
 
 #In-game music
 enum THEMES {
+	MAIN_MENU,
+	GAME_OVER,
 	PEACE,
 	#BATTLE
 }
 
 var TRACKS = {
-	THEMES.PEACE: [preload("res://Sounds/Music/dark fallout.ogg"), preload("res://Sounds/Music/The Surreal Truth.mp3"), preload("res://Sounds/Music/Please, answer me my friend.mp3")] 
+	THEMES.MAIN_MENU: [preload("res://Sounds/Music/Desolate.ogg")],
+	THEMES.GAME_OVER: [preload("res://Sounds/Music/Lonelyhood.ogg")],
+	THEMES.PEACE: [preload("res://Sounds/Music/dark fallout.ogg"), preload("res://Sounds/Music/The Surreal Truth.mp3"), preload("res://Sounds/Music/Please, answer me my friend.mp3")]
+	 
 	#THEMES.BATTLE: [preload("res://Sounds/Music/The Depths of Hell.mp3")]
 }
 

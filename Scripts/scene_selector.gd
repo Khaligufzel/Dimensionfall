@@ -18,9 +18,6 @@ func _on_load_game_button_pressed():
 		# If there is a saved game, it will not load the provided map
 		# but rather the one that was saved in the game that was loaded
 		Helper.initiate_game()
-		#Pauses the main menu music before loading the game
-		Music.main_menu_music_stop()
-		Music.play_theme(Music.THEMES.PEACE)
 
 
 # When the play demo button is pressed
@@ -34,9 +31,7 @@ func _on_play_demo_pressed():
 	Helper.save_helper.create_new_save()
 	Helper.signal_broker.game_started.emit()
 	Helper.initiate_game()
-	#Pauses the main menu music before loading the game
-	Music.main_menu_music_stop()
-	Music.play_theme(Music.THEMES.PEACE)
+
 
 func _on_help_button_pressed():
 	get_tree().change_scene_to_file("res://documentation.tscn")

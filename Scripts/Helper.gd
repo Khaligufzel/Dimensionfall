@@ -75,7 +75,11 @@ func exit_game():
 	# Devides the loaded_chunk_data.chunks into segments and saves them to disk
 	Helper.overmap_manager.unload_all_remaining_segments()
 	Helper.signal_broker.game_ended.emit()
+	#Stops gameplay and ambience sounds
+	Ambience.ambience_stop()
+	Music.gameplay_music_stop()
 	get_tree().change_scene_to_file("res://scene_selector.tscn")
+	Music.main_menu_music_play()
 
 
 # When the player saves and quits (i.e. return to main menu)
@@ -87,6 +91,10 @@ func save_and_exit_game():
 # Changes the scene to "level_generation", which is the main game
 # chunk_navigation_maps holds the navigation maps for the mobs until issue #438 is fixed
 func initiate_game() -> void:
+	#Pauses the main menu music before loading the game
+	Music.main_menu_music_stop()
+	Music.play_theme(Music.THEMES.PEACE)
+	Ambience.play_ambience(Ambience.AMBIENCE.DAYTIME_NATURE)
 	chunk_navigation_maps.clear()
 	get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
 
