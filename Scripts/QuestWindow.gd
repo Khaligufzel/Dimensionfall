@@ -324,3 +324,7 @@ func _on_track_quest_button_button_up() -> void:
 		Helper.signal_broker.track_quest_clicked.emit(selected_quest)  # Emit the signal with the selected quest ID
 	else:
 		print("No quest selected to track.")  # Debug message if no quest is selected
+
+# Closes the UI when the close button is pressed.
+func _on_close_menu_button_button_up() -> void:
+	self.hide()

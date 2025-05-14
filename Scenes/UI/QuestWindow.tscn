@@ -1,8 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b50xhj4218wjd"]
+[gd_scene load_steps=4 format=3 uid="uid://b50xhj4218wjd"]
 
 [ext_resource type="Script" uid="uid://cmy8t1yask7cr" path="res://Scripts/QuestWindow.gd" id="1_3nwqm"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu1vc"]
+[ext_resource type="StyleBox" uid="uid://b4t06f0mrl43a" path="res://Scenes/UI/StyleBoxFlat_WindowHeader.tres" id="2_8lnel"]
+[ext_resource type="StyleBox" uid="uid://dekwnaow0islj" path="res://Scenes/UI/StyleBoxFlat_WindowBody.tres" id="3_kv8yt"]
 
 [node name="QuestWindow" type="Control" node_paths=PackedStringArray("quest_overview_tabs", "current_quests_list", "completed_quests_list", "failed_quests_list", "quest_details_section", "quest_rewards", "step_details_text_edit")]
 layout_mode = 3
@@ -12,77 +12,103 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3nwqm")
-quest_overview_tabs = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs")
-current_quests_list = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Current/CurrentQuestList")
-completed_quests_list = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Completed/CompletedQuestList")
-failed_quests_list = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Failed/FailedQuestList")
-quest_details_section = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection")
-quest_rewards = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/ScrollContainer/QuestRewards")
-step_details_text_edit = NodePath("PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/StepDetailsTextEdit")
+quest_overview_tabs = NodePath("VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs")
+current_quests_list = NodePath("VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Current/CurrentQuestList")
+completed_quests_list = NodePath("VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Completed/CompletedQuestList")
+failed_quests_list = NodePath("VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Failed/FailedQuestList")
+quest_details_section = NodePath("VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection")
+quest_rewards = NodePath("VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/ScrollContainer/QuestRewards")
+step_details_text_edit = NodePath("VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/StepDetailsTextEdit")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bu1vc")
+theme_override_constants/separation = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="HeaderPanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
+theme_override_styles/panel = ExtResource("2_8lnel")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HeaderPanelContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+[node name="HeaderLabel" type="Label" parent="VBoxContainer/HeaderPanelContainer/HBoxContainer"]
 layout_mode = 2
-text = "Quests - Press J to close"
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Quest journal (j)"
+horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="VBoxContainer/HeaderPanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+tooltip_text = "Close this window"
+theme_override_font_sizes/font_size = 24
+text = "X"
+
+[node name="BodyPanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.95
+theme_override_styles/panel = ExtResource("3_kv8yt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="QuestOverviewTabs" type="TabContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="QuestOverviewTabs" type="TabContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 current_tab = 0
 
-[node name="Current" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs"]
+[node name="Current" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="CurrentQuestList" type="ItemList" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Current"]
+[node name="CurrentQuestList" type="ItemList" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Current"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Completed" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs"]
+[node name="Completed" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="CompletedQuestList" type="ItemList" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Completed"]
+[node name="CompletedQuestList" type="ItemList" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Completed"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Failed" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs"]
+[node name="Failed" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="FailedQuestList" type="ItemList" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Failed"]
+[node name="FailedQuestList" type="ItemList" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestOverviewTabs/Failed"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="QuestDetailsSection" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="QuestDetailsSection" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.7
 
-[node name="QuestTitle" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
+[node name="QuestTitle" type="Label" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Quest name"
 
-[node name="QuestDescription" type="TextEdit" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
+[node name="QuestDescription" type="TextEdit" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
@@ -90,29 +116,30 @@ text = "Description for the quest"
 editable = false
 wrap_mode = 1
 
-[node name="StepDetailsTextEdit" type="TextEdit" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
+[node name="StepDetailsTextEdit" type="TextEdit" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
 editable = false
 wrap_mode = 1
 
-[node name="TrackQuestButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
+[node name="TrackQuestButton" type="Button" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
 text = "Track quest"
 
-[node name="RewardsLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
+[node name="RewardsLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
 text = "Rewards:"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection"]
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
 vertical_scroll_mode = 2
 
-[node name="QuestRewards" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/ScrollContainer"]
+[node name="QuestRewards" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/ScrollContainer"]
 clip_contents = true
 layout_mode = 2
 
-[connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/TrackQuestButton" to="." method="_on_track_quest_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HeaderPanelContainer/HBoxContainer/CloseButton" to="." method="_on_close_menu_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/QuestDetailsSection/TrackQuestButton" to="." method="_on_track_quest_button_button_up"]
