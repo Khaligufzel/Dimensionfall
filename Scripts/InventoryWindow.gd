@@ -26,6 +26,7 @@ var is_showing_tooltip = false
 @export var tooltip_item_description : Label
 @export var tool_tip_description_panel: Panel
 
+var input_action: String = "toggle_inventory" # What action is used to show/hide this
 
 
 # Called when the node enters the scene tree for the first time.
