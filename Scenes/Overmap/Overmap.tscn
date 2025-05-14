@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgswuol251m3u"]
+[gd_scene load_steps=5 format=3 uid="uid://bgswuol251m3u"]
 
 [ext_resource type="Script" uid="uid://db7d6l7lmf55s" path="res://Scenes/Overmap/Scripts/Overmap.gd" id="1_fmft1"]
+[ext_resource type="StyleBox" uid="uid://b4t06f0mrl43a" path="res://Scenes/UI/StyleBoxFlat_WindowHeader.tres" id="3_revq4"]
 [ext_resource type="PackedScene" uid="uid://budsoodfdkaea" path="res://Scenes/Overmap/OvermapTile.tscn" id="3_uq0vr"]
+[ext_resource type="StyleBox" uid="uid://dekwnaow0islj" path="res://Scenes/UI/StyleBoxFlat_WindowBody.tres" id="4_3scoq"]
 
 [node name="Overmap" type="Control" node_paths=PackedStringArray("positionLabel", "tilesContainer", "overmapTileLabel")]
 layout_mode = 3
@@ -12,48 +14,66 @@ anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fmft1")
-positionLabel = NodePath("MarginContainer/HBoxContainer/ControlsVBoxContainer/Label")
-tilesContainer = NodePath("MarginContainer/HBoxContainer/TilesContainer")
+positionLabel = NodePath("VBoxContainer/BodyPanelContainer/HBoxContainer/ControlsVBoxContainer/Label")
+tilesContainer = NodePath("VBoxContainer/BodyPanelContainer/HBoxContainer/TilesContainer")
 overmapTile = ExtResource("3_uq0vr")
-overmapTileLabel = NodePath("MarginContainer/HBoxContainer/ControlsVBoxContainer/OvermapTileLabel")
+overmapTileLabel = NodePath("VBoxContainer/BodyPanelContainer/HBoxContainer/ControlsVBoxContainer/OvermapTileLabel")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.129412, 0.14902, 0.180392, 1)
+theme_override_constants/separation = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+[node name="HeaderPanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
+theme_override_styles/panel = ExtResource("3_revq4")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HeaderPanelContainer"]
+layout_mode = 2
+
+[node name="HeaderLabel" type="Label" parent="VBoxContainer/HeaderPanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Overmap (m)"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HeaderPanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+tooltip_text = "Close this window"
+theme_override_font_sizes/font_size = 24
+text = "X"
+
+[node name="BodyPanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.95
+theme_override_styles/panel = ExtResource("4_3scoq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BodyPanelContainer"]
 clip_contents = true
 layout_mode = 2
 
-[node name="TilesContainer" type="Control" parent="MarginContainer/HBoxContainer"]
+[node name="TilesContainer" type="Control" parent="VBoxContainer/BodyPanelContainer/HBoxContainer"]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.8
 
-[node name="ControlsVBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="ControlsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_stretch_ratio = 0.2
 
-[node name="OvermapTileLabel" type="Label" parent="MarginContainer/HBoxContainer/ControlsVBoxContainer"]
+[node name="OvermapTileLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/HBoxContainer/ControlsVBoxContainer"]
 custom_minimum_size = Vector2(120, 160)
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
@@ -62,18 +82,18 @@ Environment: Forest
 Challenge: Easy"
 autowrap_mode = 3
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/ControlsVBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/BodyPanelContainer/HBoxContainer/ControlsVBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.898039, 0.356863, 1)
 text = "+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HomeButton" type="Button" parent="MarginContainer/HBoxContainer/ControlsVBoxContainer"]
+[node name="HomeButton" type="Button" parent="VBoxContainer/BodyPanelContainer/HBoxContainer/ControlsVBoxContainer"]
 layout_mode = 2
 text = "Home"
 
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/ControlsVBoxContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer/BodyPanelContainer/HBoxContainer/ControlsVBoxContainer"]
 layout_mode = 2
 text = "         up
           🠕
@@ -92,5 +112,6 @@ theme_override_colors/font_outline_color = Color(0.894388, 0.571002, 0.642366, 1
 theme_override_font_sizes/font_size = 90
 text = "→"
 
-[connection signal="resized" from="MarginContainer/HBoxContainer/TilesContainer" to="." method="_on_tiles_container_resized"]
-[connection signal="button_up" from="MarginContainer/HBoxContainer/ControlsVBoxContainer/HomeButton" to="." method="_on_home_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HeaderPanelContainer/HBoxContainer/CloseButton" to="." method="_on_close_menu_button_button_up"]
+[connection signal="resized" from="VBoxContainer/BodyPanelContainer/HBoxContainer/TilesContainer" to="." method="_on_tiles_container_resized"]
+[connection signal="button_up" from="VBoxContainer/BodyPanelContainer/HBoxContainer/ControlsVBoxContainer/HomeButton" to="." method="_on_home_button_button_up"]
