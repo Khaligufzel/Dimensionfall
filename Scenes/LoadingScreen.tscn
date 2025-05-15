@@ -46,3 +46,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Initializing"
 horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = 9.0
+offset_top = 576.0
+offset_right = 1219.0
+offset_bottom = 625.0
+scale = Vector2(0.9, 0.9)
+text = "w,s,a,d: Movement. tab: inventory. m: overmap. e: Interact (open doors) r: reload. Left mouse button: Fire left weapon. Right mouse button: fire right weapon
+b: Build menu. c: Craft menu. v: Character menu. j: Quest menu"

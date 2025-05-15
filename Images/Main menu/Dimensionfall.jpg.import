@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4r1tow7vs8n5"
-path="res://.godot/imported/thumb-1920-83970.jpg-3f99d11c5a56abe7e1435a8b688b7bd4.ctex"
+uid="uid://ckeeh58nujl5w"
+path="res://.godot/imported/Dimensionfall.jpg-9c10d810d1fdf67a2444d89314f35cab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://thumb-1920-83970.jpg"
-dest_files=["res://.godot/imported/thumb-1920-83970.jpg-3f99d11c5a56abe7e1435a8b688b7bd4.ctex"]
+source_file="res://Images/Main menu/Dimensionfall.jpg"
+dest_files=["res://.godot/imported/Dimensionfall.jpg-9c10d810d1fdf67a2444d89314f35cab.ctex"]
 
 [params]
 
