@@ -75,11 +75,8 @@ func exit_game():
 	# Devides the loaded_chunk_data.chunks into segments and saves them to disk
 	Helper.overmap_manager.unload_all_remaining_segments()
 	Helper.signal_broker.game_ended.emit()
-	#Stops gameplay and ambience sounds
-	Ambience.ambience_stop()
-	Music.gameplay_music_stop()
+	stop_gameplay_sounds()
 	get_tree().change_scene_to_file("res://scene_selector.tscn")
-	Music.main_menu_music_play()
 
 
 # When the player saves and quits (i.e. return to main menu)
@@ -92,13 +89,21 @@ func save_and_exit_game():
 # chunk_navigation_maps holds the navigation maps for the mobs until issue #438 is fixed
 func initiate_game() -> void:
 	#Pauses the main menu music before loading the game
+	chunk_navigation_maps.clear()
+	get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
+	initiate_gameplay_sounds()
+
+func initiate_gameplay_sounds() -> void:
 	Music.main_menu_music_stop()
 	Music.play_theme(Music.THEMES.PEACE)
 	Ambience.play_ambience(Ambience.AMBIENCE.DAYTIME_NATURE)
-	chunk_navigation_maps.clear()
-	get_tree().change_scene_to_file.bind("res://level_generation.tscn").call_deferred()
 
-
+# This function is initiated while returning to the main menu
+func stop_gameplay_sounds() -> void:
+	# Stops gameplay and ambience sounds and starts main menu music
+	Ambience.ambience_stop()
+	Music.gameplay_music_stop()
+	Music.main_menu_music_play()
 # Function to draw a line in the 3D space
 func line(pos1: Vector3, pos2: Vector3, color = Color.WHITE_SMOKE) -> MeshInstance3D:
 	var mesh_instance := MeshInstance3D.new()

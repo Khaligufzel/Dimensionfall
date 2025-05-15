@@ -1,12 +1,21 @@
 extends Node
 @onready var streamPlayer: AudioStreamPlayer = $Ambience
 enum AMBIENCE {
-	DAYTIME_NATURE
-	#BATTLE
+	DAYTIME_NATURE,
+	#DAYTIME_URBAN,
+	NIGHTTIME_NATURE,
+	#NIGHTTIME_URBAN,
+	RAINY,
+	#SNOWY,
+	WINDY
+	
 }
 
 var TRACKS = {
-	AMBIENCE.DAYTIME_NATURE: [preload("res://Sounds/Ambience/AmbientNatureBirdsWater01.wav"), preload("res://Sounds/Ambience/AmbientNatureOutside.wav")] 
+	AMBIENCE.DAYTIME_NATURE: [preload("res://Sounds/Ambience/AmbientNatureBirdsWater01.wav"), preload("res://Sounds/Ambience/AmbientNatureOutside.wav")],
+	AMBIENCE.NIGHTTIME_NATURE: [preload("res://Sounds/Ambience/cricketsounds.mp3")],
+	AMBIENCE.RAINY: [preload("res://Sounds/Ambience/AmbientNatureNightRainy.wav")],
+	AMBIENCE.WINDY: [preload("res://Sounds/Ambience/wind1.wav")]
 }
 
 var current_ambience: int = AMBIENCE.DAYTIME_NATURE

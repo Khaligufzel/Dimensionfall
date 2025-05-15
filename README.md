@@ -103,3 +103,4 @@ Official Discord:
 	Ambience:
 	Nature Sounds Pack - https://opengameart.org/users/antoinemax (Lisence: CC-BY 4.0)
 	Cricket sounds - https://opengameart.org/users/syncopika
+	Wind1 - https://opengameart.org/users/lukerustltd
