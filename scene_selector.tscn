@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://iasqrgnlface" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_sue5h"]
 [ext_resource type="Theme" uid="uid://bid4jnko6k7hg" path="res://button_gui.tres" id="2_e5wxh"]
-[ext_resource type="Texture2D" uid="uid://b4r1tow7vs8n5" path="res://thumb-1920-83970.jpg" id="4_e3ki8"]
+[ext_resource type="Texture2D" uid="uid://ckeeh58nujl5w" path="res://Images/Main menu/Dimensionfall.jpg" id="4_e3ki8"]
 
 [node name="SceneSelector" type="Control" node_paths=PackedStringArray("load_game_list")]
 layout_mode = 3
@@ -18,14 +18,18 @@ load_game_list = NodePath("LoadGameList")
 
 [node name="PlayDemo" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -176.0
-offset_top = 180.0
-offset_right = 212.0
-offset_bottom = 259.0
+anchors_preset = -1
+anchor_left = 0.332
+anchor_top = 0.439
+anchor_right = 0.567
+anchor_bottom = 0.524
+offset_left = -1.46402
+offset_top = 0.527985
+offset_right = 115.816
+offset_bottom = 24.448
 grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
 theme = ExtResource("2_e5wxh")
 theme_override_fonts/font = ExtResource("1_sue5h")
 theme_override_font_sizes/font_size = 60
@@ -33,10 +37,17 @@ text = "Play demo"
 
 [node name="LoadGameButton" type="Button" parent="."]
 layout_mode = 1
-offset_left = 400.0
-offset_top = 280.0
-offset_right = 788.0
-offset_bottom = 359.0
+anchors_preset = -1
+anchor_left = 0.214
+anchor_top = 0.560648
+anchor_right = 0.449
+anchor_bottom = 0.635
+offset_left = -0.528015
+offset_top = 22.7
+offset_right = 116.752
+offset_bottom = 53.52
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
 theme = ExtResource("2_e5wxh")
 theme_override_fonts/font = ExtResource("1_sue5h")
 theme_override_font_sizes/font_size = 25
@@ -45,53 +56,53 @@ text = "Load game ---->>>"
 
 [node name="LoadGameList" type="OptionButton" parent="."]
 layout_mode = 1
-offset_left = 801.0
-offset_top = 280.0
-offset_right = 1101.0
-offset_bottom = 359.0
+offset_left = 532.0
+offset_top = 386.0
+offset_right = 920.0
+offset_bottom = 465.0
+scale = Vector2(0.7, 0.7)
 theme = ExtResource("2_e5wxh")
 alignment = 1
 
 [node name="HelpButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 400.0
-offset_top = 480.0
-offset_right = 788.0
-offset_bottom = 559.0
+offset_left = 532.0
+offset_top = 470.0
+offset_right = 920.0
+offset_bottom = 549.0
+scale = Vector2(0.7, 0.7)
 theme = ExtResource("2_e5wxh")
 theme_override_font_sizes/font_size = 25
 text = "Help"
 
 [node name="ContentManagerButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 400.0
-offset_top = 380.0
-offset_right = 788.0
-offset_bottom = 459.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -330.0
+offset_top = -178.0
+offset_right = 58.0
+offset_bottom = -99.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.7, 0.7)
 theme = ExtResource("2_e5wxh")
 theme_override_font_sizes/font_size = 25
 text = "Content Manager"
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 576.0
-offset_right = 1219.0
-offset_bottom = 625.0
-scale = Vector2(0.9, 0.9)
-text = "w,s,a,d: Movement. tab: inventory. m: overmap. e: Interact (open doors) r: reload. Left mouse button: Fire left weapon. Right mouse button: fire right weapon
-b: Build menu. c: Craft menu. v: Character menu. j: Quest menu"
-
 [node name="TextureRect" type="TextureRect" parent="."]
 show_behind_parent = true
 layout_mode = 0
-offset_left = -65.0
-offset_top = -261.0
-offset_right = 1615.0
-offset_bottom = 789.0
+offset_left = 1.0
+offset_top = -356.0
+offset_right = 1153.0
+offset_bottom = 650.0
 mouse_filter = 2
 texture = ExtResource("4_e3ki8")
-metadata/_edit_lock_ = true
+expand_mode = 1
 
 [connection signal="pressed" from="PlayDemo" to="." method="_on_play_demo_pressed"]
 [connection signal="pressed" from="LoadGameButton" to="." method="_on_load_game_button_pressed"]

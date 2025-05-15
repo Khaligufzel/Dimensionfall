@@ -291,6 +291,7 @@ func _check_for_interaction() -> void:
 # 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
 # }
 func get_hit(attack_data: Dictionary):
+	Sfx.play_sfx(Sfx.SFX.HURT_MALE)
 	var attack: Dictionary = attack_data.get("attack",{})
 	var rattack: RAttack = Runtimedata.attacks.by_id(attack.get("id", ""))
 	if not rattack:
@@ -317,6 +318,7 @@ func die():
 	if is_alive:
 		print("Player died")
 		is_alive = false
+		Sfx.gameplay_sfx_stop()
 		Music.gameplay_music_stop()
 		Music.play_theme(Music.THEMES.GAME_OVER)
 		$"../../../HUD".get_node("GameOver").show()
