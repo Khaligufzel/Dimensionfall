@@ -83,3 +83,8 @@ func _on_visibility_changed():
 	if visible:
 		_on_player_stat_changed(playerInstance)
 		_on_player_skill_changed(playerInstance)
+
+
+# Closes the UI when the close button is pressed.
+func _on_close_menu_button_button_up() -> void:
+	self.hide()

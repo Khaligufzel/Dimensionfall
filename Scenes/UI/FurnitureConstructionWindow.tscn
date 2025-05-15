@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7fyuisy3oxx7"]
+[gd_scene load_steps=6 format=3 uid="uid://b7fyuisy3oxx7"]
 
 [ext_resource type="Script" uid="uid://debpgc5k2djol" path="res://Scripts/FurnitureConstructionWindow.gd" id="1_xxpn6"]
+[ext_resource type="StyleBox" uid="uid://b4t06f0mrl43a" path="res://Scenes/UI/StyleBoxFlat_WindowHeader.tres" id="2_2kqk2"]
 [ext_resource type="PackedScene" uid="uid://y2iul2r3nysx" path="res://Scenes/UI/CtrlInventoryStackedCustom.tscn" id="2_qtkw5"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bu1vc"]
+[ext_resource type="StyleBox" uid="uid://dekwnaow0islj" path="res://Scenes/UI/StyleBoxFlat_WindowBody.tres" id="3_yy7lc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tl3co"]
 bg_color = Color(0.414706, 0.637592, 0.723196, 1)
@@ -16,106 +16,131 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xxpn6")
-furniture_container_view = NodePath("PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/FurnitureContainerView")
-furniture_name_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/FurnitureNameLabel")
-furniture_description_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/FurnitureDescriptionLabel")
-ingredients_grid_container = NodePath("PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/HBoxContainer/IngredientsVBoxContainer/IngredientsGridContainer")
-construct_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/ControlButtonsHBoxContainer/ConstructButton")
+furniture_container_view = NodePath("VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer/FurnitureContainerView")
+furniture_name_label = NodePath("VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer2/FurnitureNameLabel")
+furniture_description_label = NodePath("VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer2/FurnitureDescriptionLabel")
+ingredients_grid_container = NodePath("VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/HBoxContainer/IngredientsVBoxContainer/IngredientsGridContainer")
+construct_button = NodePath("VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/ControlButtonsHBoxContainer/ConstructButton")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bu1vc")
+theme_override_constants/separation = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="HeaderPanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
+theme_override_styles/panel = ExtResource("2_2kqk2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HeaderPanelContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="HeaderLabel" type="Label" parent="VBoxContainer/HeaderPanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Furniture Construction"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HeaderPanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.05
+tooltip_text = "Close this window"
+theme_override_font_sizes/font_size = 24
+text = "X"
+
+[node name="BodyPanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.95
+theme_override_styles/panel = ExtResource("3_yy7lc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer"]
 layout_mode = 2
 
-[node name="FurnitureNameLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FurnitureNameLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 36
 text = "FurnitureName"
 
-[node name="FurnitureDescriptionLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="FurnitureDescriptionLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "FurnitureDescription"
 
-[node name="CloseMenuButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-tooltip_text = "Close menu"
-text = "   X   "
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="InventoryVBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="InventoryVBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="InventoryLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer"]
+[node name="InventoryLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Inventory"
 
-[node name="FurnitureContainerView" parent="PanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer" instance=ExtResource("2_qtkw5")]
+[node name="FurnitureContainerView" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/InventoryVBoxContainer" instance=ExtResource("2_qtkw5")]
 layout_mode = 2
 
-[node name="ConstructionVBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="ConstructionVBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ConstructionHeaderLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer"]
+[node name="ConstructionHeaderLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Construction"
 
-[node name="RecipePanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer"]
+[node name="RecipePanelContainer" type="PanelContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_tl3co")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="IngredientsVBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/HBoxContainer"]
+[node name="IngredientsVBoxContainer" type="VBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="IngredientsLabel" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/HBoxContainer/IngredientsVBoxContainer"]
+[node name="IngredientsLabel" type="Label" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/HBoxContainer/IngredientsVBoxContainer"]
 layout_mode = 2
 text = "Ingredients:"
 
-[node name="IngredientsGridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/HBoxContainer/IngredientsVBoxContainer"]
+[node name="IngredientsGridContainer" type="GridContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/HBoxContainer/IngredientsVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 4
 
-[node name="ControlButtonsHBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer"]
+[node name="ControlButtonsHBoxContainer" type="HBoxContainer" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ConstructButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/ControlButtonsHBoxContainer"]
+[node name="ConstructButton" type="Button" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/ControlButtonsHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
 text = "Construct"
 
-[node name="CancelButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/ControlButtonsHBoxContainer"]
+[node name="CancelButton" type="Button" parent="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/ControlButtonsHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Cancel"
 
-[connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer2/CloseMenuButton" to="." method="_on_close_menu_button_button_up"]
-[connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/ControlButtonsHBoxContainer/ConstructButton" to="." method="_on_construct_button_button_up"]
-[connection signal="button_up" from="PanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/ControlButtonsHBoxContainer/CancelButton" to="." method="_on_cancel_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/HeaderPanelContainer/HBoxContainer/CloseButton" to="." method="_on_close_menu_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/ControlButtonsHBoxContainer/ConstructButton" to="." method="_on_construct_button_button_up"]
+[connection signal="button_up" from="VBoxContainer/BodyPanelContainer/VBoxContainer/HBoxContainer/ConstructionVBoxContainer/RecipePanelContainer/VBoxContainer/ControlButtonsHBoxContainer/CancelButton" to="." method="_on_cancel_button_button_up"]

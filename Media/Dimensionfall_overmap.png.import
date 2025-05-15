@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm2rj800p8h14"
-path="res://.godot/imported/Catax_overmap.png-82b4238db27b6d364963a568f25d7ab1.ctex"
+uid="uid://dch4kodbh76y6"
+path="res://.godot/imported/Dimensionfall_overmap.png-27c1c0ea135bf38a22699fa45930cd0c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Media/Catax_overmap.png"
-dest_files=["res://.godot/imported/Catax_overmap.png-82b4238db27b6d364963a568f25d7ab1.ctex"]
+source_file="res://Media/Dimensionfall_overmap.png"
+dest_files=["res://.godot/imported/Dimensionfall_overmap.png-27c1c0ea135bf38a22699fa45930cd0c.ctex"]
 
 [params]
 

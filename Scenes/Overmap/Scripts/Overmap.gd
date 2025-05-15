@@ -598,3 +598,7 @@ func reset_target():
 		set_coordinate_text(target.coordinate, "")  # Clear the text
 	target = null
 	$ArrowLabel.visible = false  # Hide the arrow
+
+# Closes the UI when the close button is pressed.
+func _on_close_menu_button_button_up() -> void:
+	self.hide()

@@ -26,6 +26,7 @@ var is_showing_tooltip = false
 @export var tooltip_item_description : Label
 @export var tool_tip_description_panel: Panel
 
+@export var close_button: Button = null
 var input_action: String = "toggle_inventory" # What action is used to show/hide this
 
 
@@ -42,6 +43,16 @@ func _ready():
 	Helper.signal_broker.container_entered_proximity.connect(_on_container_entered_proximity)
 	Helper.signal_broker.container_exited_proximity.connect(_on_container_exited_proximity)
 
+	if close_button: # Connect close button to hide the window
+		close_button.pressed.connect(_on_close_button_pressed)
+
+func _on_close_button_pressed():
+	visible = false
+
+func _input(event):
+	# Check if we need to hide based on what input action the child window uses
+	if input_action != "" and event.is_action_pressed(input_action):
+		visible = not visible
 
 # Setup player and proximity inventories
 func setup_inventory_controls():
