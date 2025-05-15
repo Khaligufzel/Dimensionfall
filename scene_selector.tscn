@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://iasqrgnlface" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_sue5h"]
 [ext_resource type="Theme" uid="uid://bid4jnko6k7hg" path="res://button_gui.tres" id="2_e5wxh"]
-[ext_resource type="Texture2D" uid="uid://ckeeh58nujl5w" path="res://Dimensionfall.jpg" id="4_e3ki8"]
+[ext_resource type="Texture2D" uid="uid://ckeeh58nujl5w" path="res://Images/Main menu/Dimensionfall.jpg" id="4_e3ki8"]
 
 [node name="SceneSelector" type="Control" node_paths=PackedStringArray("load_game_list")]
 layout_mode = 3
@@ -103,7 +103,6 @@ offset_bottom = 650.0
 mouse_filter = 2
 texture = ExtResource("4_e3ki8")
 expand_mode = 1
-metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="PlayDemo" to="." method="_on_play_demo_pressed"]
 [connection signal="pressed" from="LoadGameButton" to="." method="_on_load_game_button_pressed"]

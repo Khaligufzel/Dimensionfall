@@ -48,6 +48,7 @@ text = "Initializing"
 horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 offset_left = 9.0
 offset_top = 576.0
 offset_right = 1219.0
