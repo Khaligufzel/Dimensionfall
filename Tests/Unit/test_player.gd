@@ -31,6 +31,8 @@ func before_each():
 	add_child(mock_level_manager)
 	add_child(mock_level_generator)
 	add_child(player)
+	# We expect the player to start here, just like in level_generation.tscn
+	player.global_position = Vector3(0, 1, 15)
 
 	test_chunk.mypos = Vector3(0, 0, 0) # Example position (chunk (1, 2) with 32x32 blocks)
 
@@ -77,6 +79,7 @@ func test_player_basics()->void:
 	
 	assert_true(player.is_alive,"Oops player spawned dead")
 	assert_eq(player.current_stamina, player.max_stamina, "Stamina is loading incorrectly!")
+	assert_eq(player.global_position, Vector3(0, 1, 15), "Player spawned in the wrong location!")
 	assert_false(player.knockback_active,"Player spawned with knockback error")
 
 
