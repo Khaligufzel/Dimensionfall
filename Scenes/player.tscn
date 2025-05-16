@@ -33,14 +33,14 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("9_hmpqe")
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ra623"]
+points = PackedVector3Array(0, 0, 0.325, -1, -1, 0.325, -1, 1, 0.325, 0, 0, -0.325, -1, -1, -0.325, -1, 1, -0.325)
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jdgh6"]
 playback_mode = 1
 random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("9_hmpqe")
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ra623"]
-points = PackedVector3Array(0, 0, 0.325, -1, -1, 0.325, -1, 1, 0.325, 0, 0, -0.325, -1, -1, -0.325, -1, 1, -0.325)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_drnhn"]
 points = PackedVector3Array(0.15, 0.15, 0.275, -0.15, 0.15, 0.275, 0.15, -0.5, 0.275, 0.15, 0.15, -0.275, -0.15, 0.15, -0.275, -0.15, -0.5, 0.275, 0.15, -0.5, -0.275, -0.15, -0.5, -0.275)
@@ -103,8 +103,8 @@ script = ExtResource("7_u8an4")
 bullet_speed = 25.0
 bullet_scene = ExtResource("8_un7wc")
 attack_cooldown_timer = NodePath("../../Shooting/Left_attack_cooldown")
-melee_hitbox = NodePath("../MeleeRange")
-melee_collision_shape = NodePath("../MeleeRange/MeleeCollisionShape3D")
+melee_hitbox = NodePath("MeleeRange")
+melee_collision_shape = NodePath("MeleeRange/MeleeCollisionShape3D")
 default_hand_position = Vector3(-0.195, 0.117, 0)
 melee_attack_z_rotation_offset = 15.0
 player = NodePath("../..")
@@ -113,6 +113,15 @@ shoot_audio_player = NodePath("../../Shooting/ShootAudio")
 shoot_audio_randomizer = SubResource("AudioStreamRandomizer_n8kat")
 reload_audio_player = NodePath("../../Shooting/ReloadAudio")
 flashlight_spotlight = NodePath("../FlashLight")
+
+[node name="MeleeRange" type="Area3D" parent="Sprite3D2/EquippedLeft"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.194626, -0.116675, -0.277026)
+collision_layer = 0
+collision_mask = 14
+
+[node name="MeleeCollisionShape3D" type="CollisionShape3D" parent="Sprite3D2/EquippedLeft/MeleeRange"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
+shape = SubResource("ConvexPolygonShape3D_ra623")
 
 [node name="EquippedRight" type="Sprite3D" parent="Sprite3D2" node_paths=PackedStringArray("attack_cooldown_timer", "melee_hitbox", "melee_collision_shape", "player", "shoot_audio_player", "reload_audio_player", "flashlight_spotlight")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.190849, -0.123334, 0)
@@ -124,8 +133,8 @@ bullet_speed = 25.0
 bullet_scene = ExtResource("8_un7wc")
 attack_cooldown_timer = NodePath("../../Shooting/Right_attack_cooldown")
 slot_idx = 1
-melee_hitbox = NodePath("../MeleeRange")
-melee_collision_shape = NodePath("../MeleeRange/MeleeCollisionShape3D")
+melee_hitbox = NodePath("MeleeRange")
+melee_collision_shape = NodePath("MeleeRange/MeleeCollisionShape3D")
 default_hand_position = Vector3(-0.191, -0.123, 0)
 melee_attack_z_rotation_offset = -15.0
 player = NodePath("../..")
@@ -135,12 +144,12 @@ shoot_audio_randomizer = SubResource("AudioStreamRandomizer_jdgh6")
 reload_audio_player = NodePath("../../Shooting/ReloadAudio")
 flashlight_spotlight = NodePath("../FlashLight")
 
-[node name="MeleeRange" type="Area3D" parent="Sprite3D2"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.277026)
+[node name="MeleeRange" type="Area3D" parent="Sprite3D2/EquippedRight"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.190849, 0.123334, -0.277026)
 collision_layer = 0
 collision_mask = 14
 
-[node name="MeleeCollisionShape3D" type="CollisionShape3D" parent="Sprite3D2/MeleeRange"]
+[node name="MeleeCollisionShape3D" type="CollisionShape3D" parent="Sprite3D2/EquippedRight/MeleeRange"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.277026, 0)
 shape = SubResource("ConvexPolygonShape3D_ra623")
 
