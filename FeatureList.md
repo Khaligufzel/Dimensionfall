@@ -16,7 +16,7 @@ Ranged and melee combat are currently implemented.
 - You can drag and drop items from different containers
 - Interact with your equipment slots
 
-![Catax_inventory](Media/Dimensionfall_inventory.png.png)
+![Catax_inventory](Media/Dimensionfall_inventory.png)
 
 ### Overmap
 The game will create an infinite map to explore. The world is devided by regions, each having their own oppertunities and challenges. A marker will indicate your current location.
@@ -30,7 +30,7 @@ Cities and roads are generated. Explore a whole network of roads and get to know
 ### Quest journal
 Follow quests to guide your way trough this dangerous world. A quest may have multiple objectives, which will be displayed step-by-step
 
-![Catax_overmap](Media/Dimensionfall_quest_journal.png.png)
+![Catax_overmap](Media/Dimensionfall_quest_journal.png)
 
 ### Crafting stations
 Crafting stations allow off-handed crafting while you're doing other stuff. Expand your base with all the crafting stations you need. To make an item, put in the required ingredients and add it to the queue. Once it's done, the output will be present inside the furniture's inventory. Use the content editor to turn any furniture into a crafting station. 
