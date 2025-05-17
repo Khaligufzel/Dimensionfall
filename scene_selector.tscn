@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://iasqrgnlface" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_sue5h"]
 [ext_resource type="Theme" uid="uid://bid4jnko6k7hg" path="res://button_gui.tres" id="2_e5wxh"]
-[ext_resource type="Texture2D" uid="uid://ckeeh58nujl5w" path="res://Images/Main menu/Dimensionfall.jpg" id="4_e3ki8"]
+[ext_resource type="Texture2D" uid="uid://ckeeh58nujl5w" path="res://Images/Main menu/AI_Title.jpg" id="4_e3ki8"]
 
 [node name="SceneSelector" type="Control" node_paths=PackedStringArray("load_game_list")]
 layout_mode = 3
-anchor_right = 1.067
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -77.1841
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_e5wxh")
@@ -19,14 +19,14 @@ load_game_list = NodePath("LoadGameList")
 [node name="PlayDemo" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.332
-anchor_top = 0.439
-anchor_right = 0.567
-anchor_bottom = 0.524
+anchor_left = 0.354569
+anchor_top = 0.478
+anchor_right = 0.623
+anchor_bottom = 0.576
 offset_left = -1.46402
-offset_top = 0.527985
-offset_right = 115.816
-offset_bottom = 24.448
+offset_top = 0.255981
+offset_right = 77.304
+offset_bottom = 15.752
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
@@ -34,18 +34,19 @@ theme = ExtResource("2_e5wxh")
 theme_override_fonts/font = ExtResource("1_sue5h")
 theme_override_font_sizes/font_size = 60
 text = "Play demo"
+metadata/_edit_use_anchors_ = true
 
 [node name="LoadGameButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.214
-anchor_top = 0.560648
-anchor_right = 0.449
-anchor_bottom = 0.635
-offset_left = -0.528015
-offset_top = 22.7
-offset_right = 116.752
-offset_bottom = 53.52
+anchor_left = 0.252
+anchor_top = 0.633
+anchor_right = 0.487
+anchor_bottom = 0.718
+offset_left = -0.304016
+offset_top = -0.184021
+offset_right = 116.976
+offset_bottom = 23.736
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 theme = ExtResource("2_e5wxh")
@@ -53,56 +54,74 @@ theme_override_fonts/font = ExtResource("1_sue5h")
 theme_override_font_sizes/font_size = 25
 disabled = true
 text = "Load game ---->>>"
+metadata/_edit_use_anchors_ = true
 
 [node name="LoadGameList" type="OptionButton" parent="."]
 layout_mode = 1
-offset_left = 532.0
-offset_top = 386.0
-offset_right = 920.0
-offset_bottom = 465.0
+anchors_preset = -1
+anchor_left = 0.511
+anchor_top = 0.633
+anchor_right = 0.747
+anchor_bottom = 0.718
+offset_left = 0.327942
+offset_top = -0.184021
+offset_right = 116.456
+offset_bottom = 23.736
 scale = Vector2(0.7, 0.7)
 theme = ExtResource("2_e5wxh")
 alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="HelpButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 532.0
-offset_top = 470.0
-offset_right = 920.0
-offset_bottom = 549.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.511479
+anchor_top = 0.764
+anchor_right = 0.747
+anchor_bottom = 0.849
+offset_left = -0.223999
+offset_top = -0.072052
+offset_right = 116.456
+offset_bottom = 23.848
 scale = Vector2(0.7, 0.7)
 theme = ExtResource("2_e5wxh")
 theme_override_font_sizes/font_size = 25
 text = "Help"
+metadata/_edit_use_anchors_ = true
 
 [node name="ContentManagerButton" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -330.0
-offset_top = -178.0
-offset_right = 58.0
-offset_bottom = -99.0
+anchors_preset = -1
+anchor_left = 0.252194
+anchor_top = 0.764
+anchor_right = 0.487
+anchor_bottom = 0.849
+offset_left = -0.528015
+offset_top = -0.072052
+offset_right = 116.976
+offset_bottom = 23.848
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.7, 0.7)
 theme = ExtResource("2_e5wxh")
 theme_override_font_sizes/font_size = 25
 text = "Content Manager"
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
 show_behind_parent = true
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.001
+anchor_bottom = 1.003
 offset_left = 1.0
-offset_top = -356.0
-offset_right = 1153.0
-offset_bottom = 650.0
+offset_top = -423.0
+offset_right = -0.1521
+offset_bottom = 0.0559692
 mouse_filter = 2
 texture = ExtResource("4_e3ki8")
 expand_mode = 1
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="PlayDemo" to="." method="_on_play_demo_pressed"]
 [connection signal="pressed" from="LoadGameButton" to="." method="_on_load_game_button_pressed"]

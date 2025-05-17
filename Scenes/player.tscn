@@ -193,11 +193,9 @@ one_shot = true
 
 [node name="ShootAudio" type="AudioStreamPlayer3D" parent="Shooting"]
 stream = ExtResource("9_hmpqe")
-bus = &"SFX"
 
 [node name="ReloadAudio" type="AudioStreamPlayer3D" parent="Shooting"]
 stream = ExtResource("15_paufw")
-bus = &"SFX"
 
 [node name="ItemDetector" type="Area3D" parent="." node_paths=PackedStringArray("playernode")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1205, 0)
