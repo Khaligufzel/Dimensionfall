@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2jn8nd57qmfk"]
+[gd_scene load_steps=3 format=3 uid="uid://d2jn8nd57qmfk"]
 
 [ext_resource type="Script" uid="uid://bskslkig471xq" path="res://Scenes/ContentManager/Scripts/othertools.gd" id="1_wv57c"]
+[ext_resource type="Texture2D" uid="uid://b4yc6v8v24hfo" path="res://Images/Main menu/AI_Options_background.jpg" id="2_q4ueq"]
 
 [node name="othertools" type="Control"]
 layout_mode = 3
@@ -34,6 +35,18 @@ text = "Overmap visualizer"
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Back"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_q4ueq")
+expand_mode = 1
 
 [connection signal="button_up" from="VBoxContainer/OvermapVisualisationButton" to="." method="_on_overmap_visualisation_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/BackButton" to="." method="_on_back_button_button_up"]

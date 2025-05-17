@@ -3,13 +3,12 @@
 [ext_resource type="Script" uid="uid://iasqrgnlface" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
 [ext_resource type="FontFile" uid="uid://chm7lbcdeyo0h" path="res://Roboto-Bold.ttf" id="1_sue5h"]
 [ext_resource type="Theme" uid="uid://bid4jnko6k7hg" path="res://button_gui.tres" id="2_e5wxh"]
-[ext_resource type="Texture2D" uid="uid://ckeeh58nujl5w" path="res://Images/Main menu/Dimensionfall.jpg" id="4_e3ki8"]
+[ext_resource type="Texture2D" uid="uid://ckeeh58nujl5w" path="res://Images/Main menu/AI_Title.jpg" id="4_e3ki8"]
 
 [node name="SceneSelector" type="Control" node_paths=PackedStringArray("load_game_list")]
 layout_mode = 3
-anchor_right = 1.067
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -77.1841
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_e5wxh")
@@ -56,20 +55,30 @@ text = "Load game ---->>>"
 
 [node name="LoadGameList" type="OptionButton" parent="."]
 layout_mode = 1
-offset_left = 532.0
-offset_top = 386.0
-offset_right = 920.0
-offset_bottom = 465.0
+anchors_preset = -1
+anchor_left = 0.462
+anchor_top = 0.596
+anchor_right = 0.698
+anchor_bottom = 0.681
+offset_left = -0.223999
+offset_top = -0.208008
+offset_right = 115.904
+offset_bottom = 23.712
 scale = Vector2(0.7, 0.7)
 theme = ExtResource("2_e5wxh")
 alignment = 1
 
 [node name="HelpButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 532.0
-offset_top = 470.0
-offset_right = 920.0
-offset_bottom = 549.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.462
+anchor_top = 0.725
+anchor_right = 0.698
+anchor_bottom = 0.811
+offset_left = -0.223999
+offset_top = 0.199982
+offset_right = 115.904
+offset_bottom = 23.472
 scale = Vector2(0.7, 0.7)
 theme = ExtResource("2_e5wxh")
 theme_override_font_sizes/font_size = 25
@@ -77,15 +86,15 @@ text = "Help"
 
 [node name="ContentManagerButton" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -330.0
-offset_top = -178.0
-offset_right = 58.0
-offset_bottom = -99.0
+anchors_preset = -1
+anchor_left = 0.214
+anchor_top = 0.725
+anchor_right = 0.449
+anchor_bottom = 0.811
+offset_left = -0.528015
+offset_top = 0.199982
+offset_right = 116.752
+offset_bottom = 23.472
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.7, 0.7)
@@ -95,11 +104,14 @@ text = "Content Manager"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 show_behind_parent = true
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.001
+anchor_bottom = 1.003
 offset_left = 1.0
-offset_top = -356.0
-offset_right = 1153.0
-offset_bottom = 650.0
+offset_top = -423.0
+offset_right = -0.1521
+offset_bottom = 0.0559692
 mouse_filter = 2
 texture = ExtResource("4_e3ki8")
 expand_mode = 1
