@@ -57,22 +57,27 @@ class FurnitureTransform:
 		return Vector3(posx, posy, posz)
 
 	func set_position(new_position: Vector3):
-		# Check if x or z position has changed
+		# Update y unconditionally
+		posy = new_position.y
+
+		# Only proceed if x or z changed
 		if not posx == new_position.x or not posz == new_position.z:
-			# Update x and z positions
 			posx = new_position.x
 			posz = new_position.z
 
-			# Calculate the new chunk position based on the updated x and z positions
-			var new_chunk_pos: Vector2 = Helper.overmap_manager.get_cell_pos_from_global_pos(Vector2(posx, posz))
-			
-			# Check if the chunk position has changed
-			if new_chunk_pos != chunk_pos:
-				chunk_pos = new_chunk_pos
-				chunk_changed.emit(chunk_pos)  # Emit the signal if chunk position changes
+			# Only check for chunk change if near boundary (within 2.0 units of edge)
+			var grid_x := int(posx) % 32
+			var grid_z := int(posz) % 32
 
-		# Update the y position independently
-		posy = new_position.y
+			var near_x_edge := grid_x < 2 or grid_x > 30
+			var near_z_edge := grid_z < 2 or grid_z > 30
+
+			if near_x_edge or near_z_edge:
+				var new_chunk_pos: Vector2 = Helper.overmap_manager.get_cell_pos_from_global_pos(Vector2(posx, posz))
+				if new_chunk_pos != chunk_pos:
+					chunk_pos = new_chunk_pos
+					chunk_changed.emit(chunk_pos)
+
 
 
 	func get_rotation() -> int:
