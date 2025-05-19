@@ -1111,20 +1111,18 @@ func get_data() -> Dictionary:
 		"rotation": get_my_rotation(),
 	}
 
-	if is_door:
-		newfurniturejson["Function"] = {"door": door_state}
-	
-	# Container functionality
-	if container:
+	# Ensure Function dictionary exists if any function data is to be saved
+	var has_function_data := is_door or container or crafting_container
+	if has_function_data:
 		if "Function" not in newfurniturejson:
 			newfurniturejson["Function"] = {}
-		newfurniturejson["Function"]["container"] = container.serialize()
-
-	# Crafting container functionality
-	if crafting_container:
-		if "Function" not in newfurniturejson:
-			newfurniturejson["Function"] = {}
-		newfurniturejson["Function"]["crafting_container"] = crafting_container.serialize()
+		var func_dict = newfurniturejson["Function"]
+		if is_door:
+			func_dict["door"] = door_state
+		if container:
+			func_dict["container"] = container.serialize()
+		if crafting_container:
+			func_dict["crafting_container"] = crafting_container.serialize()
 
 	# Save last_processed_minute for time catch-up after reload
 	newfurniturejson["last_processed_minute"] = last_processed_minute
@@ -1398,7 +1396,6 @@ func on_minute_passed(current_time: String):
 
 
 func process_missed_minutes(minutes_passed: int, current_time: String):
-	# Normalize minutes_passed to always be positive and within 0-1439
 	if minutes_passed <= 0:
 		return
 	if crafting_container and crafting_container.is_active:
