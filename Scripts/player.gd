@@ -9,6 +9,7 @@ var speed = 2  # speed in meters/sec
 
 var run_multiplier = 1.1
 var is_running = false
+var is_walking = false
 
 var max_stamina = 100
 var current_stamina
@@ -194,8 +195,6 @@ func _physics_process(delta):
 			var initial_stamina = current_stamina
 			var input_dir = Input.get_vector("left", "right", "up", "down")
 			var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-			#Sfx.play_sfx(Sfx.SFX.WALKING_GRASS)
-
 			# Athletics skill level
 			var athletics_level = get_skill_level("athletics")
 
@@ -216,10 +215,11 @@ func _physics_process(delta):
 					velocity = direction * speed
 				elif is_running and current_stamina > 0:
 					velocity = direction * speed * run_multiplier
+					
 					if velocity.length() > 0:
 						current_stamina -= delta * stamina_lost_while_running_per_sec
 						add_skill_xp("athletics", 0.01)
-
+			
 			# Stamina regeneration when standing still
 			if velocity.length() < 0.1:
 				current_stamina += delta * stamina_regen_while_standing_still
@@ -227,9 +227,7 @@ func _physics_process(delta):
 			
 			if (current_stamina != initial_stamina):
 				Helper.signal_broker.player_stamina_changed.emit(self, current_stamina)
-
 		move_and_slide()
-
 
 # When a body enters the CollisionDetector area
 # This will be a FurniturePhysicsSrv since it's only detecting layer 4
@@ -249,8 +247,10 @@ func _on_body_exited(body_rid: RID, body: Node3D, _body_shape_index: int, _local
 func _input(event):
 	if event.is_action_pressed("run"):
 		is_running = true
+		Sfx.play_sfx(Sfx.SFX.RUNNING_GRASS)
 	elif event.is_action_released("run"):
 		is_running = false
+		Sfx.movement_sfx_stop()
 		
 	#checking if we can interact with the object
 	if event.is_action_pressed("interact"):
