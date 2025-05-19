@@ -211,6 +211,10 @@ shape = SubResource("CylinderShape3D_caadj")
 [node name="ComponentInteract" type="Node3D" parent="."]
 script = ExtResource("17_23lma")
 
+[node name="MovementTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="Shooting/Left_attack_cooldown" to="Sprite3D2/EquippedLeft" method="_on_left_attack_cooldown_timeout"]
 [connection signal="timeout" from="Shooting/Right_attack_cooldown" to="Sprite3D2/EquippedRight" method="_on_right_attack_cooldown_timeout"]
 [connection signal="area_entered" from="ItemDetector" to="ItemDetector" method="_on_area_entered"]

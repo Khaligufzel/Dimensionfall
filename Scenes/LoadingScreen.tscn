@@ -72,7 +72,6 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "w,s,a,d: Movement. tab: inventory. m: overmap. e: Interact (open doors) r: reload. Left mouse button: Fire left weapon. Right mouse button: fire right weapon. b: Build menu. c: Craft menu. v: Character menu. j: Quest menu"
 label_settings = SubResource("LabelSettings_xoop3")
-horizontal_alignment = 1
 autowrap_mode = 3
 max_lines_visible = 2
 visible_characters = 0

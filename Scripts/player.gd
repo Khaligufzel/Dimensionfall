@@ -9,7 +9,7 @@ var speed = 2  # speed in meters/sec
 
 var run_multiplier = 1.1
 var is_running = false
-var is_walking = false
+@onready var movement_timer: Timer = $MovementTimer
 
 var max_stamina = 100
 var current_stamina
@@ -222,7 +222,15 @@ func _physics_process(delta):
 			
 			# Stamina regeneration when standing still
 			if velocity.length() < 0.1:
+				Sfx.movement_sfx_stop()
 				current_stamina += delta * stamina_regen_while_standing_still
+			else:
+				if movement_timer.time_left <= 0:
+					Sfx.play_sfx(Sfx.SFX.WALKING_GRASS)
+					if not is_running:
+						movement_timer.start(0.5)
+					else: 
+						movement_timer.start(0.3)
 			current_stamina = clamp(current_stamina, 0.0, max_stamina)
 			
 			if (current_stamina != initial_stamina):
@@ -247,10 +255,8 @@ func _on_body_exited(body_rid: RID, body: Node3D, _body_shape_index: int, _local
 func _input(event):
 	if event.is_action_pressed("run"):
 		is_running = true
-		Sfx.play_sfx(Sfx.SFX.RUNNING_GRASS)
 	elif event.is_action_released("run"):
 		is_running = false
-		Sfx.movement_sfx_stop()
 		
 	#checking if we can interact with the object
 	if event.is_action_pressed("interact"):
