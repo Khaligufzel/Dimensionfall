@@ -50,7 +50,23 @@ func _physics_process(_delta):
 		if target:
 			spotted_target = target
 			target_spotted.emit(spotted_target)
-			can_detect = false  # Disable detection temporarily
+			# If a target is found, slow down detection checks
+			set_detection_interval(2.0)
+		else:
+			# If no target, keep detection checks fast
+			set_detection_interval(0.3)
+		can_detect = false  # Disable detection temporarily, even if no target is found
+
+
+# Set detection timer interval dynamically
+func set_detection_interval(interval: float):
+	detection_timer.wait_time = interval
+
+# Optionally, allow state machine to force a detection attempt immediately
+func force_detection_attempt():
+	can_detect = true
+	# Optionally, call detection logic immediately
+	# _physics_process(0)
 
 
 # Callback for the detection timer's timeout signal
