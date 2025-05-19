@@ -9,6 +9,7 @@ var speed = 2  # speed in meters/sec
 
 var run_multiplier = 1.1
 var is_running = false
+@onready var movement_timer: Timer = $MovementTimer
 
 var max_stamina = 100
 var current_stamina
@@ -194,8 +195,6 @@ func _physics_process(delta):
 			var initial_stamina = current_stamina
 			var input_dir = Input.get_vector("left", "right", "up", "down")
 			var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-			#Sfx.play_sfx(Sfx.SFX.WALKING_GRASS)
-
 			# Athletics skill level
 			var athletics_level = get_skill_level("athletics")
 
@@ -216,20 +215,27 @@ func _physics_process(delta):
 					velocity = direction * speed
 				elif is_running and current_stamina > 0:
 					velocity = direction * speed * run_multiplier
+					
 					if velocity.length() > 0:
 						current_stamina -= delta * stamina_lost_while_running_per_sec
 						add_skill_xp("athletics", 0.01)
-
+			
 			# Stamina regeneration when standing still
 			if velocity.length() < 0.1:
+				Sfx.movement_sfx_stop()
 				current_stamina += delta * stamina_regen_while_standing_still
+			else:
+				if movement_timer.time_left <= 0:
+					Sfx.play_sfx(Sfx.SFX.WALKING_GRASS)
+					if not is_running:
+						movement_timer.start(0.5)
+					else: 
+						movement_timer.start(0.3)
 			current_stamina = clamp(current_stamina, 0.0, max_stamina)
 			
 			if (current_stamina != initial_stamina):
 				Helper.signal_broker.player_stamina_changed.emit(self, current_stamina)
-
 		move_and_slide()
-
 
 # When a body enters the CollisionDetector area
 # This will be a FurniturePhysicsSrv since it's only detecting layer 4

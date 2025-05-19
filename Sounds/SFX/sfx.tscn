@@ -8,4 +8,8 @@ script = ExtResource("1_koc44")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"SFX"
 
+[node name="MovementSFXPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"PlayerFootstep"
+
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
+[connection signal="finished" from="MovementSFXPlayer" to="." method="_on_movement_sfx_player_finished"]

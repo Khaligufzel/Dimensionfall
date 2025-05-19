@@ -3,11 +3,11 @@ extends Control
 var saved_game_folders : Array
 @onready var load_game_button = $LoadGameButton
 @export var load_game_list : OptionButton 
+
 func _ready():
 	# Populate the load_game_list with saved game folders
 	populate_load_game_list()
 	Gamedata.mods.write_default_mods_state()
-
 
 func _on_load_game_button_pressed():
 	Runtimedata.reconstruct() # Load all mod data in the proper way

@@ -50,6 +50,7 @@ func replay_current_theme():
 
 func _on_gameplay_music_finished():
 	if is_repeating:
+		await get_tree().create_timer(5.0).timeout
 		replay_current_theme()
 
 func gameplay_music_stop():
