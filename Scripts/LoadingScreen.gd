@@ -24,8 +24,11 @@ func update_sub_text(newtext: String):
 # Function for handling player spawned signal
 func _on_player_spawned(_playernode):
 	sub_label.text = "Spawning player"
+	var tween_help_label = get_tree().create_tween()
+	tween_help_label.tween_property($HelpLabel, "visible_ratio", 1, 3)
 
 
 func on_exit_game():
+	$HelpLabel.visible_ratio = 0.0
 	visible = true
 	sub_label.text = "Quitting game..."

@@ -18,7 +18,7 @@ resume_button = NodePath("VBoxContainer/ResumeButton")
 return_button = NodePath("VBoxContainer/ReturnButton")
 save_button = NodePath("VBoxContainer/SaveButton")
 
-[node name="TextureRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
