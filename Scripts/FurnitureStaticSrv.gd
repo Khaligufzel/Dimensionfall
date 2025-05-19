@@ -1274,16 +1274,16 @@ func regenerate():
 # When this furniture enters the item detector, it means the player is close
 func on_entered_item_detector():
 	is_active = true
-    # Get the current in-game minute when the player comes close
-    var current_minute = Helper.time_helper.get_current_in_game_minutes()
-    # If this is not the first time (last_processed_minute != -1) and time has advanced,
-    # process all missed minutes since last time this furniture was active.
-    # last_processed_minute == -1 means this furniture has never processed time before (first activation)
-    if last_processed_minute != -1 and current_minute != last_processed_minute:
-        var minutes_passed = current_minute - last_processed_minute
-        process_missed_minutes(minutes_passed, Helper.time_helper.get_current_time())
-    # Always update last_processed_minute to the current minute
-    last_processed_minute = current_minute
+	# Get the current in-game minute when the player comes close
+	var current_minute = Helper.time_helper.get_current_in_game_minutes()
+	# If this is not the first time (last_processed_minute != -1) and time has advanced,
+	# process all missed minutes since last time this furniture was active.
+	# last_processed_minute == -1 means this furniture has never processed time before (first activation)
+	if last_processed_minute != -1 and current_minute != last_processed_minute:
+		var minutes_passed = current_minute - last_processed_minute
+		process_missed_minutes(minutes_passed, Helper.time_helper.get_current_time())
+	# Always update last_processed_minute to the current minute
+	last_processed_minute = current_minute
 	regenerate()
 	if crafting_container and not crafting_container.is_active:
 		crafting_container.activate_crafting()  # Start active crafting
