@@ -42,6 +42,10 @@ var current_health: float = 100.0  # Default health
 var is_animating_hit: bool = false  # Flag to prevent multiple hit animations
 var original_material_color: Color = Color(1, 1, 1)  # Store the original material color
 
+# New variable to control processing on minute_passed
+var is_active: bool = false # Only process minute_passed if active
+var last_processed_minute: int = -1 # Track last in-game minute processed
+
 signal about_to_be_destroyed(me: FurnitureStaticSrv)
 signal crafting_queue_updated(current_queue: Array[QueueItem])
 
@@ -792,6 +796,12 @@ func _init(furniturepos: Vector3, new_furniture_json: Dictionary, world3d: World
 		consumption = Consumption.new(self)
 	Helper.time_helper.minute_passed.connect.call_deferred(on_minute_passed)
 
+	# Restore last_processed_minute if present in saved data, else default to -1
+	if furnitureJSON.has("last_processed_minute"):
+		last_processed_minute = furnitureJSON["last_processed_minute"]
+	else:
+		last_processed_minute = -1
+
 
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container():
@@ -1101,20 +1111,21 @@ func get_data() -> Dictionary:
 		"rotation": get_my_rotation(),
 	}
 
-	if is_door:
-		newfurniturejson["Function"] = {"door": door_state}
-	
-	# Container functionality
-	if container:
+	# Ensure Function dictionary exists if any function data is to be saved
+	var has_function_data := is_door or container or crafting_container
+	if has_function_data:
 		if "Function" not in newfurniturejson:
 			newfurniturejson["Function"] = {}
-		newfurniturejson["Function"]["container"] = container.serialize()
+		var func_dict = newfurniturejson["Function"]
+		if is_door:
+			func_dict["door"] = door_state
+		if container:
+			func_dict["container"] = container.serialize()
+		if crafting_container:
+			func_dict["crafting_container"] = crafting_container.serialize()
 
-	# Crafting container functionality
-	if crafting_container:
-		if "Function" not in newfurniturejson:
-			newfurniturejson["Function"] = {}
-		newfurniturejson["Function"]["crafting_container"] = crafting_container.serialize()
+	# Save last_processed_minute for time catch-up after reload
+	newfurniturejson["last_processed_minute"] = last_processed_minute
 
 	return newfurniturejson
 
@@ -1269,12 +1280,24 @@ func regenerate():
 
 # When this furniture enters the item detector, it means the player is close
 func on_entered_item_detector():
+	is_active = true
+	# Get the current in-game minute when the player comes close
+	var current_minute = Helper.time_helper.get_current_in_game_minutes()
+	# If this is not the first time (last_processed_minute != -1) and time has advanced,
+	# process all missed minutes since last time this furniture was active.
+	# last_processed_minute == -1 means this furniture has never processed time before (first activation)
+	if last_processed_minute != -1 and current_minute != last_processed_minute:
+		var minutes_passed = current_minute - last_processed_minute
+		process_missed_minutes(minutes_passed, Helper.time_helper.get_current_time())
+	# Always update last_processed_minute to the current minute
+	last_processed_minute = current_minute
 	regenerate()
 	if crafting_container and not crafting_container.is_active:
 		crafting_container.activate_crafting()  # Start active crafting
 
 # When this furniture exits the item detector, it means the player is away
 func on_exited_item_detector():
+	is_active = false
 	if crafting_container and crafting_container.is_active:
 		crafting_container.deactivate_crafting()  # Stop active crafting
 
@@ -1351,12 +1374,36 @@ func get_item_count_in_container(mycontainer: Object, item_id: String) -> int:
 # Helper.time_manager.minute_passed signal, which is connected in the 
 # FurnitureStaticSpawner script.
 func on_minute_passed(current_time: String):
+	if not is_active:
+		return
+	# Get current in-game minute
+	var current_minute = Helper.time_helper.get_current_in_game_minutes()
+	# If this is the first time, just set last_processed_minute
+	if last_processed_minute == -1:
+		last_processed_minute = current_minute
+	# If time has passed, process all missed minutes
+	elif current_minute != last_processed_minute:
+		var minutes_passed = current_minute - last_processed_minute
+		process_missed_minutes(minutes_passed, current_time)
+		last_processed_minute = current_minute
+		return
+	# Normal per-minute processing
 	if crafting_container and crafting_container.is_active:
 		crafting_container.process_active_crafting()
 	if consumption:
 		consumption.on_minute_passed(current_time)
+	last_processed_minute = current_minute
 
 
+func process_missed_minutes(minutes_passed: int, current_time: String):
+	if minutes_passed <= 0:
+		return
+	if crafting_container and crafting_container.is_active:
+		for i in range(minutes_passed):
+			crafting_container.process_active_crafting()
+	if consumption:
+		for i in range(minutes_passed):
+			consumption.on_minute_passed(current_time)
 # Add an item to the crafting queue. This might happen from a button in the furniture window
 func add_to_crafting_queue(item_id: String) -> void:
 	crafting_container.add_to_crafting_queue(item_id)
