@@ -26,6 +26,10 @@ var inventory: InventoryStacked  # Holds the inventory for the container
 var itemgroup: String  # The ID of an itemgroup that it creates loot from
 var is_hidden: bool = false # If true, all visual elements are invisible
 
+# Optimization: Cache last position and rotation to avoid redundant updates
+var _last_position: Vector3 = Vector3.INF
+var _last_rotation: int = -99999
+
 
 signal about_to_be_destroyed(me: FurniturePhysicsSrv)
 
@@ -110,7 +114,8 @@ class FurnitureTransform:
 		return Transform3D(Basis(Vector3(0, 1, 0), deg_to_rad(rot)), get_position())
 
 	func correct_new_position():
-		posy += 1
+		# Set the y position to the value where the physics engine will settle the furniture
+		posy += 0.797
 
 
 # Initialize the furniture object
@@ -182,6 +187,13 @@ func _moved(state: PhysicsDirectBodyState3D) -> void:
 	# Safely convert rotation to degrees and round to the nearest integer
 	var myrotation_degrees = rad_to_deg(new_rotation)
 	var rounded_rotation = int(round(myrotation_degrees))
+
+	# Optimization: Only update if position or rotation has changed
+	if new_position == _last_position and rounded_rotation == _last_rotation:
+		return  # No change, skip expensive updates
+
+	_last_position = new_position
+	_last_rotation = rounded_rotation
 
 	# Update the internal furniture position and rotation
 	furniture_transform.set_position(new_position)
@@ -587,3 +599,5 @@ func refresh_visibility(new_y_level: float):
 func _on_chunk_generated():
 	# Set the force integration callback to update the visual position
 	PhysicsServer3D.body_set_force_integration_callback(collider, _moved)
+	# Force the body to sleep after spawn to prevent unnecessary _moved calls
+	PhysicsServer3D.body_set_state(collider, PhysicsServer3D.BODY_STATE_SLEEPING, true)
