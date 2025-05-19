@@ -119,17 +119,17 @@ class FurnitureTransform:
 
 
 # Initialize the furniture object
-func _init(furniturepos: Vector3, newFurnitureJSON: Dictionary, world3d: World3D):
-	furnitureJSON = newFurnitureJSON
+func _init(myposition: Vector3, furniture_data: Dictionary, world: World3D):
+	furnitureJSON = furniture_data
 	rfurniture = Runtimedata.furnitures.by_id(furnitureJSON.id)
 	var myrotation: int = furnitureJSON.get("rotation", 0)
-	myworld3d = world3d
+	myworld3d = world
 
 	# Size of the collider will be a uniform sphere
-	var furniture_size: Vector3 = Vector3(0.3,0.3,0.3)
+	var furniture_size: Vector3 = Vector3(0.3, 0.3, 0.3)
 
 	# Initialize the furniture transform
-	furniture_transform = FurnitureTransform.new(furniturepos, myrotation, furniture_size)
+	furniture_transform = FurnitureTransform.new(myposition, myrotation, furniture_size)
 
 	if is_new_furniture():
 		furniture_transform.correct_new_position()
