@@ -796,6 +796,12 @@ func _init(furniturepos: Vector3, new_furniture_json: Dictionary, world3d: World
 		consumption = Consumption.new(self)
 	Helper.time_helper.minute_passed.connect.call_deferred(on_minute_passed)
 
+	# Restore last_processed_minute if present in saved data, else default to -1
+	if furnitureJSON.has("last_processed_minute"):
+		last_processed_minute = furnitureJSON["last_processed_minute"]
+	else:
+		last_processed_minute = -1
+
 
 # If this furniture is a container, it will add a container node to the furniture.
 func add_container():
@@ -1119,6 +1125,9 @@ func get_data() -> Dictionary:
 		if "Function" not in newfurniturejson:
 			newfurniturejson["Function"] = {}
 		newfurniturejson["Function"]["crafting_container"] = crafting_container.serialize()
+
+	# Save last_processed_minute for time catch-up after reload
+	newfurniturejson["last_processed_minute"] = last_processed_minute
 
 	return newfurniturejson
 
