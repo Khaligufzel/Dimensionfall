@@ -18,6 +18,9 @@ extends Control
 @export var character_window: Control = null
 @export var quest_window: Control = null
 @export var furniture_construction_window: Control = null
+@export var options_panel_container: PanelContainer = null
+@export var master_options_menu: Control = null
+
 
 
 
@@ -31,6 +34,10 @@ func _ready():
 	return_button.button_up.connect(_on_return_button_pressed)
 	save_button.button_up.connect(_on_save_button_pressed)
 	options_button.button_up.connect(_on_options_button_pressed)
+	
+	# Connect visibility change on the master_options_menu
+	if master_options_menu:
+		master_options_menu.visibility_changed.connect(_on_master_options_menu_visibility_changed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -74,7 +81,7 @@ func _on_return_button_pressed():
 
 # Called when the options button is pressed.
 func _on_options_button_pressed():
-	get_tree().change_scene_to_file("res://Options/scenes/menus/options_menu/Options_parent.tscn")
+	master_options_menu.visible = true
 
 # Called when the node's visibility changes.
 func _on_visibility_changed():
@@ -120,3 +127,8 @@ func _disable_all_controls():
 		save_button.disabled = true
 	if options_button:
 		options_button.disabled = true
+
+# When the visibility of master_options_menu changes, we also show/hide the options_panel_container
+func _on_master_options_menu_visibility_changed():
+	if master_options_menu and options_panel_container:
+		options_panel_container.visible = master_options_menu.visible

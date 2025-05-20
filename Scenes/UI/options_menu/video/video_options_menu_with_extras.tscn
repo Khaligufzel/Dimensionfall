@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://d34ct3doj6u2v"]
 
-[ext_resource type="PackedScene" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/video/video_options_menu.tscn" id="1_qonr0"]
-[ext_resource type="Script" path="res://Options/scenes/menus/options_menu/video/video_options_menu.gd" id="2_ikbci"]
-[ext_resource type="PackedScene" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/option_control/list_option_control.tscn" id="3_81i7x"]
+[ext_resource type="PackedScene" uid="uid://b2numvphf2kau" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/video/video_options_menu.tscn" id="1_qonr0"]
+[ext_resource type="Script" uid="uid://cwgeobxytiq2f" path="res://Scenes/UI/options_menu/video/video_options_menu.gd" id="2_ikbci"]
+[ext_resource type="PackedScene" uid="uid://b6bl3n5mp3m1e" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/option_control/list_option_control.tscn" id="3_81i7x"]
 
 [node name="Video" instance=ExtResource("1_qonr0")]
 script = ExtResource("2_ikbci")
