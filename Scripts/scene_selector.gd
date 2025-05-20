@@ -32,6 +32,8 @@ func _on_play_demo_pressed():
 	Helper.signal_broker.game_started.emit()
 	Helper.initiate_game()
 
+func _on_options_pressed():
+	get_tree().change_scene_to_file("res://Scenes/UI/options_menu/master_options_menu_with_tabs.tscn")
 
 func _on_help_button_pressed():
 	get_tree().change_scene_to_file("res://documentation.tscn")

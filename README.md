@@ -104,3 +104,5 @@ Official Discord:
 	Nature Sounds Pack - https://opengameart.org/users/antoinemax (Lisence: CC-BY 4.0)
 	Cricket sounds - https://opengameart.org/users/syncopika
 	Wind1 - https://opengameart.org/users/lukerustltd
+- Settings:
+	For game settings code: https://github.com/Maaack/Godot-Options-Menus
