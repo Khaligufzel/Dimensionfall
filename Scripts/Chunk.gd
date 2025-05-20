@@ -18,6 +18,26 @@ extends Node3D
 # should be parented to this (like moveable furniture and mobs)
 var level_manager : Node3D
 var level_generator : Node3D
+
+# === Constants ===
+const MAX_LEVELS: int = 21
+const LEVEL_WIDTH: int = 32
+const LEVEL_HEIGHT: int = 32
+
+# === Navigation-related ===
+# Each chunk has it's own navigationmap because merging many navigationregions inside one general map
+# will cause the game to stutter. The map for this chunk has one region and one navigationmesh
+var navigation_map_id: RID
+var navigation_region: NavigationRegion3D
+var navigation_mesh: NavigationMesh = NavigationMesh.new()
+var source_geometry_data: NavigationMeshSourceGeometryData3D
+
+# === Mesh/Rendering-related ===
+var chunk_mesh_body: StaticBody3D # The staticbody that will visualize the chunk mesh
+var atlas_output: Dictionary # An atlas texture that combines all textures of this chunk's blocks
+var level_nodes: Dictionary = {} # Keeps track of level nodes by their y_level
+
+# === Furniture-related ===
 var furniture_static_spawner: FurnitureStaticSpawner
 var furniture_physics_spawner: FurniturePhysicsSpawner
 var furniture_blueprint_spawner: FurnitureBlueprintSpawner
@@ -25,14 +45,8 @@ var furniture_blueprint_spawner: FurnitureBlueprintSpawner
 var static_furniture_ready: bool = false
 var physics_furniture_ready: bool = false
 
-# Constants
-const MAX_LEVELS = 21
-const LEVEL_WIDTH = 32
-const LEVEL_HEIGHT = 32
+# === Chunk Data ===
 var _mapleveldata: Array = [] # Holds the data for each level in this chunk
-# Each chunk has it's own navigationmap because merging many navigationregions inside one general map
-# will cause the game to stutter. The map for this chunk has one region and one navigationmesh
-var navigation_map_id: RID
 # This is a class variable to track block positions and data. It will contain:
 # The position represented by a Vector3 in local coordinates
 # The rotation represented by an int in degrees (0-360)
@@ -42,16 +56,12 @@ var chunk_data: Dictionary # The json data that defines this chunk
 # A map is defined by the mapeditor. This variable holds the data that is processed from the map
 # editor format into something usable for this chunk's generation
 var processed_level_data: Dictionary = {}
-var mutex: Mutex = Mutex.new() # Used to ensure thread safety
 var mypos: Vector3 # The position in 3d space. Expect y to be 0
-# Variables to enable navigation.
-var navigation_region: NavigationRegion3D
-var navigation_mesh: NavigationMesh = NavigationMesh.new()
-var source_geometry_data: NavigationMeshSourceGeometryData3D
-var chunk_mesh_body: StaticBody3D # The staticbody that will visualize the chunk mesh
-var atlas_output: Dictionary # An atlas texture that combines all textures of this chunk's blocks
-var level_nodes: Dictionary = {} # Keeps track of level nodes by their y_level# Existing properties
 
+# === Threading/Mutex ===
+var mutex: Mutex = Mutex.new() # Used to ensure thread safety
+
+# === Load State ===
 enum LoadStates {
 	NEITHER,
 	LOADING,
@@ -1316,7 +1326,6 @@ func process_face(direction: String, pos: Vector3, block_data: Dictionary, verts
 		base_index, base_index + 1, base_index + 2,
 		base_index, base_index + 2, base_index + 3
 	])
-
 
 
 # Function to get vertices for a specific face of a cube
