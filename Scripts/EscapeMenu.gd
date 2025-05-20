@@ -6,6 +6,7 @@ extends Control
 @export var resume_button: Button
 @export var return_button: Button
 @export var save_button: Button
+@export var options_button: Button
 @export var loadingscreen: Control
 
 # References to the other menus
@@ -29,6 +30,7 @@ func _ready():
 	resume_button.button_up.connect(_on_resume_button_pressed)
 	return_button.button_up.connect(_on_return_button_pressed)
 	save_button.button_up.connect(_on_save_button_pressed)
+	options_button.button_up.connect(_on_options_button_pressed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -70,7 +72,9 @@ func _on_resume_button_pressed():
 func _on_return_button_pressed():
 	_return_to_main_menu()
 
-
+# Called when the options button is pressed.
+func _on_options_button_pressed():
+	get_tree().change_scene_to_file("res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu_with_tabs.tscn")
 
 # Called when the node's visibility changes.
 func _on_visibility_changed():

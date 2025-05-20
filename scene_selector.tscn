@@ -123,7 +123,21 @@ texture = ExtResource("4_e3ki8")
 expand_mode = 1
 metadata/_edit_lock_ = true
 
+[node name="Options" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.362
+anchor_top = 0.881
+anchor_right = 0.627
+anchor_bottom = 0.961
+offset_left = -2.02402
+offset_top = 0.112
+offset_right = -0.304016
+offset_bottom = 0.271973
+text = "Options"
+
 [connection signal="pressed" from="PlayDemo" to="." method="_on_play_demo_pressed"]
 [connection signal="pressed" from="LoadGameButton" to="." method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="button_up" from="ContentManagerButton" to="." method="_on_content_manager_button_button_up"]
+[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
