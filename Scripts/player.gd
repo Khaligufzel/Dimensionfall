@@ -260,6 +260,7 @@ func _input(event):
 		
 	#checking if we can interact with the object
 	if event.is_action_pressed("interact"):
+		print_block_id_under_player()
 		_check_for_interaction()
 
 # Check if player can interact with an object
@@ -699,10 +700,11 @@ func print_block_id_under_player() -> void:
 	if chunk == null:
 		print_debug("No chunk found at player position: ", global_position)
 		return
+	
+	# Calculate the local block position within the chunk (0-31)
+	var local_x = int(global_position.x) - chunk.mypos.x
+	var local_z = int(global_position.z) - chunk.mypos.z
 
-	# Calculate the local block position within the chunk
-	var local_x = int(global_position.x) % 32
-	var local_z = int(global_position.z) % 32
 	# Calculate the level index: always use the floor of y - a small epsilon to ensure we get the block below
 	var epsilon = 1.0
 	var level_index = int(floor(global_position.y - epsilon))
@@ -711,5 +713,7 @@ func print_block_id_under_player() -> void:
 	var block_data = chunk.get_block_at(level_index, Vector2i(local_x, local_z))
 	if block_data.has("id"):
 		print("Player is standing on block id: ", block_data["id"])
+		print_debug("Player is standing on (", local_x, ", ", level_index, ", ", local_z, ") block id: ", block_data["id"], ". Player is at: ", str(global_position), ". Chunk is at: ", str(chunk.mypos))
 	else:
 		print_debug("No block found at (", local_x, ", ", level_index, ", ", local_z, ") in chunk.")
+		print_debug("No block found at (", local_x, ", ", level_index, ", ", local_z, ") in chunk. Player is at: ", str(global_position), ". Chunk is at: ", str(chunk.mypos))

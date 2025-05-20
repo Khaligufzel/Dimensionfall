@@ -1537,28 +1537,11 @@ func spawn_item_at_free_position(item_id: String, quantity: int, y: int) -> bool
 #	var block_00: Dictionary = chunk.get_block_at(0, Vector2i(0, 0))
 #	print(block_00.get("id", "")) - prints field_grass_basic_00
 func get_block_at(level_index: int, block_position: Vector2i) -> Dictionary:
-	var level_index_internal = level_index + 10 # Convert to _mapleveldata index
-	if level_index_internal < 0 or level_index_internal >= _mapleveldata.size():
-		printerr("Level index out of range: ", level_index)
-		return {}
-
-	if block_position.x < 0 or block_position.x >= LEVEL_WIDTH or \
-	   block_position.y < 0 or block_position.y >= LEVEL_HEIGHT:
-		printerr("Block position out of range: ", block_position)
-		return {}
-
-	var level = _mapleveldata[level_index_internal]
-	if level.is_empty():
-		print_debug("Level %d is empty." % level_index)
-		return {}
-
-	var block_index = block_position.y * LEVEL_WIDTH + block_position.x
-	var block_data = level[block_index]
-
-	if block_data and block_data.has("id"):
-		return block_data
+	var key = "%s,%s,%s" % [block_position.x, level_index, block_position.y]
+	if block_positions.has(key):
+		return block_positions[key]
 	else:
-		print_debug("Block at %s on level %d is empty or has no 'id'." % [block_position, level_index])
+		print_debug("Block at %s on level %d not found in block_positions." % [block_position, level_index])
 		return {}
 
 
@@ -1571,5 +1554,4 @@ func _on_furniture_spawned(spawner: Node3D):
 	
 	# ✅ Emit signal only when all spawners have finished
 	if static_furniture_ready and physics_furniture_ready:
-		print_debug("All furniture spawned — emitting chunk_generated")
 		chunk_generated.emit()
