@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://2s1p2npnkvrp"
+
 [autoload]
 
 Nakama="res://addons/com.heroiclabs.nakama/Nakama.gd"
