@@ -118,3 +118,5 @@ func _disable_all_controls():
 		return_button.disabled = true
 	if save_button:
 		save_button.disabled = true
+	if options_button:
+		options_button.disabled = true

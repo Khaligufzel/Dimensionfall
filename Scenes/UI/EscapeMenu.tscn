@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://byu87ef23jvts" path="res://Scripts/EscapeMenu.gd" id="1_8tf3a"]
 
-[node name="EscapeMenu" type="Control" node_paths=PackedStringArray("resume_button", "return_button", "save_button")]
+[node name="EscapeMenu" type="Control" node_paths=PackedStringArray("resume_button", "return_button", "save_button", "options_button")]
 process_mode = 3
 layout_mode = 3
 anchor_left = 0.25
@@ -17,6 +17,7 @@ script = ExtResource("1_8tf3a")
 resume_button = NodePath("VBoxContainer/ResumeButton")
 return_button = NodePath("VBoxContainer/ReturnButton")
 save_button = NodePath("VBoxContainer/SaveButton")
+options_button = NodePath("VBoxContainer/OptionsButton")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
