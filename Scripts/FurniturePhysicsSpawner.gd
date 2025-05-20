@@ -17,7 +17,6 @@ var furniture_json_list: Array = []:
 		# INFO Important to connect the signals outside the task_manager.create_task
 		# since the furniture will start engaging with the game world when they are connected
 		# If they are connected inside task_manager.create_task, there will be a conflict in threads
-		print_debug("connecting furniture signals")
 		for furniture in collider_to_furniture.values():
 			furniture.connect_signals()
 		furniture_has_spawned.emit(self)

@@ -18,6 +18,26 @@ extends Node3D
 # should be parented to this (like moveable furniture and mobs)
 var level_manager : Node3D
 var level_generator : Node3D
+
+# === Constants ===
+const MAX_LEVELS: int = 21
+const LEVEL_WIDTH: int = 32
+const LEVEL_HEIGHT: int = 32
+
+# === Navigation-related ===
+# Each chunk has it's own navigationmap because merging many navigationregions inside one general map
+# will cause the game to stutter. The map for this chunk has one region and one navigationmesh
+var navigation_map_id: RID
+var navigation_region: NavigationRegion3D
+var navigation_mesh: NavigationMesh = NavigationMesh.new()
+var source_geometry_data: NavigationMeshSourceGeometryData3D
+
+# === Mesh/Rendering-related ===
+var chunk_mesh_body: StaticBody3D # The staticbody that will visualize the chunk mesh
+var atlas_output: Dictionary # An atlas texture that combines all textures of this chunk's blocks
+var level_nodes: Dictionary = {} # Keeps track of level nodes by their y_level
+
+# === Furniture-related ===
 var furniture_static_spawner: FurnitureStaticSpawner
 var furniture_physics_spawner: FurniturePhysicsSpawner
 var furniture_blueprint_spawner: FurnitureBlueprintSpawner
@@ -25,14 +45,8 @@ var furniture_blueprint_spawner: FurnitureBlueprintSpawner
 var static_furniture_ready: bool = false
 var physics_furniture_ready: bool = false
 
-# Constants
-const MAX_LEVELS = 21
-const LEVEL_WIDTH = 32
-const LEVEL_HEIGHT = 32
+# === Chunk Data ===
 var _mapleveldata: Array = [] # Holds the data for each level in this chunk
-# Each chunk has it's own navigationmap because merging many navigationregions inside one general map
-# will cause the game to stutter. The map for this chunk has one region and one navigationmesh
-var navigation_map_id: RID
 # This is a class variable to track block positions and data. It will contain:
 # The position represented by a Vector3 in local coordinates
 # The rotation represented by an int in degrees (0-360)
@@ -42,16 +56,12 @@ var chunk_data: Dictionary # The json data that defines this chunk
 # A map is defined by the mapeditor. This variable holds the data that is processed from the map
 # editor format into something usable for this chunk's generation
 var processed_level_data: Dictionary = {}
-var mutex: Mutex = Mutex.new() # Used to ensure thread safety
 var mypos: Vector3 # The position in 3d space. Expect y to be 0
-# Variables to enable navigation.
-var navigation_region: NavigationRegion3D
-var navigation_mesh: NavigationMesh = NavigationMesh.new()
-var source_geometry_data: NavigationMeshSourceGeometryData3D
-var chunk_mesh_body: StaticBody3D # The staticbody that will visualize the chunk mesh
-var atlas_output: Dictionary # An atlas texture that combines all textures of this chunk's blocks
-var level_nodes: Dictionary = {} # Keeps track of level nodes by their y_level# Existing properties
 
+# === Threading/Mutex ===
+var mutex: Mutex = Mutex.new() # Used to ensure thread safety
+
+# === Load State ===
 enum LoadStates {
 	NEITHER,
 	LOADING,
@@ -1318,7 +1328,6 @@ func process_face(direction: String, pos: Vector3, block_data: Dictionary, verts
 	])
 
 
-
 # Function to get vertices for a specific face of a cube
 func get_face_vertices(direction: String, pos: Vector3) -> Array:
 	var half_block = 0.5
@@ -1518,29 +1527,21 @@ func spawn_item_at_free_position(item_id: String, quantity: int, y: int) -> bool
 # Gets the block data from a specific level and block position
 # level_index: int (0 to 20) -> corresponds to levels -10 to 10
 # block_position: Vector2 (x: 0 to 31, y: 0 to 31) -> position in the 32x32 grid
+# Example return data:
+#{
+#    "id": "field_grass_basic_00",
+#    "shape": "cube",
+#    "rotation": 0
+#}
+# Example usage:
+#	var block_00: Dictionary = chunk.get_block_at(0, Vector2i(0, 0))
+#	print(block_00.get("id", "")) - prints field_grass_basic_00
 func get_block_at(level_index: int, block_position: Vector2i) -> Dictionary:
-	var level_index_internal = level_index + 10 # Convert to _mapleveldata index
-	if level_index_internal < 0 or level_index_internal >= _mapleveldata.size():
-		printerr("Level index out of range: ", level_index)
-		return {}
-
-	if block_position.x < 0 or block_position.x >= LEVEL_WIDTH or \
-	   block_position.y < 0 or block_position.y >= LEVEL_HEIGHT:
-		printerr("Block position out of range: ", block_position)
-		return {}
-
-	var level = _mapleveldata[level_index_internal]
-	if level.is_empty():
-		print_debug("Level %d is empty." % level_index)
-		return {}
-
-	var block_index = block_position.y * LEVEL_WIDTH + block_position.x
-	var block_data = level[block_index]
-
-	if block_data and block_data.has("id"):
-		return block_data
+	var key = "%s,%s,%s" % [block_position.x, level_index, block_position.y]
+	if block_positions.has(key):
+		return block_positions[key]
 	else:
-		print_debug("Block at %s on level %d is empty or has no 'id'." % [block_position, level_index])
+		print_debug("Block at %s on level %d not found in block_positions." % [block_position, level_index])
 		return {}
 
 
@@ -1553,5 +1554,4 @@ func _on_furniture_spawned(spawner: Node3D):
 	
 	# ✅ Emit signal only when all spawners have finished
 	if static_furniture_ready and physics_furniture_ready:
-		print_debug("All furniture spawned — emitting chunk_generated")
 		chunk_generated.emit()
