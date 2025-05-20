@@ -30,6 +30,7 @@ Runtimedata="*res://Scripts/runtimedata.gd"
 Music="*res://Sounds/Music/Music.tscn"
 Sfx="*res://Sounds/SFX/sfx.tscn"
 Ambience="*res://Sounds/Ambience/Ambience.tscn"
+AppConfig="*res://addons/maaacks_options_menus/base/scenes/autoloads/app_config.tscn"
 
 [display]
 
@@ -42,7 +43,7 @@ movie_writer/movie_file="D:/CataX resources/catax.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gloot/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/quest_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/gloot/plugin.cfg", "res://addons/gut/plugin.cfg", "res://addons/maaacks_options_menus/plugin.cfg", "res://addons/quest_manager/plugin.cfg")
 
 [file_customization]
 
@@ -172,6 +173,10 @@ quest_menu={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://addons/maaacks_options_menus/base/translations/menus_translations.en.translation", "res://addons/maaacks_options_menus/base/translations/menus_translations.fr.translation")
+
 [layer_names]
 
 3d_render/layer_5="Enemy"
@@ -188,6 +193,11 @@ quest_menu={
 3d_physics/layer_7="containers"
 3d_physics/layer_8="transparentstaticobstacles"
 2d_physics/layer_20="Items"
+
+[maaacks_options_menus]
+
+disable_plugin_dialogues=true
+copy_path="res://Options"
 
 [shader_globals]
 

@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://gaoctt57cjp3"]
+
+[ext_resource type="Script" uid="uid://bs1drkrtq1q5b" path="res://Options/scenes/menus/options_menu/options_parent.gd" id="1_7yskh"]
+[ext_resource type="PackedScene" uid="uid://ylpx2k6xmvy3" path="res://Options/scenes/menus/options_menu/master_options_menu_with_tabs.tscn" id="2_v26yt"]
+[ext_resource type="Texture2D" uid="uid://b4yc6v8v24hfo" path="res://Images/Main menu/AI_Options_background.jpg" id="3_qkl8t"]
+
+[node name="OptionsParent" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7yskh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.5
+offset_top = -199.0
+offset_right = 350.5
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 36
+text = "Back"
+
+[node name="MasterOptionsMenu" parent="VBoxContainer" instance=ExtResource("2_v26yt")]
+layout_mode = 2
+settings_location = ""
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_qkl8t")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="VBoxContainer/BackButton" to="VBoxContainer/MasterOptionsMenu" method="_on_back_button_pressed"]

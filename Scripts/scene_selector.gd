@@ -32,6 +32,8 @@ func _on_play_demo_pressed():
 	Helper.signal_broker.game_started.emit()
 	Helper.initiate_game()
 
+func _on_options_pressed():
+	get_tree().change_scene_to_file("res://Options/scenes/menus/options_menu/Options_parent.tscn")
 
 func _on_help_button_pressed():
 	get_tree().change_scene_to_file("res://documentation.tscn")
@@ -67,7 +69,3 @@ func populate_load_game_list() -> void:
 	load_game_list.clear()  # Clear any existing items
 	for saved_game in saved_game_folders:
 		load_game_list.add_item(saved_game)
-
-
-func _on_options_pressed():
-	get_tree().change_scene_to_file("res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu_with_tabs.tscn")

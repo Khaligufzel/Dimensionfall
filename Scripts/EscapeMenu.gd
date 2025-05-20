@@ -74,7 +74,7 @@ func _on_return_button_pressed():
 
 # Called when the options button is pressed.
 func _on_options_button_pressed():
-	get_tree().change_scene_to_file("res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu_with_tabs.tscn")
+	get_tree().change_scene_to_file("res://Options/scenes/menus/options_menu/Options_parent.tscn")
 
 # Called when the node's visibility changes.
 func _on_visibility_changed():
