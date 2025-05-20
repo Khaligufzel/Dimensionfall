@@ -690,3 +690,26 @@ func _update_player_y_level():
 	# Only emit the signal if the Y level has changed
 	if current_y_level != last_y_level:
 		last_y_level = current_y_level # Update last known Y level
+
+
+# Prints the id of the block the player is currently standing on
+func print_block_id_under_player() -> void:
+	# Get the chunk at the player's current position
+	var chunk = Helper.map_manager.get_chunk_from_position(global_position)
+	if chunk == null:
+		print_debug("No chunk found at player position: ", global_position)
+		return
+
+	# Calculate the local block position within the chunk
+	var local_x = int(global_position.x) % 32
+	var local_z = int(global_position.z) % 32
+	# Calculate the level index: always use the floor of y - a small epsilon to ensure we get the block below
+	var epsilon = 1.0
+	var level_index = int(floor(global_position.y - epsilon))
+
+	# Get the block at this position
+	var block_data = chunk.get_block_at(level_index, Vector2i(local_x, local_z))
+	if block_data.has("id"):
+		print("Player is standing on block id: ", block_data["id"])
+	else:
+		print_debug("No block found at (", local_x, ", ", level_index, ", ", local_z, ") in chunk.")
