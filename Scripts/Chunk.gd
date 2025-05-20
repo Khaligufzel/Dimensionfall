@@ -1527,6 +1527,15 @@ func spawn_item_at_free_position(item_id: String, quantity: int, y: int) -> bool
 # Gets the block data from a specific level and block position
 # level_index: int (0 to 20) -> corresponds to levels -10 to 10
 # block_position: Vector2 (x: 0 to 31, y: 0 to 31) -> position in the 32x32 grid
+# Example return data:
+#{
+#    "id": "field_grass_basic_00",
+#    "shape": "cube",
+#    "rotation": 0
+#}
+# Example usage:
+#	var block_00: Dictionary = chunk.get_block_at(0, Vector2i(0, 0))
+#	print(block_00.get("id", "")) - prints field_grass_basic_00
 func get_block_at(level_index: int, block_position: Vector2i) -> Dictionary:
 	var level_index_internal = level_index + 10 # Convert to _mapleveldata index
 	if level_index_internal < 0 or level_index_internal >= _mapleveldata.size():
