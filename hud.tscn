@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bxyvtsslfr7kt" path="res://Scenes/UI/CraftingMenu.tscn" id="13_wjtvq"]
 [ext_resource type="PackedScene" uid="uid://cgxw4cu430nst" path="res://Scenes/UI/CharacterWindow.tscn" id="17_2f357"]
 [ext_resource type="PackedScene" uid="uid://dpxuma5a7e4p6" path="res://Scenes/UI/EscapeMenu.tscn" id="17_ewtgs"]
-[ext_resource type="PackedScene" uid="uid://gaoctt57cjp3" path="res://Options/scenes/menus/options_menu/Options_parent.tscn" id="18_5kc73"]
+[ext_resource type="PackedScene" uid="uid://gaoctt57cjp3" path="res://Options/scenes/menus/options_menu/OptionsParent.tscn" id="18_5kc73"]
 [ext_resource type="PackedScene" uid="uid://bgswuol251m3u" path="res://Scenes/Overmap/Overmap.tscn" id="19_oomhy"]
 [ext_resource type="PackedScene" uid="uid://b50xhj4218wjd" path="res://Scenes/UI/QuestWindow.tscn" id="19_orjb2"]
 [ext_resource type="PackedScene" uid="uid://e0ebcv1n8jnq" path="res://Scenes/InventoryWindow.tscn" id="20_0l505"]
@@ -204,6 +204,11 @@ furniture_construction_window = NodePath("../FurnitureConstructionWindow")
 
 [node name="OptionsParent" parent="." instance=ExtResource("18_5kc73")]
 visible = false
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
 
 [node name="GameOver" parent="." instance=ExtResource("20_jlthm")]
 visible = false
