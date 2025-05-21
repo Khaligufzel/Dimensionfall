@@ -1,7 +1,7 @@
 extends Control
 
 var saved_game_folders : Array
-@onready var load_game_button = $LoadGameButton
+@onready var load_game_button = $VBoxContainer/HBoxContainer/LoadGameButton
 @export var load_game_list : OptionButton 
 
 func _ready():
@@ -10,6 +10,7 @@ func _ready():
 	Gamedata.mods.write_default_mods_state()
 
 func _on_load_game_button_pressed():
+	Sfx.play_sfx(Sfx.SFX.MOUSE_CLICK)
 	Runtimedata.reconstruct() # Load all mod data in the proper way
 	var selected_game_id = load_game_list.get_selected_id()
 	if try_load_game(selected_game_id):
@@ -25,6 +26,7 @@ func _on_load_game_button_pressed():
 # The name of the folder should be the current date and time so it's unique
 # This unique folder will contain save data for this game and can be loaded later
 func _on_play_demo_pressed():
+	Sfx.play_sfx(Sfx.SFX.MOUSE_CLICK)
 	Runtimedata.reconstruct() # Load all mod data in the proper way
 	var rng = RandomNumberGenerator.new()
 	Helper.mapseed = rng.randi()
@@ -33,12 +35,15 @@ func _on_play_demo_pressed():
 	Helper.initiate_game()
 
 func _on_options_pressed():
+	Sfx.play_sfx(Sfx.SFX.MOUSE_CLICK)
 	get_tree().change_scene_to_file("res://Scenes/UI/options_menu/master_options_menu_with_tabs.tscn")
 
 func _on_help_button_pressed():
+	Sfx.play_sfx(Sfx.SFX.MOUSE_CLICK)
 	get_tree().change_scene_to_file("res://documentation.tscn")
 
 func _on_content_manager_button_button_up():
+	Sfx.play_sfx(Sfx.SFX.MOUSE_CLICK)
 	get_tree().change_scene_to_file("res://Scenes/ContentManager/contentmanager.tscn")
 
 func try_load_game(selected_id: int) -> bool:

@@ -3,13 +3,17 @@ extends Node
 #Main Menu
 func main_menu_music_play():
 	$"MainMenu".play()
+	$MainMenuComputerHumming.play()
 func main_menu_music_pause():
 	$"MainMenu".stream_paused = true
+	$MainMenuComputerHumming.stream_paused = true
 func main_menu_music_resume():
 	$"MainMenu".stream_paused = false
+	$MainMenuComputerHumming.stream_paused = false
 func main_menu_music_stop():
 	$"MainMenu".stop()
-
+	$MainMenuComputerHumming.stop()
+	
 #In-game music
 enum THEMES {
 	MAIN_MENU,

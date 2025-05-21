@@ -104,5 +104,12 @@ Official Discord:
 	Nature Sounds Pack - https://opengameart.org/users/antoinemax (Lisence: CC-BY 4.0)
 	Cricket sounds - https://opengameart.org/users/syncopika
 	Wind1 - https://opengameart.org/users/lukerustltd
+- SFX:
+	Old Computer Click - https://pixabay.com/users/finntastico-33933679/
+	Mechanical keyboard - https://pixabay.com/users/freesound_community-46691455/
+	Computer Humming SFX - https://pixabay.com/users/soul_serenity_sounds-6817262/
 - Settings:
 	For game settings code: https://github.com/Maaack/Godot-Options-Menus
+- Fonts:
+Apple: https://www.fontget.com/font/apple/
+Glitch: https://www.fontget.com/font/glitch/
