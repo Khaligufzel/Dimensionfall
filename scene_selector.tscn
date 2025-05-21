@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bhqlst5h43xwm"]
+[gd_scene load_steps=14 format=3 uid="uid://bhqlst5h43xwm"]
 
 [ext_resource type="Texture2D" uid="uid://dpkea1rs7eukh" path="res://Textures/ui_concrete.png" id="1_3q5c8"]
 [ext_resource type="Script" uid="uid://iasqrgnlface" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="3_3q5c8"]
 [ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="3_r0pvw"]
+[ext_resource type="FontFile" uid="uid://b1h04udb7506u" path="res://Apple ][.ttf" id="4_3q5c8"]
 
 [sub_resource type="FontVariation" id="FontVariation_aahd7"]
 fallbacks = Array[Font]([null])
@@ -70,6 +71,11 @@ Button/styles/hover = SubResource("StyleBoxTexture_houm4")
 Button/styles/normal = SubResource("StyleBoxTexture_7nukc")
 Button/styles/pressed = SubResource("StyleBoxFlat_2ifmj")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3q5c8"]
+bg_color = Color(0.358, 0.686, 0.489, 0.311)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
 [node name="SceneSelector" type="Control" node_paths=PackedStringArray("load_game_list")]
 layout_mode = 3
 anchors_preset = 15
@@ -93,11 +99,30 @@ mouse_filter = 2
 texture = ExtResource("3_r0pvw")
 expand_mode = 2
 
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11
+anchor_top = 0.095
+anchor_right = 0.925
+anchor_bottom = 0.115
+offset_bottom = 48.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3q5c8")
+
+[node name="TitleLabel" type="Label" parent="PanelContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(3.56168e-06, 0.670701, 0.129599, 1)
+theme_override_fonts/font = ExtResource("4_3q5c8")
+theme_override_font_sizes/font_size = 48
+text = "DIMENSIONFALL"
+horizontal_alignment = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.3
-anchor_top = 0.1
+anchor_top = 0.195
 anchor_right = 0.7
 anchor_bottom = 0.7
 grow_horizontal = 2
