@@ -110,3 +110,6 @@ Official Discord:
 	Computer Humming SFX - https://pixabay.com/users/soul_serenity_sounds-6817262/
 - Settings:
 	For game settings code: https://github.com/Maaack/Godot-Options-Menus
+- Fonts:
+Apple: https://www.fontget.com/font/apple/
+Glitch: https://www.fontget.com/font/glitch/
