@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://dpkea1rs7eukh" path="res://Textures/ui_concrete.png" id="1_3q5c8"]
 [ext_resource type="Script" uid="uid://iasqrgnlface" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
-[ext_resource type="Theme" uid="uid://bh7qos051ng61" path="res://Main_menu_buttons.tres" id="3_3q5c8"]
-[ext_resource type="Texture2D" uid="uid://bgs3l80n6f75p" path="res://Images/Main menu/AI_title_background.jpg" id="4_3q5c8"]
-[ext_resource type="FontFile" uid="uid://bh336kvgomj6y" path="res://Glitch.ttf" id="5_r0pvw"]
+[ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="3_3q5c8"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="3_r0pvw"]
+[ext_resource type="FontFile" uid="uid://b1h04udb7506u" path="res://Apple ][.ttf" id="4_3q5c8"]
 
 [sub_resource type="FontVariation" id="FontVariation_aahd7"]
 fallbacks = Array[Font]([null])
@@ -71,21 +71,16 @@ Button/styles/hover = SubResource("StyleBoxTexture_houm4")
 Button/styles/normal = SubResource("StyleBoxTexture_7nukc")
 Button/styles/pressed = SubResource("StyleBoxFlat_2ifmj")
 
-[sub_resource type="LabelSettings" id="LabelSettings_biqbe"]
-font = ExtResource("5_r0pvw")
-font_size = 61
-font_color = Color(1, 0, 0, 1)
-shadow_size = 3
-shadow_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3q5c8"]
+bg_color = Color(0.358, 0.686, 0.489, 0.311)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
 
 [node name="SceneSelector" type="Control" node_paths=PackedStringArray("load_game_list")]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -320.0
-offset_top = -32.0
-offset_right = 424.0
-offset_bottom = 88.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_r0pvw")
@@ -95,43 +90,44 @@ load_game_list = NodePath("VBoxContainer/HBoxContainer/LoadGameList")
 [node name="TextureRect" type="TextureRect" parent="."]
 show_behind_parent = true
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.169
-anchor_top = 0.052
-anchor_right = 0.772
-anchor_bottom = 0.885
-offset_left = -576.424
-offset_top = -151.936
-offset_right = 680.288
-offset_bottom = 320.32
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("4_3q5c8")
-expand_mode = 1
+texture = ExtResource("3_r0pvw")
+expand_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11
+anchor_top = 0.095
+anchor_right = 0.925
+anchor_bottom = 0.115
+offset_bottom = 48.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3q5c8")
+
+[node name="TitleLabel" type="Label" parent="PanelContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(3.56168e-06, 0.670701, 0.129599, 1)
+theme_override_fonts/font = ExtResource("4_3q5c8")
+theme_override_font_sizes/font_size = 48
+text = "DIMENSIONFALL"
+horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.352734
-anchor_top = 0.180823
-anchor_right = 0.592608
-anchor_bottom = 0.57724
-offset_left = 0.215942
-offset_top = -2.87201
-offset_right = -0.583984
-offset_bottom = 4.67999
+anchor_left = 0.3
+anchor_top = 0.195
+anchor_right = 0.7
+anchor_bottom = 0.7
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Title" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.733333, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_r0pvw")
-text = "DIMENSIONFALL"
-label_settings = SubResource("LabelSettings_biqbe")
-horizontal_alignment = 1
-vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="PlayDemo" type="Button" parent="VBoxContainer"]
