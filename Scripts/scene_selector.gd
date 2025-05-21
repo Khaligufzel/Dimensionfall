@@ -1,7 +1,7 @@
 extends Control
 
 var saved_game_folders : Array
-@onready var load_game_button = $LoadGameButton
+@onready var load_game_button = $VBoxContainer/HBoxContainer/LoadGameButton
 @export var load_game_list : OptionButton 
 
 func _ready():
