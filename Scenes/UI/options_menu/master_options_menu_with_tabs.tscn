@@ -1,20 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://ylpx2k6xmvy3"]
+[gd_scene load_steps=9 format=3 uid="uid://ylpx2k6xmvy3"]
 
 [ext_resource type="PackedScene" uid="uid://bvwl11s2p0hd" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu.tscn" id="1_lhnap"]
 [ext_resource type="Script" uid="uid://dm317o2pwcm7d" path="res://Scenes/UI/options_menu/master_options_menu.gd" id="2_jiy1m"]
+[ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="2_uksd0"]
 [ext_resource type="PackedScene" uid="uid://bradidrhujctg" path="res://Scenes/UI/options_menu/input/input_options_menu.tscn" id="3_gk5mf"]
 [ext_resource type="PackedScene" uid="uid://cojb870otnfdj" path="res://Scenes/UI/options_menu/input/input_extras_menu.tscn" id="4_vgm7q"]
 [ext_resource type="PackedScene" uid="uid://clv4bghbiscdf" path="res://Scenes/UI/options_menu/audio/audio_options_menu.tscn" id="5_fb8f2"]
 [ext_resource type="PackedScene" uid="uid://d34ct3doj6u2v" path="res://Scenes/UI/options_menu/video/video_options_menu_with_extras.tscn" id="6_hf0j3"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="8_bdkex"]
 
 [node name="MasterOptionsMenu" instance=ExtResource("1_lhnap")]
+theme = ExtResource("2_uksd0")
 script = ExtResource("2_jiy1m")
 settings_location = "Settings menu"
 
 [node name="TabContainer" parent="." index="0"]
-current_tab = 0
+anchors_preset = -1
+anchor_left = 0.111111
+anchor_top = 0.111111
+anchor_right = 0.923611
+anchor_bottom = 0.728395
+current_tab = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="Controls" parent="TabContainer" index="1" instance=ExtResource("3_gk5mf")]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -29,14 +39,33 @@ layout_mode = 2
 metadata/_tab_index = 2
 
 [node name="Video" parent="TabContainer" index="4" instance=ExtResource("6_hf0j3")]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
 [node name="BackButton" type="Button" parent="." index="1"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.111111
+anchor_top = 0.111111
+anchor_right = 0.166667
+anchor_bottom = 0.135802
 offset_right = 8.0
 offset_bottom = 8.0
 text = "Back"
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="." index="2"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_bdkex")
+expand_mode = 2
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
 
 [connection signal="button_up" from="BackButton" to="." method="_on_back_button_pressed"]

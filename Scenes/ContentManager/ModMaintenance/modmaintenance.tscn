@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://6d7nhwfk088o"]
+[gd_scene load_steps=6 format=3 uid="uid://6d7nhwfk088o"]
 
 [ext_resource type="Script" uid="uid://bf15kstvun3ts" path="res://Scenes/ContentManager/Scripts/modmaintenance.gd" id="1_qyerb"]
+[ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="2_d7w6r"]
 [ext_resource type="PackedScene" uid="uid://ba7nwjvy7m2t5" path="res://Scenes/ContentManager/ModMaintenance/exportdata.tscn" id="2_o3o7x"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="4_inpcj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_avegi"]
 font_size = 42
@@ -18,13 +20,29 @@ scriptOptionButton = NodePath("VBoxContainer/ScriptHBoxContainer/ScriptOptionBut
 exportmapdata = NodePath("VBoxContainer/Exportmapdata")
 selectmods = NodePath("VBoxContainer/HBoxContainer/SelectMods")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_inpcj")
+expand_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.12
+anchor_right = 0.92
+anchor_bottom = 0.735
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_d7w6r")
 
 [node name="HeaderHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -40,8 +58,10 @@ text = "Mod maintenance"
 label_settings = SubResource("LabelSettings_avegi")
 
 [node name="explainationLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 text = "This menu is used for mod maintenance. Select one of the scripts below you want to use to maintain your mod"
+autowrap_mode = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -55,6 +75,7 @@ layout_mode = 2
 selected = 0
 item_count = 1
 popup/item_0/text = "Core"
+popup/item_0/id = 0
 
 [node name="ScriptHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -68,6 +89,7 @@ layout_mode = 2
 selected = 0
 item_count = 1
 popup/item_0/text = "export data"
+popup/item_0/id = 0
 
 [node name="Exportmapdata" parent="VBoxContainer" instance=ExtResource("2_o3o7x")]
 layout_mode = 2

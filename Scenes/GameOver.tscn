@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckuh2s0nvwg0x"]
+[gd_scene load_steps=4 format=3 uid="uid://ckuh2s0nvwg0x"]
 
 [ext_resource type="Script" uid="uid://csdc7qcr2jbg6" path="res://Scripts/GameOver.gd" id="1_77h6a"]
-[ext_resource type="Texture2D" uid="uid://jhu2b7xesx7n" path="res://Images/Main menu/AI_bloody_background.jpg" id="2_k52d1"]
+[ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="1_ktc4i"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="3_uib17"]
 
 [node name="GameOver" type="Control"]
 layout_mode = 3
@@ -10,19 +11,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_ktc4i")
 script = ExtResource("1_77h6a")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("2_k52d1")
-expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -40,11 +30,25 @@ grow_vertical = 2
 
 [node name="GameOverLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 36
 text = "Game over"
 
 [node name="ReturnButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Return to main menu"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_uib17")
+expand_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [connection signal="button_up" from="VBoxContainer/ReturnButton" to="." method="_on_return_button_button_up"]

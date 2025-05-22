@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://480xqusluqrk"]
+[gd_scene load_steps=19 format=3 uid="uid://480xqusluqrk"]
 
 [ext_resource type="Script" uid="uid://db86xpmnwjoqb" path="res://Scenes/ContentManager/Scripts/contenteditor.gd" id="1_65sl4"]
 [ext_resource type="PackedScene" uid="uid://bhh0v7x4fjsgi" path="res://Scenes/ContentManager/content_list.tscn" id="2_4f21i"]
@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://bw14nfwdnu41d" path="res://Scenes/ContentManager/Custom_Editors/MobgroupsEditor.tscn" id="16_lrbdj"]
 [ext_resource type="PackedScene" uid="uid://d3xxrpq0ijw30" path="res://Scenes/ContentManager/Custom_Editors/MobfactionsEditor.tscn" id="17_mcu7c"]
 [ext_resource type="PackedScene" uid="uid://d3rielcw177vm" path="res://Scenes/ContentManager/Custom_Editors/AttacksEditor.tscn" id="18_v4s36"]
-[ext_resource type="Theme" uid="uid://bid4jnko6k7hg" path="res://button_gui.tres" id="19_pn5oe"]
 
 [node name="contenteditor" type="Control" node_paths=PackedStringArray("select_mods", "content", "tabContainer", "type_selector_menu_button")]
 layout_mode = 3
@@ -52,12 +51,13 @@ type_selector_menu_button = NodePath("HSplitContainer/ContentLists/TabContainer2
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 split_offset = 240
+metadata/_edit_use_anchors_ = true
 
 [node name="ContentLists" type="VBoxContainer" parent="HSplitContainer"]
 layout_mode = 2
@@ -90,7 +90,6 @@ metadata/_tab_index = 0
 
 [node name="Toolbar" type="HBoxContainer" parent="HSplitContainer/ContentLists/TabContainer2/Content"]
 layout_mode = 2
-theme = ExtResource("19_pn5oe")
 
 [node name="TypeSelectorMenuButton" type="MenuButton" parent="HSplitContainer/ContentLists/TabContainer2/Content/Toolbar"]
 layout_mode = 2

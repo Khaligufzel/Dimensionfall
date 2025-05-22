@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jhu2b7xesx7n"
-path="res://.godot/imported/AI_bloody_background.jpg-4e0cee1e2e17fd50c49d9c62c77d99d6.ctex"
+uid="uid://7l1nbygy5tts"
+path="res://.godot/imported/AI_background_crt_computer.jpg-41895cf24b7f34fb080100cfc9cca1fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Main menu/AI_bloody_background.jpg"
-dest_files=["res://.godot/imported/AI_bloody_background.jpg-4e0cee1e2e17fd50c49d9c62c77d99d6.ctex"]
+source_file="res://Images/Main menu/AI_background_crt_computer.jpg"
+dest_files=["res://.godot/imported/AI_background_crt_computer.jpg-41895cf24b7f34fb080100cfc9cca1fd.ctex"]
 
 [params]
 
