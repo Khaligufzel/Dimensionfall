@@ -28,7 +28,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("19_pn5oe")
 script = ExtResource("1_65sl4")
 select_mods = NodePath("HSplitContainer/ContentLists/SelectMods")
 contentList = ExtResource("2_4f21i")
