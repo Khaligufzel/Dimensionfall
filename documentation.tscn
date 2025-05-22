@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://by5mcwwm381c4" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_gbqcg"]
 [ext_resource type="Script" uid="uid://cumy4x5non1l0" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_3sw1n"]
 [ext_resource type="Script" uid="uid://xqlqnlupdwdc" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_lyqw1"]
-[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="10_oynvu"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="10_oynvu"]
 
 [sub_resource type="Gradient" id="Gradient_my8oh"]
 colors = PackedColorArray(0.651769, 0.651769, 0.651769, 1, 1, 1, 1, 1)

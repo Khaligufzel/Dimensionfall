@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="1_m6rkq"]
 [ext_resource type="Script" uid="uid://bnjjhfqe56lny" path="res://Scripts/LoadingScreen.gd" id="1_nmrn0"]
-[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="3_qjj4j"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="3_qjj4j"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xoop3"]
 line_spacing = 1.0

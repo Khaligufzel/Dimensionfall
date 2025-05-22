@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dh4fwdtpwv0pu" path="res://Scenes/ContentManager/Scripts/modmanager.gd" id="1_gah13"]
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="2_4hdd1"]
-[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="3_scoc6"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="3_scoc6"]
 
 [node name="modmanager" type="Control"]
 layout_mode = 3
