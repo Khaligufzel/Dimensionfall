@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dpkea1rs7eukh" path="res://Textures/ui_concrete.png" id="1_3q5c8"]
 [ext_resource type="Script" uid="uid://iasqrgnlface" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="3_3q5c8"]
-[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="3_r0pvw"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="3_r0pvw"]
 [ext_resource type="FontFile" uid="uid://b1h04udb7506u" path="res://Apple ][.ttf" id="4_3q5c8"]
 
 [sub_resource type="FontVariation" id="FontVariation_aahd7"]

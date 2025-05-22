@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dsyhi4kyri5p4" path="res://Scenes/ContentManager/OtherTools/Scripts/overmap_grid_visualization.gd" id="1_3cky7"]
 [ext_resource type="PackedScene" uid="uid://budsoodfdkaea" path="res://Scenes/Overmap/OvermapTile.tscn" id="2_f2pt0"]
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="3_v7lvi"]
-[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="4_v6rh2"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="4_v6rh2"]
 
 [node name="OvermapGridVisualization" type="Control" node_paths=PackedStringArray("visual_grid")]
 layout_mode = 3

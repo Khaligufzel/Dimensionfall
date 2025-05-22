@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cojb870otnfdj" path="res://Scenes/UI/options_menu/input/input_extras_menu.tscn" id="4_vgm7q"]
 [ext_resource type="PackedScene" uid="uid://clv4bghbiscdf" path="res://Scenes/UI/options_menu/audio/audio_options_menu.tscn" id="5_fb8f2"]
 [ext_resource type="PackedScene" uid="uid://d34ct3doj6u2v" path="res://Scenes/UI/options_menu/video/video_options_menu_with_extras.tscn" id="6_hf0j3"]
-[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="8_bdkex"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="8_bdkex"]
 
 [node name="MasterOptionsMenu" instance=ExtResource("1_lhnap")]
 theme = ExtResource("2_uksd0")

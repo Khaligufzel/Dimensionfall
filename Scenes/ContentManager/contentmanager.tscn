@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://blwljn0eop0uu" path="res://Scenes/ContentManager/Scripts/contentmanager.gd" id="1_lt3y0"]
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="2_pfvt3"]
-[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="3_0bl24"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="3_0bl24"]
 
 [node name="contentmanager" type="Control"]
 layout_mode = 3
