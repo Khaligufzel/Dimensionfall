@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpxuma5a7e4p6"]
+[gd_scene load_steps=6 format=3 uid="uid://dpxuma5a7e4p6"]
 
 [ext_resource type="Script" uid="uid://byu87ef23jvts" path="res://Scripts/EscapeMenu.gd" id="1_8tf3a"]
+[ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="1_vlxyx"]
 [ext_resource type="PackedScene" uid="uid://ylpx2k6xmvy3" path="res://Scenes/UI/options_menu/master_options_menu_with_tabs.tscn" id="2_5kp7u"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="4_wcsb3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s5ys7"]
 
@@ -12,10 +14,15 @@ anchor_left = 0.2
 anchor_top = 0.2
 anchor_right = 0.8
 anchor_bottom = 0.8
+offset_left = 1.59999
+offset_top = -1.60001
+offset_right = -1.60004
+offset_bottom = 1.59998
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("1_vlxyx")
 script = ExtResource("1_8tf3a")
 resume_button = NodePath("VBoxContainer/ResumeButton")
 return_button = NodePath("VBoxContainer/ReturnButton")
@@ -24,28 +31,20 @@ options_button = NodePath("VBoxContainer/OptionsButton")
 options_panel_container = NodePath("OptionsPanelContainer")
 master_options_menu = NodePath("OptionsPanelContainer/MasterOptionsMenu")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.270588, 0.337255, 0.588235, 0.705882)
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.433128
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -94.5
-offset_top = -42.5
-offset_right = 94.5
-offset_bottom = 42.5
+anchor_bottom = 0.433128
+offset_left = -156.0
+offset_top = -74.5
+offset_right = 156.0
+offset_bottom = 74.5
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="GameOverLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -83,5 +82,23 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_s5ys7")
 visible = false
 layout_mode = 2
 settings_location = "Escape menu"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.00202546
+anchor_top = 0.00874486
+anchor_right = 0.997975
+anchor_bottom = 1.00874
+offset_left = 1.39352
+offset_top = -3.42798
+offset_right = 1.39349
+offset_bottom = -3.42798
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_wcsb3")
+expand_mode = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

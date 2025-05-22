@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dowehl4nfwxm"]
+[gd_scene load_steps=5 format=3 uid="uid://dowehl4nfwxm"]
 
+[ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="1_m6rkq"]
 [ext_resource type="Script" uid="uid://bnjjhfqe56lny" path="res://Scripts/LoadingScreen.gd" id="1_nmrn0"]
-[ext_resource type="Texture2D" uid="uid://b4yc6v8v24hfo" path="res://Images/Main menu/AI_Options_background.jpg" id="2_xoop3"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="3_qjj4j"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xoop3"]
 line_spacing = 1.0
@@ -16,37 +17,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_m6rkq")
 script = ExtResource("1_nmrn0")
 sub_label = NodePath("VBoxContainer/SubLabel")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_xoop3")
-expand_mode = 1
-metadata/_edit_lock_ = true
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.383
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -89.5
-offset_top = -52.0
-offset_right = 89.5
-offset_bottom = 52.0
+anchor_bottom = 0.383
+offset_left = -180.0
+offset_top = -42.184
+offset_right = 180.0
+offset_bottom = 41.816
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_lock_ = true
 
 [node name="LoadingLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 36
 text = "Loading..."
 horizontal_alignment = 1
@@ -60,19 +51,33 @@ horizontal_alignment = 1
 [node name="HelpLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.061
-anchor_top = 0.856
-anchor_right = 0.934
-anchor_bottom = 0.943
-offset_left = -0.272003
-offset_top = 0.311951
-offset_right = 0.0319824
-offset_bottom = -0.0640259
+anchor_left = 0.116
+anchor_top = 0.619
+anchor_right = 0.898
+anchor_bottom = 0.705
+offset_left = 0.367996
+offset_top = -0.112
+offset_right = -0.496094
+offset_bottom = 0.159973
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
 text = "w,s,a,d: Movement. tab: inventory. m: overmap. e: Interact (open doors) r: reload. Left mouse button: Fire left weapon. Right mouse button: fire right weapon. b: Build menu. c: Craft menu. v: Character menu. j: Quest menu"
 label_settings = SubResource("LabelSettings_xoop3")
 autowrap_mode = 3
 max_lines_visible = 2
 visible_characters = 0
 visible_ratio = 0.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_qjj4j")
+expand_mode = 2
+metadata/_edit_use_anchors_ = true
