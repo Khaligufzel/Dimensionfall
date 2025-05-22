@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhh0v7x4fjsgi"]
+[gd_scene load_steps=4 format=3 uid="uid://bhh0v7x4fjsgi"]
 
 [ext_resource type="Script" uid="uid://cvk2fqxhgn7qa" path="res://Scenes/ContentManager/Scripts/content_list.gd" id="1_ly1kh"]
+[ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="2_wxvgc"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="3_y3ryr"]
 
 [node name="ContentList" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton", "pupup_ID", "popup_textedit", "to_mod_h_box_container", "mod_option_button")]
 custom_minimum_size = Vector2(200, 30)
@@ -22,11 +24,15 @@ mod_option_button = NodePath("ID_Input/VBoxContainer/ToModHBoxContainer/ModOptio
 
 [node name="Content" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = 0.108507
+anchor_top = 0.111111
+anchor_right = 0.924479
+anchor_bottom = 0.736111
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_wxvgc")
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content"]
 layout_mode = 2
@@ -118,6 +124,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Cancel"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_y3ryr")
+expand_mode = 2
 
 [connection signal="button_up" from="Content/HBoxContainer/CollapseButton" to="." method="_on_collapse_button_button_up"]
 [connection signal="button_up" from="Content/HBoxContainer/AddButton" to="." method="_on_add_button_button_up"]

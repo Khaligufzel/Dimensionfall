@@ -150,6 +150,7 @@ text = "Load game --->>>"
 metadata/_edit_use_anchors_ = true
 
 [node name="LoadGameList" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_3q5c8")

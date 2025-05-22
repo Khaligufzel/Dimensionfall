@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://6d7nhwfk088o"]
+[gd_scene load_steps=6 format=3 uid="uid://6d7nhwfk088o"]
 
 [ext_resource type="Script" uid="uid://bf15kstvun3ts" path="res://Scenes/ContentManager/Scripts/modmaintenance.gd" id="1_qyerb"]
+[ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="2_d7w6r"]
 [ext_resource type="PackedScene" uid="uid://ba7nwjvy7m2t5" path="res://Scenes/ContentManager/ModMaintenance/exportdata.tscn" id="2_o3o7x"]
+[ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_title_background2.jpg" id="4_inpcj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_avegi"]
 font_size = 42
@@ -20,11 +22,20 @@ selectmods = NodePath("VBoxContainer/HBoxContainer/SelectMods")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.424
+anchor_right = 0.5
+anchor_bottom = 0.424
+offset_left = -451.0
+offset_top = -185.752
+offset_right = 1417.0
+offset_bottom = 558.248
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("2_d7w6r")
+metadata/_edit_use_anchors_ = true
 
 [node name="HeaderHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -55,6 +66,7 @@ layout_mode = 2
 selected = 0
 item_count = 1
 popup/item_0/text = "Core"
+popup/item_0/id = 0
 
 [node name="ScriptHBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -68,10 +80,24 @@ layout_mode = 2
 selected = 0
 item_count = 1
 popup/item_0/text = "export data"
+popup/item_0/id = 0
 
 [node name="Exportmapdata" parent="VBoxContainer" instance=ExtResource("2_o3o7x")]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_inpcj")
+expand_mode = 2
+metadata/_edit_lock_ = true
 
 [connection signal="button_up" from="VBoxContainer/HeaderHBoxContainer/BackButton" to="." method="_on_back_button_button_up"]
 [connection signal="item_selected" from="VBoxContainer/ScriptHBoxContainer/ScriptOptionButton" to="." method="_on_script_option_button_item_selected"]
