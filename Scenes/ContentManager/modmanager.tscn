@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://70o5qt3qyqdp"]
+[gd_scene load_steps=5 format=3 uid="uid://70o5qt3qyqdp"]
 
 [ext_resource type="Script" uid="uid://dh4fwdtpwv0pu" path="res://Scenes/ContentManager/Scripts/modmanager.gd" id="1_gah13"]
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="2_4hdd1"]
 [ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="3_scoc6"]
+[ext_resource type="PackedScene" uid="uid://cvr5g886g53be" path="res://Sounds/SFX/UI/UISFX.tscn" id="4_scoc6"]
 
 [node name="modmanager" type="Control"]
 layout_mode = 3
@@ -58,6 +59,9 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("3_scoc6")
 expand_mode = 2
+
+[node name="Uisfx" parent="." instance=ExtResource("4_scoc6")]
+root_path = NodePath("..")
 
 [connection signal="button_up" from="VBoxContainer/AddRemoveModsButton" to="." method="_on_add_remove_mods_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/ModMaintenanceButton" to="." method="_on_mod_maintenance_button_button_up"]

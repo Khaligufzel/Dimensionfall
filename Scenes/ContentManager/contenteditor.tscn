@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://480xqusluqrk"]
+[gd_scene load_steps=20 format=3 uid="uid://480xqusluqrk"]
 
 [ext_resource type="Script" uid="uid://db86xpmnwjoqb" path="res://Scenes/ContentManager/Scripts/contenteditor.gd" id="1_65sl4"]
 [ext_resource type="PackedScene" uid="uid://bhh0v7x4fjsgi" path="res://Scenes/ContentManager/content_list.tscn" id="2_4f21i"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://bw14nfwdnu41d" path="res://Scenes/ContentManager/Custom_Editors/MobgroupsEditor.tscn" id="16_lrbdj"]
 [ext_resource type="PackedScene" uid="uid://d3xxrpq0ijw30" path="res://Scenes/ContentManager/Custom_Editors/MobfactionsEditor.tscn" id="17_mcu7c"]
 [ext_resource type="PackedScene" uid="uid://d3rielcw177vm" path="res://Scenes/ContentManager/Custom_Editors/AttacksEditor.tscn" id="18_v4s36"]
+[ext_resource type="PackedScene" uid="uid://cvr5g886g53be" path="res://Sounds/SFX/UI/UISFX.tscn" id="19_pn5oe"]
 
 [node name="contenteditor" type="Control" node_paths=PackedStringArray("select_mods", "content", "tabContainer", "type_selector_menu_button")]
 layout_mode = 3
@@ -140,6 +141,9 @@ Click the + sign: Allows you to add new content to the mod. Enter the name and a
 [font_size=22][b]Content editing[/b][/font_size]
 On the right a content editor will be displayed that allows you to edit the selected item. Multiple editors can be opened in tabs. Use the controls to edit the content and press save to save your edits"
 metadata/_tab_index = 0
+
+[node name="Uisfx" parent="." instance=ExtResource("19_pn5oe")]
+root_path = NodePath("..")
 
 [connection signal="button_up" from="HSplitContainer/ContentLists/BackButton" to="." method="_on_back_button_button_up"]
 [connection signal="item_selected" from="HSplitContainer/ContentLists/SelectMods" to="." method="_on_select_mods_item_selected"]

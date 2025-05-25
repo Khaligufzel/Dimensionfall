@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2jn8nd57qmfk"]
+[gd_scene load_steps=5 format=3 uid="uid://d2jn8nd57qmfk"]
 
 [ext_resource type="Script" uid="uid://bskslkig471xq" path="res://Scenes/ContentManager/Scripts/othertools.gd" id="1_wv57c"]
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="2_2n3p8"]
 [ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="3_vrli3"]
+[ext_resource type="PackedScene" uid="uid://cvr5g886g53be" path="res://Sounds/SFX/UI/UISFX.tscn" id="4_vrli3"]
 
 [node name="othertools" type="Control"]
 layout_mode = 3
@@ -53,6 +54,9 @@ mouse_filter = 2
 texture = ExtResource("3_vrli3")
 expand_mode = 2
 metadata/_edit_lock_ = true
+
+[node name="Uisfx" parent="." instance=ExtResource("4_vrli3")]
+root_path = NodePath("..")
 
 [connection signal="button_up" from="VBoxContainer/OvermapVisualisationButton" to="." method="_on_overmap_visualisation_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/BackButton" to="." method="_on_back_button_button_up"]

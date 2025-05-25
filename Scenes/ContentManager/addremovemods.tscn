@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dfj0pswk2qi6"]
+[gd_scene load_steps=7 format=3 uid="uid://dfj0pswk2qi6"]
 
 [ext_resource type="Script" uid="uid://bco2mox5nup5n" path="res://Scenes/ContentManager/Scripts/addremovemods.gd" id="1_87j7f"]
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="2_eosxq"]
 [ext_resource type="PackedScene" uid="uid://b8i6wfk3fngy4" path="res://Scenes/ContentManager/Custom_Widgets/Editable_Item_List.tscn" id="2_r6poh"]
 [ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="4_jjh1o"]
+[ext_resource type="PackedScene" uid="uid://cvr5g886g53be" path="res://Sounds/SFX/UI/UISFX.tscn" id="5_jjh1o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_30opl"]
 bg_color = Color(0.236107, 0.236881, 0.365087, 1)
@@ -257,6 +258,9 @@ mouse_filter = 2
 texture = ExtResource("4_jjh1o")
 expand_mode = 2
 metadata/_edit_lock_ = true
+
+[node name="Uisfx" parent="." instance=ExtResource("5_jjh1o")]
+root_path = NodePath("..")
 
 [connection signal="button_up" from="VBoxContainer/HeaderHBoxContainer/BackButton" to="." method="_on_back_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/MainHBoxContainer/ListVBoxContainer/ButtonsHBoxContainer/AddButton" to="." method="_on_add_button_button_up"]

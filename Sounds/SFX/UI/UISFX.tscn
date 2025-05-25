@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvr5g886g53be"]
+
+[ext_resource type="Script" uid="uid://dgojxfaqckw05" path="res://Sounds/SFX/UI/uisfx.gd" id="1_gj8if"]
+
+[node name="Uisfx" type="Node"]
+script = ExtResource("1_gj8if")

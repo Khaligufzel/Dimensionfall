@@ -5,3 +5,4 @@
 
 [node name="MasterOptionsMenu" instance=ExtResource("1_vc8mp")]
 script = ExtResource("2_he35h")
+settings_location = "Settings menu"

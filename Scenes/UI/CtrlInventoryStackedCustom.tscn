@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b2r4bkruxcbpx" path="res://Scripts/CtrlInventoryStackedCustom.gd" id="1_1pahw"]
 [ext_resource type="PackedScene" uid="uid://bgnxsnv6ltej8" path="res://Scenes/UI/CtrlInventoryStackedListItem.tscn" id="2_woew4"]
 [ext_resource type="PackedScene" uid="uid://dxgl4vkc313we" path="res://Scenes/UI/CtrlInventoryStackedlistHeaderItem.tscn" id="3_svicc"]
-[ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/Weapons/Reloading/pistol_reload_sound.mp3" id="4_rci6u"]
+[ext_resource type="AudioStream" uid="uid://dw1cix5bscdep" path="res://Sounds/SFX/Weapons/Reloading/pistol_reload_sound.wav" id="4_rci6u"]
 
 [node name="CtrlInventoryStackedCustom" type="Control" node_paths=PackedStringArray("inventoryGrid", "WeightBar", "VolumeBar", "context_menu", "reload_audio_player")]
 layout_mode = 3
