@@ -16,10 +16,11 @@ stream_count = 2
 stream_0/stream = ExtResource("2_x8jpk")
 stream_0/volume = 0.0
 stream_1/stream = ExtResource("3_kvrp4")
-stream_1/volume = -10.0
+stream_1/volume = -20.0
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_7ap77"]
 shuffle = true
+loop = false
 fade_time = 1.0
 stream_count = 6
 stream_0 = ExtResource("4_kes6k")
@@ -36,19 +37,22 @@ stream_0 = ExtResource("10_8yr11")
 [node name="Music" type="Node"]
 script = ExtResource("1_hfrm7")
 
-[node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
+[node name="MainMenu" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamSynchronized_qof8w")
 autoplay = true
-max_polyphony = 2
 bus = &"Music"
+
+[node name="MainMenuComputerHumming" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_kvrp4")
+bus = &"Ambience"
 
 [node name="GameplayMusicPeace" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamPlaylist_7ap77")
 bus = &"Music"
 
-[node name="GameOverMusic" type="AudioStreamPlayer" parent="."]
+[node name="GameOver" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamPlaylist_xbyn7")
 
 [node name="StreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[connection signal="finished" from="GameplayMusicPeace" to="." method="_on_gameplay_music_peace_finished"]
+[connection signal="finished" from="GameplayMusicPeace" to="." method="_on_gameplay_music_finished"]

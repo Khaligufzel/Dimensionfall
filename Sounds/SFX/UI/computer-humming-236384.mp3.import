@@ -14,6 +14,6 @@ dest_files=["res://.godot/imported/computer-humming-236384.mp3-ad063b2f243f2eadb
 
 loop=true
 loop_offset=0.0
-bpm=0.0
-beat_count=0
-bar_beats=4
+bpm=50.0
+beat_count=17
+bar_beats=2
