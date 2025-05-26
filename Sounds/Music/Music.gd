@@ -20,7 +20,7 @@ enum THEMES {
 
 var TRACKS = {
 	THEMES.PEACE: [preload("res://Sounds/Music/dark fallout.ogg"), preload("res://Sounds/Music/The-Surreal-Truth.ogg"), preload("res://Sounds/Music/Please_-answer-me-my-friend.ogg")]
-	#THEMES.BATTLE: [preload("res://Sounds/Music/The Depths of Hell.mp3")]
+	#THEMES.BATTLE: [preload("res://Sounds/Music/The-Depths-of-Hell.ogg")]
 }
 
 var current_theme: int = THEMES.PEACE
@@ -46,9 +46,11 @@ func replay_current_theme():
 	StreamPlayer.play()
 
 func _on_gameplay_music_peace_finished():
-	GameplayMusicPlayer.stop()
+	GameplayMusicPlayer.stream_paused = true
+	print("Music stream paused")
 	await get_tree().create_timer(10.0).timeout
-	GameplayMusicPlayer.play()
+	GameplayMusicPlayer.stream_paused = false
+	print("Music stream resumed")
 
 func gameplay_music_stop():
 	GameplayMusicPlayer.stop()

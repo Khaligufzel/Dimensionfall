@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ylpx2k6xmvy3"]
+[gd_scene load_steps=9 format=3 uid="uid://ylpx2k6xmvy3"]
 
 [ext_resource type="PackedScene" uid="uid://bvwl11s2p0hd" path="res://addons/maaacks_options_menus/base/scenes/menus/options_menu/master_options_menu.tscn" id="1_lhnap"]
 [ext_resource type="Script" uid="uid://dm317o2pwcm7d" path="res://Scenes/UI/options_menu/master_options_menu.gd" id="2_jiy1m"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://clv4bghbiscdf" path="res://Scenes/UI/options_menu/audio/audio_options_menu.tscn" id="5_fb8f2"]
 [ext_resource type="PackedScene" uid="uid://d34ct3doj6u2v" path="res://Scenes/UI/options_menu/video/video_options_menu_with_extras.tscn" id="6_hf0j3"]
 [ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="8_bdkex"]
-[ext_resource type="PackedScene" uid="uid://cvr5g886g53be" path="res://Sounds/SFX/UI/UISFX.tscn" id="9_bdkex"]
 
 [node name="MasterOptionsMenu" instance=ExtResource("1_lhnap")]
 theme = ExtResource("2_uksd0")
@@ -68,8 +67,5 @@ texture = ExtResource("8_bdkex")
 expand_mode = 2
 metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
-
-[node name="Uisfx" parent="." index="3" instance=ExtResource("9_bdkex")]
-root_path = NodePath("..")
 
 [connection signal="button_up" from="BackButton" to="." method="_on_back_button_pressed"]
