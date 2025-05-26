@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsplha5pxbalw"]
+[gd_scene load_steps=4 format=3 uid="uid://bsplha5pxbalw"]
 
 [ext_resource type="Script" uid="uid://c6o5jomro7l7o" path="res://Sounds/SFX/sfx.gd" id="1_koc44"]
+[ext_resource type="AudioStream" uid="uid://pjigdkr4jng1" path="res://Sounds/SFX/UI/UI_Click.wav" id="2_kepub"]
+[ext_resource type="AudioStream" uid="uid://beyiaxg4gfit4" path="res://Sounds/SFX/UI/UI_Hover.wav" id="3_ae8ha"]
 
 [node name="SFX" type="Node"]
 script = ExtResource("1_koc44")
@@ -10,6 +12,14 @@ bus = &"SFX"
 
 [node name="MovementSFXPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"PlayerFootstep"
+
+[node name="UI_Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_kepub")
+bus = &"SFX"
+
+[node name="UI_Hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ae8ha")
+bus = &"SFX"
 
 [connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="finished" from="MovementSFXPlayer" to="." method="_on_movement_sfx_player_finished"]
