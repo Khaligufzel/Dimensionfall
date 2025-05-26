@@ -40,7 +40,8 @@ func load_itemgroups_from_disk() -> void:
 	var itemgrouplist: Array = Helper.json_helper.load_json_array_file(filePath)
 	for myitemgroup in itemgrouplist:
 		var itemgroup: DItemgroup = DItemgroup.new(myitemgroup, self)
-		itemgroup.sprite = sprites[itemgroup.spriteid]
+		if itemgroup.spriteid:
+			itemgroup.sprite = sprites[itemgroup.spriteid]
 		itemgroupdict[itemgroup.id] = itemgroup
 
 
