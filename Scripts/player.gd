@@ -52,10 +52,6 @@ var knockback_distance_remaining: float = 0.0
 #@export var progress_bar_filling : NodePath
 #@export var progress_bar_timer : NodePath
 
-@export var foostep_player : AudioStreamPlayer
-@export var foostep_stream_randomizer : AudioStreamRandomizer
-
-
 # Variables for furniture pushing
 var pushing_furniture = false
 var furniture_body: RID
@@ -227,7 +223,7 @@ func _physics_process(delta):
 			else:
 				if movement_timer.time_left <= 0:
 					Sfx.play_sfx(Sfx.SFX.WALKING_GRASS)
-					if not is_running:
+					if not is_running or current_stamina == 0:
 						movement_timer.start(0.5)
 					else: 
 						movement_timer.start(0.3)
@@ -327,14 +323,8 @@ func die():
 		is_alive = false
 		Sfx.gameplay_sfx_stop()
 		Music.gameplay_music_stop()
-		Music.play_theme(Music.THEMES.GAME_OVER)
+		Music.GameOverMusic.play()
 		$"../../../HUD".get_node("GameOver").show()
-
-
-func play_footstep_audio():
-	foostep_player.stream = foostep_stream_randomizer
-	foostep_player.play()
-
 
 # The player has selected one or more items in the inventory and selected
 # 'use' from the context menu.

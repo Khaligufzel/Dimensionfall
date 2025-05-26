@@ -95,7 +95,7 @@ func initiate_game() -> void:
 
 func initiate_gameplay_sounds() -> void:
 	Music.main_menu_music_stop()
-	Music.play_theme(Music.THEMES.PEACE)
+	Music.GameplayMusicPlayer.play()
 	Ambience.play_ambience(Ambience.AMBIENCE.DAYTIME_NATURE)
 
 # This function is initiated while returning to the main menu
