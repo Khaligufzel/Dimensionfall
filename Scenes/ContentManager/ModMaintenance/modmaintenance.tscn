@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://6d7nhwfk088o"]
+[gd_scene load_steps=7 format=3 uid="uid://6d7nhwfk088o"]
 
 [ext_resource type="Script" uid="uid://bf15kstvun3ts" path="res://Scenes/ContentManager/Scripts/modmaintenance.gd" id="1_qyerb"]
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="2_d7w6r"]
 [ext_resource type="PackedScene" uid="uid://ba7nwjvy7m2t5" path="res://Scenes/ContentManager/ModMaintenance/exportdata.tscn" id="2_o3o7x"]
 [ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="4_inpcj"]
+[ext_resource type="PackedScene" uid="uid://cvr5g886g53be" path="res://Sounds/SFX/UI/UISFX.tscn" id="5_inpcj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_avegi"]
 font_size = 42
@@ -94,6 +95,9 @@ popup/item_0/id = 0
 [node name="Exportmapdata" parent="VBoxContainer" instance=ExtResource("2_o3o7x")]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="Uisfx" parent="." instance=ExtResource("5_inpcj")]
+root_path = NodePath("..")
 
 [connection signal="button_up" from="VBoxContainer/HeaderHBoxContainer/BackButton" to="." method="_on_back_button_button_up"]
 [connection signal="item_selected" from="VBoxContainer/ScriptHBoxContainer/ScriptOptionButton" to="." method="_on_script_option_button_item_selected"]

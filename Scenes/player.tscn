@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://epc7d3df1bqp" path="res://front_light.gd" id="12_5v7lk"]
 [ext_resource type="PackedScene" uid="uid://bisxe8aexlshr" path="res://day_night.tscn" id="13_4vnbq"]
 [ext_resource type="Script" uid="uid://dc5ubakpqyumw" path="res://Scripts/PlayerShooting.gd" id="14_h4gah"]
-[ext_resource type="AudioStream" uid="uid://cfmgnsm10aj4i" path="res://Sounds/SFX/Weapons/Reloading/pistol_reload_sound.mp3" id="15_paufw"]
+[ext_resource type="AudioStream" uid="uid://dw1cix5bscdep" path="res://Sounds/SFX/Weapons/Reloading/pistol_reload_sound.wav" id="15_qqcod"]
 [ext_resource type="Script" uid="uid://d2x7bgurtvhx4" path="res://Scripts/ItemDetector.gd" id="16_gq4uc"]
 [ext_resource type="Script" uid="uid://bpfarfnqfaxdq" path="res://Scripts/Components/ComponentInteract.gd" id="17_23lma"]
 
@@ -195,7 +195,7 @@ one_shot = true
 stream = ExtResource("9_hmpqe")
 
 [node name="ReloadAudio" type="AudioStreamPlayer3D" parent="Shooting"]
-stream = ExtResource("15_paufw")
+stream = ExtResource("15_qqcod")
 
 [node name="ItemDetector" type="Area3D" parent="." node_paths=PackedStringArray("playernode")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.1205, 0)

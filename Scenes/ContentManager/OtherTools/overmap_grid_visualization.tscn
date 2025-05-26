@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsqp7i3pp7u8j"]
+[gd_scene load_steps=6 format=3 uid="uid://dsqp7i3pp7u8j"]
 
 [ext_resource type="Script" uid="uid://dsyhi4kyri5p4" path="res://Scenes/ContentManager/OtherTools/Scripts/overmap_grid_visualization.gd" id="1_3cky7"]
 [ext_resource type="PackedScene" uid="uid://budsoodfdkaea" path="res://Scenes/Overmap/OvermapTile.tscn" id="2_f2pt0"]
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="3_v7lvi"]
 [ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="4_v6rh2"]
+[ext_resource type="PackedScene" uid="uid://cvr5g886g53be" path="res://Sounds/SFX/UI/UISFX.tscn" id="5_v6rh2"]
 
 [node name="OvermapGridVisualization" type="Control" node_paths=PackedStringArray("visual_grid")]
 layout_mode = 3
@@ -65,6 +66,9 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_v6rh2")
 expand_mode = 2
+
+[node name="Uisfx" parent="." instance=ExtResource("5_v6rh2")]
+root_path = NodePath("..")
 
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/BackButton" to="." method="_on_back_button_button_up"]
 [connection signal="button_up" from="VBoxContainer/HBoxContainer/GenerateButton" to="." method="_on_generate_button_button_up"]

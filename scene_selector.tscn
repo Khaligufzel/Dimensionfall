@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://bhqlst5h43xwm"]
+[gd_scene load_steps=15 format=3 uid="uid://bhqlst5h43xwm"]
 
 [ext_resource type="Texture2D" uid="uid://dpkea1rs7eukh" path="res://Textures/ui_concrete.png" id="1_3q5c8"]
 [ext_resource type="Script" uid="uid://iasqrgnlface" path="res://Scripts/scene_selector.gd" id="1_a5yxj"]
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="3_3q5c8"]
 [ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="3_r0pvw"]
 [ext_resource type="FontFile" uid="uid://b1h04udb7506u" path="res://Apple ][.ttf" id="4_3q5c8"]
+[ext_resource type="PackedScene" path="res://Sounds/SFX/UI/UISFX.tscn" id="6_r0pvw"]
 
 [sub_resource type="FontVariation" id="FontVariation_aahd7"]
 fallbacks = Array[Font]([null])
@@ -177,6 +178,9 @@ size_flags_vertical = 3
 theme = ExtResource("3_3q5c8")
 text = "Help"
 metadata/_edit_use_anchors_ = true
+
+[node name="Uisfx" parent="." instance=ExtResource("6_r0pvw")]
+root_path = NodePath("..")
 
 [connection signal="pressed" from="VBoxContainer/PlayDemo" to="." method="_on_play_demo_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/LoadGameButton" to="." method="_on_load_game_button_pressed"]

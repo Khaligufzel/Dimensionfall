@@ -2,32 +2,33 @@
 
 [ext_resource type="Script" uid="uid://ddvn75j6gpbjq" path="res://Sounds/Music/Music.gd" id="1_hfrm7"]
 [ext_resource type="AudioStream" uid="uid://d1f6esnnnu4ye" path="res://Sounds/Music/Desolate.ogg" id="2_x8jpk"]
-[ext_resource type="AudioStream" uid="uid://oekjaejet4uw" path="res://Sounds/SFX/UI/computer-humming-236384.mp3" id="3_kvrp4"]
-[ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Sounds/Music/Just in Reach of Sirens.mp3" id="4_kes6k"]
+[ext_resource type="AudioStream" uid="uid://b8cpqnigou4w3" path="res://Sounds/SFX/UI/computer-humming-236384.wav" id="3_8yr11"]
+[ext_resource type="AudioStream" uid="uid://dx7gwvwkt8gw5" path="res://Sounds/Music/The-Surreal-Truth.ogg" id="4_8yr11"]
 [ext_resource type="AudioStream" uid="uid://dn7ea3i3lwkrp" path="res://Sounds/Music/Pressure.ogg" id="5_8yr11"]
-[ext_resource type="AudioStream" uid="uid://cmpken4md4mcs" path="res://Sounds/Music/Please, answer me my friend.mp3" id="6_qof8w"]
+[ext_resource type="AudioStream" uid="uid://bfifhl786yo53" path="res://Sounds/Music/The-Depths-of-Hell.ogg" id="5_qof8w"]
+[ext_resource type="AudioStream" uid="uid://bbh1ibtwximh3" path="res://Sounds/Music/Please_-answer-me-my-friend.ogg" id="7_id5iq"]
 [ext_resource type="AudioStream" uid="uid://x0hxyujovwls" path="res://Sounds/Music/dark fallout.ogg" id="7_xbyn7"]
-[ext_resource type="AudioStream" uid="uid://clpe0my5ng5sx" path="res://Sounds/Music/The Depths of Hell.mp3" id="8_id5iq"]
-[ext_resource type="AudioStream" uid="uid://cy005ykcrlwsp" path="res://Sounds/Music/The Surreal Truth.mp3" id="9_2bjrl"]
+[ext_resource type="AudioStream" uid="uid://kv3di5hfecby" path="res://Sounds/Music/Just-in-Reach-of-Sirens.ogg" id="8_2bjrl"]
 [ext_resource type="AudioStream" uid="uid://cqbscrnqkcg5d" path="res://Sounds/Music/Lonelyhood.ogg" id="10_8yr11"]
 
 [sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_qof8w"]
 stream_count = 2
 stream_0/stream = ExtResource("2_x8jpk")
 stream_0/volume = 0.0
-stream_1/stream = ExtResource("3_kvrp4")
+stream_1/stream = ExtResource("3_8yr11")
 stream_1/volume = -10.0
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_7ap77"]
 shuffle = true
+loop = false
 fade_time = 1.0
 stream_count = 6
-stream_0 = ExtResource("4_kes6k")
-stream_1 = ExtResource("5_8yr11")
-stream_2 = ExtResource("6_qof8w")
-stream_3 = ExtResource("7_xbyn7")
-stream_4 = ExtResource("8_id5iq")
-stream_5 = ExtResource("9_2bjrl")
+stream_0 = ExtResource("4_8yr11")
+stream_1 = ExtResource("5_qof8w")
+stream_2 = ExtResource("5_8yr11")
+stream_3 = ExtResource("7_id5iq")
+stream_4 = ExtResource("8_2bjrl")
+stream_5 = ExtResource("7_xbyn7")
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_xbyn7"]
 stream_count = 1
@@ -48,5 +49,10 @@ bus = &"Music"
 
 [node name="GameOverMusic" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamPlaylist_xbyn7")
+bus = &"Music"
 
 [node name="StreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[connection signal="finished" from="GameplayMusicPeace" to="." method="_on_gameplay_music_peace_finished"]
+[connection signal="finished" from="StreamPlayer" to="." method="_on_stream_player_finished"]

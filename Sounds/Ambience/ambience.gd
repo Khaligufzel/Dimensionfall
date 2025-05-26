@@ -13,7 +13,7 @@ enum AMBIENCE {
 
 var TRACKS = {
 	AMBIENCE.DAYTIME_NATURE: [preload("res://Sounds/Ambience/AmbientNatureBirdsWater01.wav"), preload("res://Sounds/Ambience/AmbientNatureOutside.wav")],
-	AMBIENCE.NIGHTTIME_NATURE: [preload("res://Sounds/Ambience/cricketsounds.mp3")],
+	AMBIENCE.NIGHTTIME_NATURE: [preload("res://Sounds/Ambience/cricketsounds.wav")],
 	AMBIENCE.RAINY: [preload("res://Sounds/Ambience/AmbientNatureNightRainy.wav")],
 	AMBIENCE.WINDY: [preload("res://Sounds/Ambience/wind1.wav")]
 }

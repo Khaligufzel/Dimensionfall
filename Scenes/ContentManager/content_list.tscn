@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhh0v7x4fjsgi"]
+[gd_scene load_steps=3 format=3 uid="uid://bhh0v7x4fjsgi"]
 
 [ext_resource type="Script" uid="uid://cvk2fqxhgn7qa" path="res://Scenes/ContentManager/Scripts/content_list.gd" id="1_ly1kh"]
+[ext_resource type="PackedScene" uid="uid://cvr5g886g53be" path="res://Sounds/SFX/UI/UISFX.tscn" id="2_aaikl"]
 
 [node name="ContentList" type="Control" node_paths=PackedStringArray("contentItems", "collapseButton", "pupup_ID", "popup_textedit", "to_mod_h_box_container", "mod_option_button")]
 custom_minimum_size = Vector2(200, 30)
@@ -120,6 +121,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Cancel"
+
+[node name="Uisfx" parent="." instance=ExtResource("2_aaikl")]
+root_path = NodePath("..")
 
 [connection signal="button_up" from="Content/HBoxContainer/CollapseButton" to="." method="_on_collapse_button_button_up"]
 [connection signal="button_up" from="Content/HBoxContainer/AddButton" to="." method="_on_add_button_button_up"]

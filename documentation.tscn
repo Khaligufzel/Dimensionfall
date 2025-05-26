@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dddjfurdx4wcs"]
+[gd_scene load_steps=21 format=3 uid="uid://dddjfurdx4wcs"]
 
 [ext_resource type="Script" uid="uid://kfod5yvuxyvw" path="res://Scripts/Documentation.gd" id="1_bo6h8"]
 [ext_resource type="Theme" uid="uid://1vfq5cs2ckel" path="res://Main_menu_buttons.tres" id="2_56yex"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://cumy4x5non1l0" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_3sw1n"]
 [ext_resource type="Script" uid="uid://xqlqnlupdwdc" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_lyqw1"]
 [ext_resource type="Texture2D" uid="uid://7l1nbygy5tts" path="res://Images/Main menu/AI_background_crt_computer.jpg" id="10_oynvu"]
+[ext_resource type="PackedScene" uid="uid://cvr5g886g53be" path="res://Sounds/SFX/UI/UISFX.tscn" id="11_oynvu"]
 
 [sub_resource type="Gradient" id="Gradient_my8oh"]
 colors = PackedColorArray(0.651769, 0.651769, 0.651769, 1, 1, 1, 1, 1)
@@ -162,6 +163,9 @@ h3 = SubResource("Resource_kramt")
 h4 = SubResource("Resource_mdkcg")
 h5 = SubResource("Resource_8naro")
 h6 = SubResource("Resource_hwu7s")
+
+[node name="Uisfx" parent="." instance=ExtResource("11_oynvu")]
+root_path = NodePath("..")
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="meta_clicked" from="VBoxContainer/ContentSplitContainer/DocumentDisplay" to="." method="_on_document_display_meta_clicked"]
