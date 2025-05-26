@@ -15,7 +15,7 @@ enum SFX {
 
 var TRACKS = {
 	SFX.WALKING_GRASS: [preload("res://Sounds/SFX/Footsteps/footstep01.wav")],
-	SFX.HURT_MALE: [preload("res://Sounds/SFX/Hurt sounds (Male)/aargh0.ogg"), preload("res://Sounds/SFX/Hurt sounds (Male)/aargh2.ogg"), preload("res://Sounds/SFX/Hurt sounds (Male)/aargh4.ogg"), preload("res://Sounds/SFX/Hurt sounds (Male)/aargh6.ogg")] 
+	SFX.HURT_MALE: [preload("res://Sounds/SFX/Hurt sounds (Male)/aargh0.wav"), preload("res://Sounds/SFX/Hurt sounds (Male)/aargh2.wav"), preload("res://Sounds/SFX/Hurt sounds (Male)/aargh4.wav"), preload("res://Sounds/SFX/Hurt sounds (Male)/aargh6.wav")] 
 }
 
 var current_sfx: int = SFX.WALKING_GRASS

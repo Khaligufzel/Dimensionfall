@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bk52e4rnhvm61"
+path="res://.godot/imported/aargh0.wav-3e173ba68e267c6030e87fb39933170e.sample"
+
+[deps]
+
+source_file="res://Sounds/SFX/Hurt sounds (Male)/aargh0.wav"
+dest_files=["res://.godot/imported/aargh0.wav-3e173ba68e267c6030e87fb39933170e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
