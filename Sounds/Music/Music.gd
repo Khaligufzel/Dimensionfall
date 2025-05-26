@@ -54,6 +54,12 @@ func replay_current_theme():
 	StreamPlayer.stream = current_track
 	StreamPlayer.play()
 
+func _on_stream_player_finished():
+	print("The song is finished")
+	await get_tree().create_timer(5.0).timeout
+	replay_current_theme()
+	print("Current theme: " + str(current_theme) + ", next track: " + str(next_track))
+
 func _on_gameplay_music_peace_finished():
 	GameplayMusicPlayer.stream_paused = true
 	print("Music stream paused")
@@ -61,10 +67,7 @@ func _on_gameplay_music_peace_finished():
 	GameplayMusicPlayer.stream_paused = false
 	print("Music stream resumed")
 
-	print("The song is finished")
-	await get_tree().create_timer(5.0).timeout
-	replay_current_theme()
-	print("Current theme: " + str(current_theme) + ", next track: " + str(next_track))
+
 
 func gameplay_music_stop():
 	GameplayMusicPlayer.stop()
