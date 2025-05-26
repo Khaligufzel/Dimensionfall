@@ -20,6 +20,7 @@ stream_1/volume = -10.0
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_7ap77"]
 shuffle = true
+loop = false
 fade_time = 1.0
 stream_count = 6
 stream_0 = ExtResource("4_8yr11")
@@ -48,7 +49,10 @@ bus = &"Music"
 
 [node name="GameOverMusic" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamPlaylist_xbyn7")
+bus = &"Music"
 
 [node name="StreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
 
 [connection signal="finished" from="GameplayMusicPeace" to="." method="_on_gameplay_music_peace_finished"]
+[connection signal="finished" from="StreamPlayer" to="." method="_on_stream_player_finished"]

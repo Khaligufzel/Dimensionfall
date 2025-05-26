@@ -2,6 +2,9 @@ extends Node
 @onready var GameplayMusicPlayer: AudioStreamPlayer = $GameplayMusicPeace
 @onready var GameOverMusic: AudioStreamPlayer = $GameOverMusic
 @onready var StreamPlayer: AudioStreamPlayer = $StreamPlayer
+@onready var theme_tracks: Array
+@onready var current_track
+@onready var next_track
 #Main Menu
 func main_menu_music_play():
 	$"MainMenuMusic".play()
@@ -35,14 +38,20 @@ func play_theme(theme: int, repeat_themes: bool = true):
 		is_repeating = repeat_themes
 		current_theme = theme
 		
-		var theme_tracks: Array = TRACKS[current_theme]
+		theme_tracks = TRACKS[current_theme]
 		if theme_tracks != []:
-			StreamPlayer.stream = theme_tracks[randi() % theme_tracks.size()]
+			current_track = theme_tracks[randi() % theme_tracks.size()]
+			StreamPlayer.stream = current_track
 			StreamPlayer.play()
+			print("Current theme: " + str(current_theme) + ", current track: " + str(current_track))
 
 func replay_current_theme():
-	var theme_tracks: Array = TRACKS[current_theme]
-	StreamPlayer.stream = theme_tracks[randi() % theme_tracks.size()]
+	theme_tracks = TRACKS[current_theme]
+	next_track = theme_tracks[randi() % theme_tracks.size()]
+	while next_track == current_track:
+		next_track = theme_tracks[randi() % theme_tracks.size()]
+	current_track = next_track
+	StreamPlayer.stream = current_track
 	StreamPlayer.play()
 
 func _on_gameplay_music_peace_finished():
@@ -51,6 +60,11 @@ func _on_gameplay_music_peace_finished():
 	await get_tree().create_timer(10.0).timeout
 	GameplayMusicPlayer.stream_paused = false
 	print("Music stream resumed")
+
+	print("The song is finished")
+	await get_tree().create_timer(5.0).timeout
+	replay_current_theme()
+	print("Current theme: " + str(current_theme) + ", next track: " + str(next_track))
 
 func gameplay_music_stop():
 	GameplayMusicPlayer.stop()
