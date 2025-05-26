@@ -50,5 +50,3 @@ bus = &"Music"
 stream = SubResource("AudioStreamPlaylist_xbyn7")
 
 [node name="StreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[connection signal="finished" from="GameplayMusicPeace" to="." method="_on_gameplay_music_peace_finished"]
