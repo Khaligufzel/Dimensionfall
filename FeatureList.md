@@ -41,6 +41,7 @@ Crafting stations allow off-handed crafting while you're doing other stuff. Expa
 ### Main menu
 - Play the game
 - Load a game
+- Manage options
 - Read documentation
 - Manage content for the game
 ![Dimensionfall_main_menu](Media/Dimensionfall_main_menu.png)
