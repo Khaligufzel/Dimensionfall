@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://drl78uuphij1l"]
+[gd_scene load_steps=14 format=3 uid="uid://drl78uuphij1l"]
 
 [ext_resource type="PackedScene" uid="uid://cesy3sdpbal3f" path="res://Scenes/input_manager.tscn" id="1_78rss"]
 [ext_resource type="Script" uid="uid://cx5my7n5m1sa5" path="res://LevelGenerator.gd" id="1_i8qa4"]
@@ -9,8 +9,7 @@
 [ext_resource type="Script" uid="uid://hru6h8lopfti" path="res://entity_manager.gd" id="6_vo8ny"]
 [ext_resource type="Script" uid="uid://87k88ikb017y" path="res://Scripts/BuildManager.gd" id="6_y7rk5"]
 [ext_resource type="Script" uid="uid://ked5qb1pnnul" path="res://Scripts/target_manager.gd" id="7_04r2w"]
-[ext_resource type="PackedScene" uid="uid://clhj525tmme3k" path="res://hud.tscn" id="17_qnmns"]
-[ext_resource type="AudioStream" uid="uid://b1q36r8e5wmen" path="res://Sounds/Music/Just in Reach of Sirens.mp3" id="18_ddslh"]
+[ext_resource type="PackedScene" uid="uid://b4o76k6afwt1g" path="res://hud.tscn" id="17_qnmns"]
 
 [sub_resource type="Environment" id="Environment_aklx6"]
 background_mode = 1
@@ -87,12 +86,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4043, 0, -8.78679)
 [node name="Projectiles" type="Node3D" parent="TacticalMap/Entities"]
 
 [node name="Player" parent="TacticalMap/Entities" instance=ExtResource("6_icwa4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 15)
 
 [node name="HUD" parent="." instance=ExtResource("17_qnmns")]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("18_ddslh")
 volume_db = -20.15
 bus = &"Music"
 
