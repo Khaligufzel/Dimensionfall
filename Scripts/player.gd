@@ -692,8 +692,12 @@ func print_block_id_under_player() -> void:
 		return
 	
 	# Calculate the local block position within the chunk (0-31)
-	var local_x = int(global_position.x) - chunk.mypos.x
-	var local_z = int(global_position.z) - chunk.mypos.z
+	var local_x = int(global_position.x - chunk.mypos.x) % 32
+	if local_x < 0:
+		local_x += 32
+	var local_z = int(global_position.z - chunk.mypos.z) % 32
+	if local_z < 0:
+		local_z += 32
 
 	# Calculate the level index: always use the floor of y - a small epsilon to ensure we get the block below
 	var epsilon = 1.0
