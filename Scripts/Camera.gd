@@ -29,7 +29,7 @@ func _on_inventory_visibility_change(inventoryWindow):
 
 func _process(_delta):
 	# Correct for the camera offset (since the camera is a child of the player)
-	var corrected_position: float = player.global_position.y - 0.101
+	var corrected_position: float = player.global_position.y - 0.601
 	
 	# ✅ Custom snapping function based on Y_THRESHOLD
 	var decimal_part = corrected_position - floor(corrected_position)
