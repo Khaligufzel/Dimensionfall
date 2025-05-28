@@ -82,7 +82,7 @@ func test_mob_spawn():
 	assert_eq(mobs.size(),1,"too many or not enough mobs")
 	var first_mob: Mob = mobs[0]
 	assert_eq(first_mob.rmob.id,"generic_test_mob","A different mob spawned then expected")
-	assert_eq(first_mob.mobPosition,Vector3(47,1.5,79),"Mob spawned somewhere else")
+	assert_eq(first_mob.mobPosition,Vector3(47.5,2.0,79.5),"Mob spawned somewhere else")
 	
 	# Test that the mob is in idle state, since there is no target
 	var current_state: State = first_mob.get_current_state()
@@ -146,10 +146,10 @@ func test_mob_melee_combat():
 	assert_eq(mobs.size(),2,"too many or not enough mobs")
 	var first_mob: Mob = mobs[0]
 	assert_eq(first_mob.rmob.id,"generic_test_mob","A different mob spawned then expected")
-	assert_eq(first_mob.mobPosition,Vector3(46,1.5,79),"Mob spawned somewhere else")
+	assert_eq(first_mob.mobPosition,Vector3(46.5,2.0,79.5),"Mob spawned somewhere else")
 	var second_mob: Mob = mobs[1]
 	assert_eq(second_mob.rmob.id,"generic_enemy_mob","A different mob spawned then expected")
-	assert_eq(second_mob.mobPosition, Vector3(49, 1.5, 79), "Mob spawned somewhere else")
+	assert_eq(second_mob.mobPosition, Vector3(49.5, 2.0, 79.5), "Mob spawned somewhere else")
 
 	# Test that the mobs are moving and getting closer
 	var initial_distance: float = first_mob.global_position.distance_to(second_mob.global_position)
@@ -234,10 +234,10 @@ func test_mob_ranged_vs_melee():
 	assert_eq(mobs.size(),2,"too many or not enough mobs")
 	var first_mob: Mob = mobs[0]
 	assert_eq(first_mob.rmob.id,"generic_ranged_mob","A different mob spawned then expected")
-	assert_eq(first_mob.mobPosition,Vector3(44,1.5,77),"Mob spawned somewhere else")
+	assert_eq(first_mob.mobPosition,Vector3(44.5,2.0,77.5),"Mob spawned somewhere else")
 	var second_mob: Mob = mobs[1]
 	assert_eq(second_mob.rmob.id,"generic_enemy_mob","A different mob spawned then expected")
-	assert_eq(second_mob.mobPosition, Vector3(49, 1.5, 79), "Mob spawned somewhere else")
+	assert_eq(second_mob.mobPosition, Vector3(49.5, 2.0, 79.5), "Mob spawned somewhere else")
 
 	# Test that the mobs are moving and getting closer
 	var initial_distance: float = first_mob.global_position.distance_to(second_mob.global_position)
@@ -316,10 +316,10 @@ func test_mob_ranged_vs_furniture():
 	assert_eq(mobs.size(),2,"too many or not enough mobs")
 	var first_mob: Mob = mobs[0]
 	assert_eq(first_mob.rmob.id,"generic_ranged_mob","A different mob spawned then expected")
-	assert_eq(first_mob.mobPosition,Vector3(44,1.5,77),"Mob spawned somewhere else")
+	assert_eq(first_mob.mobPosition,Vector3(44.5,2.0,77.5),"Mob spawned somewhere else")
 	var second_mob: Mob = mobs[1]
 	assert_eq(second_mob.rmob.id,"generic_enemy_mob","A different mob spawned then expected")
-	assert_eq(second_mob.mobPosition, Vector3(49, 1.5, 79), "Mob spawned somewhere else")
+	assert_eq(second_mob.mobPosition, Vector3(49.5, 2.0, 79.5), "Mob spawned somewhere else")
 
 	# Test that the mobs are moving and getting closer
 	var initial_distance: float = first_mob.global_position.distance_to(second_mob.global_position)

@@ -32,7 +32,7 @@ func before_each():
 	add_child(mock_level_generator)
 	add_child(player)
 	# We expect the player to start here, just like in level_generation.tscn
-	player.global_position = Vector3(0, 1, 15)
+	player.global_position = Vector3(0, 1.5, 15)
 
 	test_chunk.mypos = Vector3(0, 0, 0) # Example position (chunk (1, 2) with 32x32 blocks)
 
@@ -79,7 +79,7 @@ func test_player_basics()->void:
 	
 	assert_true(player.is_alive,"Oops player spawned dead")
 	assert_eq(player.current_stamina, player.max_stamina, "Stamina is loading incorrectly!")
-	assert_eq(player.global_position, Vector3(0, 1, 15), "Player spawned in the wrong location!")
+	assert_eq(player.global_position, Vector3(0, 1.5, 15), "Player spawned in the wrong location!")
 	assert_false(player.knockback_active,"Player spawned with knockback error")
 
 
@@ -188,7 +188,7 @@ func test_player_vs_melee_mob():
 	assert_eq(mobs.size(),1,"too many or not enough mobs")
 	var first_mob: Mob = mobs[0]
 	assert_eq(first_mob.rmob.id,"generic_test_mob","A different mob spawned then expected")
-	assert_eq(first_mob.mobPosition,Vector3(15,1.5,15),"Mob spawned somewhere else")
+	assert_eq(first_mob.mobPosition,Vector3(15.5,2.0,15.5),"Mob spawned somewhere else")
 	
 	# Test that the mob transitions into the mob attack state
 	var first_state: State = first_mob.get_current_state()
