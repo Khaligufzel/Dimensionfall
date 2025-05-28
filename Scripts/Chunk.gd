@@ -148,8 +148,9 @@ func generate_new_chunk(mapsegmentData: Dictionary):
 	reset_state()
 
 
-# Collects the furniture, mob, and itemgroups data from the mapdata to be spawned later
+# Collects the furniture, mob, and itemgroups data from the mapdata to be spawned later. Only new chunks
 func process_level_data() -> Dictionary:
+	var offset: Vector3 = Vector3(0.5,0.5,0.5) # Shift to center of the block
 	var level_number = 0
 	var tileJSON: Dictionary = {}
 	var processed_leveldata: Dictionary = {"furniture": [], "mobs": [], "itemgroups": []}
@@ -166,7 +167,7 @@ func process_level_data() -> Dictionary:
 							if tileJSON.has("mob"):
 								# We spawn it slightly above the block and let it fall. Might want to 
 								# fiddle with the Y coordinate for optimization
-								processed_leveldata.mobs.append({"json": tileJSON.mob, "pos": Vector3(w, y + 1.5, h)})
+								processed_leveldata.mobs.append({"json": tileJSON.mob, "pos": Vector3(w, y + 1.5, h)+offset})
 							if tileJSON.has("mobgroup"):
 								# Fetch the mobgroup ID and use it to get a random mob ID
 								var mobgroup_id: String = tileJSON.mobgroup.id
@@ -174,15 +175,15 @@ func process_level_data() -> Dictionary:
 								if random_mob_id != "":
 									tileJSON.mobgroup.id = random_mob_id
 									# Append the mob with its position and rotation from the mobgroup data
-									processed_leveldata.mobs.append({"json": tileJSON.mobgroup, "pos": Vector3(w, y + 1.5, h)})
+									processed_leveldata.mobs.append({"json": tileJSON.mobgroup, "pos": Vector3(w, y + 1.5, h)+offset})
 							if tileJSON.has("furniture"):
 								# We spawn it slightly above the block. Might want to 
 								# fiddle with the Y coordinate for optimization
 								var furniture_json = tileJSON.furniture
-								processed_leveldata.furniture.append({"json": furniture_json, "pos": Vector3(w, y, h)})
+								processed_leveldata.furniture.append({"json": furniture_json, "pos": Vector3(w, y, h)+offset})
 							if tileJSON.has("itemgroups"):
 								var itemgroups_json = tileJSON.itemgroups
-								processed_leveldata.itemgroups.append({"json": itemgroups_json, "pos": Vector3(w, y, h)})
+								processed_leveldata.itemgroups.append({"json": itemgroups_json, "pos": Vector3(w, y, h)+offset})
 					current_block += 1
 		level_number += 1
 	return processed_leveldata
@@ -468,7 +469,7 @@ func save_chunk():
 # keep in mind that after the navigationmesh is added to the navigationregion
 # It will be shrunk by the navigation_mesh.agent_radius to prevent collisions
 func add_mesh_to_navigation_data(blockposition: Vector3, blockrotation: int, blockshape: String):
-	var block_global_position: Vector3 = blockposition# + mypos
+	var block_global_position: Vector3 = blockposition + Vector3(0.5,0.5,0.5)
 	var blockrange: float = 0.5
 	var extend: float = 1.0 # Amount to extend for edge blocks
 	
@@ -700,7 +701,7 @@ func prepare_mesh_data(arrays: Array, blocks_at_same_y: Array, block_uv_map: Dic
 		var poslocal = Vector3(float(pos_array[0]), float(pos_array[1]), float(pos_array[2]))
 		
 		# Adjust position based on the block size
-		var pos = poslocal * block_size
+		var pos = poslocal * block_size + Vector3(0.5, 0.5, 0.5) # Add .5 so we center around the midpoint
 		var material_id = str(block_data["id"])
 		
 		# Calculate UV coordinates based on the atlas
@@ -1047,7 +1048,8 @@ func _create_combined_cube_collider(start_pos: Vector3, end_pos: Vector3) -> voi
 	
 	collider.shape = shape
 	var myposition = (start_pos + end_pos) / 2
-	collider.set_transform.call_deferred(Transform3D(Basis(), myposition))
+	myposition += Vector3(0.5, 0.5, 0.5) # Translate by .5 so we put it at the center
+	collider.set_transform(Transform3D(Basis(), myposition))
 	
 	chunk_mesh_body.add_child.call_deferred(collider)
 
@@ -1063,7 +1065,12 @@ func _create_block_collider(block_sub_position, shape: String, block_rotation: i
 func _create_cube_collider(block_sub_position: Vector3) -> CollisionShape3D:
 	var collider = CollisionShape3D.new()
 	collider.shape = BoxShape3D.new()
-	collider.set_transform.call_deferred(Transform3D(Basis(), block_sub_position))
+	# This moves the box collider’s center to the correct location (the block’s new center). 
+	# The BoxShape3D default extents (0.5,0.5,0.5) can remain unchanged – with the transform 
+	# at (i+0.5, j+0.5, k+0.5), it will cover [i,i+1] in each axis. In effect, we’re doing 
+	# for colliders exactly what we did for mesh vertices: translating by +0.5.
+	var pos = block_sub_position + Vector3(0.5, 0.5, 0.5)
+	collider.set_transform(Transform3D(Basis(), pos))
 	return collider
 
 # Creates a collider for a slope and puts it at the right place and rotation
@@ -1081,7 +1088,7 @@ func _create_slope_collider(block_sub_position: Vector3, block_rotation: int) ->
 	# Apply rotation for slopes
 	var rotation_transform = Transform3D(Basis().rotated(Vector3.UP, deg_to_rad(block_rotation)), Vector3.ZERO)
 	# Combine rotation and translation in the transform
-	collider.set_transform.call_deferred(rotation_transform.translated(block_sub_position))
+	collider.set_transform.call_deferred(rotation_transform.translated(block_sub_position + Vector3(0.5,0.5,0.5))) # Shift by .5 so it's in the center
 	return collider
 
 
