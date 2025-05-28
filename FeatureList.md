@@ -41,9 +41,17 @@ Crafting stations allow off-handed crafting while you're doing other stuff. Expa
 ### Main menu
 - Play the game
 - Load a game
+- Manage options
 - Read documentation
 - Manage content for the game
-![Catax_main_menu](Media/Dimensionfall_main_menu.png)
+![Dimensionfall_main_menu](Media/Dimensionfall_main_menu.png)
+
+
+### Add/Remove Mods Menu
+
+Manage the game’s content dynamically using the Add/Remove Mods menu. From this menu, you can enable, disable, reorder, and inspect mods without leaving the game. When selecting a mod, its details are shown on the right:
+
+![Dimensionfall_add_remove_mod_menu](Media/Dimensionfall_add_remove_mod_menu.png)
 
 
 ### Content editor

@@ -50,7 +50,6 @@ func replay_current_sfx():
 		streamPlayer.play()
 
 func ui_sfx_play(sound : String):
-	print("Playing sound:", sound)
 	uisounds[sound].play()
 
 func _on_audio_stream_player_finished():
