@@ -46,7 +46,7 @@ overmapareaEditor = ExtResource("15_qbq5b")
 mobgroupsEditor = ExtResource("16_lrbdj")
 mobfactionsEditor = ExtResource("17_mcu7c")
 attacksEditor = ExtResource("18_v4s36")
-content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content/ContentList")
+content = NodePath("HSplitContainer/ContentLists/TabContainer2/Content/ScrollContainer/ContentList")
 tabContainer = NodePath("HSplitContainer/TabContainer")
 type_selector_menu_button = NodePath("HSplitContainer/ContentLists/TabContainer2/Content/Toolbar/TypeSelectorMenuButton")
 
@@ -96,9 +96,15 @@ layout_mode = 2
 layout_mode = 2
 text = "☰"
 
-[node name="ContentList" type="VBoxContainer" parent="HSplitContainer/ContentLists/TabContainer2/Content"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HSplitContainer/ContentLists/TabContainer2/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ContentList" type="VBoxContainer" parent="HSplitContainer/ContentLists/TabContainer2/Content/ScrollContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Recent" type="ItemList" parent="HSplitContainer/ContentLists/TabContainer2"]

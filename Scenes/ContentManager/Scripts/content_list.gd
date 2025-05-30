@@ -159,8 +159,14 @@ func set_collapsed():
 	contentItems.visible = not is_collapsed
 	if not is_collapsed:
 		size_flags_vertical = Control.SIZE_EXPAND_FILL
+
+		# Decide minimum height based on item count
+		var item_count := contentItems.item_count
+		var min_height := 180.0 if item_count < 10 else 360.0
+		custom_minimum_size.y = min_height
 	else:
 		size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+		custom_minimum_size.y = 30.0
 
 
 # Function to initiate drag data for selected item
