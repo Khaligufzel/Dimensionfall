@@ -106,7 +106,7 @@ class FurnitureTransform:
 	func correct_new_position():
 		# We have to compensate for the fact that the physicsserver and
 		# renderingserver place the furniture lower then the intended height
-		posy += 0.5+(0.5*height)
+		posy += 0.5*height
 
 
 # Inner Container Class
