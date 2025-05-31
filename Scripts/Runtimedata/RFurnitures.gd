@@ -12,6 +12,9 @@ var shape_materials: Dictionary = {}  # Cache for shape materials by furniture I
 var standard_materials: Dictionary = {}  # Cache for standard materials by furniture ID
 var under_construction_material: StandardMaterial3D
 
+var container_empty_material: StandardMaterial3D = null
+var container_filled_material: StandardMaterial3D = null
+
 # Constructor
 func _init(mod_list: Array[DMod]) -> void:
 	# Loop through each mod
@@ -160,3 +163,20 @@ func create_standard_material(furniture_id: String) -> StandardMaterial3D:
 	material.flags_transparent = true
 
 	return material
+
+func get_container_empty_material() -> StandardMaterial3D:
+	if container_empty_material == null:
+		container_empty_material = _create_container_material("res://Textures/container_32.png")
+	return container_empty_material
+
+func get_container_filled_material() -> StandardMaterial3D:
+	if container_filled_material == null:
+		container_filled_material = _create_container_material("res://Textures/container_filled_32.png")
+	return container_filled_material
+
+func _create_container_material(texture_path: String) -> StandardMaterial3D:
+	var tex = load(texture_path)
+	var mat = StandardMaterial3D.new()
+	mat.albedo_texture = tex
+	mat.flags_transparent = true
+	return mat

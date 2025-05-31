@@ -183,7 +183,8 @@ class FurnitureContainer:
 			return # We don't want a sprite visible when it's set to hide
 		var items: Array[InventoryItem] = inventory.get_items()
 		if items.size() == 0:
-			sprite_mesh.material = Gamedata.materials.container # set empty container
+			# Use standard material for empty container
+			sprite_mesh.material = Runtimedata.furnitures.get_container_empty_material()
 			return
 		
 		# Pick a random item from the inventory
@@ -397,9 +398,9 @@ class FurnitureContainer:
 				if sprite_mesh:
 					# Check if the container is empty before setting material
 					if inventory.get_item_count() <= 0:
-						sprite_mesh.material = Gamedata.materials.container  # Empty container material
+						sprite_mesh.material = Runtimedata.furnitures.get_container_empty_material()  # Empty container material
 					else:
-						sprite_mesh.material = Gamedata.materials.container_filled  # Filled container material
+						sprite_mesh.material = Runtimedata.furnitures.get_container_filled_material()  # Filled container material
 
 
 # Class representing a queued item for the CraftingContainer
