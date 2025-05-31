@@ -115,7 +115,7 @@ class FurnitureContainer:
 	var itemgroup: String # The ID of an itemgroup that it creates loot from
 	var sprite_mesh: PlaneMesh
 	var sprite_instance: RID # RID to the quadmesh that displays the containersprite
-	var material: ShaderMaterial
+	var material: StandardMaterial3D
 	var furniture_transform: FurnitureTransform
 	var world3d: World3D
 
