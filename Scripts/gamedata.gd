@@ -10,12 +10,12 @@ static var hide_above_player_shader := preload("res://Shaders/HideAbovePlayer.gd
 static var hide_above_player_shadow := preload("res://Shaders/HideAbovePlayerShadow.gdshader")
 
 # Dictionary to store loaded textures
-var textures: Dictionary = {
+var textures: Dictionary[String,Texture] = {
 	"container": load("res://Textures/container_32.png"),
 	"container_filled": load("res://Textures/container_filled_32.png"),
 	"under_construction": load("res://Textures/under_construction_32.png")
 }
-var materials: Dictionary = {}
+var materials: Dictionary[String,StandardMaterial3D] = {}
 
 # Rotation mappings for how directions change based on tile rotation
 const ROTATION_MAP: Dictionary = {
@@ -41,18 +41,14 @@ func _ready():
 	# Instantiate the content type instances
 	mods = DMods.new()
 
-	materials["container"] = create_item_shader_material(textures.container)
-	materials["container_filled"] = create_item_shader_material(textures.container_filled)
-	materials["under_construction"] = create_item_shader_material(textures.under_construction)
+	materials["container"] = _create_container_material(textures.container)
+	materials["container_filled"] = _create_container_material(textures.container_filled)
+	materials["under_construction"] = _create_container_material(textures.under_construction)
 
 
-# Helper function to create a ShaderMaterial for the item
-func create_item_shader_material(albedo_texture: Texture) -> ShaderMaterial:
-	# Create a new ShaderMaterial
-	var shader_material = ShaderMaterial.new()
-	shader_material.shader = hide_above_player_shader  # Use the shared shader
-
-	# Assign the texture to the material
-	shader_material.set_shader_parameter("texture_albedo", albedo_texture)
-
-	return shader_material
+# Helper function to create a StandardMaterial3D for the coontainer sprite
+func _create_container_material(tex: Texture) -> StandardMaterial3D:
+	var mat = StandardMaterial3D.new()
+	mat.albedo_texture = tex
+	mat.flags_transparent = true
+	return mat

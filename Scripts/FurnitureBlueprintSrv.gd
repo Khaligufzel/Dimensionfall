@@ -106,7 +106,7 @@ class FurnitureTransform:
 	func correct_new_position():
 		# We have to compensate for the fact that the physicsserver and
 		# renderingserver place the furniture lower then the intended height
-		posy += 0.5+(0.5*height)
+		posy += 0.5*height
 
 
 # Inner Container Class
@@ -115,7 +115,7 @@ class FurnitureContainer:
 	var itemgroup: String # The ID of an itemgroup that it creates loot from
 	var sprite_mesh: PlaneMesh
 	var sprite_instance: RID # RID to the quadmesh that displays the containersprite
-	var material: ShaderMaterial
+	var material: StandardMaterial3D
 	var furniture_transform: FurnitureTransform
 	var world3d: World3D
 

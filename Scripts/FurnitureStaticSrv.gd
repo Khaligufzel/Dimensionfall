@@ -183,6 +183,7 @@ class FurnitureContainer:
 			return # We don't want a sprite visible when it's set to hide
 		var items: Array[InventoryItem] = inventory.get_items()
 		if items.size() == 0:
+			# Use standard material for empty container
 			sprite_mesh.material = Gamedata.materials.container # set empty container
 			return
 		
