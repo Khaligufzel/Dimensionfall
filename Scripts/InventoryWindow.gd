@@ -29,6 +29,9 @@ var is_showing_tooltip = false
 @export var close_button: Button = null
 var input_action: String = "toggle_inventory" # What action is used to show/hide this
 
+# Add a transparent drop zone overlay to catch drag-and-drop outside inventory
+@onready var drop_zone_overlay := $DropZoneOverlay if has_node("DropZoneOverlay") else null
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -51,6 +54,10 @@ func _ready():
 		inventory_control.drop_items.connect(_on_drop_items)
 	if proximity_inventory_control.has_signal("drop_items"):
 		proximity_inventory_control.drop_items.connect(_on_drop_items)
+	# Setup drop zone overlay for drag-outside-to-drop
+	if drop_zone_overlay:
+		drop_zone_overlay.drop_data.connect(_on_drop_zone_overlay_drop_data)
+		drop_zone_overlay.can_drop_data.connect(_on_drop_zone_overlay_can_drop_data)
 
 func _on_close_button_pressed():
 	visible = false
@@ -468,3 +475,11 @@ func drop_items_to_ground(items: Array):
 			target_container.insert_item(item)
 
 	Helper.signal_broker.inventory_operation_finished.emit()
+
+# Handler for drop zone overlay drop
+func _on_drop_zone_overlay_drop_data(_pos, data):
+	if data is Array and data.size() > 0 and data[0] is InventoryItem:
+		_on_drop_items(data)
+
+func _on_drop_zone_overlay_can_drop_data(_pos, data):
+	return data is Array and data.size() > 0 and data[0] is InventoryItem
