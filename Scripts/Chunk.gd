@@ -167,7 +167,7 @@ func process_level_data() -> Dictionary:
 							if tileJSON.has("mob"):
 								# We spawn it slightly above the block and let it fall. Might want to 
 								# fiddle with the Y coordinate for optimization
-								processed_leveldata.mobs.append({"json": tileJSON.mob, "pos": Vector3(w, y + 1.5, h)+offset})
+								processed_leveldata.mobs.append({"json": tileJSON.mob, "pos": Vector3(w, y + 1.0, h)+offset})
 							if tileJSON.has("mobgroup"):
 								# Fetch the mobgroup ID and use it to get a random mob ID
 								var mobgroup_id: String = tileJSON.mobgroup.id
@@ -175,7 +175,7 @@ func process_level_data() -> Dictionary:
 								if random_mob_id != "":
 									tileJSON.mobgroup.id = random_mob_id
 									# Append the mob with its position and rotation from the mobgroup data
-									processed_leveldata.mobs.append({"json": tileJSON.mobgroup, "pos": Vector3(w, y + 1.5, h)+offset})
+									processed_leveldata.mobs.append({"json": tileJSON.mobgroup, "pos": Vector3(w, y + 1.0, h)+offset})
 							if tileJSON.has("furniture"):
 								# We spawn it slightly above the block. Might want to 
 								# fiddle with the Y coordinate for optimization
