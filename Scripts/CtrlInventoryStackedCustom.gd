@@ -54,6 +54,7 @@ signal equip_left(items: Array[InventoryItem])
 signal equip_right(items: Array[InventoryItem])
 signal reload_item(items: Array[InventoryItem])
 signal unload_item(items: Array[InventoryItem])
+signal drop_items(items: Array[InventoryItem])
 
 # Reload sound for pistol
 @export var reload_audio_player : AudioStreamPlayer3D
@@ -98,6 +99,7 @@ func _on_context_menu_item_selected(id):
 		2: reload_item.emit(selected_inventory_items)
 		3: unload_item.emit(selected_inventory_items)
 		4: Helper.signal_broker.items_were_used.emit(selected_inventory_items)
+		5: drop_items.emit(selected_inventory_items)
 
 
 func _disconnect_inventory_signals():
