@@ -3,7 +3,7 @@
 		{
 			"entities": [
 				{
-					"count": 6.0,
+					"count": 12.0,
 					"id": "basic_zombies",
 					"type": "mobgroup"
 				}
