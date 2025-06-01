@@ -13,7 +13,7 @@
 default_font = ExtResource("6_xpf2l")
 default_font_size = 13
 
-[node name="InventoryWindow" type="Control" node_paths=PackedStringArray("proximity_inventory_control", "inventory_control", "containerList", "EquipmentSlotList", "LeftHandEquipmentSlot", "RightHandEquipmentSlot", "tooltip", "tooltip_item_name", "tooltip_item_description", "tool_tip_description_panel", "close_button")]
+[node name="InventoryWindow" type="Control" node_paths=PackedStringArray("proximity_inventory_control", "inventory_control", "containerList", "EquipmentSlotList", "LeftHandEquipmentSlot", "RightHandEquipmentSlot", "tooltip", "tooltip_item_name", "tooltip_item_description", "tool_tip_description_panel", "close_button", "drop_zone_overlay")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,12 +36,23 @@ tooltip_item_name = NodePath("Tooltip/Panel/ItemName")
 tooltip_item_description = NodePath("Tooltip/ToolTipDescriptionPanel/Description")
 tool_tip_description_panel = NodePath("Tooltip/ToolTipDescriptionPanel")
 close_button = NodePath("VBoxContainer/HeaderPanelContainer/HBoxContainer/CloseButton")
+drop_zone_overlay = NodePath("drop_zone_overlay")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="drop_zone_overlay" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0

@@ -30,7 +30,7 @@ var is_showing_tooltip = false
 var input_action: String = "toggle_inventory" # What action is used to show/hide this
 
 # Add a transparent drop zone overlay to catch drag-and-drop outside inventory
-@onready var drop_zone_overlay := $DropZoneOverlay if has_node("DropZoneOverlay") else null
+@export var drop_zone_overlay: Control = null
 
 
 # Called when the node enters the scene tree for the first time.
