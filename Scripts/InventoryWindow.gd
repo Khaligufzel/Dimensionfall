@@ -56,8 +56,8 @@ func _ready():
 		proximity_inventory_control.drop_items.connect(_on_drop_items)
 	# Setup drop zone overlay for drag-outside-to-drop
 	if drop_zone_overlay:
-		drop_zone_overlay.drop_data.connect(_on_drop_zone_overlay_drop_data)
-		drop_zone_overlay.can_drop_data.connect(_on_drop_zone_overlay_can_drop_data)
+		# Forward drag-and-drop events to the overlay so it can handle drops outside inventory grids
+		drop_zone_overlay.set_drag_forwarding(Callable(), _on_drop_zone_overlay_can_drop_data, _on_drop_zone_overlay_drop_data)
 
 func _on_close_button_pressed():
 	visible = false
