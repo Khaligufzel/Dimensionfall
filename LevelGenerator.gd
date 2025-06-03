@@ -189,7 +189,7 @@ func save_and_unload_chunk(chunk_pos: Vector2):
 # This function is called when a chunk is loaded or unloaded
 # We set the is_processing_chunk to false so we can start processing another chunk
 func _on_chunk_un_loaded():
-        is_processing_chunk = false
+	is_processing_chunk = false
 
 
 # Calculates which chunks should be loaded and unloaded
