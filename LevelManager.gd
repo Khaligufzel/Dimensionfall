@@ -24,7 +24,7 @@ func update_visibility(player_y: float):
 		level.visible = not is_above_player
 
 
-# When the initial chuks around the player are generated, 
+# When the initial chunks around the player are generated,
 # we update the visibility even before the player moves.
 func _on_initial_chunks_generated():
 	var player = get_tree().get_first_node_in_group("Players")
