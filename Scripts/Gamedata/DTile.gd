@@ -27,27 +27,33 @@ var shape: String
 var sprite: Texture
 var spriteid: String
 var categories: Array
+var sound_category: String = ""
+var sound_volume: int = 100
 var parent: DTiles
 
 # Constructor to initialize tile properties from a dictionary
 func _init(data: Dictionary, myparent: DTiles):
-	parent = myparent
-	id = data.get("id", "")
-	name = data.get("name", "")
-	description = data.get("description", "")
-	shape = data.get("shape", "")
-	spriteid = data.get("sprite", "")
-	categories = data.get("categories", [])
+        parent = myparent
+        id = data.get("id", "")
+        name = data.get("name", "")
+        description = data.get("description", "")
+        shape = data.get("shape", "")
+        spriteid = data.get("sprite", "")
+        categories = data.get("categories", [])
+        sound_category = data.get("sound_category", "")
+        sound_volume = data.get("sound_volume", 100)
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
-	var data: Dictionary = {
-		"id": id,
-		"name": name,
-		"description": description,
-		"sprite": spriteid,
-		"categories": categories
-	}
+        var data: Dictionary = {
+                "id": id,
+                "name": name,
+                "description": description,
+                "sprite": spriteid,
+                "categories": categories,
+                "sound_category": sound_category,
+                "sound_volume": sound_volume
+        }
 	
 	if shape and not shape == "":
 		data["shape"] = shape
