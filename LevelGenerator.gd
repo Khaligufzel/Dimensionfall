@@ -24,7 +24,6 @@ var is_processing_chunk = false
 const TIME_DELAY: float = 0.4
 
 signal all_chunks_unloaded
-signal all_chunks_loaded  # Signal to indicate all initial chunks are loaded for the first time
 
 var initial_chunks_status = {}  # Dictionary to track initial chunks loading status
 
@@ -190,9 +189,7 @@ func save_and_unload_chunk(chunk_pos: Vector2):
 # This function is called when a chunk is loaded or unloaded
 # We set the is_processing_chunk to false so we can start processing another chunk
 func _on_chunk_un_loaded():
-	is_processing_chunk = false
-	if load_queue.size() <= 0 or unload_queue.size() <= 0:
-		all_chunks_loaded.emit()  # Emit the signal when all chunks are loaded
+        is_processing_chunk = false
 
 
 # Calculates which chunks should be loaded and unloaded
