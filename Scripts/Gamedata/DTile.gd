@@ -50,13 +50,17 @@ func get_data() -> Dictionary:
 		"name": name,
 		"description": description,
 		"sprite": spriteid,
-		"categories": categories,
-		"sound_category": sound_category,
-		"sound_volume": sound_volume
+		"categories": categories
 	}
 	
 	if shape and not shape == "":
 		data["shape"] = shape
+	
+	if sound_category and not sound_category == "":
+		data["sound_category"] = sound_category
+	
+	if sound_volume and not sound_volume == 100:
+		data["sound_volume"] = sound_volume
 
 	return data
 
