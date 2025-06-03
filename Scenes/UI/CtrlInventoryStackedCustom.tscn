@@ -76,7 +76,7 @@ size_flags_horizontal = 3
 
 [node name="ContextMenu" type="PopupMenu" parent="."]
 size = Vector2i(123, 116)
-item_count = 5
+item_count = 6
 item_0/text = "Equip (left)"
 item_0/id = 0
 item_1/text = "Equip (right)"
@@ -87,9 +87,10 @@ item_3/text = "Unload"
 item_3/id = 3
 item_4/text = "Use"
 item_4/id = 4
+item_5/text = "Drop"
+item_5/id = 5
 
 [node name="ReloadAudio" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_rci6u")
-bus = &"Sounds"
 
 [connection signal="id_pressed" from="ContextMenu" to="." method="_on_context_menu_item_selected"]

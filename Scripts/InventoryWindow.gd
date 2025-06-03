@@ -29,6 +29,9 @@ var is_showing_tooltip = false
 @export var close_button: Button = null
 var input_action: String = "toggle_inventory" # What action is used to show/hide this
 
+# Add a transparent drop zone overlay to catch drag-and-drop outside inventory
+@export var drop_zone_overlay: Control = null
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,6 +48,16 @@ func _ready():
 
 	if close_button: # Connect close button to hide the window
 		close_button.pressed.connect(_on_close_button_pressed)
+
+	# Connect drop_items signal from both inventory controls
+	if inventory_control.has_signal("drop_items"):
+		inventory_control.drop_items.connect(_on_drop_items)
+	if proximity_inventory_control.has_signal("drop_items"):
+		proximity_inventory_control.drop_items.connect(_on_drop_items)
+	# Setup drop zone overlay for drag-outside-to-drop
+	if drop_zone_overlay:
+		# Forward drag-and-drop events to the overlay so it can handle drops outside inventory grids
+		drop_zone_overlay.set_drag_forwarding(Callable(), _on_drop_zone_overlay_can_drop_data, _on_drop_zone_overlay_drop_data)
 
 func _on_close_button_pressed():
 	visible = false
@@ -422,3 +435,51 @@ func _on_grid_cell_double_clicked(item: InventoryItem):
 	# Attempt to transfer the item
 	if not destination_inventory_control or not transfer_autosplitmerge_list([item],source_inventory_control,destination_inventory_control):
 		print("Failed to transfer item!")
+
+# Handler for dropping items from inventory context menu
+func _on_drop_items(items: Array):
+	drop_items_to_ground(items)
+
+# Drop logic: find or create a ground container and move items
+func drop_items_to_ground(items: Array):
+	Helper.signal_broker.inventory_operation_started.emit()
+	var player = Helper.player
+	var player_pos = player.global_transform.origin
+	var radius = 2.0 # Use a small radius around the player
+
+	# Find nearest ground ContainerItem in proximity
+	var nearest_container = null
+	var min_dist = INF
+	for container in ItemManager.proximityInventories:
+		if container is ContainerItem and container.get_parent() == get_tree().get_root():
+			var dist = container.global_transform.origin.distance_to(player_pos)
+			if dist < radius and dist < min_dist:
+				nearest_container = container
+				min_dist = dist
+
+	var target_container = nearest_container
+	if not target_container:
+		# No suitable container found, create one
+		var container_data = {
+			"global_position_x": player_pos.x,
+			"global_position_y": player_pos.y,
+			"global_position_z": player_pos.z
+		}
+		target_container = ContainerItem.new(container_data)
+		target_container.add_to_group("mapitems")
+		for item in items:
+			target_container.insert_item(item)
+		get_tree().get_root().call_deferred("add_child", target_container)
+	else:
+		for item in items:
+			target_container.insert_item(item)
+
+	Helper.signal_broker.inventory_operation_finished.emit()
+
+# Handler for drop zone overlay drop
+func _on_drop_zone_overlay_drop_data(_pos, data):
+	if data is Array and data.size() > 0 and data[0] is InventoryItem:
+		_on_drop_items(data)
+
+func _on_drop_zone_overlay_can_drop_data(_pos, data):
+	return data is Array and data.size() > 0 and data[0] is InventoryItem

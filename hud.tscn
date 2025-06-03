@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cesohfflurhln" path="res://Scripts/hud.gd" id="1_s3xoj"]
 [ext_resource type="Script" uid="uid://dx6j302ja353t" path="res://Scripts/NonHUDclick.gd" id="2_kpbhl"]
 [ext_resource type="Texture2D" uid="uid://7hppy1l45loq" path="res://Textures/bar_progress.png" id="3_83uwt"]
-[ext_resource type="Resource" uid="uid://bwdmspw266bap" path="res://ItemProtosets.tres" id="3_jmlkb"]
+[ext_resource type="Resource" uid="uid://40imt51cghsv" path="res://ItemProtosets.tres" id="3_jmlkb"]
 [ext_resource type="Texture2D" uid="uid://dcgwgmsmi7mjn" path="res://Textures/bar_border.png" id="3_y43f5"]
 [ext_resource type="PackedScene" uid="uid://b6ooia1084wfx" path="res://Scenes/UI/AttributesWindow.tscn" id="6_6e87o"]
 [ext_resource type="PackedScene" uid="uid://drjw0yaxf8x1p" path="res://Scenes/UI/QuestTrackerUI.tscn" id="7_bbed4"]
@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bgswuol251m3u" path="res://Scenes/Overmap/Overmap.tscn" id="19_oomhy"]
 [ext_resource type="PackedScene" uid="uid://b50xhj4218wjd" path="res://Scenes/UI/QuestWindow.tscn" id="19_orjb2"]
 [ext_resource type="PackedScene" uid="uid://e0ebcv1n8jnq" path="res://Scenes/InventoryWindow.tscn" id="20_0l505"]
-[ext_resource type="PackedScene" path="res://Sounds/SFX/UI/UISFX.tscn" id="20_5kc73"]
+[ext_resource type="PackedScene" uid="uid://cvr5g886g53be" path="res://Sounds/SFX/UI/UISFX.tscn" id="20_5kc73"]
 [ext_resource type="PackedScene" uid="uid://ckuh2s0nvwg0x" path="res://Scenes/GameOver.tscn" id="20_jlthm"]
 [ext_resource type="PackedScene" uid="uid://dowehl4nfwxm" path="res://Scenes/LoadingScreen.tscn" id="20_kxcpa"]
 
@@ -169,11 +169,6 @@ anchor_bottom = 0.9
 
 [node name="InventoryWindow" parent="." instance=ExtResource("20_0l505")]
 visible = false
-anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.1
-anchor_right = 0.9
-anchor_bottom = 0.9
 
 [node name="CharacterWindow" parent="." instance=ExtResource("17_2f357")]
 visible = false
