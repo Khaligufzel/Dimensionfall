@@ -39,10 +39,8 @@ var parent: RTiles
 # data: the data as loaded from json
 # myparent: The list containing all tiles for this mod
 func _init(myparent: RTiles, newid: String):
-		parent = myparent
-		id = newid
-		sound_category = ""
-		sound_volume = 100
+	parent = myparent
+	id = newid
 
 # Overwrite this tile's properties using a DTile
 func overwrite_from_dtile(dtile: DTile) -> void:
