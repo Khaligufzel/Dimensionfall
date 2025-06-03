@@ -19,7 +19,7 @@ Ranged and melee combat are currently implemented.
 ![Catax_inventory](Media/Dimensionfall_inventory.png)
 
 ### Overmap
-The game will create an infinite map to explore. The world is devided by regions, each having their own oppertunities and challenges. A marker will indicate your current location.
+The game will create an infinite map to explore. The world is divided by regions, each having their own opportunities and challenges. A marker will indicate your current location.
 
 ![Catax_overmap](Media/Dimensionfall_overmap.png)
 
