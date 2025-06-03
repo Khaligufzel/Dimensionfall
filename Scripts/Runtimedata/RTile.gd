@@ -39,10 +39,10 @@ var parent: RTiles
 # data: the data as loaded from json
 # myparent: The list containing all tiles for this mod
 func _init(myparent: RTiles, newid: String):
-        parent = myparent
-        id = newid
-        sound_category = ""
-        sound_volume = 100
+		parent = myparent
+		id = newid
+		sound_category = ""
+		sound_volume = 100
 
 # Overwrite this tile's properties using a DTile
 func overwrite_from_dtile(dtile: DTile) -> void:
@@ -52,22 +52,22 @@ func overwrite_from_dtile(dtile: DTile) -> void:
 	description = dtile.description
 	shape = dtile.shape
 	spriteid = dtile.spriteid
-        sprite = dtile.sprite
-        categories = dtile.categories.duplicate(true)
-        sound_category = dtile.sound_category
-        sound_volume = dtile.sound_volume
+	sprite = dtile.sprite
+	categories = dtile.categories.duplicate(true)
+	sound_category = dtile.sound_category
+	sound_volume = dtile.sound_volume
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
-        var data: Dictionary = {
-                "id": id,
-                "name": name,
-                "description": description,
-                "sprite": spriteid,
-                "categories": categories,
-                "sound_category": sound_category,
-                "sound_volume": sound_volume
-        }
+	var data: Dictionary = {
+		"id": id,
+		"name": name,
+		"description": description,
+		"sprite": spriteid,
+		"categories": categories,
+		"sound_category": sound_category,
+		"sound_volume": sound_volume
+	}
 	if shape and not shape == "":
 		data["shape"] = shape
 	return data
