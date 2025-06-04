@@ -1,8 +1,8 @@
 extends Node
 
-# Audio players
-@onready var stream_wrapper := SFXPlayerWrapper.new($AudioStreamPlayer)
-@onready var movement_wrapper := SFXPlayerWrapper.new($MovementSFXPlayer)
+# Audio players initialized with custom SFX player logic
+@onready var generic_sfx_player := SFXPlayer.new($AudioStreamPlayer)
+@onready var movement_sfx_player := SFXPlayer.new($MovementSFXPlayer)
 
 # UI sound effects mapped by name
 @onready var ui_sounds := {
@@ -10,8 +10,8 @@ extends Node
 	&"UI_Click": $UI_Click,
 }
 
-# --- Inner class that wraps an AudioStreamPlayer and its logic ---
-class SFXPlayerWrapper:
+# --- Class that handles playback logic for a specific AudioStreamPlayer ---
+class SFXPlayer:
 	var player: AudioStreamPlayer
 	var current_sfx: int = -1
 
@@ -52,33 +52,36 @@ var tracks := {
 # Track current SFX and repeat mode
 var current_sfx: int = SFX.WALKING_GRASS
 
+# Plays the specified sound effect using the appropriate SFXPlayer instance
 func play_sfx(sfx: int, repeat_sfx: bool = true):
-	var wrapper: SFXPlayerWrapper = movement_wrapper if sfx == SFX.WALKING_GRASS else stream_wrapper
+	var soundplayer := movement_sfx_player if sfx == SFX.WALKING_GRASS else generic_sfx_player
 
-	if current_sfx != sfx or not wrapper.is_playing():
-		stream_wrapper.stop()
-		movement_wrapper.stop()
+	if current_sfx != sfx or not soundplayer.is_playing():
+		movement_sfx_player.stop()
+		generic_sfx_player.stop()
 
 		current_sfx = sfx
 
 		var sfx_tracks: Array = tracks.get(current_sfx, [])
-		wrapper.play_random(sfx_tracks)
+		soundplayer.play_random(sfx_tracks)
 
-
+# Replays the last used SFX
 func replay_current_sfx():
 	var sfx_tracks: Array = tracks.get(current_sfx, [])
-	var wrapper: SFXPlayerWrapper = movement_wrapper if current_sfx == SFX.WALKING_GRASS else stream_wrapper
-	wrapper.play_random(sfx_tracks)
+	var soundplayer := movement_sfx_player if current_sfx == SFX.WALKING_GRASS else generic_sfx_player
+	soundplayer.play_random(sfx_tracks)
 
-
-func ui_sfx_play(sound : String):
+# Plays a UI sound effect by name
+func ui_sfx_play(sound: String):
 	ui_sounds[sound].play()
 
 func _on_audio_stream_player_finished():
 	gameplay_sfx_stop()
 
+# Stops general SFX
 func gameplay_sfx_stop():
-	stream_wrapper.stop()
+	generic_sfx_player.stop()
 
+# Stops movement-related SFX
 func movement_sfx_stop():
-	movement_wrapper.stop()
+	movement_sfx_player.stop()
