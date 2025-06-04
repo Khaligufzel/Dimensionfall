@@ -95,7 +95,7 @@ func _on_add_button_button_up():
 # Once clicked, it will show pupup_ID to ask the user for a new ID
 # If the user enters an ID and presses OK, it will read the file from the source variable
 # And duplicate the item that has the same ID as the ID that was selected
-# The duplicate item will recieve the ID that the user has entered in the popup
+# The duplicate item will receive the ID that the user has entered in the popup
 # Lastly, the new duplicated item will be added to contentItems
 func _on_duplicate_button_button_up():
 	var selected_id: String = get_selected_item_text()
@@ -129,7 +129,7 @@ func _on_ok_button_up():
 	load_data()
 
 
-# Called after the users presses cancel on the popup asking for an ID
+# Called after the user presses cancel on the popup asking for an ID
 func _on_cancel_button_up():
 	pupup_ID.hide()
 	popupAction = ""
@@ -197,9 +197,9 @@ func _create_drag_data(_newpos):
 	}
 
 
-# This function should return true if the dragged data can be dropped here
+# Currently dropping is not supported, so this always returns false
 func _can_drop_data(_newpos, _data) -> bool:
-	return false
+       return false
 
 
 # This function handles the data being dropped
