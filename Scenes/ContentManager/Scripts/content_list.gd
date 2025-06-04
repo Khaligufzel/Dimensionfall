@@ -199,7 +199,7 @@ func _create_drag_data(_newpos):
 
 # Currently dropping is not supported, so this always returns false
 func _can_drop_data(_newpos, _data) -> bool:
-       return false
+	return false
 
 
 # This function handles the data being dropped
