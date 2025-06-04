@@ -31,6 +31,8 @@ var shape: String
 var spriteid: String
 var sprite: Texture
 var categories: Array = []
+var sound_category: String = ""
+var sound_volume: int = 100
 var parent: RTiles
 
 # Constructor to initialize tile properties from a dictionary
@@ -50,6 +52,8 @@ func overwrite_from_dtile(dtile: DTile) -> void:
 	spriteid = dtile.spriteid
 	sprite = dtile.sprite
 	categories = dtile.categories.duplicate(true)
+	sound_category = dtile.sound_category
+	sound_volume = dtile.sound_volume
 
 # Get data function to return a dictionary with all properties
 func get_data() -> Dictionary:
@@ -58,7 +62,9 @@ func get_data() -> Dictionary:
 		"name": name,
 		"description": description,
 		"sprite": spriteid,
-		"categories": categories
+		"categories": categories,
+		"sound_category": sound_category,
+		"sound_volume": sound_volume
 	}
 	if shape and not shape == "":
 		data["shape"] = shape
