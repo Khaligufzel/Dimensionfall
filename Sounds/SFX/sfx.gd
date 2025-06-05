@@ -2,7 +2,9 @@ extends Node
 
 # Preloaded audio streams grouped by sound type
 var tracks := {
-	SFX.WALKING_GRASS: [preload("res://Sounds/SFX/Footsteps/footstep01.wav")],
+	SFX.WALKING_GRASS: [
+		preload("res://Sounds/SFX/Footsteps/footstep01.wav")
+	],
 	SFX.HURT_MALE: [
 		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh0.wav"),
 		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh2.wav"),
@@ -15,7 +17,6 @@ var tracks := {
 @onready var generic_sfx_player := SFXPlayer.new($AudioStreamPlayer, tracks[SFX.HURT_MALE])
 @onready var movement_sfx_player := SFXPlayer.new($MovementSFXPlayer, tracks[SFX.WALKING_GRASS])
 
-
 # UI sound effects mapped by name
 @onready var ui_sounds := {
 	&"UI_Hover": $UI_Hover,
@@ -26,7 +27,6 @@ var tracks := {
 class SFXPlayer:
 	var player: AudioStreamPlayer
 	var tracks: Array = []
-	var current_sfx: int = -1
 
 	func _init(_player: AudioStreamPlayer, _tracks: Array = []) -> void:
 		player = _player
@@ -45,35 +45,31 @@ class SFXPlayer:
 	func is_playing() -> bool:
 		return player and player.playing
 
-
 # Enum to reference sound effects
 enum SFX {
 	WALKING_GRASS,
 	HURT_MALE
 }
 
-# Track current SFX and repeat mode
-var current_sfx: int = SFX.WALKING_GRASS
+# Plays a general SFX sound (e.g., pain grunts, etc.)
+func play_generic_sfx():
+	if not generic_sfx_player.is_playing():
+		generic_sfx_player.play_random()
 
-# Plays the specified sound effect using the appropriate SFXPlayer instance
-func play_sfx(sfx: int):
-	var soundplayer := movement_sfx_player if sfx == SFX.WALKING_GRASS else generic_sfx_player
-
-	if current_sfx != sfx or not soundplayer.is_playing():
-		movement_sfx_player.stop()
-		generic_sfx_player.stop()
-
-		current_sfx = sfx
-		soundplayer.play_random()
-
+# Plays a movement-related SFX (e.g., footsteps)
+func play_movement_sfx():
+	if not movement_sfx_player.is_playing():
+		movement_sfx_player.play_random()
 
 # Plays a UI sound effect by name
 func ui_sfx_play(sound: String):
 	ui_sounds[sound].play()
 
+# Called when generic audio stream finishes
 func _on_audio_stream_player_finished():
 	gameplay_sfx_stop()
 
+# Called when movement audio stream finishes
 func _on_movement_sfx_player_finished():
 	movement_sfx_stop()
 

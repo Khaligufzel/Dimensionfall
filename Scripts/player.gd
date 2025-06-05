@@ -221,7 +221,7 @@ func _physics_process(delta):
 				current_stamina += delta * stamina_regen_while_standing_still
 			else:
 				if movement_timer.time_left <= 0:
-					Sfx.play_sfx(Sfx.SFX.WALKING_GRASS)
+					Sfx.play_movement_sfx()
 					if not is_running or current_stamina == 0:
 						movement_timer.start(0.5)
 					else: 
@@ -293,7 +293,7 @@ func _check_for_interaction() -> void:
 # 	"mobposition": Vector3(17, 1, 219) # The global position of the mob
 # }
 func get_hit(attack_data: Dictionary):
-	Sfx.play_sfx(Sfx.SFX.HURT_MALE)
+	Sfx.play_generic_sfx()
 	var attack: Dictionary = attack_data.get("attack",{})
 	var rattack: RAttack = Runtimedata.attacks.by_id(attack.get("id", ""))
 	if not rattack:
