@@ -90,6 +90,6 @@ This was a simple change. Of course, the practical application of json data will
 ### UI development
 UI is another area that is somewhat accessible to contributors starting out. This means menus, windows and status indicators. The main scenes are in `/Scenes/UI`. These scenes are added to the `HUD` node in `level_generation.tscn` to have them displayed to the player when a button is pressed.
 
-Keep in mind that the UI communicates with the game world trough autoloads. For example, the Inventory menu works together with the `ItemManager` (`/Scripts/item_manager.gd`). Some game elements like the player and some windows communicate trough `Helper.signal_broker`. To find out what connects to what, press `ctrl+shift+f` in Godot and search for `Helper.signal_broker` and a list will come up.
+Keep in mind that the UI communicates with the game world through autoloads. For example, the Inventory menu works together with the `ItemManager` (`/Scripts/item_manager.gd`). Some game elements like the player and some windows communicate through `Helper.signal_broker`. To find out what connects to what, press `ctrl+shift+f` in Godot and search for `Helper.signal_broker` and a list will come up.
 
 Icons used in the UI can be found in `/Textures` and `/Images/Icons`. Sometimes you don't need to use an icon and a button with an `x` or arrow `->` will suffice. In the case of the character menu, the icons are loaded from the mod data in `/Mods/Core/Stats` and `/Mods/Core/Stats`

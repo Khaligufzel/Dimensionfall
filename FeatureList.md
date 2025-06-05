@@ -28,7 +28,7 @@ Cities and roads are generated. Explore a whole network of roads and get to know
 ![Catax_overmap](Media/Catax_overmap_large.png)
 
 ### Quest journal
-Follow quests to guide your way trough this dangerous world. A quest may have multiple objectives, which will be displayed step-by-step
+Follow quests to guide your way through this dangerous world. A quest may have multiple objectives, which will be displayed step-by-step
 
 ![Catax_overmap](Media/Dimensionfall_quest_journal.png)
 
