@@ -1,62 +1,87 @@
 extends Node
-@onready var streamPlayer: AudioStreamPlayer = $AudioStreamPlayer
-@onready var movementPlayer: AudioStreamPlayer = $MovementSFXPlayer
 
-# create audio player instances
-@onready var uisounds = {
-	&"UI_Hover" : $UI_Hover,
-	&"UI_Click" : $UI_Click,
-	}
+# Audio players initialized with custom SFX player logic
+@onready var generic_sfx_player := SFXPlayer.new($AudioStreamPlayer)
+@onready var movement_sfx_player := SFXPlayer.new($MovementSFXPlayer)
 
+# UI sound effects mapped by name
+@onready var ui_sounds := {
+	&"UI_Hover": $UI_Hover,
+	&"UI_Click": $UI_Click,
+}
+
+# --- Class that handles playback logic for a specific AudioStreamPlayer ---
+class SFXPlayer:
+	var player: AudioStreamPlayer
+	var current_sfx: int = -1
+
+	func _init(_player: AudioStreamPlayer) -> void:
+		player = _player
+
+	func stop() -> void:
+		if player:
+			player.stop()
+
+	func play_random(tracks: Array) -> void:
+		if tracks.is_empty():
+			return
+		player.stream = tracks.pick_random()
+		player.play()
+
+	func is_playing() -> bool:
+		return player and player.playing
+
+
+# Enum to reference sound effects
 enum SFX {
 	WALKING_GRASS,
 	HURT_MALE
 }
 
-var TRACKS = {
+# Preloaded audio streams grouped by sound type
+var tracks := {
 	SFX.WALKING_GRASS: [preload("res://Sounds/SFX/Footsteps/footstep01.wav")],
-	SFX.HURT_MALE: [preload("res://Sounds/SFX/Hurt sounds (Male)/aargh0.wav"), preload("res://Sounds/SFX/Hurt sounds (Male)/aargh2.wav"), preload("res://Sounds/SFX/Hurt sounds (Male)/aargh4.wav"), preload("res://Sounds/SFX/Hurt sounds (Male)/aargh6.wav")] 
+	SFX.HURT_MALE: [
+		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh0.wav"),
+		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh2.wav"),
+		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh4.wav"),
+		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh6.wav")
+	]
 }
 
+# Track current SFX and repeat mode
 var current_sfx: int = SFX.WALKING_GRASS
-var is_repeating: bool = false
 
+# Plays the specified sound effect using the appropriate SFXPlayer instance
 func play_sfx(sfx: int, repeat_sfx: bool = true):
-	if current_sfx != sfx or !streamPlayer.playing or !movementPlayer.playing:
-		is_repeating = false # Prevent accidentally starting an old track playing
-								# again when next command is stop()
-		streamPlayer.stop()
-		movementPlayer.stop()
-		
-		is_repeating = repeat_sfx
+	var soundplayer := movement_sfx_player if sfx == SFX.WALKING_GRASS else generic_sfx_player
+
+	if current_sfx != sfx or not soundplayer.is_playing():
+		movement_sfx_player.stop()
+		generic_sfx_player.stop()
+
 		current_sfx = sfx
-		
-		var sfx_tracks: Array = TRACKS[current_sfx]
-		if sfx_tracks != []:
-			if current_sfx == SFX.WALKING_GRASS:
-				movementPlayer.stream = sfx_tracks[randi() % sfx_tracks.size()]
-				movementPlayer.play()
-			else:
-				streamPlayer.stream = sfx_tracks[randi() % sfx_tracks.size()]
-				streamPlayer.play()
 
+		var sfx_tracks: Array = tracks.get(current_sfx, [])
+		soundplayer.play_random(sfx_tracks)
+
+# Replays the last used SFX
 func replay_current_sfx():
-	var sfx_tracks: Array = TRACKS[current_sfx]
-	if current_sfx == SFX.WALKING_GRASS:
-		movementPlayer.stream = sfx_tracks[randi() % sfx_tracks.size()]
-		movementPlayer.play()
-	else:
-		streamPlayer.stream = sfx_tracks[randi() % sfx_tracks.size()]
-		streamPlayer.play()
+	var sfx_tracks: Array = tracks.get(current_sfx, [])
+	var soundplayer := movement_sfx_player if current_sfx == SFX.WALKING_GRASS else generic_sfx_player
+	soundplayer.play_random(sfx_tracks)
 
-func ui_sfx_play(sound : String):
-	uisounds[sound].play()
+# Plays a UI sound effect by name
+func ui_sfx_play(sound: String):
+	ui_sounds[sound].play()
 
 func _on_audio_stream_player_finished():
 	gameplay_sfx_stop()
 
+# Stops general SFX
 func gameplay_sfx_stop():
-	streamPlayer.stop()
+	generic_sfx_player.stop()
 
+# Stops movement-related SFX
 func movement_sfx_stop():
-	movementPlayer.stop()
+	movement_sfx_player.stop()
