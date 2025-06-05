@@ -12,8 +12,9 @@ var tracks := {
 }
 
 # Audio players initialized with custom SFX player logic
-@onready var generic_sfx_player := SFXPlayer.new($AudioStreamPlayer)
-@onready var movement_sfx_player := SFXPlayer.new($MovementSFXPlayer)
+@onready var generic_sfx_player := SFXPlayer.new($AudioStreamPlayer, tracks[SFX.HURT_MALE])
+@onready var movement_sfx_player := SFXPlayer.new($MovementSFXPlayer, tracks[SFX.WALKING_GRASS])
+
 
 # UI sound effects mapped by name
 @onready var ui_sounds := {
@@ -24,16 +25,18 @@ var tracks := {
 # --- Class that handles playback logic for a specific AudioStreamPlayer ---
 class SFXPlayer:
 	var player: AudioStreamPlayer
+	var tracks: Array = []
 	var current_sfx: int = -1
 
-	func _init(_player: AudioStreamPlayer) -> void:
+	func _init(_player: AudioStreamPlayer, _tracks: Array = []) -> void:
 		player = _player
+		tracks = _tracks
 
 	func stop() -> void:
 		if player:
 			player.stop()
 
-	func play_random(tracks: Array) -> void:
+	func play_random() -> void:
 		if tracks.is_empty():
 			return
 		player.stream = tracks.pick_random()
@@ -61,9 +64,8 @@ func play_sfx(sfx: int):
 		generic_sfx_player.stop()
 
 		current_sfx = sfx
+		soundplayer.play_random()
 
-		var sfx_tracks: Array = tracks.get(current_sfx, [])
-		soundplayer.play_random(sfx_tracks)
 
 # Plays a UI sound effect by name
 func ui_sfx_play(sound: String):

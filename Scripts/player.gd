@@ -218,7 +218,6 @@ func _physics_process(delta):
 			
 			# Stamina regeneration when standing still
 			if velocity.length() < 0.1:
-				Sfx.movement_sfx_stop()
 				current_stamina += delta * stamina_regen_while_standing_still
 			else:
 				if movement_timer.time_left <= 0:
