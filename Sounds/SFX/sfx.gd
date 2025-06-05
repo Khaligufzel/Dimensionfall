@@ -1,5 +1,16 @@
 extends Node
 
+# Preloaded audio streams grouped by sound type
+var tracks := {
+	SFX.WALKING_GRASS: [preload("res://Sounds/SFX/Footsteps/footstep01.wav")],
+	SFX.HURT_MALE: [
+		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh0.wav"),
+		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh2.wav"),
+		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh4.wav"),
+		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh6.wav")
+	]
+}
+
 # Audio players initialized with custom SFX player logic
 @onready var generic_sfx_player := SFXPlayer.new($AudioStreamPlayer)
 @onready var movement_sfx_player := SFXPlayer.new($MovementSFXPlayer)
@@ -38,22 +49,11 @@ enum SFX {
 	HURT_MALE
 }
 
-# Preloaded audio streams grouped by sound type
-var tracks := {
-	SFX.WALKING_GRASS: [preload("res://Sounds/SFX/Footsteps/footstep01.wav")],
-	SFX.HURT_MALE: [
-		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh0.wav"),
-		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh2.wav"),
-		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh4.wav"),
-		preload("res://Sounds/SFX/Hurt sounds (Male)/aargh6.wav")
-	]
-}
-
 # Track current SFX and repeat mode
 var current_sfx: int = SFX.WALKING_GRASS
 
 # Plays the specified sound effect using the appropriate SFXPlayer instance
-func play_sfx(sfx: int, repeat_sfx: bool = true):
+func play_sfx(sfx: int):
 	var soundplayer := movement_sfx_player if sfx == SFX.WALKING_GRASS else generic_sfx_player
 
 	if current_sfx != sfx or not soundplayer.is_playing():
@@ -65,18 +65,15 @@ func play_sfx(sfx: int, repeat_sfx: bool = true):
 		var sfx_tracks: Array = tracks.get(current_sfx, [])
 		soundplayer.play_random(sfx_tracks)
 
-# Replays the last used SFX
-func replay_current_sfx():
-	var sfx_tracks: Array = tracks.get(current_sfx, [])
-	var soundplayer := movement_sfx_player if current_sfx == SFX.WALKING_GRASS else generic_sfx_player
-	soundplayer.play_random(sfx_tracks)
-
 # Plays a UI sound effect by name
 func ui_sfx_play(sound: String):
 	ui_sounds[sound].play()
 
 func _on_audio_stream_player_finished():
 	gameplay_sfx_stop()
+
+func _on_movement_sfx_player_finished():
+	movement_sfx_stop()
 
 # Stops general SFX
 func gameplay_sfx_stop():
