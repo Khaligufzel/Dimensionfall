@@ -28,7 +28,7 @@ The game has the following [autoloads](https://docs.godotengine.org/en/stable/tu
 | Helper | General autoload with generic helper functions. Also contains the sub-helpers listed in the table below |
 | Gamedata | Loads data from the /mods folder and allows any script to access it |
 | Runtimedata | Loads mods according to the mod load order and merges them for use in-game |
-| Gloot | An addon that provides functionality for the inventory. We do not access this directly, only trough the classes provided by the addon. |
+| Gloot | An addon that provides functionality for the inventory. We do not access this directly, only through the classes provided by the addon. |
 | General | A general autoload script for functions that do not fit anywhere else |
 | CraftingRecipesmanager | Manages visibility and availability of crafting recipes and performs checks on requirements |
 | QuestManager | Autoload of the [QuestManager](https://github.com/Chevifier/QuestManager) addon. It handles quest tracking on the backend. |
@@ -43,24 +43,24 @@ Multiplayer addon for Godot. See documentation on [Github](https://github.com/he
 A general helper autoload that provides generic functions used in many other scripts. It also includes several sub-helpers:
 | Sub-Autoload | Description |
 | ------------- | ------------- |
-| json_helper | Can be accessed trough `Helper.json_helper`. Provides functions for manipulating json files and data |
-| map_manager | Can be accessed trough `Helper.map_manager`. Provides functions for accessing and manipulating map data. For example, finding out what's around the player and constructing and destructing blocks and furniture. |
-| overmap_manager | Can be accessed trough `Helper.overmap_manager`. Creates the overmap based on the mapseed. Defines regions and fills the overmap grids with the terrain that the player will explore. Provides data about the terrain to the `levelgenerator` and the overmap gui. |
-| quest_helper | Can be accessed trough `Helper.quest_helper`. Provides functions for accessing and manipulating quests. It will translate quest json data into actual ScriptedQuests for the player to complete. It responds to signals from all over the game in order to track the quest progress. |
-| time_helper | Can be accessed trough `Helper.time_helper`. Provides functions for accessing the time that has passed in-game. This can be used for time based events, food rot, day/night cycle and other things. |
-| save_helper | Can be accessed trough `Helper.save_helper`. Provides functions for saving and loading data. |
-| signal_broker | Can be accessed trough `Helper.signal_broker`. This is a central point trough which to send signals for other scripts to react to. The most important use case is allowing signals between game entities (blocks, enemies, containers) and the player's UI. |
-| task_manager | Can be accessed trough `Helper.task_manager`. Provides functions to offload tasks onto a separate thread. A simple example would be `my_data = await Helper.task_manager.create_task(process_my_file.bind(filecontents)).completed`. We only need to use this for functions that show spikes in the profiler and dropping the FPS. See Chunk.gd for the current application |
+| json_helper | Can be accessed through `Helper.json_helper`. Provides functions for manipulating json files and data |
+| map_manager | Can be accessed through `Helper.map_manager`. Provides functions for accessing and manipulating map data. For example, finding out what's around the player and constructing and destructing blocks and furniture. |
+| overmap_manager | Can be accessed through `Helper.overmap_manager`. Creates the overmap based on the mapseed. Defines regions and fills the overmap grids with the terrain that the player will explore. Provides data about the terrain to the `levelgenerator` and the overmap gui. |
+| quest_helper | Can be accessed through `Helper.quest_helper`. Provides functions for accessing and manipulating quests. It will translate quest json data into actual ScriptedQuests for the player to complete. It responds to signals from all over the game in order to track the quest progress. |
+| time_helper | Can be accessed through `Helper.time_helper`. Provides functions for accessing the time that has passed in-game. This can be used for time-based events, food rot, day/night cycle and other things. |
+| save_helper | Can be accessed through `Helper.save_helper`. Provides functions for saving and loading data. |
+| signal_broker | Can be accessed through `Helper.signal_broker`. This is a central point through which to send signals for other scripts to react to. The most important use case is allowing signals between game entities (blocks, enemies, containers) and the player's UI. |
+| task_manager | Can be accessed through `Helper.task_manager`. Provides functions to offload tasks onto a separate thread. A simple example would be `my_data = await Helper.task_manager.create_task(process_my_file.bind(filecontents)).completed`. We only need to use this for functions that show spikes in the profiler and dropping the FPS. See Chunk.gd for the current application |
 
 
 ## Gamedata
-Central management of game data. Data is loaded from the `/mods` folder. This includes all entity data and sprites. All data can be accessed trough this autoload. Ties heavily into the Content Editor. When data is changed using the content editor, the Gamedata autoload will update related entities if needed and save the data. The data is stored in it's own class, accessible trough `Gamedata.mods.by_id("Dimensionfall").items` or `Gamedata.mods.by_id("Dimensionfall").furnitures` or `Gamedata.mods.by_id("Dimensionfall").maps`, and so on. Each mod in Gamedata.mods has it's own list of items, furniture, mobs etc.
+Central management of game data. Data is loaded from the `/mods` folder. This includes all entity data and sprites. All data can be accessed through this autoload. Ties heavily into the Content Editor. When data is changed using the content editor, the Gamedata autoload will update related entities if needed and save the data. The data is stored in its own class, accessible through `Gamedata.mods.by_id("Dimensionfall").items` or `Gamedata.mods.by_id("Dimensionfall").furnitures` or `Gamedata.mods.by_id("Dimensionfall").maps`, and so on. Each mod in Gamedata.mods has its own list of items, furniture, mobs etc.
 
 ## Runtimedata
-All enabled mods get merged according to the mod load order when the game starts. This means that items that were added trough mods get added to Runtimedata.items. Items with the same id will overwrite the previously loaded items. This allows you to accually apply any change you want trough mods! Runtimedata is not supposed to be altered or saved and mods get re-merged each time a game is started. It has no concept of mods since it's all one big mod.
+All enabled mods get merged according to the mod load order when the game starts. This means that items that were added through mods get added to Runtimedata.items. Items with the same id will overwrite the previously loaded items. This allows you to actually apply any change you want through mods! Runtimedata is not supposed to be altered or saved and mods get re-merged each time a game is started. It has no concept of mods since it's all one big mod.
 
 ## Gloot
-An autoload that is provided by the [Gloot addon](https://github.com/peter-kish/gloot). We do not access this directly, just trough the addon's classes. It provides functionality for the inventory.
+An autoload that is provided by the [Gloot addon](https://github.com/peter-kish/gloot). We do not access this directly, just through the addon's classes. It provides functionality for the inventory.
 
 ## ItemManager
 Manages creation, destruction and movement of items in the player's inventory and elsewhere
@@ -101,7 +101,7 @@ Each region contains a list of maps. You can add maps to the regions by dragging
 
 
 # Content editor
-Content for the game is created and modified in the content editor. You could make content in Godot itself, but when the game is exported and the end-user does not have Godot, they can still open the game and add content from there using mods. Mods can be added trough the menus: `content editor -> mod manager -> add/remove mods`.
+Content for the game is created and modified in the content editor. You could make content in Godot itself, but when the game is exported and the end-user does not have Godot, they can still open the game and add content from there using mods. Mods can be added through the menus: `content editor -> mod manager -> add/remove mods`.
 
 Content in the content editor is represented in lists, where each item has it's own ID. The UI allows you to add, duplicate, modify and delete items in the lists. Maps and tacticalmaps are each stored in their own json files. Everything else is stored in one json file per type. So all items are in one json file and furniture is in another etc. The JSON files are loaded by Gamedata and that is what will be manipulated using the content editor. Nothing is saved to disk until the user presses the save button.
 
@@ -116,7 +116,7 @@ The Helper.save_helper will save and load data when the scene changes or a game 
 
 When the player presses escape and clicks on `save game` or `return to main menu`, all relevant data is stored. 
 - The overmap seed is generated once and saved when the game starts. After that the overmap state is saved and loaded
-- The player inventory is serialized trough the Gloot addon and de-serialized when a game is loaded
+- The player inventory is serialized through the Gloot addon and de-serialized when a game is loaded
 - The game is keeping track of the player's equipment in ItemManager.player_equipment, which is then saved and loaded into json
 - The player's stats are just read from the player's node and saved as a dictionary into a json file which is loaded at a later moment.
 - The map that the player is currently playing on is saved when returning to the main menu. Each chunk is unloaded and saved to a dictionary called Helper.loaded_chunk_data. This dictionary is then saved into a JSON file for the current coordinate on the overmap, which will be stored in a file like `C:\Users\User\AppData\Roaming\Godot\app_userdata\Dimensionfall\save\2024-05-25T213346\map_x1_y4\map.json`

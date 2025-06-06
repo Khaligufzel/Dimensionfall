@@ -129,7 +129,7 @@ text = "Cube"
 
 [node name="SlopeShapeCheckBox" type="CheckBox" parent="VBoxContainer/FormGrid/ShapeButtonContainer"]
 layout_mode = 2
-tooltip_text = "Select this if this terrain should be represented by a slope. Tipically ised for stairs or ramps. The player can go one level up if approached from the right angle."
+tooltip_text = "Select this if this terrain should be represented by a slope. Typically used for stairs or ramps. The player can go one level up if approached from the right angle."
 text = "Slope"
 
 [node name="Sprite_selector" parent="." instance=ExtResource("5_5ngda")]
