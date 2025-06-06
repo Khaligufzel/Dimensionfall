@@ -119,7 +119,7 @@ func can_skill_drop(dropped_data: Dictionary):
 	return true
 
 
-# Set the drop funcitons on the required skill and skill progression controls
+# Set the drop functions on the required skill and skill progression controls
 # This enables them to receive drop data
 func set_drop_functions():
 	UsedSkillTextEdit.drop_function = skill_drop.bind(UsedSkillTextEdit)

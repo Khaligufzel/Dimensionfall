@@ -18,7 +18,7 @@ var map_cell:
 
 signal tile_clicked(clicked_tile: Control)
 
-# Handle mouse input to emit the tile_clicked signal
+# Emit tile_clicked when the mouse enters the tile
 func _on_texture_rect_mouse_entered():
 	tile_clicked.emit(self)
 

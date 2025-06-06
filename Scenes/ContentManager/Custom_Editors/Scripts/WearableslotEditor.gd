@@ -79,7 +79,7 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 	PathTextLabel.text = slotTexture.resource_path.get_file()
 
 
-# Set the drop funcitons on the required item and item progression controls
+# Set the drop functions on the required item and item progression controls
 # This enables them to receive drop data
 func set_drop_functions():
 	starting_item_text_edit.drop_function = item_drop
