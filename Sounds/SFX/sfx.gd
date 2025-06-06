@@ -1,8 +1,25 @@
 extends Node
 
+# Enum to reference sound effects
+enum SFX {
+	WALKING_GRASS,
+	WALKING_CONCRETE,
+	WALKING_WOOD,
+	HURT_MALE
+}
+
 # Preloaded audio streams grouped by sound type
 var tracks := {
 	SFX.WALKING_GRASS: [
+		preload("res://Sounds/SFX/Footsteps/footstep01.wav"),
+		preload("res://Sounds/SFX/Footsteps/footstep01.wav")
+	],
+	SFX.WALKING_CONCRETE: [
+		preload("res://Sounds/SFX/Footsteps/footstep01.wav"),
+		preload("res://Sounds/SFX/Footsteps/footstep01.wav")
+	],
+	SFX.WALKING_WOOD: [
+		preload("res://Sounds/SFX/Footsteps/footstep01.wav"),
 		preload("res://Sounds/SFX/Footsteps/footstep01.wav")
 	],
 	SFX.HURT_MALE: [
@@ -36,34 +53,36 @@ class SFXPlayer:
 		if player:
 			player.stop()
 
-	func play_random() -> void:
-		if tracks.is_empty():
-			return
-		player.stream = tracks.pick_random()
-		player.play()
-
 	func is_playing() -> bool:
 		return player and player.playing
 
-# Enum to reference sound effects
-enum SFX {
-	WALKING_GRASS,
-	HURT_MALE
-}
+	# Play a random track at the given volume (0–100%)
+	func play_random(volume_percent: float = 100.0) -> void:
+		if tracks.is_empty():
+			return
 
-# Plays a general SFX sound (e.g., pain grunts, etc.)
-func play_generic_sfx():
+		var db := linear_to_db(clamp(volume_percent, 0.0, 100.0) / 100.0)
+		player.volume_db = db
+
+		player.stream = tracks.pick_random()
+		player.play()
+
+# Plays a general SFX sound (e.g., pain grunts, explosions, etc.)
+func play_generic_sfx(volume_percent: float = 100.0):
 	if not generic_sfx_player.is_playing():
-		generic_sfx_player.play_random()
+		generic_sfx_player.play_random(volume_percent)
 
-# Plays a movement-related SFX (e.g., footsteps)
-func play_movement_sfx():
+# Plays a movement-related SFX based on walking surface and loudness
+func play_movement_sfx(surface_type: SFX, volume_percent: float = 100.0):
 	if not movement_sfx_player.is_playing():
-		movement_sfx_player.play_random()
+		if surface_type in tracks:
+			movement_sfx_player.tracks = tracks[surface_type]
+			movement_sfx_player.play_random(volume_percent)
 
-# Plays a UI sound effect by name
+# Plays a UI sound effect by name (like hover or click)
 func ui_sfx_play(sound: String):
-	ui_sounds[sound].play()
+	if ui_sounds.has(sound):
+		ui_sounds[sound].play()
 
 # Called when generic audio stream finishes
 func _on_audio_stream_player_finished():
