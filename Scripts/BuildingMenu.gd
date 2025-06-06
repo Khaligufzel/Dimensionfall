@@ -25,13 +25,9 @@ func populate_optionbutton():
 		construction_option_button.add_item(rfurniture.id)
 
 
-func _on_construction_option_button_item_selected(_index: int) -> void:
-	# Get the selected option from the OptionButton
-	var selected_value = construction_option_button.get_selected_id()
-	var selected_text = construction_option_button.get_item_text(selected_value)
-
-	# Determine the type and emit the signal
-	if selected_text == "concrete_wall":
-		Helper.signal_broker.construction_chosen.emit("block", "concrete_wall")
-	else:
-		Helper.signal_broker.construction_chosen.emit("furniture", selected_text)
+func _on_construction_option_button_item_selected(index: int) -> void:
+       var selected_text = construction_option_button.get_item_text(index)
+       if selected_text == "concrete_wall":
+               Helper.signal_broker.construction_chosen.emit("block", "concrete_wall")
+       else:
+               Helper.signal_broker.construction_chosen.emit("furniture", selected_text)
