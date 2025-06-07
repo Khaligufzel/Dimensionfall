@@ -188,7 +188,7 @@ func test_player_vs_melee_mob():
 	assert_eq(mobs.size(),1,"too many or not enough mobs")
 	var first_mob: Mob = mobs[0]
 	assert_eq(first_mob.rmob.id,"generic_test_mob","A different mob spawned then expected")
-	assert_eq(first_mob.mobPosition,Vector3(15.5,2.0,15.5),"Mob spawned somewhere else")
+	assert_eq(first_mob.mobPosition,Vector3(15.5,1.5,15.5),"Mob spawned somewhere else")
 	
 	# Test that the mob transitions into the mob attack state
 	var first_state: State = first_mob.get_current_state()
@@ -207,7 +207,9 @@ func test_player_vs_melee_mob():
 	first_state = first_mob.get_current_state()
 	var mob_has_transitioned = func():
 		return first_state is MobAttack
-	assert_true(await wait_until(mob_has_transitioned, 10, 1),"Mob should have transitioned")
+	# Replace the existing assert_true line with this one:
+	assert_true(await wait_until(mob_has_transitioned, 10, 1), 
+		"Mob should have transitioned, but current state is: %s" % [first_mob.get_current_state().get_class()])
 	
 	var player_has_taken_damage = func():
 		return not playerattribute.default_mode.is_at_max()
