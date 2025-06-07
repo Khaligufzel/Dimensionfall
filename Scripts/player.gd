@@ -221,7 +221,7 @@ func _physics_process(delta):
 				current_stamina += delta * stamina_regen_while_standing_still
 			else:
 				if movement_timer.time_left <= 0:
-					Sfx.play_movement_sfx()
+					Sfx.play_movement_sfx(Sfx.SFX.WALKING_GRASS)
 					if not is_running or current_stamina == 0:
 						movement_timer.start(0.5)
 					else: 
