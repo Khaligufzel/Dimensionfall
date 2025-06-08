@@ -218,22 +218,21 @@ func insert_magazine(item: InventoryItem, specific_magazine: InventoryItem = nul
 
 
 # After the reloading timer runs out, the item will be reloaded
-func reload_weapon(item: InventoryItem, specific_magazine: InventoryItem = null):
+func reload_weapon(item: InventoryItem, specific_magazine: InventoryItem = null) -> bool:
 	# Ensure the item is a ranged weapon before proceeding.
-	if not item or item.get_property("Ranged") == null:
-		print("Item is not a ranged weapon.")
-		return
+	if item == null or item.get_property("Ranged") == null:
+		print_debug("Item is not a ranged weapon.")
+		return false
 
 	# Select the appropriate magazine for reloading.
 	var magazine_to_load = specific_magazine if specific_magazine else find_compatible_magazine(item)
 	if not magazine_to_load:
-		print("No compatible magazine found for reloading.")
-		return
+		print_debug("No compatible magazine found.")
+		return false
 
 	# Execute the reloading process.
 	execute_reloading(item, magazine_to_load)
-
-
+	return true
 # This function will loop over the items in the inventory
 # It will select items that are compatible with the gun based on the "used_magazine" property
 # It will return the first result if a compatible magazine is found
