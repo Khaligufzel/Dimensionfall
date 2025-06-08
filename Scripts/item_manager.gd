@@ -221,13 +221,13 @@ func insert_magazine(item: InventoryItem, specific_magazine: InventoryItem = nul
 func reload_weapon(item: InventoryItem, specific_magazine: InventoryItem = null) -> bool:
 	# Ensure the item is a ranged weapon before proceeding.
 	if item == null or item.get_property("Ranged") == null:
-		Logger.warn("Item is not a ranged weapon.")
+		print_debug("Item is not a ranged weapon.")
 		return false
 
 	# Select the appropriate magazine for reloading.
 	var magazine_to_load = specific_magazine if specific_magazine else find_compatible_magazine(item)
 	if not magazine_to_load:
-		Logger.warn("No compatible magazine found.")
+		print_debug("No compatible magazine found.")
 		return false
 
 	# Execute the reloading process.

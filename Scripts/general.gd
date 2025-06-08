@@ -46,7 +46,7 @@ func _on_action_timer_timeout():
 	if action_complete_callback:
 		var result = action_complete_callback.call()
 		if result is bool and result == false:
-			Logger.warn("Action callback returned failure.")
+			print_debug("Action callback returned failure.")
 	# Reset the callback function
 	action_complete_callback = Callable()
 	# Code to handle the completion of the action
