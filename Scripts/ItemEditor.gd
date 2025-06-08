@@ -9,27 +9,27 @@ extends Control
 @export var tab_container: TabContainer = null
 
 # Used to open the sprite selector popup
-@export var itemImageDisplay: TextureRect = null
-@export var IDTextLabel: Label = null
+@export var item_image_display: TextureRect = null
+@export var id_text_label: Label = null
 
 # To show the name of the sprite
-@export var PathTextLabel: Label = null
+@export var path_text_label: Label = null
 
 # Name and description of the item
-@export var NameTextEdit: TextEdit = null
-@export var DescriptionTextEdit: TextEdit = null
+@export var name_text_edit: TextEdit = null
+@export var description_text_edit: TextEdit = null
 
 #The actual sprite selector popup
-@export var itemSelector: Popup = null
+@export var item_selector: Popup = null
 
 # Inventory propeties
-@export var VolumeNumberBox: SpinBox = null
-@export var WeightNumberBox: SpinBox = null
-@export var StackSizeNumberBox: SpinBox = null
-@export var MaxStackSizeNumberBox: SpinBox = null
+@export var volume_number_box: SpinBox = null
+@export var weight_number_box: SpinBox = null
+@export var stack_size_number_box: SpinBox = null
+@export var max_stack_size_number_box: SpinBox = null
 
 @export var types_container: HFlowContainer = null
-@export var TwoHandedCheckBox: CheckBox = null
+@export var two_handed_check_box: CheckBox = null
 
 @export var references_editor: Control = null
 
@@ -47,7 +47,7 @@ var ditem: DItem = null:
 		if value:
 			ditem = value
 			load_item_data()
-			itemSelector.sprites_collection = ditem.parent.sprites
+                        item_selector.sprites_collection = ditem.parent.sprites
 			olddata = DItem.new(ditem.get_data().duplicate(true), null)
 		
 func _ready():
@@ -56,25 +56,25 @@ func _ready():
 
 #This function update the form based on the contentData that has been loaded
 func load_item_data() -> void:
-	if itemImageDisplay != null and ditem.spriteid:
-		itemImageDisplay.texture = ditem.parent.sprite_by_file(ditem.spriteid)
-		PathTextLabel.text = ditem.spriteid
-	if IDTextLabel != null:
-		IDTextLabel.text = str(ditem.id)
-	if NameTextEdit != null:
-		NameTextEdit.text = ditem.name
-	if DescriptionTextEdit != null:
-		DescriptionTextEdit.text = ditem.description
-	if VolumeNumberBox != null:
-		VolumeNumberBox.value = float(ditem.volume)
-	if WeightNumberBox != null:
-		WeightNumberBox.value = float(ditem.weight)
-	if StackSizeNumberBox != null:
-		StackSizeNumberBox.value = float(ditem.stack_size)
-	if MaxStackSizeNumberBox != null:
-		MaxStackSizeNumberBox.value = float(ditem.max_stack_size)
-	if TwoHandedCheckBox != null:
-		TwoHandedCheckBox.button_pressed = ditem.two_handed
+        if item_image_display != null and ditem.spriteid:
+                item_image_display.texture = ditem.parent.sprite_by_file(ditem.spriteid)
+                path_text_label.text = ditem.spriteid
+        if id_text_label != null:
+                id_text_label.text = str(ditem.id)
+        if name_text_edit != null:
+                name_text_edit.text = ditem.name
+        if description_text_edit != null:
+                description_text_edit.text = ditem.description
+        if volume_number_box != null:
+                volume_number_box.value = float(ditem.volume)
+        if weight_number_box != null:
+                weight_number_box.value = float(ditem.weight)
+        if stack_size_number_box != null:
+                stack_size_number_box.value = float(ditem.stack_size)
+        if max_stack_size_number_box != null:
+                max_stack_size_number_box.value = float(ditem.max_stack_size)
+        if two_handed_check_box != null:
+                two_handed_check_box.button_pressed = ditem.two_handed
 
 	# Loop through types_container children to load additional properties and set button_pressed
 	for i in range(types_container.get_child_count()):
@@ -101,17 +101,17 @@ func _on_close_button_button_up() -> void:
 # The central array for item data is updated with the changes as well
 # The function will signal to Gamedata that the data has changed and needs to be saved
 func _on_save_button_button_up() -> void:
-	ditem.spriteid = PathTextLabel.text
-	ditem.sprite = itemImageDisplay.texture
+        ditem.spriteid = path_text_label.text
+        ditem.sprite = item_image_display.texture
 	# We add this image property only for the itemprotosets of gloot
-	ditem.image = ditem.parent.sprite_path + PathTextLabel.text
-	ditem.name = NameTextEdit.text
-	ditem.description = DescriptionTextEdit.text
-	ditem.volume = VolumeNumberBox.value
-	ditem.weight = WeightNumberBox.value
-	ditem.stack_size = int(StackSizeNumberBox.value)
-	ditem.max_stack_size = int(MaxStackSizeNumberBox.value)
-	ditem.two_handed = TwoHandedCheckBox.button_pressed
+        ditem.image = ditem.parent.sprite_path + path_text_label.text
+        ditem.name = name_text_edit.text
+        ditem.description = description_text_edit.text
+        ditem.volume = volume_number_box.value
+        ditem.weight = weight_number_box.value
+        ditem.stack_size = int(stack_size_number_box.value)
+        ditem.max_stack_size = int(max_stack_size_number_box.value)
+        ditem.two_handed = two_handed_check_box.button_pressed
 	
 	# Loop through types_container children to save additional properties
 	for i in range(types_container.get_child_count()):
@@ -133,17 +133,17 @@ func _on_save_button_button_up() -> void:
 	olddata = DItem.new(ditem.get_data().duplicate(true), null)
 
 
-#When the itemImageDisplay is clicked, the user will be prompted to select an image from 
-# "res://Mods/Core/items/". The texture of the itemImageDisplay will change to the selected image
+#When the item_image_display is clicked, the user will be prompted to select an image from
+# "res://Mods/Core/items/". The texture of the item_image_display will change to the selected image
 func _on_item_image_display_gui_input(event) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		itemSelector.show()
+        if event is InputEventMouseButton and event.pressed:
+                item_selector.show()
 
 
 func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
-	var itemTexture: Resource = clicked_sprite.get_texture()
-	itemImageDisplay.texture = itemTexture
-	PathTextLabel.text = itemTexture.resource_path.get_file()
+        var itemTexture: Resource = clicked_sprite.get_texture()
+        item_image_display.texture = itemTexture
+        path_text_label.text = itemTexture.resource_path.get_file()
 
 
 func _on_type_check_button_up():
