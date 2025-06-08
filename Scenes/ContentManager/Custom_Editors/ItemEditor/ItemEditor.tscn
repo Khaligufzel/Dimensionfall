@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dio1cpt7em6r2" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemMedicalEditor.tscn" id="11_il5yl"]
 [ext_resource type="PackedScene" uid="uid://onkmwt1te3be" path="res://Scenes/ContentManager/Custom_Editors/ItemEditor/ItemToolEditor.tscn" id="12_378eu"]
 
-[node name="ItemEditor" type="Control" node_paths=PackedStringArray("tab_container", "itemImageDisplay", "IDTextLabel", "PathTextLabel", "NameTextEdit", "DescriptionTextEdit", "itemSelector", "VolumeNumberBox", "WeightNumberBox", "StackSizeNumberBox", "MaxStackSizeNumberBox", "types_container", "TwoHandedCheckBox", "references_editor")]
+[node name="ItemEditor" type="Control" node_paths=PackedStringArray("tab_container", "item_image_display", "id_text_label", "path_text_label", "name_text_edit", "description_text_edit", "item_selector", "volume_number_box", "weight_number_box", "stack_size_number_box", "max_stack_size_number_box", "types_container", "two_handed_check_box", "references_editor")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,18 +23,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ef3j7")
 tab_container = NodePath("VBoxContainer/TabContainer")
-itemImageDisplay = NodePath("VBoxContainer/TabContainer/Basic/ItemImageDisplay")
-IDTextLabel = NodePath("VBoxContainer/TabContainer/Basic/IDTextLabel")
-PathTextLabel = NodePath("VBoxContainer/TabContainer/Basic/PathTextLabel")
-NameTextEdit = NodePath("VBoxContainer/TabContainer/Basic/NameTextEdit")
-DescriptionTextEdit = NodePath("VBoxContainer/TabContainer/Basic/DescriptionTextEdit")
-itemSelector = NodePath("Sprite_selector")
-VolumeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/VolumeNumber")
-WeightNumberBox = NodePath("VBoxContainer/TabContainer/Basic/WeightNumber")
-StackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/StackSizeNumber")
-MaxStackSizeNumberBox = NodePath("VBoxContainer/TabContainer/Basic/MaxStackSizeNumber")
+item_image_display = NodePath("VBoxContainer/TabContainer/Basic/ItemImageDisplay")
+id_text_label = NodePath("VBoxContainer/TabContainer/Basic/IDTextLabel")
+path_text_label = NodePath("VBoxContainer/TabContainer/Basic/PathTextLabel")
+name_text_edit = NodePath("VBoxContainer/TabContainer/Basic/NameTextEdit")
+description_text_edit = NodePath("VBoxContainer/TabContainer/Basic/DescriptionTextEdit")
+item_selector = NodePath("Sprite_selector")
+volume_number_box = NodePath("VBoxContainer/TabContainer/Basic/VolumeNumber")
+weight_number_box = NodePath("VBoxContainer/TabContainer/Basic/WeightNumber")
+stack_size_number_box = NodePath("VBoxContainer/TabContainer/Basic/StackSizeNumber")
+max_stack_size_number_box = NodePath("VBoxContainer/TabContainer/Basic/MaxStackSizeNumber")
 types_container = NodePath("VBoxContainer/TabContainer/Basic/TypesContainer")
-TwoHandedCheckBox = NodePath("VBoxContainer/TabContainer/Basic/TwoHandedCheckBox")
+two_handed_check_box = NodePath("VBoxContainer/TabContainer/Basic/TwoHandedCheckBox")
 references_editor = NodePath("VBoxContainer/TabContainer/References")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
