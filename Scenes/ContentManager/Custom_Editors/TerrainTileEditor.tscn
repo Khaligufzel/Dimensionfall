@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ragmxitca47" path="res://Scenes/ContentManager/Mapeditor/Images/emptyTile.png" id="2_x7b0a"]
 [ext_resource type="PackedScene" uid="uid://d1h1rpwt8f807" path="res://Scenes/ContentManager/Custom_Widgets/Sprite_Selector_Popup.tscn" id="5_5ngda"]
 
-[node name="TerrainTileEditor" type="Control" node_paths=PackedStringArray("tileImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "tileSelector", "imageNameStringLabel", "cubeShapeCheckbox", "slopeShapeCheckbox")]
+[node name="TerrainTileEditor" type="Control" node_paths=PackedStringArray("tileImageDisplay", "IDTextLabel", "NameTextEdit", "DescriptionTextEdit", "CategoriesList", "tileSelector", "imageNameStringLabel", "cubeShapeCheckbox", "slopeShapeCheckbox", "SoundCategoryOptionButton", "SoundVolumeSpinBox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +22,8 @@ tileSelector = NodePath("Sprite_selector")
 imageNameStringLabel = NodePath("VBoxContainer/FormGrid/ImageNameStringLabel")
 cubeShapeCheckbox = NodePath("VBoxContainer/FormGrid/ShapeButtonContainer/CubeShapeCheckBox")
 slopeShapeCheckbox = NodePath("VBoxContainer/FormGrid/ShapeButtonContainer/SlopeShapeCheckBox")
+SoundCategoryOptionButton = NodePath("VBoxContainer/FormGrid/SoundCategoryOptionButton")
+SoundVolumeSpinBox = NodePath("VBoxContainer/FormGrid/SoundVolumeSpinBox")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
