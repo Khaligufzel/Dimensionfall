@@ -44,7 +44,9 @@ func _on_action_timer_timeout():
 	is_action_in_progress = false
 	# Call the callback function if it exists
 	if action_complete_callback:
-		action_complete_callback.call()
+		var result = action_complete_callback.call()
+		if result is bool and result == false:
+			Logger.warn("Action callback returned failure.")
 	# Reset the callback function
 	action_complete_callback = Callable()
 	# Code to handle the completion of the action
