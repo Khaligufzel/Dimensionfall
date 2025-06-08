@@ -26,11 +26,11 @@ extends Node
 # The level generator will register itself to this variable when it's ready
 var level_generator: Node = null
 
-@export var region_seed : String
-@export var grid_width : int = 100
-@export var grid_height : int = 100
+@export var region_seed : String           # Seed used when generating overmap noise
+@export var grid_width : int = 100         # Number of cells horizontally in a grid
+@export var grid_height : int = 100        # Number of cells vertically in a grid
 # Cell is represented by a chunk, which is 32x32. This is used to calculate the player's cell position
-@export var cell_size : int = 32
+@export var cell_size : int = 32           # Size of a cell in world units
 @export var chunk_size : int = 1 # Number of tiles per chunk. More makes it less... circular- I would keep it as is.
 @export var load_radius : int = 8 # Number of chunks to load around the player. Basically sight radius on world map.
 
@@ -57,7 +57,7 @@ var loaded_segments: Dictionary = {}
 var loaded_chunk_data: Dictionary = {"chunks": {}}
 
 
-var player: Player
+var player: Player	# Reference to the active player node
 var player_current_cell: Vector2 = Vector2.ZERO # Player's position per cell, updated regularly
 
 var noise: FastNoiseLite
