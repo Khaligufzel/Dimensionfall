@@ -1,7 +1,7 @@
 extends Control
 
 #This script belongs to the Scrolling_Flow_Container scene
-#It shows a flowcontianer in a scrollcontainer and optionally a collapse button
+#It shows a flow container in a scrollcontainer and optionally a collapse button
 #Once instanced, set the collapse button text to the text you want
 #If you set the header as empty it will hide the collapse button
 
