@@ -7,6 +7,7 @@
 		"id": "grass_plain",
 		"name": "Plain grass",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "1.png"
 	},
 	{
@@ -17,6 +18,7 @@
 		"id": "floor_wood_shabby_00",
 		"name": "Low quality wood floor",
 		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards.png"
 	},
 	{
@@ -26,6 +28,8 @@
 		"description": "The floor is old and the boards are crooked",
 		"id": "floor_wood_shabby_01",
 		"name": "Low quality wood floor",
+		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards1.png"
 	},
 	{
@@ -35,6 +39,8 @@
 		"description": "The floor is old and the boards are crooked",
 		"id": "floor_wood_shabby_02",
 		"name": "Low quality wood floor",
+		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards2.png"
 	},
 	{
@@ -44,6 +50,8 @@
 		"description": "The floor is old and the boards are crooked",
 		"id": "floor_wood_shabby_dark_00",
 		"name": "Low quality wood floor",
+		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards3.png"
 	},
 	{
@@ -53,6 +61,8 @@
 		"description": "The floor is old and the boards are crooked",
 		"id": "floor_wood_shabby_dark_01",
 		"name": "Low quality wood floor",
+		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards4.png"
 	},
 	{
@@ -62,6 +72,8 @@
 		"description": "The floor is old and the boards are crooked",
 		"id": "floor_wood_shabby_dark_02",
 		"name": "Low quality wood floor",
+		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards5.png"
 	},
 	{
@@ -71,6 +83,8 @@
 		"description": "A smooth surface for vehicles to drive on",
 		"id": "road_asphalt_basic",
 		"name": "Basic asphalt road",
+		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "asphalt_basic.png"
 	},
 	{
@@ -80,6 +94,8 @@
 		"description": "A smooth surface for vehicles to drive on. It has diagonal markings",
 		"id": "road_asphalt_diagonal",
 		"name": "Asphalt road with diagonal markings",
+		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "asphalt_diag_middle.png"
 	},
 	{
@@ -89,6 +105,8 @@
 		"description": "A smooth surface for vehicles to drive on. It has markings indicating a north turn",
 		"id": "road_asphalt_turn_north",
 		"name": "Asphalt road with markings turning north",
+		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "asphalt_middle_downleft.png"
 	},
 	{
@@ -98,6 +116,8 @@
 		"description": "A smooth surface for vehicles to drive on. It has horizontal markings",
 		"id": "road_asphalt_horizontal",
 		"name": "Asphalt road with horizontal markings",
+		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "asphalt_middle_horizontal.png"
 	},
 	{
@@ -117,6 +137,8 @@
 		"description": "Field of grass",
 		"id": "grass_plain_01",
 		"name": "Plain grass",
+		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "basegrass1.png"
 	},
 	{
@@ -128,6 +150,7 @@
 		"id": "wood_stairs",
 		"name": "Wooden stairs",
 		"shape": "slope",
+		"sound_category": "wood",
 		"sprite": "4.png"
 	},
 	{
@@ -150,6 +173,7 @@
 		"id": "red_carpet_00",
 		"name": "Red carpet",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "redcarpet.png"
 	},
 	{
@@ -161,6 +185,7 @@
 		"id": "blue_carpet_00",
 		"name": "Blue carpet",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "bluecarpet.png"
 	},
 	{
@@ -172,6 +197,7 @@
 		"id": "orange_carpet_00",
 		"name": "Orange carpet",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "browncarpet.png"
 	},
 	{
@@ -194,6 +220,7 @@
 		"id": "floor_wood_boards_00",
 		"name": "Wooden floor boards",
 		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards10.png"
 	},
 	{
@@ -205,6 +232,7 @@
 		"id": "floor_wood_boards_01",
 		"name": "Wooden floor boards",
 		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards11.png"
 	},
 	{
@@ -216,6 +244,7 @@
 		"id": "floor_wood_boards_02",
 		"name": "Wooden floor boards",
 		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards12.png"
 	},
 	{
@@ -227,6 +256,7 @@
 		"id": "floor_wood_boards_03",
 		"name": "Wooden floor boards",
 		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards13.png"
 	},
 	{
@@ -238,6 +268,7 @@
 		"id": "floor_wood_boards_04",
 		"name": "Wooden floor boards",
 		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards14.png"
 	},
 	{
@@ -249,6 +280,7 @@
 		"id": "floor_wood_boards_05",
 		"name": "Wooden floor boards",
 		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards6.png"
 	},
 	{
@@ -260,6 +292,7 @@
 		"id": "floor_wood_boards_06",
 		"name": "Wooden floor boards",
 		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards7.png"
 	},
 	{
@@ -271,6 +304,7 @@
 		"id": "floor_wood_boards_07",
 		"name": "Wooden floor boards",
 		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards8.png"
 	},
 	{
@@ -282,6 +316,7 @@
 		"id": "floor_wood_boards_08",
 		"name": "Wooden floor boards",
 		"shape": "cube",
+		"sound_category": "wood",
 		"sprite": "woodboards9.png"
 	},
 	{
@@ -432,6 +467,7 @@
 		"id": "rock_floor_00",
 		"name": "Rock floor",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "rockyfloor1.png"
 	},
 	{
@@ -442,6 +478,7 @@
 		"id": "rock_floor_01",
 		"name": "Rock floor",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "rockyfloor2.png"
 	},
 	{
@@ -452,6 +489,7 @@
 		"id": "rock_floor_02",
 		"name": "Rock floor",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "rockyfloor3.png"
 	},
 	{
@@ -462,6 +500,7 @@
 		"id": "rock_floor_03",
 		"name": "Rock floor",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "rockfloor.png"
 	},
 	{
@@ -472,6 +511,7 @@
 		"id": "rock_floor_04",
 		"name": "Rock floor",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "rockyfloor4.png"
 	},
 	{
@@ -482,6 +522,7 @@
 		"id": "rock_floor_05",
 		"name": "Rock floor",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "rockyfloor5.png"
 	},
 	{
@@ -492,6 +533,7 @@
 		"id": "rock_floor_06",
 		"name": "Rock floor",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "rockyfloor6.png"
 	},
 	{
@@ -502,6 +544,7 @@
 		"id": "rock_slope_00",
 		"name": "Rock slope",
 		"shape": "slope",
+		"sound_category": "concrete",
 		"sprite": "rockyfloorrampnorth.png"
 	},
 	{
@@ -563,6 +606,7 @@
 		"id": "kitchen_tiles_yellow_00",
 		"name": "Kitchen tiles (yellow)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentiles.png"
 	},
 	{
@@ -574,6 +618,7 @@
 		"id": "kitchen_tiles_yellow_01",
 		"name": "Kitchen tiles (yellow)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentiles1.png"
 	},
 	{
@@ -585,6 +630,7 @@
 		"id": "kitchen_tiles_yellow_02",
 		"name": "Kitchen tiles (yellow)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "Kitchentiles2.png"
 	},
 	{
@@ -596,6 +642,7 @@
 		"id": "kitchen_tiles_mint_00",
 		"name": "Kitchen tiles (mint)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentilesblue.png"
 	},
 	{
@@ -607,6 +654,7 @@
 		"id": "kitchen_tiles_mint_01",
 		"name": "Kitchen tiles (mint)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentilesblue1.png"
 	},
 	{
@@ -618,6 +666,7 @@
 		"id": "kitchen_tiles_mint_02",
 		"name": "Kitchen tiles (mint)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentilesblue2.png"
 	},
 	{
@@ -629,6 +678,7 @@
 		"id": "kitchen_tiles_mint_03",
 		"name": "Kitchen tiles (mint)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentilesblue3.png"
 	},
 	{
@@ -640,6 +690,7 @@
 		"id": "kitchen_tiles_green_00",
 		"name": "Kitchen tiles (green)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentilesgreen.png"
 	},
 	{
@@ -651,6 +702,7 @@
 		"id": "kitchen_tiles_green_01",
 		"name": "Kitchen tiles (green)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentilesgreen1.png"
 	},
 	{
@@ -662,6 +714,7 @@
 		"id": "kitchen_tiles_green_02",
 		"name": "Kitchen tiles (green)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentilesgreen2.png"
 	},
 	{
@@ -673,6 +726,7 @@
 		"id": "kitchen_tiles_blue_00",
 		"name": "Kitchen tiles (blue)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "KitchentilesPurple.png"
 	},
 	{
@@ -684,6 +738,7 @@
 		"id": "kitchen_tiles_blue_01",
 		"name": "Kitchen tiles (blue)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentilespurple1.png"
 	},
 	{
@@ -695,6 +750,7 @@
 		"id": "kitchen_tiles_blue_02",
 		"name": "Kitchen tiles (blue)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "Kitchentilespurple2.png"
 	},
 	{
@@ -706,6 +762,7 @@
 		"id": "kitchen_tiles_purple_00",
 		"name": "Kitchen tiles (purple)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentilespurple3.png"
 	},
 	{
@@ -717,6 +774,7 @@
 		"id": "kitchen_tiles_purple_01",
 		"name": "Kitchen tiles (purple)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentilespurple4.png"
 	},
 	{
@@ -728,6 +786,7 @@
 		"id": "kitchen_tiles_purple_02",
 		"name": "Kitchen tiles (purple)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "kitchentilespurple5.png"
 	},
 	{
@@ -768,6 +827,7 @@
 		"id": "grass_dirt_00",
 		"name": "Grass with dirt",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "grassdirt.png"
 	},
 	{
@@ -778,6 +838,7 @@
 		"id": "grass_dirt_01",
 		"name": "Grass with dirt",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "grassdirt1.png"
 	},
 	{
@@ -788,6 +849,7 @@
 		"id": "grass_dirt_02",
 		"name": "Grass with dirt",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "grassdirt2.png"
 	},
 	{
@@ -798,6 +860,7 @@
 		"id": "grass_medium_dirt_00",
 		"name": "Grass with dirt",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "grasssmalldirt.png"
 	},
 	{
@@ -808,6 +871,7 @@
 		"id": "grass_medium_dirt_01",
 		"name": "Grass with dirt",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "grasssmalldirt1.png"
 	},
 	{
@@ -818,6 +882,7 @@
 		"id": "grass_medium_dirt_02",
 		"name": "Grass with dirt",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "grasssmalldirt2.png"
 	},
 	{
@@ -828,6 +893,7 @@
 		"id": "grass_dirt_north_00",
 		"name": "Grass with a patch of dirt",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "grassnorthdirt.png"
 	},
 	{
@@ -838,6 +904,7 @@
 		"id": "grass_dirt_center_00",
 		"name": "Grass with a patch of dirt",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "grasscenterdirt.png"
 	},
 	{
@@ -848,6 +915,7 @@
 		"id": "grass_flowers_00",
 		"name": "Grass with flowers",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "grassflowers2.png"
 	},
 	{
@@ -858,6 +926,7 @@
 		"id": "grass_flowers_01",
 		"name": "Grass with flowers",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "grassflowers3.png"
 	},
 	{
@@ -868,6 +937,7 @@
 		"id": "grass_flowers_02",
 		"name": "Grass with flowers",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "grassflowers4.png"
 	},
 	{
@@ -878,6 +948,7 @@
 		"id": "grass_flowers_03",
 		"name": "Grass with flowers",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "grasslowers.png"
 	},
 	{
@@ -888,6 +959,7 @@
 		"id": "grass_ramp_00",
 		"name": "Grass ramp",
 		"shape": "slope",
+		"sound_category": "grass",
 		"sprite": "Grassrampnorth1.png"
 	},
 	{
@@ -898,6 +970,7 @@
 		"id": "forest_underbrush_00",
 		"name": "Forest underbrush",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "forestunderbrushscale.png"
 	},
 	{
@@ -908,6 +981,7 @@
 		"id": "forest_underbrush_01",
 		"name": "Forest underbrush",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "forestunderbrushscale1.png"
 	},
 	{
@@ -918,6 +992,7 @@
 		"id": "forest_underbrush_02",
 		"name": "Forest underbrush",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "forestunderbrushscale2.png"
 	},
 	{
@@ -928,6 +1003,7 @@
 		"id": "forest_underbrush_03",
 		"name": "Forest underbrush",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "forestunderbrushscale3.png"
 	},
 	{
@@ -938,6 +1014,7 @@
 		"id": "forest_underbrush_04",
 		"name": "Forest underbrush",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "forestunderbrushscale4.png"
 	},
 	{
@@ -948,6 +1025,7 @@
 		"id": "forest_underbrush_05",
 		"name": "Forest underbrush",
 		"shape": "cube",
+		"sound_category": "grass",
 		"sprite": "forestunderbrushscale5.png"
 	},
 	{
@@ -1192,6 +1270,7 @@
 		"id": "bathroom_tiles_blue_00",
 		"name": "Bathroom tiles (blue)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "bathroomtiles.png"
 	},
 	{
@@ -1214,6 +1293,7 @@
 		"id": "sidewalk_00",
 		"name": "Sidewalk",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "sidewalk.png"
 	},
 	{
@@ -1224,6 +1304,7 @@
 		"id": "concrete_00",
 		"name": "Concrete",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "concrete.png"
 	},
 	{
@@ -1265,6 +1346,7 @@
 		"id": "linoleum_blue_00",
 		"name": "Linoleum tiles (blue)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_blue.png"
 	},
 	{
@@ -1276,6 +1358,7 @@
 		"id": "linoleum_brown_00",
 		"name": "Linoleum tiles (brown)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_brown.png"
 	},
 	{
@@ -1287,6 +1370,7 @@
 		"id": "linoleum_brown_01",
 		"name": "Linoleum tiles (brown)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_brown1.png"
 	},
 	{
@@ -1298,6 +1382,7 @@
 		"id": "linoleum_green_01",
 		"name": "Linoleum tiles (green)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_green.png"
 	},
 	{
@@ -1309,6 +1394,7 @@
 		"id": "linoleum_green_00",
 		"name": "Linoleum tiles (green)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_green1.png"
 	},
 	{
@@ -1320,6 +1406,7 @@
 		"id": "linoleum_green_02",
 		"name": "Linoleum tiles (green)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_green2.png"
 	},
 	{
@@ -1331,6 +1418,7 @@
 		"id": "linoleum_greyblue_00",
 		"name": "Linoleum tiles (grey-blue)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_greyblue.png"
 	},
 	{
@@ -1342,6 +1430,7 @@
 		"id": "linoleum_lightblue_00",
 		"name": "Linoleum tiles (lightblue)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_lightblue.png"
 	},
 	{
@@ -1353,6 +1442,7 @@
 		"id": "linoleum_lightblue_01",
 		"name": "Linoleum tiles (lightblue)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_lightblue1.png"
 	},
 	{
@@ -1364,6 +1454,7 @@
 		"id": "linoleum_lightblue_02",
 		"name": "Linoleum tiles (lightblue)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_lightblue2.png"
 	},
 	{
@@ -1375,6 +1466,7 @@
 		"id": "linoleum_white_00",
 		"name": "Linoleum tiles (white)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_white.png"
 	},
 	{
@@ -1386,6 +1478,7 @@
 		"id": "linoleum_white_01",
 		"name": "Linoleum tiles (white)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_white1.png"
 	},
 	{
@@ -1397,6 +1490,7 @@
 		"id": "linoleum_white_02",
 		"name": "Linoleum tiles (white)",
 		"shape": "cube",
+		"sound_category": "concrete",
 		"sprite": "linoleum_white2.png"
 	},
 	{
@@ -1468,6 +1562,7 @@
 		"id": "metal_grate_rusted",
 		"name": "Rusted metal grate",
 		"shape": "cube",
+		"sound_category": "metal",
 		"sprite": "metal_grate_rusted.png"
 	}
 ]

@@ -14,6 +14,8 @@ extends Control
 @export var imageNameStringLabel: Label = null
 @export var cubeShapeCheckbox: Button = null
 @export var slopeShapeCheckbox: Button = null
+@export var SoundCategoryOptionButton: OptionButton = null
+@export var SoundVolumeSpinBox: SpinBox = null
 
 signal data_changed()
 
@@ -37,7 +39,9 @@ func _ready():
 		DescriptionTextEdit,
 		CategoriesList,
 		cubeShapeCheckbox,
-		slopeShapeCheckbox
+		slopeShapeCheckbox,
+		SoundCategoryOptionButton,
+		SoundVolumeSpinBox
 	]
 
 func _input(event):
@@ -74,6 +78,19 @@ func load_tile_data():
 		if dtile.shape == "slope":
 			cubeShapeCheckbox.button_pressed = false
 			slopeShapeCheckbox.button_pressed = true
+	if SoundCategoryOptionButton != null:
+		select_option_by_string(SoundCategoryOptionButton, dtile.sound_category)
+	if SoundVolumeSpinBox != null:
+		SoundVolumeSpinBox.value = dtile.sound_volume
+
+# This function will select the option in the option_button that matches the given string.
+# If no match is found, it does nothing.
+func select_option_by_string(option_button: OptionButton, option_string: String) -> void:
+	for i in range(option_button.get_item_count()):
+		if option_button.get_item_text(i) == option_string:
+			option_button.selected = i
+			return
+	print_debug("No matching option found for the string: " + option_string)
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -93,6 +110,8 @@ func _on_save_button_button_up():
 	dtile.shape = "cube"
 	if slopeShapeCheckbox.button_pressed:
 		dtile.shape = "slope"
+	dtile.sound_category = SoundCategoryOptionButton.get_item_text(SoundCategoryOptionButton.selected)
+	dtile.sound_volume = int(SoundVolumeSpinBox.value)
 	dtile.changed(olddata)
 	data_changed.emit()
 	olddata = DTile.new(dtile.get_data().duplicate(true), null)
