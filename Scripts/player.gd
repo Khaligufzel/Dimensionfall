@@ -1,43 +1,43 @@
 class_name Player
 extends CharacterBody3D
 
-var is_alive = true
+var is_alive: bool = true
 
 var rng = RandomNumberGenerator.new()
 
-var speed = 2  # speed in meters/sec
+var speed: float = 2.0  # speed in meters/sec
 
-var run_multiplier = 1.1
-var is_running = false
+var run_multiplier: float = 1.1
+var is_running: bool = false
 @onready var movement_timer: Timer = $MovementTimer
 
-var max_stamina = 100
-var current_stamina
-var stamina_lost_while_running_per_sec  = 15
-var stamina_regen_while_standing_still = 3
+var max_stamina: float = 100.0
+var current_stamina: float
+var stamina_lost_while_running_per_sec: float  = 15.0
+var stamina_regen_while_standing_still: float = 3.0
 
-var nutrition = 100
-var current_nutrition
+var nutrition: float = 100.0
+var current_nutrition: float
 
-var pain
-var current_pain = 0
+var pain: float
+var current_pain: float = 0.0
 
 # Slots that the player can equip items into, i.e. left hand and right hand
-var held_item_slots : Array[EquippedItem]
-var stats = {}
-var skills = {}
+var held_item_slots: Array[EquippedItem]
+var stats: Dictionary = {}
+var skills: Dictionary = {}
 # Dictionary that holds instances of PlayerAttribute. For example food, water, mood
-var attributes = {}
+var attributes: Dictionary = {}
 
-var time_since_ready = 0.0
-var delay_before_movement = 2.0  # 2 second delay
+var time_since_ready: float = 0.0
+var delay_before_movement: float = 2.0  # 2 second delay
 
 # Variable to track the stun amount
 var stun_amount: float = 0.0
 var stun_depletion_rate: float = 10.0  # Amount to reduce per second
 
 # Variables to handle knockback
-var knockback_active = false
+var knockback_active: bool = false
 var knockback_velocity: Vector3 = Vector3.ZERO
 var knockback_distance_remaining: float = 0.0
 
@@ -53,7 +53,7 @@ var knockback_distance_remaining: float = 0.0
 #@export var progress_bar_timer : NodePath
 
 # Variables for furniture pushing
-var pushing_furniture = false
+var pushing_furniture: bool = false
 var furniture_body: RID
 # Store the last known player Y level for comparison
 var last_y_level: float = 0.0
@@ -153,16 +153,14 @@ func _process(_delta):
 	RenderingServer.global_shader_parameter_set("player_y_level", current_y_level)
 
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	time_since_ready += delta
 	if time_since_ready < delay_before_movement:
 		# Skip movement updates during the delay period to prevent 
 		# the player from falling into the ground while the ground is spawning.
 		return
 
-	# Added an arbitrary multiplier because without it, the player will fall slowly
-	var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-	velocity.y -= gravity * 12 * delta
+	apply_gravity(delta)
 	move_and_slide()
 
 	if is_alive:
@@ -231,6 +229,11 @@ func _physics_process(delta):
 			if (current_stamina != initial_stamina):
 				Helper.signal_broker.player_stamina_changed.emit(self, current_stamina)
 		move_and_slide()
+
+func apply_gravity(delta: float) -> void:
+	# Added an arbitrary multiplier because without it, the player will fall slowly
+	var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+	velocity.y -= gravity * 12 * delta
 
 # When a body enters the CollisionDetector area
 # This will be a FurniturePhysicsSrv since it's only detecting layer 4
