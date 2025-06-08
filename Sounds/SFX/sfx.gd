@@ -5,6 +5,7 @@ enum SFX {
 	WALKING_GRASS,
 	WALKING_CONCRETE,
 	WALKING_WOOD,
+	WALKING_METAL,
 	HURT_MALE
 }
 
@@ -19,6 +20,10 @@ var tracks := {
 		preload("res://Sounds/SFX/Footsteps/footstep01.wav")
 	],
 	SFX.WALKING_WOOD: [
+		preload("res://Sounds/SFX/Footsteps/footstep01.wav"),
+		preload("res://Sounds/SFX/Footsteps/footstep01.wav")
+	],
+	SFX.WALKING_METAL: [
 		preload("res://Sounds/SFX/Footsteps/footstep01.wav"),
 		preload("res://Sounds/SFX/Footsteps/footstep01.wav")
 	],

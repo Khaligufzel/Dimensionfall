@@ -219,7 +219,7 @@ func _physics_process(delta: float) -> void:
 				current_stamina += delta * stamina_regen_while_standing_still
 			else:
 				if movement_timer.time_left <= 0:
-					Sfx.play_movement_sfx(Sfx.SFX.WALKING_GRASS)
+					play_tile_footstep_sound()
 					if not is_running or current_stamina == 0:
 						movement_timer.start(0.5)
 					else: 
@@ -687,13 +687,19 @@ func _update_player_y_level():
 
 # Prints the id of the block the player is currently standing on
 func print_block_id_under_player() -> void:
-	# Get the chunk at the player's current position
+	var tile_id = get_tile_id_under_player()
+	if tile_id:
+		print("Player is standing on block id: ", tile_id)
+	else:
+		print("No block found under player.")
+
+
+# Returns the tile ID of the block directly beneath the player, or null if not found
+func get_tile_id_under_player() -> String:
 	var chunk = Helper.map_manager.get_chunk_from_position(global_position)
 	if chunk == null:
-		print_debug("No chunk found at player position: ", global_position)
-		return
+		return ""
 	
-	# Calculate the local block position within the chunk (0-31)
 	var local_x = int(global_position.x - chunk.mypos.x) % 32
 	if local_x < 0:
 		local_x += 32
@@ -701,15 +707,45 @@ func print_block_id_under_player() -> void:
 	if local_z < 0:
 		local_z += 32
 
-	# Calculate the level index: always use the floor of y - a small epsilon to ensure we get the block below
-	var epsilon = 1.0
-	var level_index = int(floor(global_position.y - epsilon))
+	var level_index = int(floor(global_position.y - 1.0))  # slightly below player
 
-	# Get the block at this position
 	var block_data = chunk.get_block_at(level_index, Vector2i(local_x, local_z))
-	if block_data.has("id"):
-		print("Player is standing on block id: ", block_data["id"])
-		print_debug("Player is standing on (", local_x, ", ", level_index, ", ", local_z, ") block id: ", block_data["id"], ". Player is at: ", str(global_position), ". Chunk is at: ", str(chunk.mypos))
-	else:
-		print_debug("No block found at (", local_x, ", ", level_index, ", ", local_z, ") in chunk.")
-		print_debug("No block found at (", local_x, ", ", level_index, ", ", local_z, ") in chunk. Player is at: ", str(global_position), ". Chunk is at: ", str(chunk.mypos))
+	if block_data and block_data.has("id"):
+		return block_data["id"]
+	return ""
+
+# Returns a Dictionary containing the sound category and volume for the tile under the player
+# If not found, returns default values: category = "default", volume = 100
+func get_tile_sound_info_under_player() -> Dictionary:
+	var tile_id := get_tile_id_under_player()
+	if not tile_id:
+		return {"sound_category": "default", "sound_volume": 100}
+
+	var rtile := Runtimedata.tiles.by_id(tile_id)
+	if not rtile:
+		return {"sound_category": "default", "sound_volume": 100}
+
+	return {
+		"sound_category": rtile.sound_category,
+		"sound_volume": rtile.sound_volume
+	}
+
+
+# Plays the appropriate footstep SFX based on the tile the player is standing on
+func play_tile_footstep_sound():
+	var sound_info = get_tile_sound_info_under_player()
+	var category: String = sound_info.sound_category
+	var volume: float = sound_info.sound_volume
+
+	match category:
+		"grass":
+			Sfx.play_movement_sfx(Sfx.SFX.WALKING_GRASS, volume)
+		"concrete":
+			Sfx.play_movement_sfx(Sfx.SFX.WALKING_CONCRETE, volume)
+		"wood":
+			Sfx.play_movement_sfx(Sfx.SFX.WALKING_WOOD, volume)
+		"metal":
+			Sfx.play_movement_sfx(Sfx.SFX.WALKING_METAL, volume)
+		_:
+			# Default fallback to grass if unknown
+			Sfx.play_movement_sfx(Sfx.SFX.WALKING_GRASS, volume)
