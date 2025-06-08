@@ -79,13 +79,18 @@ func load_tile_data():
 			cubeShapeCheckbox.button_pressed = false
 			slopeShapeCheckbox.button_pressed = true
 	if SoundCategoryOptionButton != null:
-		var idx = SoundCategoryOptionButton.get_item_index(dtile.sound_category)
-		if idx != -1:
-			SoundCategoryOptionButton.select(idx)
-		else:
-			SoundCategoryOptionButton.select(0)
+		select_option_by_string(SoundCategoryOptionButton, dtile.sound_category)
 	if SoundVolumeSpinBox != null:
 		SoundVolumeSpinBox.value = dtile.sound_volume
+
+# This function will select the option in the option_button that matches the given string.
+# If no match is found, it does nothing.
+func select_option_by_string(option_button: OptionButton, option_string: String) -> void:
+	for i in range(option_button.get_item_count()):
+		if option_button.get_item_text(i) == option_string:
+			option_button.selected = i
+			return
+	print_debug("No matching option found for the string: " + option_string)
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes

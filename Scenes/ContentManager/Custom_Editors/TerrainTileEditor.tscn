@@ -138,7 +138,15 @@ text = "Sound Category:"
 
 [node name="SoundCategoryOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-items = ["wood", "metal", "grass", "concrete"]
+item_count = 4
+popup/item_0/text = "grass"
+popup/item_0/id = 0
+popup/item_1/text = "concrete"
+popup/item_1/id = 1
+popup/item_2/text = "metal"
+popup/item_2/id = 2
+popup/item_3/text = "wood"
+popup/item_3/id = 3
 
 [node name="SoundVolumeLabel" type="Label" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
@@ -146,10 +154,8 @@ text = "Sound Volume:"
 
 [node name="SoundVolumeSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
 layout_mode = 2
-min_value = 0
-max_value = 200
-step = 1
-value = 100
+max_value = 200.0
+value = 100.0
 
 [node name="Sprite_selector" parent="." instance=ExtResource("5_5ngda")]
 visible = false
