@@ -14,6 +14,8 @@ extends Control
 @export var imageNameStringLabel: Label = null
 @export var cubeShapeCheckbox: Button = null
 @export var slopeShapeCheckbox: Button = null
+@export var SoundCategoryOptionButton: OptionButton = null
+@export var SoundVolumeSpinBox: SpinBox = null
 
 signal data_changed()
 
@@ -37,7 +39,9 @@ func _ready():
 		DescriptionTextEdit,
 		CategoriesList,
 		cubeShapeCheckbox,
-		slopeShapeCheckbox
+		slopeShapeCheckbox,
+		SoundCategoryOptionButton,
+		SoundVolumeSpinBox
 	]
 
 func _input(event):
@@ -74,6 +78,14 @@ func load_tile_data():
 		if dtile.shape == "slope":
 			cubeShapeCheckbox.button_pressed = false
 			slopeShapeCheckbox.button_pressed = true
+	if SoundCategoryOptionButton != null:
+		var idx = SoundCategoryOptionButton.get_item_index(dtile.sound_category)
+		if idx != -1:
+			SoundCategoryOptionButton.select(idx)
+		else:
+			SoundCategoryOptionButton.select(0)
+	if SoundVolumeSpinBox != null:
+		SoundVolumeSpinBox.value = dtile.sound_volume
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -93,6 +105,8 @@ func _on_save_button_button_up():
 	dtile.shape = "cube"
 	if slopeShapeCheckbox.button_pressed:
 		dtile.shape = "slope"
+	dtile.sound_category = SoundCategoryOptionButton.get_item_text(SoundCategoryOptionButton.selected)
+	dtile.sound_volume = int(SoundVolumeSpinBox.value)
 	dtile.changed(olddata)
 	data_changed.emit()
 	olddata = DTile.new(dtile.get_data().duplicate(true), null)

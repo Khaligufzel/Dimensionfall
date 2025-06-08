@@ -132,6 +132,25 @@ layout_mode = 2
 tooltip_text = "Select this if this terrain should be represented by a slope. Typically used for stairs or ramps. The player can go one level up if approached from the right angle."
 text = "Slope"
 
+[node name="SoundCategoryLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Sound Category:"
+
+[node name="SoundCategoryOptionButton" type="OptionButton" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+items = ["wood", "metal", "grass", "concrete"]
+
+[node name="SoundVolumeLabel" type="Label" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+text = "Sound Volume:"
+
+[node name="SoundVolumeSpinBox" type="SpinBox" parent="VBoxContainer/FormGrid"]
+layout_mode = 2
+min_value = 0
+max_value = 200
+step = 1
+value = 100
+
 [node name="Sprite_selector" parent="." instance=ExtResource("5_5ngda")]
 visible = false
 
