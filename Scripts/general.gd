@@ -20,7 +20,7 @@ func _ready():
 
 # Function to start an action
 # Usage example: 
-	# This example will call the 'reload_weapon" functoin in self after the timer is complete
+	# This example will call the 'reload_weapon" function in self after the timer is complete
 	# var reload_callable = Callable(self, "reload_weapon").bind(item, specific_magazine)
 	# General.start_action(reload_time, reload_callable)
 # Usage example using an inline callable:
