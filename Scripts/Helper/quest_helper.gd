@@ -77,12 +77,12 @@ func connect_signals() -> void:
 
 
 func connect_inventory_signals() -> void:
-        if not Helper.signal_broker.playerInventory_item_added.is_connected(_on_inventory_changed):
-                Helper.signal_broker.playerInventory_item_added.connect(_on_inventory_changed)
-        if not Helper.signal_broker.playerInventory_item_removed.is_connected(_on_inventory_changed):
-                Helper.signal_broker.playerInventory_item_removed.connect(_on_inventory_changed)
-        if not Helper.signal_broker.playerInventory_item_modified.is_connected(_on_inventory_changed):
-                Helper.signal_broker.playerInventory_item_modified.connect(_on_inventory_changed)
+	if not Helper.signal_broker.playerInventory_item_added.is_connected(_on_inventory_changed):
+		Helper.signal_broker.playerInventory_item_added.connect(_on_inventory_changed)
+	if not Helper.signal_broker.playerInventory_item_removed.is_connected(_on_inventory_changed):
+		Helper.signal_broker.playerInventory_item_removed.connect(_on_inventory_changed)
+	if not Helper.signal_broker.playerInventory_item_modified.is_connected(_on_inventory_changed):
+		Helper.signal_broker.playerInventory_item_modified.connect(_on_inventory_changed)
 
 
 # Function for handling game started signal
@@ -227,7 +227,7 @@ func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 	return false
 
 func _on_inventory_changed(item: InventoryItem, _inventory: InventoryStacked) -> void:
-        update_quest_by_inventory(item)
+	update_quest_by_inventory(item)
 
 # Update the quest progress based on the items in the player's inventory and equipped items.
 # For each quest, we ONLY update the step that the quest is currently at
