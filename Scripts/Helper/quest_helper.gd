@@ -77,12 +77,12 @@ func connect_signals() -> void:
 
 
 func connect_inventory_signals() -> void:
-	if not Helper.signal_broker.playerInventory_item_added.is_connected(_on_inventory_item_added):
-		Helper.signal_broker.playerInventory_item_added.connect(_on_inventory_item_added)
-	if not Helper.signal_broker.playerInventory_item_removed.is_connected(_on_inventory_item_removed):
-		Helper.signal_broker.playerInventory_item_removed.connect(_on_inventory_item_removed)
-	if not Helper.signal_broker.playerInventory_item_modified.is_connected(_on_inventory_item_modified):
-		Helper.signal_broker.playerInventory_item_modified.connect(_on_inventory_item_modified)
+	if not Helper.signal_broker.playerInventory_item_added.is_connected(_on_inventory_changed):
+		Helper.signal_broker.playerInventory_item_added.connect(_on_inventory_changed)
+	if not Helper.signal_broker.playerInventory_item_removed.is_connected(_on_inventory_changed):
+		Helper.signal_broker.playerInventory_item_removed.connect(_on_inventory_changed)
+	if not Helper.signal_broker.playerInventory_item_modified.is_connected(_on_inventory_changed):
+		Helper.signal_broker.playerInventory_item_modified.connect(_on_inventory_changed)
 
 
 # Function for handling game started signal
@@ -226,20 +226,8 @@ func add_quest_step(quest: ScriptQuest, step: Dictionary) -> bool:
 			return true
 	return false
 
-
-
-# An item is added to the player inventory. Now we need to update the quests
-func _on_inventory_item_added(item: InventoryItem, _inventory: InventoryStacked):
+func _on_inventory_changed(item: InventoryItem, _inventory: InventoryStacked) -> void:
 	update_quest_by_inventory(item)
-
-# An item is removed to the player inventory. Now we need to update the quests
-func _on_inventory_item_removed(item: InventoryItem, _inventory: InventoryStacked):
-	update_quest_by_inventory(item)
-
-# An item is modified to the player inventory. Now we need to update the quests
-func _on_inventory_item_modified(item: InventoryItem, _inventory: InventoryStacked):
-	update_quest_by_inventory(item)
-
 
 # Update the quest progress based on the items in the player's inventory and equipped items.
 # For each quest, we ONLY update the step that the quest is currently at

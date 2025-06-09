@@ -303,8 +303,8 @@ func check_grids():
 
 	
 # Selects segment coordinates to load within the specified distance from the player
-func load_segments_around_player() -> Array:
-	var segments_to_load = []
+func _get_segments_to_load() -> Array[Vector2]:
+	var segments_to_load: Array[Vector2] = []
 	var player_cell_pos = get_player_cell_position()
 
 	for x in range(player_cell_pos.x - segment_load_distance, player_cell_pos.x + segment_load_distance + 1, 4):
@@ -322,9 +322,9 @@ func load_segments_around_player() -> Array:
 # It checks if the segment position is not already in segments_to_unload to avoid duplicates.
 # It calculates the distance from the player's cell position to the segment position.
 # If the distance is greater than segment_unload_distance, it adds the segment position to segments_to_unload.
-func unload_distant_segments() -> Array:
-	var segments_to_unload = []
-	var player_cell_pos = get_player_cell_position()
+func _get_segments_to_unload() -> Array[Vector2]:
+	var segments_to_unload: Array[Vector2] = []
+	var player_cell_pos: Vector2 = get_player_cell_position()
 
 	for chunk_pos in loaded_chunk_data.chunks.keys():
 		var segment_pos = get_segment_pos(chunk_pos)
@@ -332,8 +332,33 @@ func unload_distant_segments() -> Array:
 			var distance = player_cell_pos.distance_to(segment_pos)
 			if distance > segment_unload_distance:
 				segments_to_unload.append(segment_pos)
-	
 	return segments_to_unload
+
+# Merge loaded segment data into loaded_chunk_data.chunks
+func _merge_loaded_segment_data(segment_data: Dictionary) -> void:
+	for chunk_pos in segment_data.keys():
+		if not loaded_chunk_data.chunks.has(chunk_pos):
+			loaded_chunk_data.chunks[chunk_pos] = segment_data[chunk_pos]
+
+# Load segments around the player and merge their data
+func _load_segments_around_player() -> void:
+	var segments_to_load: Array[Vector2] = _get_segments_to_load()
+
+	for segment_pos in segments_to_load:
+		if not loaded_segments.has(segment_pos):
+			var loaded_segment_data: Dictionary = Helper.save_helper.load_map_segment_data(segment_pos)
+			loaded_segments[segment_pos] = loaded_segment_data
+			_merge_loaded_segment_data(loaded_segment_data)
+
+# Unload segments that are too far from the player
+func _unload_distant_segments() -> void:
+	var segments_to_unload: Array[Vector2] = _get_segments_to_unload()
+	for segment_pos in segments_to_unload:
+		if loaded_segments.has(segment_pos):
+			loaded_segments.erase(segment_pos)
+			var non_empty_chunk_data: Dictionary = process_and_clear_segment(segment_pos)
+			if not non_empty_chunk_data.is_empty():
+				Helper.save_helper.save_map_segment_data(non_empty_chunk_data, segment_pos)
 
 
 # Helper function to get the top-left coordinate of the 4x4 segment
@@ -360,28 +385,10 @@ func update_player_position_and_manage_segments(force_update: bool = false):
 		var new_cell = get_map_cell_by_global_coordinate(player_current_cell)
 		if new_cell:
 			new_cell.visit()
-		
-		# Load segments around the player
-		var segments_to_load = load_segments_around_player()
-		
-		for segment_pos in segments_to_load:
-			if not loaded_segments.has(segment_pos):
-				var loaded_segment_data = Helper.save_helper.load_map_segment_data(segment_pos)
-				loaded_segments[segment_pos] = loaded_segment_data
-				# Merge loaded segment data into loaded_chunk_data.chunks
-				for chunk_pos in loaded_segment_data.keys():
-					if not loaded_chunk_data.chunks.has(chunk_pos):
-						loaded_chunk_data.chunks[chunk_pos] = loaded_segment_data[chunk_pos]
 
-		# Unload segments that are too far from the player
-		var segments_to_unload = unload_distant_segments()
-		
-		for segment_pos in segments_to_unload:
-			if loaded_segments.has(segment_pos):
-				loaded_segments.erase(segment_pos)
-			var non_empty_chunk_data = process_and_clear_segment(segment_pos)
-			if not non_empty_chunk_data.is_empty():
-				Helper.save_helper.save_map_segment_data(non_empty_chunk_data, segment_pos)
+			# Load/unload segments around the player
+			_load_segments_around_player()
+			_unload_distant_segments()
 
 
 # Function to process and clear each segment
