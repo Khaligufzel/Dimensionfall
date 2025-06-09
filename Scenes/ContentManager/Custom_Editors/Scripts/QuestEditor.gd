@@ -30,6 +30,7 @@ signal data_changed()
 
 var olddata: DQuest  # Remember what the value of the data was before editing
 var selected_step: HBoxContainer = null  # Store the selected step when opening the popup
+var step_factories: Dictionary = {}  # Maps step types to factory functions
 
 
 # The data that represents this quest
@@ -48,6 +49,17 @@ func _ready():
 
 	# Set custom can_drop_func and drop_func for the rewardscontainer, use default drag_func
 	rewards_item_list.set_drag_forwarding(Callable(), _can_drop_reward, _drop_reward_data)
+
+	# Initialize dictionary that maps step types to UI factory functions
+	step_factories = {
+	"craft": Callable(self, "add_craft_step"),
+	"collect": Callable(self, "add_collect_step"),
+	"call": Callable(self, "add_call_step"),
+	"enter": Callable(self, "add_enter_step"),
+	"kill": Callable(self, "add_kill_step"),
+	"spawn_item": Callable(self, "add_spawn_item_step"),
+	"spawn_mob": Callable(self, "add_spawn_mob_step"),
+	}
 
 # The editor is closed, destroy the instance
 # TODO: Check for unsaved changes
@@ -171,7 +183,7 @@ func _on_save_button_button_up() -> void:
 
 
 
-# When the questImageDisplay is clicked, the user will be prompted to select an image from 
+# When the questImageDisplay is clicked, the user will be prompted to select an image from
 # "res://Mods/Core/Quests/". The texture of the questImageDisplay will change to the selected image
 func _on_quest_image_display_gui_input(event) -> void:
 	if event is InputEventMouseButton and event.pressed:
@@ -188,7 +200,7 @@ func _on_sprite_selector_sprite_selected_ok(clicked_sprite) -> void:
 func _on_add_step_button_button_up():
 	var step_type = step_type_option_button.get_selected_id()
 	var empty_step = {}
-	
+
 	match step_type:
 		0: # Craft item
 			empty_step = {"type": "craft", "item": ""}
@@ -204,7 +216,7 @@ func _on_add_step_button_button_up():
 			empty_step = {"type": "spawn_item", "item": "", "amount": 1}
 		6: # Spawn mob on map
 			empty_step = {"type": "spawn_mob", "mob": "", "map_id": ""}
-	
+
 	add_step_from_data(empty_step)
 
 
@@ -260,12 +272,12 @@ func add_call_step(step: Dictionary) -> HBoxContainer:
 # This function adds an enter step with a dropdown to select the state
 func add_enter_step(step: Dictionary) -> HBoxContainer:
 	var hbox = HBoxContainer.new()
-	
+
 	# Add the label
 	var labelinstance: Label = Label.new()
 	labelinstance.text = "Enter map:"
 	hbox.add_child(labelinstance)
-	
+
 	# Add the dropable text edit for the map ID
 	var dropabletextedit_instance: HBoxContainer = dropabletextedit.instantiate()
 	dropabletextedit_instance.set_text(step["map_id"])
@@ -273,7 +285,7 @@ func add_enter_step(step: Dictionary) -> HBoxContainer:
 	dropabletextedit_instance.myplaceholdertext = "Drop a map from the left menu"
 	set_drop_functions(dropabletextedit_instance)
 	hbox.add_child(dropabletextedit_instance)
-	
+
 	# Add the dropdown for selecting the state
 	var dropdown = OptionButton.new()
 	dropdown.add_item("HIDDEN")   # Default state
@@ -310,7 +322,7 @@ func add_enter_step(step: Dictionary) -> HBoxContainer:
 		dropdown.select(0)  # Default to "HIDDEN"
 
 	hbox.add_child(dropdown)
-	
+
 	return hbox
 
 
@@ -418,7 +430,15 @@ func add_spawn_mob_step(step: Dictionary) -> HBoxContainer:
 	set_drop_functions(map_dropabletextedit_instance)
 	hbox.add_child(map_dropabletextedit_instance)
 
-	return hbox
+return hbox
+
+# Create UI for a quest step using the appropriate factory
+func create_step_ui(step: Dictionary) -> HBoxContainer:
+	var factory: Callable = step_factories.get(step.get("type", ""), null)
+	if factory:
+	return factory.call(step)
+	print_debug("No factory for step type: " + str(step.get("type", "")))
+	return HBoxContainer.new()
 
 
 # This function adds the move up, move down, and delete controls to a step
@@ -449,22 +469,7 @@ func add_step_controls(hbox: HBoxContainer, step: Dictionary):
 
 # This function creates a step from loaded data
 func add_step_from_data(step: Dictionary):
-	var hbox: HBoxContainer
-	match step["type"]:
-		"craft":
-			hbox = add_craft_step(step)
-		"collect":
-			hbox = add_collect_step(step)
-		"call":
-			hbox = add_call_step(step)
-		"enter":
-			hbox = add_enter_step(step)
-		"kill":
-			hbox = add_kill_step(step)
-		"spawn_item":
-			hbox = add_spawn_item_step(step)
-		"spawn_mob":
-			hbox = add_spawn_mob_step(step)
+	var hbox: HBoxContainer = create_step_ui(step)
 	add_step_controls(hbox, step)
 
 	# **Store tip and description in metadata**
@@ -518,16 +523,16 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 	if dropped_data and "id" in dropped_data:
 		var step_type = texteditcontrol.get_meta("step_type")
 		var entity_type = ""  # To store whether it is mob or mobgroup
-		
+
 		var content_type: DMod.ContentType = dropped_data.get("contentType", -1)
 		var mymod: String = dropped_data.get("mod_id", "")
 		var datainstance: RefCounted = Gamedata.mods.by_id(mymod).get_data_of_type(content_type)
-		
+
 		if content_type == DMod.ContentType.MOBS:
 			entity_type = "mob"
 		elif content_type == DMod.ContentType.MOBGROUPS:
 			entity_type = "mobgroup"
-		
+
 		if datainstance.has_id(dropped_data["id"]):
 			texteditcontrol.set_text(dropped_data["id"])
 			if step_type == "kill":
@@ -546,10 +551,10 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> bool:
 	if not dropped_data or not dropped_data.has("id"):
 		return false
-	
+
 	var step_type = texteditcontrol.get_meta("step_type")
 	var valid_data = false
-	
+
 	var content_type: DMod.ContentType = dropped_data.get("contentType", -1)
 	var mymod: String = dropped_data.get("mod_id", "")
 	var datainstance: RefCounted = Gamedata.mods.by_id(mymod).get_data_of_type(content_type)
@@ -615,7 +620,7 @@ func _handle_reward_drop(dropped_data: Dictionary, _newpos: Vector2) -> void:
 		if not Gamedata.mods.by_id(dropped_data["mod_id"]).items.has_id(item_id):
 			print_debug("No item data found for ID: " + item_id)
 			return
-		
+
 		# Add the reward entry using the new function
 		add_reward_entry(item_id, 1, false)
 	else:
@@ -639,12 +644,12 @@ func add_reward_entry(item_id: String, amount: int = 1, use_loaded_amount: bool 
 	# Create and configure the amount SpinBox
 	var amountSpinBox = SpinBox.new()
 	amountSpinBox.max_value = item.max_stack_size
-	
+
 	if use_loaded_amount:
 		amountSpinBox.value = amount
 	else:
 		amountSpinBox.value = item.stack_size
-	
+
 	rewards_item_list.add_child(amountSpinBox)
 
 	# Create and configure the delete button
@@ -664,7 +669,7 @@ func _delete_reward(elements_to_remove: Array) -> void:
 # Function to create an OptionButton for selecting map guide
 func create_map_guide_option_button() -> OptionButton:
 	var option_button = OptionButton.new()
-	
+
 	# Add items to the OptionButton
 	option_button.add_item("none")      # No guide
 	option_button.add_item("hidden")   # Target appears on unrevealed locations
