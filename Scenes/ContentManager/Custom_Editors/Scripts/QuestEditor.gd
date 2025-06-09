@@ -52,13 +52,13 @@ func _ready():
 
 	# Initialize dictionary that maps step types to UI factory functions
 	step_factories = {
-	"craft": Callable(self, "add_craft_step"),
-	"collect": Callable(self, "add_collect_step"),
-	"call": Callable(self, "add_call_step"),
-	"enter": Callable(self, "add_enter_step"),
-	"kill": Callable(self, "add_kill_step"),
-	"spawn_item": Callable(self, "add_spawn_item_step"),
-	"spawn_mob": Callable(self, "add_spawn_mob_step"),
+		"craft": add_craft_step,
+		"collect": add_collect_step,
+		"call": add_call_step,
+		"enter": add_enter_step,
+		"kill": add_kill_step,
+		"spawn_item": add_spawn_item_step,
+		"spawn_mob": add_spawn_mob_step,
 	}
 
 # The editor is closed, destroy the instance
@@ -429,20 +429,19 @@ func add_spawn_mob_step(step: Dictionary) -> HBoxContainer:
 		"spawn and the quest moves on to the next step."
 	set_drop_functions(map_dropabletextedit_instance)
 	hbox.add_child(map_dropabletextedit_instance)
-
-return hbox
+	return hbox
 
 # Create UI for a quest step using the appropriate factory
 func create_step_ui(step: Dictionary) -> HBoxContainer:
 	var factory: Callable = step_factories.get(step.get("type", ""), null)
 	if factory:
-	return factory.call(step)
+		return factory.call(step)
 	print_debug("No factory for step type: " + str(step.get("type", "")))
 	return HBoxContainer.new()
 
 
 # This function adds the move up, move down, and delete controls to a step
-func add_step_controls(hbox: HBoxContainer, step: Dictionary):
+func add_step_controls(hbox: HBoxContainer):
 	# Create the settings button (⚙️)
 	var settings_button = Button.new()
 	settings_button.text = "⚙️"  # Use a cog emoji as the button text
@@ -470,7 +469,7 @@ func add_step_controls(hbox: HBoxContainer, step: Dictionary):
 # This function creates a step from loaded data
 func add_step_from_data(step: Dictionary):
 	var hbox: HBoxContainer = create_step_ui(step)
-	add_step_controls(hbox, step)
+	add_step_controls(hbox)
 
 	# **Store tip and description in metadata**
 	if step.has("tip"):
@@ -548,17 +547,12 @@ func entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> vo
 #		"mod_id": mod_id,
 #		"contentType": contentType # an DMod.ContentType
 #	}
-func can_entity_drop(dropped_data: Dictionary, texteditcontrol: HBoxContainer) -> bool:
+func can_entity_drop(dropped_data: Dictionary, _texteditcontrol: HBoxContainer) -> bool:
 	if not dropped_data or not dropped_data.has("id"):
 		return false
-
-	var step_type = texteditcontrol.get_meta("step_type")
-	var valid_data = false
-
 	var content_type: DMod.ContentType = dropped_data.get("contentType", -1)
 	var mymod: String = dropped_data.get("mod_id", "")
 	var datainstance: RefCounted = Gamedata.mods.by_id(mymod).get_data_of_type(content_type)
-
 	return datainstance.has_id(dropped_data["id"])
 
 
